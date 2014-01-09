@@ -10,4 +10,12 @@ public class NavigasjonsKontroller {
     public String omdirigerHjem() {
         return "index";
     }
+    @RequestMapping("/endrePassord.htm")
+    public String omdirigerEndrePassord() {
+        return "endrePassord";
+    }
+    @RequestMapping("/adminBrukere.htm")
+    public String omdirigerAdminBrukere() {
+        return "adminBrukere";
+    }
 }
