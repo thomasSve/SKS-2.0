@@ -18,28 +18,4 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
     </definition>
 
-    <definition name="sideen" extends="baseLayout">
-        <put-attribute name="title"  value="sideen"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/sideen.jsp"/>
-    </definition>
-
-    <definition name="side3" extends="baseLayout">
-        <put-attribute name="title"  value="side3"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/side3.jsp"/>
-    </definition>
-
-    <definition name="side4" extends="baseLayout">
-        <put-attribute name="title"  value="side4"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/side4.jsp"/>
-    </definition>
-
-    <definition name="side2" extends="baseLayout">
-        <put-attribute name="title"  value="side2"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/side2.jsp"/>
-    </definition>
-    <definition name="test" extends="baseLayout">
-        <put-attribute name="title"  value="test"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/test.jsp"/>
-    </definition>
-
 </tiles-definitions>

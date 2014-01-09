@@ -21,5 +21,8 @@
     </div>
 
 </div>
+<script src="<c:url value="/resources/js/jquery-1.10.2.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
 </body>
 </html>

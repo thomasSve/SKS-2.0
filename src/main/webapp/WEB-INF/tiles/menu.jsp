@@ -19,20 +19,19 @@
 
         <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+                <a href="<c:url value=""/>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="fa fa-user"></i> Min side</a></li>
-                    <li><a href="#"><i class="fa fa-gear"></i> Innstillinger</a></li>
-                    <li><a href="#"><i class="fa fa-power-off"></i> Logg ut</a></li>
+                    <li><a href="<c:url value=""/>"><i class="fa fa-user"></i> Min side</a></li>
+                    <li><a href="<c:url value=""/>"><i class="fa fa-gear"></i> Innstillinger</a></li>
+                    <li><a href="<c:url value=""/>"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>
         </ul>
         <ul class="nav navbar-nav side-nav">
-            <li><a href="login.html">Logg inn</a></li>
-            <li><a href="AdminFag.html">Administrer fag</a></li>
-            <li><a href="error.html">Error</a></li>
+            <li><a href="<c:url value=""/>">Administrer fag</a></li>
+            <li><a href="<c:url value=""/>">Error</a></li>
             <li><a href="endrePassord.html">Endre Passord</a></li>
             <li><a href="Endre%20student.html">Endre Student</a></li>
             <li class="dropdown">
