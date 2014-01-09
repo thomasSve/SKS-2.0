@@ -38,7 +38,7 @@ public class DatabaseConnector {
                                             +"VALUES (?,?,?, ?,?,?)";
             try(PreparedStatement prepStat = con.prepareStatement(query)){
                 con.setAutoCommit(false);
-                    prepStat.setString(1, bruker.getEpost());
+                    prepStat.setString(1, bruker.getMail());
                     prepStat.setString(2, bruker.getRettighet());
                     prepStat.setString(3, bruker.getFornavn());
                     prepStat.setString(4, bruker.getEtternavn());
@@ -51,10 +51,12 @@ public class DatabaseConnector {
             }catch (SQLException e){
                 e.printStackTrace();
                 System.out.println(QUERY_ERROR);
+                return false;
             }
         }catch (SQLException e){
             e.printStackTrace();
             System.out.println(CONNECTION_ERROR);
+            return false;
         }
     }
 }
