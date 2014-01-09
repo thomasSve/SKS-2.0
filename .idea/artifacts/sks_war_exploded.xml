@@ -28,13 +28,18 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-test:3.1.4.RELEASE" />
           <element id="library" level="project" name="Maven: cglib:cglib:3.1" />
           <element id="library" level="project" name="Maven: org.ow2.asm:asm:4.2" />
-          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-core:3.0.3" />
-          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-api:3.0.3" />
-          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.3" />
-          <element id="library" level="project" name="Maven: commons-digester:commons-digester:2.0" />
-          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-core:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-api:2.2.2" />
+          <element id="library" level="project" name="Maven: commons-digester:commons-digester:2.1" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.0" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.5.8" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.5.8" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-jsp:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-servlet:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-template:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.3" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.7.5" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="sks/web/Web" />
