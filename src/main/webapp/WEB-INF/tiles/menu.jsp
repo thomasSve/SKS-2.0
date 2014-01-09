@@ -26,7 +26,7 @@
                     <%--
                     <li><<a href="<c:url value="minside.htm"/><i class="fa fa-user"></i> Min side</a></li>
                     --%>
-                    <li><a href="<c:url value=""/>"><i class="fa fa-gear"></i> Innstillinger</a></li>
+                    <li><a href="<c:url value="endrePassord.htm"/>"><i class="fa fa-power-off"></i>Endre Passord</a></li>
                     <li><a href="<c:url value=""/>"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
                 </ul>
@@ -36,9 +36,10 @@
             <li><a href="<c:url value="adminBrukere.htm"/>">Administrer brukere</a></li>
             <li><a href="<c:url value="adminFag.htm"/>">Administrer fag</a></li>
             <li><a href="<c:url value="error.htm"/>">Error</a></li>
-            <li><a href="<c:url value="endrePassord.htm"/>">Endre Passord</a></li>
             <li><a href="<c:url value="endreStudent.htm"/>">Endre Student</a></li>
             <li><a href="<c:url value="settIKo.htm"/>">Sett i kø</a></li>
+            <li><a href="<c:url value="ovingsOpplegg.htm"/>">Øvingsopplegget</a></li>
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Emner <b class="caret"></b></a>
