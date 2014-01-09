@@ -38,4 +38,13 @@ public class NavigasjonsKontroller {
     public String omdirigerMinside() {
         return "minside";
     }
+    @RequestMapping("/login.htm")
+    public String loggInn(){
+        return "loggInn";
+    }
+    @RequestMapping("/ovingsOpplegg.htm")
+    public String ovingsOpplegg(){
+        return "ovingsOpplegg";
+    }
+
 }

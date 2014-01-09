@@ -12,6 +12,9 @@
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
     </definition>
+    <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
+        <put-attribute name="title"  value="Logg inn"/>
+    </definition>
 
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Min side"/>
@@ -50,6 +53,10 @@
     
 	<definition name="minside" extends="baseLayout">
         <put-attribute name="title"  value="Min Side"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/minside.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/minSide.jsp"/>
+    </definition>
+    <definition name="ovingsOpplegg" extends="baseLayout">
+        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/ovingsopplegget.jsp"/>
     </definition>
 </tiles-definitions>
