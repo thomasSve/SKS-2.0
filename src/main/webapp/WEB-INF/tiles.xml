@@ -14,8 +14,42 @@
     </definition>
 
     <definition name="index" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Min side"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
     </definition>
 
+    <definition name="endrePassord" extends="baseLayout">
+        <put-attribute name="title"  value="Endre Passord"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/endrePassord.jsp"/>
+    </definition>
+
+    <definition name="adminBrukere" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
+    </definition>
+
+    <definition name="error" extends="baseLayout">
+        <put-attribute name="title"  value="404 Error"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
+    </definition>
+
+    <definition name="adminFag" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminFag.jsp"/>
+    </definition>
+
+    <definition name="settIKo" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
+    </definition>
+	
+    <definition name="endreStudent" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/endreStudent.jsp"/>
+    </definition>
+    
+	<definition name="minside" extends="baseLayout">
+        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/minside.jsp"/>
+    </definition>
 </tiles-definitions>
