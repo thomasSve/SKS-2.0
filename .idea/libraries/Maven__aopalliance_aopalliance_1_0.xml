@@ -2,6 +2,7 @@
   <library name="Maven: aopalliance:aopalliance:1.0">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
+      <root url="file://C:/Program Files (x86)/Java/jdk1.7.0_15/lib/jarfiler_tiles" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-javadoc.jar!/" />
@@ -9,5 +10,6 @@
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar!/" />
     </SOURCES>
+    <jarDirectory url="file://C:/Program Files (x86)/Java/jdk1.7.0_15/lib/jarfiler_tiles" recursive="false" />
   </library>
 </component>
