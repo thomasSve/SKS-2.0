@@ -27,4 +27,24 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
+    <definition name="error" extends="baseLayout">
+        <put-attribute name="title"  value="404 Error"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
+    </definition>
+
+    <definition name="adminFag" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminFag.jsp"/>
+    </definition>
+
+    <definition name="settIKo" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
+    </definition>
+    <definition name="endreStudent" extends="baseLayout">
+        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/endreStudent.jsp"/>
+    </definition>
+
+
 </tiles-definitions>
