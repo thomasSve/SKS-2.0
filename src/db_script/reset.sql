@@ -1,3 +1,5 @@
+USE sks;
+
 DROP TABLE oving_brukere;
 DROP TABLE oving;
 DROP TABLE delemne_brukere;
