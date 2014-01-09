@@ -46,5 +46,9 @@ public class NavigasjonsKontroller {
     public String ovingsOpplegg(){
         return "ovingsOpplegg";
     }
+    @RequestMapping("/*")
+    public String direct404() {
+        return "error";
+    }
 
 }
