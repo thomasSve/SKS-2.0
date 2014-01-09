@@ -1,5 +1,7 @@
 package no.hist.tdat.database;
 
+import no.hist.tdat.javabeans.Bruker;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
