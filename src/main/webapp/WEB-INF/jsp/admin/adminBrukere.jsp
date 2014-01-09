@@ -17,8 +17,8 @@
             <div class="input-group-btn">
                 <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
-
         </div>
+
     </form>
     <table class="table table-hover" id="minTable">
         <thead>
