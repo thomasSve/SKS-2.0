@@ -1,5 +1,6 @@
 package no.hist.tdat.javabeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class Bruker {
     private String etternavn;
     private String passord;
     private int aktiv;
-    private List<String> emner;
+    private ArrayList<Emner> emner;
 
     public Bruker(String mail, String rettighet, String fornavn, String etternavn){
         this.mail = mail;
@@ -22,7 +23,7 @@ public class Bruker {
         this.etternavn = etternavn;
         this.passord = genererPassord();
         this.aktiv = 1;
-        emner = new List<Emner>();
+        emner = new ArrayList<Emner>();
     }
 
     public String getMail() {
@@ -73,11 +74,11 @@ public class Bruker {
         this.aktiv = aktiv;
     }
 
-    public List<String> getEmner() {
+    public ArrayList<Emner> getEmner() {
         return emner;
     }
 
-    public void setEmner(List<String> emner) {
+    public void setEmner(ArrayList<Emner> emner) {
         this.emner = emner;
     }
 
@@ -92,7 +93,7 @@ public class Bruker {
      * @param emnenavn
      */
     public void addEmne(String emnekode, String emnenavn){
-        emner.add(emnekode+", "+ emnenavn);
+        //emner.add(emnekode+", "+ emnenavn);
     }
 
 }
