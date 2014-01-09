@@ -22,6 +22,7 @@
         <put-attribute name="title"  value="Endre Passord"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/endrePassord.jsp"/>
     </definition>
+
     <definition name="adminBrukere" extends="baseLayout">
         <put-attribute name="title"  value="Index"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
@@ -41,10 +42,14 @@
         <put-attribute name="title"  value="Administrer Fag"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
     </definition>
+	
     <definition name="endreStudent" extends="baseLayout">
         <put-attribute name="title"  value="Administrer Fag"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/endreStudent.jsp"/>
     </definition>
-
-
+    
+	<definition name="minside" extends="baseLayout">
+        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/minside.jsp"/>
+    </definition>
 </tiles-definitions>

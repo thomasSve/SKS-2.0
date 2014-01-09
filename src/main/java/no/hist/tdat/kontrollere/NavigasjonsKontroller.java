@@ -33,5 +33,8 @@ public class NavigasjonsKontroller {
     @RequestMapping("/endreStudent.htm")
     public String omdirEndreStudent(){
         return "endreStudent";
+    @RequestMapping("/minside.htm")
+    public String omdirigerMinside() {
+        return "minside";
     }
 }
