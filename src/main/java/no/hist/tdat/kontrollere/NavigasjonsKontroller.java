@@ -8,7 +8,6 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/")
     public String omdirigerHjem() {
-        System.out.println("Hello");
         return "index";
     }
 }
