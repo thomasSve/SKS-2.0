@@ -22,7 +22,10 @@
                 <a href="<c:url value=""/>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="<c:url value=""/>"><i class="fa fa-user"></i> Min side</a></li>
+                    <li><a href="<c:url value="minside.htm"/>" >Minside</a></li>
+                    <%--
+                    <li><<a href="<c:url value="minside.htm"/><i class="fa fa-user"></i> Min side</a></li>
+                    --%>
                     <li><a href="<c:url value=""/>"><i class="fa fa-gear"></i> Innstillinger</a></li>
                     <li><a href="<c:url value=""/>"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
@@ -32,7 +35,6 @@
         <ul class="nav navbar-nav side-nav">
             <li><a href="<c:url value=""/>">Administrer fag</a></li>
             <li><a href="<c:url value=""/>">Error</a></li>
-            <li><a href="endrePassord.html">Endre Passord</a></li>
             <li><a href="Endre%20student.html">Endre Student</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>

@@ -10,4 +10,8 @@ public class NavigasjonsKontroller {
     public String omdirigerHjem() {
         return "index";
     }
+    @RequestMapping("/minside.htm")
+    public String omdirigerMinside() {
+        return "minside";
+    }
 }

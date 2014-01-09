@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type"  charset="UTF-8">
     <title><tiles:insertAttribute name="title" ignore="true"/></title>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/sb-admin.css"/>" rel="stylesheet">
