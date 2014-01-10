@@ -13,7 +13,7 @@
         <h2 class="form-header">Endre Passord</h2>
 
         <div class="form-group">
-            <label for="gammeltPassord">Nåværende Passord</label>
+            <label for="gammeltPassord">N&aring;værende Passord</label>
             <input class="form-control" type="password" id="gammeltPassord" placeholder="Gammelt passord">
         </div>
 

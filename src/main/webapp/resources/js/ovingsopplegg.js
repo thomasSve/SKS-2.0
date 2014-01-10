@@ -27,7 +27,7 @@ function leggTilRegel() {
     if (plass.innerHTML === "<i>ingen</i>") {
         plass.innerHTML = "";
     }
-    plass.innerHTML += "Blant øving <i>bruk beans til � finne?</i> m� X v�re best�tt<br>";
+    plass.innerHTML += "Blant &oslash;ving <i>bruk beans til � finne?</i> m� X v�re best�tt<br>";
 }
 
 function settAntOvingerAvansert() {

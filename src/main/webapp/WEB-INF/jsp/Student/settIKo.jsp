@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <h1>Sett deg i kø </h1>
+    <h1>Sett deg i k&oslash; </h1>
 
     <form role="form">
         <div class="form-group">
@@ -14,13 +14,7 @@
                 <option value="labben">13</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="ovingnr">Øving:</label>
-            <select class="form-control" name="Øving" id="ovingnr">
-                <option value="labben">1</option>
-            </select>
-        </div>
-        <button id="flereOving" class="btn btn-md">Flere øving</button>
+
 
         <div class="form-group">
             <label for="beskrivelse">Beskrivelse</label>
@@ -35,6 +29,6 @@
                 <option>Hvem er du i gruppe med?</option>
             </select>
         </div>
-        <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i kø</button>
+        <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i k&oslash;</button>
     </form>
 </div>

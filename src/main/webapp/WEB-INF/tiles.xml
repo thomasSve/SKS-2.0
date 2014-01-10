@@ -8,9 +8,7 @@
 
     <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
         <put-attribute name="title"  value="BaseLayout"/>
-        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
         <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
-        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
     </definition>
     <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
         <put-attribute name="title"  value="Logg inn"/>
@@ -60,5 +58,9 @@
     <definition name="ovingsOpplegg" extends="baseLayout">
         <put-attribute name="title"  value="Min Side"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/ovingsopplegget.jsp"/>
+    </definition>
+    <definition name="koOversikt" extends="baseLayout">
+        <put-attribute name="title"  value="Kø oversikt"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/kooversikt.jsp"/>
     </definition>
 </tiles-definitions>

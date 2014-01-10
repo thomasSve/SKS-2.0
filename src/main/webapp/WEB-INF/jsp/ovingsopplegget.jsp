@@ -9,13 +9,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="col-md-4">
-    <h1>Sett regler for øvingsopplegget</h1>
+    <h1>Sett regler for &oslash;vingsopplegget</h1>
 
     <form>
         <h3>Grunnleggende</h3>
 
         <div class="form-group">
-            <label for="tot">Totalt antall øvinger:</label>
+            <label for="tot">Totalt antall &oslash;vinger:</label>
             <input class="form-control" type="number" id="tot" value="1" min="1" oninput="settMaxKrav()">
         </div>
 
@@ -38,10 +38,10 @@
         <div id="visMer" style="display:none">
             <hr>
 
-            <h4>Sett opp reglement for øvingssystemet.</h4>
+            <h4>Sett opp reglement for &oslash;vingssystemet.</h4>
 
             <form>
-                <h3>Øvinger</h3>
+                <h3>&oslash;vinger</h3>
 
 
                 <div class="form-group">
@@ -59,11 +59,11 @@
 
 
             </form>
-            <p><i>Slå sammen flere ævinger ved å hold inne "CTRL"-tasten mens du
-                trykker på ønsket øving,<br>eller hold inn "SHIFT"-tasten for å automatisk velge alle øvingene til og
+            <p><i>Sl&aring; sammen flere ævinger ved &aring; hold inne "CTRL"-tasten mens du
+                trykker p&aring; &oslash;nsket &oslash;ving,<br>eller hold inn "SHIFT"-tasten for &aring; automatisk velge alle &oslash;vingene til og
                 med
                 den
-                du trykker på.<br>Trykk deretter "legg til". Flere regler kan legges til etterpå.</i>
+                du trykker p&aring;.<br>Trykk deretter "legg til". Flere regler kan legges til etterp&aring;.</i>
             </p>
 
             <h3>Innlagte spesialregler</h3>
