@@ -22,23 +22,40 @@
                 <a href="<c:url value=""/>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="<c:url value="minside.htm"/>" >Minside</a></li>
+                    <li><a href="minside.htm" >Minside</a></li>
                     <%--
                     <li><<a href="<c:url value="minside.htm"/><i class="fa fa-user"></i> Min side</a></li>
                     --%>
-                    <li><a href="<c:url value="endrePassord.htm"/>"><i class="fa fa-power-off"></i>Endre Passord</a></li>
-                    <li><a href="<c:url value=""/>"><i class="fa fa-power-off"></i> Logg ut</a></li>
+                    <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
+                    <li><a href=""><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>
         </ul>
         <ul class="nav navbar-nav side-nav">
-            <li><a href="<c:url value="error.htm"/>">Error</a></li>
-            <li><a href="<c:url value="koOversikt.htm"/>">K&oslash; oversikt</a></li>
-            <li><a href="<c:url value="endreStudent.htm"/>">Endre Student</a></li>
-            <li><a href="<c:url value="settIKo.htm"/>">Sett i k&oslash;</a></li>
-            <li><a href="<c:url value="ovingsOpplegg.htm"/>">&Oslash;vingsopplegget</a></li>
-            <li><a href="<c:url value="login.htm"/>">Logg inn</a></li>
+            <li><a href="error.htm">Error</a></li>
+            <li><a href="login.htm">Logg inn</a></li>
+            <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
+
+
+
+            <li>Administrator:</li>
+            <li><a href="adminBrukere.htm">Administrer brukere</a></li>
+
+            <li>Fagl&oelig;rer:</li>
+            <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
+            <li><a href="adminFag.htm">Administrer fag</a></li>
+            <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
+                    Administrer studenter <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="nyStudent.htm">Ny student</a></li>
+                    <li><a href="endreStudent.htm">Endre student</a></li>
+                </ul>
+            </li>
+
+            <li>Student:</li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Emner <b class="caret"></b></a>
@@ -49,25 +66,6 @@
                     <li><a href="#">Last Item</a></li>
                 </ul>
             </li>
-
-            <li>Administrator:</li>
-            <li><a href="<c:url value="adminBrukere.htm"/>">Administrer brukere</a></li>
-
-            <li>Faglærer:</li>
-            <li><a href="<c:url value="ovingsOpplegg.htm"/>">Øvingsopplegget</a></li>
-            <li><a href="<c:url value="adminFag.htm"/>">Administrer fag</a></li>
-
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
-                    Administrer studenter <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="nyStudent.htm">Ny student</a></li>
-                    <li><a href="nyStudent.htm">Endre student</a></li>
-                </ul>
-            </li>
-
-            <li>Student:</li>
-            <li><a href="<c:url value="settIKo.htm"/>">Sett i kø</a></li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
