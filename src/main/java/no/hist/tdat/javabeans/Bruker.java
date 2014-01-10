@@ -16,13 +16,13 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
-    public Bruker(String mail, String rettighet, String fornavn, String etternavn){
+    public Bruker(String mail, String rettighet, String fornavn, String etternavn, int aktiv){
         this.mail = mail;
         this.rettighet = rettighet;
         this. fornavn = fornavn;
         this.etternavn = etternavn;
         this.passord = genererPassord();
-        this.aktiv = 1;
+        this.aktiv = aktiv;
         emner = new ArrayList<Emner>();
     }
 

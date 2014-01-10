@@ -59,4 +59,37 @@ public class DatabaseConnector {
             return false;
         }
     }
+
+    public boolean finnBruker(Bruker bruker){
+        if(bruker == null){
+            return false;
+        }
+        try(Connection con = DriverManager.getConnection(url, username, password)){
+            String query = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)"
+                    +"VALUES (?,?,?, ?,?,?)";
+            try(PreparedStatement prepStat = con.prepareStatement(query)){
+                con.setAutoCommit(false);
+                prepStat.setString(1, bruker.getMail());
+                prepStat.setString(2, bruker.getRettighet());
+                prepStat.setString(3, bruker.getFornavn());
+                prepStat.setString(4, bruker.getEtternavn());
+                prepStat.setString(5, bruker.genererPassord());
+                prepStat.setInt(6, ACTIVE);
+                prepStat.executeUpdate();
+                con.commit();
+                con.setAutoCommit(true);
+                return true;
+            }catch (SQLException e){
+                e.printStackTrace();
+                System.out.println(QUERY_ERROR);
+                return false;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println(CONNECTION_ERROR);
+            return false;
+        }
+    }
+
+
 }
