@@ -3,9 +3,6 @@ package no.hist.tdat.javabeans;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by oyvang on 09.01.14.
- */
 public class Bruker {
 
     private String mail;
@@ -15,6 +12,9 @@ public class Bruker {
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+
+    public Bruker() {
+    }
 
     public Bruker(String mail, String rettighet, String fornavn, String etternavn){
         this.mail = mail;

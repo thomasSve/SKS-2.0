@@ -50,7 +50,7 @@
 	
     <definition name="endreStudent" extends="baseLayout">
         <put-attribute name="title"  value="Administrer Fag"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/endreStudent.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/endreStudent.jsp"/>
     </definition>
     
 	<definition name="minside" extends="baseLayout">
@@ -59,6 +59,11 @@
     </definition>
     <definition name="ovingsOpplegg" extends="baseLayout">
         <put-attribute name="title"  value="Min Side"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/ovingsopplegget.jsp"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
+    </definition>
+
+    <definition name="nyStudent" extends="baseLayout">
+        <put-attribute name="title"  value="Registrer ny student"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/nyStudent.jsp"/>
     </definition>
 </tiles-definitions>

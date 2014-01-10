@@ -75,5 +75,5 @@
         <input class="btn btn-primary btn-block" type="submit" value="Lagre reglement">
     </form>
 </div>
-<script src="<c:url value="/resources/js/ovingsopplegg.js"/>"></script>
+<script src="<c:url value="/js/ovingsopplegg.js"/>"></script>
 
