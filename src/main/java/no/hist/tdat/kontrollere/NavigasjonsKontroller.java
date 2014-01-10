@@ -1,6 +1,8 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.koe.KoeBruker;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -27,7 +29,9 @@ public class NavigasjonsKontroller {
         return "error";
     }
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(){
+    public String omdirigerTilKo(Model model){
+        KoeBruker koeBruker = new KoeBruker();
+        model.addAttribute("bruker", koeBruker);
         return "settIKo";
     }
     @RequestMapping("/endreStudent.htm")

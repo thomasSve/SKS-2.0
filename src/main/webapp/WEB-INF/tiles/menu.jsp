@@ -37,8 +37,8 @@
             <li><a href="<c:url value="adminFag.htm"/>">Administrer fag</a></li>
             <li><a href="<c:url value="error.htm"/>">Error</a></li>
             <li><a href="<c:url value="endreStudent.htm"/>">Endre Student</a></li>
-            <li><a href="<c:url value="settIKo.htm"/>">Sett i kø</a></li>
-            <li><a href="<c:url value="ovingsOpplegg.htm"/>">Øvingsopplegget</a></li>
+            <li><a href="<c:url value="settIKo.htm"/>">Sett i ko</a></li>
+            <li><a href="<c:url value="ovingsOpplegg.htm"/>">Ovingsopplegget</a></li>
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>

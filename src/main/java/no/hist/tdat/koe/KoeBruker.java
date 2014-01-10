@@ -9,13 +9,19 @@ public class KoeBruker {
     private String plassering;
     private String ovingsnr;
     private int koe_plass;
+    private String beskrivelse;
 
-    public KoeBruker(int koe_id, String mail, String plassering, String ovingsnr, int koe_plass){
+    public KoeBruker(int koe_id, String mail, String plassering, String ovingsnr, int koe_plass, String beskrivelse){
         this.koe_id = koe_id;
         this.mail = mail;
         this.plassering = plassering;
         this.ovingsnr = ovingsnr;
         this.koe_plass = koe_plass;
+        this.beskrivelse = beskrivelse;
+    }
+
+    public KoeBruker(){
+
     }
 
     public int getKoe_id() {
