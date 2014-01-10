@@ -125,7 +125,7 @@ public class Bruker {
 
 
     public void addEmne(){
-        //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
+        //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være 
     }
 
 }
