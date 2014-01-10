@@ -27,4 +27,9 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
+    <definition name="settIKo" extends="baseLayout">
+        <put-attribute name="title"  value="Sett i ko"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
+    </definition>
+
 </tiles-definitions>
