@@ -1,9 +1,13 @@
 package no.hist.tdat.database;
 
 import no.hist.tdat.javabeans.Bruker;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * DatabaseConnector kobler til databasen og gjør spørring, for deretter å stenge tilkoblingen.
@@ -17,6 +21,11 @@ public class DatabaseConnector {
     private final String username = "root";
     private final String password = "";
     private final String url = "jdbc:mysql://localhost:3306/sks";
+
+    @Autowired
+    DataSource dataSource;
+
+
 
     public DatabaseConnector() {
         try {
@@ -64,6 +73,8 @@ public class DatabaseConnector {
      * @param bruker Den brukeren du il endre
      * @param mail mailen til den du skal endre, denne er i tilfelle man endrer mail
      * @return true om bruker blir oppdatert ellers false
+     * @deprecated
+     * @author vimCnett
      */
     public boolean oppdaterBruker(Bruker bruker, String mail){
         if(bruker == null){
@@ -102,9 +113,10 @@ public class DatabaseConnector {
      * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      * @param soeketekst Søkeord etter bruker
      * @return ArrayList med bruker objekter eller null om ingen finnes.
-     * @author GM
+     * @deprecated
+     * @author vimCnett
      */
-    public ArrayList<Bruker> finnBruker(String soeketekst){
+    public ArrayList<Bruker> finnBrukerV1(String soeketekst){
         if(soeketekst == null){
             return null;
         }
@@ -136,5 +148,17 @@ public class DatabaseConnector {
             System.out.println(CONNECTION_ERROR);
             return null;
         }
+    }
+ //TODO GM lager doc i helga eller på mandag
+    public boolean oppdaterBruker (Bruker bruker){
+        String query = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ?" +
+                "WHERE mail = ?";
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        jdbcTemplate.update(
+                query,
+                new Object[] { bruker.getMail(), bruker.getRettighet(),bruker.getFornavn(), bruker.getEtternavn(),bruker.getPassord(),bruker.getAktiv()});
+
+
     }
 }
