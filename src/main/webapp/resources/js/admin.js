@@ -17,7 +17,7 @@ function adminFagOperasjon(valgt) {
 function handleFileSelect(hendelse) {
     var minFil = hendelse.target.files[0];
     infoStreng = '<ul><li>Navn: ' + minFil.name + '</li>' +
-        '<li>Størrelse: ' + minFil.size + 'bytes</li>' +
+        '<li>St&oslash;rrelse: ' + minFil.size + 'bytes</li>' +
         '<li>Type: ' + minFil.type + '</li></ul>';
 
     document.getElementById('filInfo').innerHTML = infoStreng;

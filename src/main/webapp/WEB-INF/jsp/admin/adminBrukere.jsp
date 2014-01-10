@@ -38,7 +38,7 @@
 
         <tr>
             <td>Olve André</td>
-            <td>Børmark</td>
+            <td>B&oslash;rmark</td>
             <td>oabormar@stud.hist.no</td>
             <td>Student</td>
             <div class="input-group">
