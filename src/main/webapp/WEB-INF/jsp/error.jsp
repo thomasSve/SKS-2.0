@@ -5,6 +5,8 @@
   Time: 15:42
   To change this template use File | Settings | File Templates.
 --%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div class="col-md-4">
 
     <h1> 404 error </h1>
@@ -18,7 +20,7 @@
             <p>
 
             <div class="btn-link">
-                <a href="blank-page.html">Hjem</a>
+                <a href="<c:url value="/"/>">Hjem</a>
             </div>
         </header>
     </div>

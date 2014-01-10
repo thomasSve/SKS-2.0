@@ -15,7 +15,9 @@
     <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
         <put-attribute name="title"  value="Logg inn"/>
     </definition>
-
+    <definition name="error" template="/WEB-INF/jsp/error.jsp">
+        <put-attribute name="title"  value="404 Error"/>
+    </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title"  value="Min side"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
@@ -31,10 +33,7 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
-    <definition name="error" extends="baseLayout">
-        <put-attribute name="title"  value="404 Error"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/error.jsp"/>
-    </definition>
+
 
     <definition name="adminFag" extends="baseLayout">
         <put-attribute name="title"  value="Administrer Fag"/>

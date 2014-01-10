@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="<c:url value="/resources/js/admin.js"/>"></script>
+
 <div class="col-md-4">
     <h2>Administrer brukere</h2>
 
@@ -113,9 +116,16 @@
                 <option value="student">Student</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="aktiv">Status</label>
+            <select id="aktiv" class="form-control">
+                <option value="aktiver">Aktiver</option>
+                <option value="deaktiver">Deaktiver</option>
+            </select>
+        </div>
         <button type="button" class="btn btn-primary btn-block"><div id="leggtilknapp">Legg til</div></button>
     </form>
-    <br>
+
 
     <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
         <div id="leggTilFilText">
@@ -132,42 +142,4 @@
     </form>
     <br>
 </div>
-<script>
-    function handleFileSelect(hendelse) {
-        var minFil = hendelse.target.files[0];
-        infoStreng = '<ul><li>Navn: ' + minFil.name + '</li>' +
-                '<li>Størrelse: ' + minFil.size + 'bytes</li>' +
-                '<li>Type: ' + minFil.type + '</li></ul>';
-
-        document.getElementById('filInfo').innerHTML = infoStreng;
-    }
-    /*
-     <fieldset disabled><fieldset disabled>
-     <fieldset disabled>
-     <fieldset disabled>
-     <fieldset disabled>
-
-     */
-    function endreBruker(valgt) {
-        if (document.getElementsByTagName("edit").value !== "ingen") {
-            document.getElementById("operasjonstekst").innerHTML = "Endre bruker";
-            document.getElementById("leggtilknapp").innerHTML = "Lagre endring";
-
-        }
-        else {
-            document.getElementById("operasjonstekst").innerHTML = "Legg til bruker";
-            document.getElementById("leggtilknapp").innerHTML = "Legg til";
-        }
-    }
-
-
-    function slettBruker(valgt)
-    {
-        if(typeof(valgt) == "object"){
-            $(valgt).closest("tr").remove();
-            alert("Slett bruker?")
-        } else {
-            return false;
-        }
-    }
-</script>
+<script src=""></script>
