@@ -78,7 +78,7 @@ public class DatabaseConnector {
                 prepStat.setString(1, bruker.getMail());
                 prepStat.setString(2, bruker.getPassord());
                try( ResultSet rs = prepStat.executeQuery()){
-                if(krypterPassord(bruker.getPassord()).equals()){}
+                if(bruker.getPassord().equals("passord fra query")){}//TODO fjern string
 
                }catch (SQLException e){
                    e.printStackTrace();
