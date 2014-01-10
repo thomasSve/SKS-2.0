@@ -7,6 +7,7 @@ import java.util.Random;
 /**
  * Created by vimCnett on 09.01.14.
  */
+
 public class Bruker {
     private static final String RANDOM_TEGN  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
