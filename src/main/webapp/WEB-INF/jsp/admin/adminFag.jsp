@@ -13,7 +13,7 @@
     <h1>Administrer emne</h1>
 
     <h3>Endre emne</h3>
-    <select  class="form-control" id="emnevalg" onchange="operasjon(this.value)">
+    <select  class="form-control" id="emnevalg" onchange="adminFagOperasjon(this.value)">
         <option value="ingen"><i>Ingen valgt</i></option>
         <option value="emne2">Fag 2</option>
         <option value="emne3">Fag 3</option>

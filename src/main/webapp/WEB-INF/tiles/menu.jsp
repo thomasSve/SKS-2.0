@@ -36,9 +36,10 @@
             <li><a href="<c:url value="adminBrukere.htm"/>">Administrer brukere</a></li>
             <li><a href="<c:url value="adminFag.htm"/>">Administrer fag</a></li>
             <li><a href="<c:url value="error.htm"/>">Error</a></li>
+            <li><a href="<c:url value="koOversikt.htm"/>">K&oslash; oversikt</a></li>
             <li><a href="<c:url value="endreStudent.htm"/>">Endre Student</a></li>
-            <li><a href="<c:url value="settIKo.htm"/>">Sett i kø</a></li>
-            <li><a href="<c:url value="ovingsOpplegg.htm"/>">Øvingsopplegget</a></li>
+            <li><a href="<c:url value="settIKo.htm"/>">Sett i k&oslash;</a></li>
+            <li><a href="<c:url value="ovingsOpplegg.htm"/>">&Oslash;vingsopplegget</a></li>
             <li><a href="<c:url value="login.htm"/>">Logg inn</a></li>
 
 

@@ -22,6 +22,14 @@ public class NavigasjonsKontroller {
     public String omdirigerAdminFag() {
         return "adminFag";
     }
+    @RequestMapping("/glemtPassord.htm")
+    public String glemtPassord() {
+        return "glemtPassord";
+    }
+    @RequestMapping("/koOversikt.htm")
+    public String koOversikt() {
+        return "koOversikt";
+    }
     @RequestMapping("/error.htm")
     public String omdirigerError(){
         return "error";
