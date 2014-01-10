@@ -15,6 +15,9 @@
     <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
         <put-attribute name="title"  value="Logg inn"/>
     </definition>
+    <definition name="glemtPassord" template="/WEB-INF/jsp/glemtPassord.jsp">
+        <put-attribute name="title"  value="Glemt Passord"/>
+    </definition>
     <definition name="error" template="/WEB-INF/jsp/error.jsp">
         <put-attribute name="title"  value="404 Error"/>
     </definition>
