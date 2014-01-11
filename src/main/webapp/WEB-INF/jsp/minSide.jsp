@@ -6,7 +6,7 @@
             <th>#</th>
             <th>Emnekode</th>
             <th>Emnenavn</th>
-            <th>Øvingsoversikt</th>
+            <th>&oslash;vingsoversikt</th>
         </tr>
         </thead>
         <tbody>
