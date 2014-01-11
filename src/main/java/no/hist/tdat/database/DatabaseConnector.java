@@ -32,7 +32,6 @@ public class DatabaseConnector {
                                     bruker.getMail(),
                                     bruker.getRettighet(),
                                     bruker.getFornavn(),
-                                    bruker.getFornavn(),
                                     bruker.getEtternavn(),
                                     bruker.genererPassord(),
                                     ACTIVE);
