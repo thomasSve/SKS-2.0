@@ -20,6 +20,8 @@ public class DatabaseConnector {
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
+    private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
+    private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
 
     @Autowired
     DataSource dataKilde;
@@ -43,33 +45,16 @@ public class DatabaseConnector {
     public boolean oppdaterBruker(Bruker bruker, String mail){
         if(bruker == null){
             return false;
-        }
-        try(Connection con = DriverManager.getConnection(url, username, password)){
-            String query = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ?" +
-                                "WHERE mail = ?";
-
-            try(PreparedStatement prepStat = con.prepareStatement(query)){
-                con.setAutoCommit(false);
-                prepStat.setString(1, bruker.getMail());
-                prepStat.setInt(2, bruker.getRettighet());
-                prepStat.setString(3, bruker.getFornavn());
-                prepStat.setString(4, bruker.getEtternavn());
-                prepStat.setString(5, bruker.genererPassord());
-                prepStat.setInt(6, bruker.getAktiv());
-                prepStat.setString(7, mail);
-                prepStat.executeUpdate();
-                con.commit();
-                con.setAutoCommit(true);
-                return true;
-            }catch (SQLException e){
-                e.printStackTrace();
-                System.out.println(QUERY_ERROR);
-                return false;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(CONNECTION_ERROR);
-            return false;
+        }else{
+            JdbcTemplate con = new JdbcTemplate(dataKilde);
+            con.update(oppdaterBrukerSQL,
+                    mail,
+                    bruker.getRettighet(),
+                    bruker.getFornavn(),
+                    bruker.getEtternavn(),
+                    bruker.genererPassord(),
+                    ACTIVE);
+            return true;
         }
     }
 
@@ -77,16 +62,13 @@ public class DatabaseConnector {
      * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      * @param soeketekst Søkeord etter bruker
      * @return ArrayList med bruker objekter eller null om ingen finnes.
-     * @author GM
      */
     public ArrayList<Bruker> finnBruker(String soeketekst){
         if(soeketekst == null){
             return null;
         }
-        try(Connection con = DriverManager.getConnection(url, username, password)){
-            String query = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-            try(PreparedStatement prepStat = con.prepareStatement(query)){
-                con.setAutoCommit(false);
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.
                 prepStat.setString(1, soeketekst);
                 prepStat.setString(2, soeketekst);
                 prepStat.setString(3, soeketekst);
