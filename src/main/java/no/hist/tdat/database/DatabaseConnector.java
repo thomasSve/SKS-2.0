@@ -68,31 +68,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        con.
-                prepStat.setString(1, soeketekst);
-                prepStat.setString(2, soeketekst);
-                prepStat.setString(3, soeketekst);
-                ResultSet rs = prepStat.executeQuery();
-                con.commit();
-                con.setAutoCommit(true);
 
-                ArrayList<Bruker> brukere = new ArrayList<Bruker>();
-                while(rs.next()){
-                    Bruker objekt = new Bruker(rs.getString("mail"), rs.getInt("rettighet"), rs.getString("fornavn"), rs.getString("etternvn"), rs.getInt("aktiv"));
-                    brukere.add(objekt);
-                }
-                return brukere;
-
-            }catch (SQLException e){
-                e.printStackTrace();
-                System.out.println(QUERY_ERROR);
-                return null;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println(CONNECTION_ERROR);
-            return null;
-        }
+        return null; //TODO FInnish method
     }
-
 }
