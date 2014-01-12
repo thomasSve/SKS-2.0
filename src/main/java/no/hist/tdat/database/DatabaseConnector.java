@@ -3,11 +3,13 @@ package no.hist.tdat.database;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.*;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * DatabaseConnector kobler til databasen og gjør spørring, for deretter å stenge tilkoblingen.
@@ -26,26 +28,28 @@ public class DatabaseConnector {
     @Autowired
     DataSource dataKilde;
 
-    public void leggTilBruker(Bruker bruker){
+    public void leggTilBruker(Bruker bruker) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggTilBrukerSQL,
-                                    bruker.getMail(),
-                                    bruker.getRettighet(),
-                                    bruker.getFornavn(),
-                                    bruker.getEtternavn(),
-                                    bruker.genererPassord(),
-                                    ACTIVE);
+                bruker.getMail(),
+                bruker.getRettighet(),
+                bruker.getFornavn(),
+                bruker.getEtternavn(),
+                bruker.genererPassord(),
+                ACTIVE);
     }
+
     /**
-     *Oppdatterer en spesifikk bruker
+     * Oppdatterer en spesifikk bruker
+     *
      * @param bruker Den brukeren du il endre
-     * @param mail mailen til den du skal endre, denne er i tilfelle man endrer mail
+     * @param mail   mailen til den du skal endre, denne er i tilfelle man endrer mail
      * @return true om bruker blir oppdatert ellers false
      */
-    public boolean oppdaterBruker(Bruker bruker, String mail){
-        if(bruker == null){
+    public boolean oppdaterBruker(Bruker bruker, String mail) {
+        if (bruker == null) {
             return false;
-        }else{
+        } else {
             JdbcTemplate con = new JdbcTemplate(dataKilde);
             con.update(oppdaterBrukerSQL,
                     mail,
@@ -56,19 +60,5 @@ public class DatabaseConnector {
                     ACTIVE);
             return true;
         }
-    }
-
-    /**
-     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
-     * @param soeketekst Søkeord etter bruker
-     * @return ArrayList med bruker objekter eller null om ingen finnes.
-     */
-    public ArrayList<Bruker> finnBruker(String soeketekst){
-        if(soeketekst == null){
-            return null;
-        }
-        JdbcTemplate con = new JdbcTemplate(dataKilde);
-
-        return null; //TODO FInnish method
     }
 }

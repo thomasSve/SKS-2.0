@@ -90,11 +90,12 @@ public class Bruker {
     /**
      * Bruker hjelpemetoden krypterPassord til å sette passord til bruker
      * @param passord
-     */  
+     */
     public void setPassord(String passord) {
         this.passord = krypterPassord(passord);
     }
-	
+
+
     public int getAktiv() {
         return aktiv;
     }
@@ -138,7 +139,7 @@ public class Bruker {
 
 
     public void addEmne(){
-        //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være 
+        //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
     }
 
     /**
