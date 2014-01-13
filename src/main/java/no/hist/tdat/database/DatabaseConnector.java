@@ -21,8 +21,8 @@ public class DatabaseConnector {
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
 
-    // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn... //TODO remove this
-
+    // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
+    private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
@@ -30,6 +30,8 @@ public class DatabaseConnector {
 
     @Autowired
     DataSource dataKilde; //Felles datakilde for alle spørringer.
+
+    public  DatabaseConnector(){}
 
     public void leggTilBruker(Bruker bruker) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -83,6 +85,28 @@ public class DatabaseConnector {
             res.add(bruker);
         }
         return res;
+    }
+
+    /**
+     * Sjekker om mail og passord korresponderer
+     *
+     * @param bruker brukerobjekt med kun mail og passord
+     * @return nytt brukerobjekt med all brukerinformasjon
+     */
+    public Bruker loggInn(Bruker bruker){
+        if (bruker == null) {
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(loggInnBrukerSQL, new BrukerKoordinerer(), bruker.getMail(), bruker.getPassord());
+        ArrayList<Bruker> res = new ArrayList<>();
+        for (Bruker brukerInfo : brukerList) {
+            res.add(brukerInfo);
+        }
+        if(res.size() == 1){
+            return res.get(0);
+        }
+        return null;
     }
 
     /**

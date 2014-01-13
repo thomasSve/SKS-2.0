@@ -1,5 +1,11 @@
 package no.hist.tdat.javabeans;
 
+import no.hist.tdat.database.DatabaseConnector;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,17 +14,23 @@ import java.util.Random;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
-
+@Component
 public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
+    @NotBlank
     private String mail;
     private Integer rettighet;
     private String fornavn;
     private String etternavn;
+    @NotBlank
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+
+    @Qualifier("databaseConnector")
+    @Autowired
+    DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -91,6 +103,17 @@ public class Bruker {
     }
 
     /**
+     * Sjekker om mail og passord korresponderer
+     * Brukerobjekt opprettes av mail og passord før denne kalles.
+     * @return boolean, true om mail og passord korresponderer
+     * @author vimCnett
+     * @see "The Java Programming Language"
+     */
+    public Bruker loggInn(){
+        return databaseConnector.loggInn(this);
+    }
+
+    /**
      * Bruker hjelpemetoden krypterPassord til å sette passord til bruker
      *
      * @param passord
@@ -149,8 +172,8 @@ public class Bruker {
     /**
      * Tar inn en kryptert string, lager en ny string med lengde 32
      *
-     * @param krypt1
-     * @return
+     * @param krypt1 et kryptert passord med 4*passord.length lengde
+     * @return Kryptert passord med lengde 32
      */
     private String krypterPassord2(String krypt1) {
         int length = krypt1.length();
@@ -168,7 +191,7 @@ public class Bruker {
      * Tar inn en string fra brukeren og krypterer passordet.
      *
      * @param pw passord skrevet inn av bruker
-     * @return String som kryptert passord
+     * @return String som kryptert passord med varierende lengde ( 4*pw.length )
      * @author vimCnett
      * @see "The Java Programming Language"
      */
@@ -201,5 +224,7 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
+
+
 }
 
