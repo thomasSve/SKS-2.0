@@ -109,27 +109,46 @@ public class Bruker {
     }
 
     /**
+     * Tar inn en kryptert string, lager en ny string med lengde 32
+     * @param krypt1
+     * @return
+     */
+    private String krypterPassord2(String krypt1){
+        int length = krypt1.length();
+        int index = 0;
+        String dobbelKrypt= "";
+        for (int i = 0; i < 32; i++) {
+            index = i;
+            index%=length;
+            dobbelKrypt+=krypt1.charAt(index);
+        }
+        return dobbelKrypt;
+    }
+
+    /**
      *Tar inn en string fra brukeren og krypterer passordet.
      * @param pw passord skrevet inn av bruker
      * @see "The Java Programming Language"
      * @return String som kryptert passord
      * @author vimCnett
      */
-    static String krypterPassord(String pw){
+    private String krypterPassord(String pw){
         String alphaString = ("abcdefghijklmnopqrstuvwxyz").toUpperCase();
         char[] alphabet = ("abcdefghijklmnopqrstuvwxyz"+alphaString+"123567890").toCharArray();
         int length = alphabet.length;
         String kryptertPassord ="";
         int verdi = 0;
         int verdi2 = 0;
-        Character part1;
+        char part1;
         char part2;
         char part3;
         char part4;
         for (int i = 0; i <pw.length() ; i++) {
             verdi = (int)pw.charAt(i);
-            verdi*=verdi+length/2;
+            verdi*=verdi;
+
             verdi2=i*verdi*verdi2;
+
             part1= (char)alphabet[(verdi%length)];
             part2= (char)alphabet[((i*103)%length)];
             part3= (char)alphabet[(int)((i*verdi2*708)%length)];
@@ -140,6 +159,7 @@ public class Bruker {
             kryptertPassord+=part3;
             kryptertPassord+=part4;
         }
-        return kryptertPassord;
+        return krypterPassord2(kryptertPassord);
     }
 }
+
