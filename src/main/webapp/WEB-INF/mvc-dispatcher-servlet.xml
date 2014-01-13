@@ -21,14 +21,17 @@
           p:definitions="/WEB-INF/tiles.xml" />
     <bean id="bruker" class="no.hist.tdat.javabeans.Bruker"/>
 
+<!--
     <bean id="dataKilde" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/sks"/>
         <property name="username" value="root"/>
         <property name="password" value=""/>
     </bean>
-
+-->
     <bean id="databaseConnector" class="no.hist.tdat.database.DatabaseConnector"/>
+
+
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +34,31 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
 
 
-    @Autowired
-    DataSource dataKilde; //Felles datakilde for alle spørringer.
+    private DataSource dataKilde;
+
+    public DatabaseConnector () {
+        dataKilde = getDataSource();
+    }
+
+    private DriverManagerDataSource getDataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/sks");
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
+        return dataSource;
+    }
 
 
-    public  DatabaseConnector(){}
 
-    public void leggTilBruker(Bruker bruker) {
+
+
+
+
+    public boolean leggTilBruker(Bruker bruker) {
+        if(bruker == null){
+            return false;
+        }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggTilBrukerSQL,
                 bruker.getMail(),
@@ -47,7 +66,8 @@ public class DatabaseConnector {
                 bruker.getFornavn(),
                 bruker.getEtternavn(),
                 bruker.genererPassord(),
-                ACTIVE);
+                bruker.getRettighet());
+        return true;
     }
 
     /**

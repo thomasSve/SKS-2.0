@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -33,9 +35,10 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
-
+    @Qualifier("databaseConnector")
     @Autowired
-    private DatabaseConnector databaseConnector;
+    DatabaseConnector databaseConnector;
+
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -56,6 +59,16 @@ public class Bruker {
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
 
+    }
+
+    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
+        this.mail = mail;
+        this.rettighet = rettighet;
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.passord = passord;
+        this.aktiv = 1;
+        emner = new ArrayList<Emner>();
     }
 
     public Bruker() {
@@ -234,6 +247,14 @@ public class Bruker {
             kryptertPassord += part4;
         }
         return krypterPassord2(kryptertPassord);
+    }
+
+
+
+    public boolean leggTilBruker(){
+        System.out.println(getMail()+ getRettighet()+ getFornavn()+ getEtternavn()+ getPassord()+ getAktiv());
+        DatabaseConnector dc = new DatabaseConnector();
+       return dc.leggTilBruker(this);
     }
 
 
