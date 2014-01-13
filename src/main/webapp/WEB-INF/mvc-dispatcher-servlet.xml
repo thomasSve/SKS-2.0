@@ -19,13 +19,6 @@
           class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
           p:definitions="/WEB-INF/tiles.xml" />
 
-    <bean id="dataKilde" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/sks"/>
-        <property name="username" value="root"/>
-        <property name="password" value=""/>
-    </bean>
-
     <bean id="databaseConnector" class="no.hist.tdat.database.DatabaseConnector">
 
     </bean>

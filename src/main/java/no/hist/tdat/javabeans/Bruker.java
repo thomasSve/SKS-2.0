@@ -50,6 +50,16 @@ public class Bruker {
         emner = new ArrayList<Emner>();
     }
 
+    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
+        this.mail = mail;
+        this.rettighet = rettighet;
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        this.passord = passord;
+        this.aktiv = 1;
+        emner = new ArrayList<Emner>();
+    }
+
     public Bruker() {
     }
 
@@ -211,8 +221,10 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
-    public void leggTilBruker(){
-        databaseConnector.leggTilBruker(this);
+    public boolean leggTilBruker(){
+        System.out.println(getMail()+ getRettighet()+ getFornavn()+ getEtternavn()+ getPassord()+ getAktiv());
+        DatabaseConnector dc = new DatabaseConnector();
+       return dc.leggTilBruker(this);
     }
 
 }
