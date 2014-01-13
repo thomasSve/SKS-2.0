@@ -1,26 +1,29 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Thomas
-  Date: 09.01.14
-  Time: 15:52
-  To change this template use File | Settings | File Templates.
+  vimCnett
 --%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="col-md-4">
     <h1>Administrere studenter</h1>
 
-    <form class="searchbar" role="search">
+    <form:form class="searchbar" role="search" action="leggTilStudentListe" modelAttribute="personerBeans">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="SÃ¸k" name="srch-term" id="srch-term">
+            <input type="text" name="soketekst" class="form-control" placeholder="Søk" id="srch-term"/>
 
             <div class="input-group-btn">
-                <button type="button" class="btn" id="leggTil">Legg til</button>
+                <input type="submit" class="btn" id="leggTil" value="Legg til"/>
             </div>
         </div>
-    </form>
+    </form:form>
+
+
+
+    <!--    KAN GJØRES FANCY MED LIVE UPDATE MED SØKETREFF!
     <datalist id="treff">
         <option value="ingen"></option>
     </datalist>
+    -->
     <h3>Valgte student(-er)</h3>
 
     <table class="table table-hover">
@@ -30,34 +33,41 @@
             <th class="header">Etternavn</th>
             <th class="header">Epost</th>
             <th class="header"></th>
-
         </tr>
         </thead>
 
         <tbody>
+
         <tr>
-            <td>Olve Andrï¿½</td>
-            <td>Bï¿½rmark</td>
+            <td>Olve Andr?</td>
+            <td>B?rmark</td>
             <td>oabormar@stud.hist.no</td>
             <td>
-
+                <div class="btn btn-group">
+                    <button type="remove" class="btn btn-danger" data-task="remove" title="Fjern"
+                            onclick="fjernBruker()"><i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
             </td>
         </tr>
+
+        <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
         <tr>
-            <td>Ola</td>
-            <td>Nordmann</td>
-            <td>onordmann@stud.hist.no</td>
-            <td>
-
-            </td>
+            <td><c:out value="${bruker.fornavn}"/></td>
+            <td><c:out value="${bruker.etternavn}"/></td>
+            <td><c:out value="${bruker.mail}"/></td>
+            <td><button type="remove" id="${status.index}" class="btn btn-danger" data-task="remove" title="Fjern"
+                        onclick="fjernBruker()"><i class="glyphicon glyphicon-remove"></i>
+            </button></td>
         </tr>
+        </c:forEach>
 
         </tbody>
     </table>
 
 
     <select class="form-control" id="opValg" onchange="bestemOperasjon()">
-        <option value="studass">Gjï¿½r til studentassistent</option>
+        <option value="studass">Gj?r til studentassistent</option>
         <option value="leggInnFag">Legg til nytt fag</option>
         <option value="fjernFag">Fjern fag</option>
     </select>
@@ -67,19 +77,4 @@
         <option value="fag2">Fag2</option>
         <option value="fag3">Fag3</option>
     </select>
-
-
-    <script>
-        function bestemOperasjon() {
-            if (document.getElementById("opValg").value === "studass") {
-
-            }
-            else if (document.getElementById("opValg").value === "leggInnFag") {
-
-            }
-            else {
-
-            }
-        }
-    </script>
 </div>

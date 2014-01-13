@@ -3,9 +3,11 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,8 @@ public class DatabaseConnector {
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
+
+    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
 
     @Autowired
     DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -99,5 +103,23 @@ public class DatabaseConnector {
 
         return num > 0;
 
+    }
+
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som er lik søkeordet.
+     *
+     * @param soeketekst Søkeord etter studenter
+     * @return objekt av Bruker, eller null om den ikke finnes
+     */
+    public Bruker finnStudent(String soeketekst) {
+
+        if (soeketekst == null) {
+            return null;
+        }
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
+
+        return brukerList.get(0);
     }
 }

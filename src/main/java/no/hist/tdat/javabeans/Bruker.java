@@ -1,7 +1,11 @@
 package no.hist.tdat.javabeans;
 
+import no.hist.tdat.database.DatabaseConnector;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -9,6 +13,7 @@ import java.util.Random;
  * NB!!! Mangler variabel for øvinger som er gjort
  */
 
+@Component
 public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
@@ -19,6 +24,10 @@ public class Bruker {
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+
+    @Qualifier("databaseConnector")
+    @Autowired
+    DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -200,6 +209,10 @@ public class Bruker {
             kryptertPassord += part4;
         }
         return krypterPassord2(kryptertPassord);
+    }
+
+    public void endreBruker(String t) {
+        databaseConnector.finnBruker(t);
     }
 }
 
