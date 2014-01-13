@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Created by vimCnett on 09.01.14.
+ * NB!!! Mangler variabel for øvinger som er gjort
  */
 
 public class Bruker {
