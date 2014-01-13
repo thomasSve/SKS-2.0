@@ -3,8 +3,11 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -15,7 +18,8 @@ import java.util.List;
  *
  * @author VimCnett
  */
-@Component
+
+@Component("dataKilde")
 public class DatabaseConnector {
     private static final String QUERY_ERROR = "FEIL I SPØRRING";
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
@@ -28,8 +32,10 @@ public class DatabaseConnector {
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
 
+
     @Autowired
     DataSource dataKilde; //Felles datakilde for alle spørringer.
+
 
     public  DatabaseConnector(){}
 
@@ -78,7 +84,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer());
+        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst,soeketekst,soeketekst);
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {
@@ -93,6 +99,7 @@ public class DatabaseConnector {
      * @param bruker brukerobjekt med kun mail og passord
      * @return nytt brukerobjekt med all brukerinformasjon
      */
+
     public Bruker loggInn(Bruker bruker){
         if (bruker == null) {
             return null;
@@ -100,10 +107,11 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(loggInnBrukerSQL, new BrukerKoordinerer(), bruker.getMail(), bruker.getPassord());
         ArrayList<Bruker> res = new ArrayList<>();
+
         for (Bruker brukerInfo : brukerList) {
             res.add(brukerInfo);
         }
-        if(res.size() == 1){
+        if(res.size() >0){
             return res.get(0);
         }
         return null;
@@ -123,5 +131,13 @@ public class DatabaseConnector {
 
         return num > 0;
 
+    }
+
+    public void setDataKilde(DataSource dataKilde) {
+        this.dataKilde = dataKilde;
+    }
+
+    public DataSource getDataKilde() {
+        return dataKilde;
     }
 }

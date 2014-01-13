@@ -2,8 +2,12 @@ package no.hist.tdat.javabeans;
 
 import no.hist.tdat.database.DatabaseConnector;
 import org.hibernate.validator.constraints.NotBlank;
+import org.omg.DynamicAny._DynAnyFactoryStub;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ import java.util.Random;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
+
 @Component
 public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
@@ -28,9 +33,9 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
-    @Qualifier("databaseConnector")
+
     @Autowired
-    DatabaseConnector databaseConnector;
+    private DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -50,6 +55,7 @@ public class Bruker {
         this.passord = genererPassord();
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
+
     }
 
     public Bruker() {
@@ -64,6 +70,10 @@ public class Bruker {
     public Bruker(String mail, String passord) {
         this.mail = mail;
         this.passord = krypterPassord(passord);
+    }
+
+    public void setDatabaseConnector(DatabaseConnector databaseConnector) {
+        this.databaseConnector = databaseConnector;
     }
 
     public String getMail() {
@@ -110,6 +120,7 @@ public class Bruker {
      * @see "The Java Programming Language"
      */
     public Bruker loggInn(){
+
         return databaseConnector.loggInn(this);
     }
 
