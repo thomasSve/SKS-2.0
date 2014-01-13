@@ -1,5 +1,9 @@
 package no.hist.tdat.javabeans;
 
+import no.hist.tdat.database.DatabaseConnector;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +23,10 @@ public class Bruker {
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+
+    @Qualifier("databaseConnector")
+    @Autowired
+    DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
