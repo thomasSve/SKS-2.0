@@ -19,13 +19,9 @@
 
         <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-                <a href="<c:url value=""/>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
-                        class="caret"></b></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">John Smith <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="minside.htm" >Minside</a></li>
-                    <%--
-                    <li><<a href="<c:url value="minside.htm"/><i class="fa fa-user"></i> Min side</a></li>
-                    --%>
                     <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
                     <li><a href=""><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
@@ -39,10 +35,9 @@
 
 
 
-            <li>Administrator:</li>
+            <li class="navbar-text">Administrator</li>
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
-
-            <li>Fagl&oelig;rer:</li>
+            <li class="navbar-text">Fagl&oelig;rer</li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
             <li><a href="adminFag.htm">Administrer fag</a></li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
@@ -55,7 +50,9 @@
                 </ul>
             </li>
 
-            <li>Student:</li>
+            <li class="navbar-text">Student</li>
+            <hr class="nav-divider">
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Emner <b class="caret"></b></a>

@@ -24,7 +24,7 @@
             <input type="checkbox" value="husk"> Husk email
         </label>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Logg inn</button>
-        <a href="<c:url value="glemtPassord.htm"/>">Glemt Passord</a>
+        <a href="glemtPassord.htm">Glemt Passord</a>
     </form>
 
 
