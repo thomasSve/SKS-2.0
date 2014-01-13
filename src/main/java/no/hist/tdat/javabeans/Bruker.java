@@ -25,6 +25,7 @@ public class Bruker {
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+    private DatabaseConnector dc = new DatabaseConnector();
 
     @Qualifier("databaseConnector")
     @Autowired
@@ -55,7 +56,7 @@ public class Bruker {
         this.rettighet = rettighet;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
-        this.passord = passord;
+        setPassord(passord);
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
     }
@@ -221,10 +222,17 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
+
+    /**
+     * Legger til en bruker i databasen
+     * @return true om den ble lagt til, ellers false
+     */
     public boolean leggTilBruker(){
-        System.out.println(getMail()+ getRettighet()+ getFornavn()+ getEtternavn()+ getPassord()+ getAktiv());
-        DatabaseConnector dc = new DatabaseConnector();
-       return dc.leggTilBruker(this);
+        return dc.leggTilBruker(this);
+    }
+
+    public ArrayList<Bruker> finnBruker (String input){
+        return dc.finnBruker(input);
     }
 
 }

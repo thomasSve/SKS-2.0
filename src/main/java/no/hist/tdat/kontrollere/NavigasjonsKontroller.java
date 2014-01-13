@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.database.DatabaseConnector;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import no.hist.tdat.javabeans.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 public class NavigasjonsKontroller {
@@ -19,11 +21,10 @@ public class NavigasjonsKontroller {
     public String omdirigerEndrePassord() {
         return "endrePassord";
     }
+
     @RequestMapping("/adminBrukere.htm")
     public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker, Model modell) {
         modell.addAttribute("leggTilBruker", bruker);
-        System.out.println("Object: "+ bruker);
-        System.out.println("mail til bruker: " + bruker.getMail());
         if(bruker.getMail()!=null){
             bruker.leggTilBruker();
         }

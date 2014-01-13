@@ -35,6 +35,10 @@ public class DatabaseConnector {
         dataKilde = getDataSource();
     }
 
+    /**
+     * Oppretter en tilkobling til databasen
+     * @return
+     */
     private DriverManagerDataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -51,7 +55,11 @@ public class DatabaseConnector {
 
 */
 
-
+    /**
+     * Legger til en bruker i databasen
+     * @param bruker
+     * @return true om den blir lagt til, ellers false
+     */
     public boolean leggTilBruker(Bruker bruker) {
         if(bruker == null){
             return false;
