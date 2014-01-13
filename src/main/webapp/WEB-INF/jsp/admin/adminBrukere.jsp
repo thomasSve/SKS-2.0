@@ -1,12 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Thomas
-  Date: 09.01.14
-  Time: 14:56
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="col-md-4">
+<div class="col-md-8">
     <h2>Administrer brukere</h2>
 
     <form class="søkbar" role="search">
@@ -17,54 +9,47 @@
             <div class="input-group-btn">
                 <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
             </div>
+
         </div>
-
     </form>
-    <table class="table table-hover" id="minTable">
-        <thead>
-        <tr>
-            <th class="header">Fornavn</th>
-            <th class="header">Etternavn</th>
-            <th class="header">Epost</th>
-            <th class="header">Rettighet</th>
-            <th class="header"></th>
-        </tr>
-        </thead>
+    <div class="span5">
+        <table class="table table-hover" id="minTable">
+            <thead>
+            <tr>
+                <th class="header">Fornavn</th>
+                <th class="header">Etternavn</th>
+                <th class="header">Epost</th>
+                <th class="header">Rettighet</th>
+                <th class="header">Opprettet</th>
+                <th class="header">Status</th>
+                <th class="header"></th>
+            </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-        <tr>
-            <td>Olve André</td>
-            <td>Børmark</td>
-            <td>oabormar@stud.hist.no</td>
-            <td>Student</td>
-            <div class="input-group">
+            <tr>
+                <td>Olve</td>
+                <td>Børmark</td>
+                <td>oabormar@stud.hist.no</td>
+                <td>Student</td>
+                <td>2012/08/16</td>
+                <td><span class="btn btn-success btn-sm active">Aktiv</span></td>
                 <td>
                     <div class="input-group-btn">
-                        <button type="edit" class="btn btn-warning" data-task="edit" title="Endre" onclick="endreBruker()" ><i class="glyphicon glyphicon-edit"></i></button>
-                        <button type="remove" class="btn btn-danger" data-task="remove" title="Fjern" onclick="slettBruker()" id="removeknapp"><i class="glyphicon glyphicon-remove"></i></button>
+                        <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                data-target="#endrebrukerModal" title="Endre">
+                            <i class="glyphicon glyphicon-edit"></i></button>
+                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                onclick="slettBruker()" id="removeknapp"><i class="glyphicon glyphicon-remove"></i>
+                        </button>
                     </div>
                 </td>
-            </div>
-        </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <tr>
-            <td>Ola</td>
-            <td>Nordmann</td>
-            <td>onordmann@stud.hist.no</td>
-            <td>Admin</td>
-            <div class="input-group">
-                <td>
-                    <div class="input-group-btn">
-                        <button type="edit" class="btn btn-warning" title="Endre" onclick="endreBruker()" ><i class="glyphicon glyphicon-edit"></i></button>
-                        <button type="remove" class="btn btn-danger" title="Fjern" onclick="slettBruker()"><i class="glyphicon glyphicon-remove"></i></button>
-                    </div>
-                </td>
-            </div>
-        </tr>
-
-        </tbody>
-    </table>
 
     <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
         <h2>
@@ -113,7 +98,9 @@
                 <option value="student">Student</option>
             </select>
         </div>
-        <button type="button" class="btn btn-primary btn-block"><div id="leggtilknapp">Legg til</div></button>
+        <button type="button" class="btn btn-primary btn-block">
+            <div id="leggtilknapp">Legg til</div>
+        </button>
     </form>
     <br>
 
@@ -130,44 +117,75 @@
         <br>
         <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
     </form>
-    <br>
+
+    <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title" id="velgøvingLabel">Endre Bruker</h2>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
+                        <div class="form-group">
+                            <label for="endrefornavn">Fornavn</label>
+
+                            <input path="endrefornavn" id="endretfornavn" class="form-control"/>
+
+                            <errors path="fornavn"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="endreetternavn">Etternavn:</label>
+
+                            <input id="endreetternavn" path="etternavn" class="form-control"/>
+
+                            <errors path="etternavn"/>
+                        </div>
+
+                        <fieldset disabled>
+                            <div class="form-group">
+                                <label for="endreepost">Epost</label>
+
+                                <input id="endreepost" path="epost" class="form-control"/>
+
+                                <errors path="epost"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Passord:</label>
+
+                                <input path="passord" class="form-control"/>
+
+                                <errors path="passord"/>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group">
+                            <label for="endrerettigheter">Rettigheter</label>
+                            <select id="endrerettigheter" class="form-control">
+                                <option value="ingen"><i>Ingen valgt</i></option>
+                                <option value="admin">Admin</option>
+                                <option value="lærer">L&aeligrer</option>
+                                <option value="studentassistent">Studentassistent</option>
+                                <option value="student">Student</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endrestatus">Status</label>
+                            <select id="endrestatus" class="form-control">
+                                <option value="ingen"><i>Aktiv</i></option>
+                                <option value="admin">Inaktiv</option>
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                    <button type="button" class="btn btn-primary">Lagre</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-    function handleFileSelect(hendelse) {
-        var minFil = hendelse.target.files[0];
-        infoStreng = '<ul><li>Navn: ' + minFil.name + '</li>' +
-                '<li>Størrelse: ' + minFil.size + 'bytes</li>' +
-                '<li>Type: ' + minFil.type + '</li></ul>';
-
-        document.getElementById('filInfo').innerHTML = infoStreng;
-    }
-    /*
-     <fieldset disabled><fieldset disabled>
-     <fieldset disabled>
-     <fieldset disabled>
-     <fieldset disabled>
-
-     */
-    function endreBruker(valgt) {
-        if (document.getElementsByTagName("edit").value !== "ingen") {
-            document.getElementById("operasjonstekst").innerHTML = "Endre bruker";
-            document.getElementById("leggtilknapp").innerHTML = "Lagre endring";
-
-        }
-        else {
-            document.getElementById("operasjonstekst").innerHTML = "Legg til bruker";
-            document.getElementById("leggtilknapp").innerHTML = "Legg til";
-        }
-    }
-
-
-    function slettBruker(valgt)
-    {
-        if(typeof(valgt) == "object"){
-            $(valgt).closest("tr").remove();
-            alert("Slett bruker?")
-        } else {
-            return false;
-        }
-    }
-</script>

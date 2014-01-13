@@ -2,6 +2,8 @@ package no.hist.tdat.kontrollere;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import no.hist.tdat.javabeans.*;
 
 @Controller
 public class NavigasjonsKontroller {
@@ -21,6 +23,14 @@ public class NavigasjonsKontroller {
     @RequestMapping("/adminFag.htm")
     public String omdirigerAdminFag() {
         return "adminFag";
+    }
+    @RequestMapping("/glemtPassord.htm")
+    public String glemtPassord() {
+        return "glemtPassord";
+    }
+    @RequestMapping("/koOversikt.htm")
+    public String koOversikt() {
+        return "koOversikt";
     }
     @RequestMapping("/error.htm")
     public String omdirigerError(){
@@ -49,6 +59,10 @@ public class NavigasjonsKontroller {
     @RequestMapping("/*")
     public String direct404() {
         return "error";
+    }
+    @RequestMapping("/nyStudent.htm")
+    public String nyStudent(@ModelAttribute("nyStudent") Bruker stud) {
+        return "nyStudent";
     }
 
 }

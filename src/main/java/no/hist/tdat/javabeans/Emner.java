@@ -1,7 +1,43 @@
 package no.hist.tdat.javabeans;
 
 /**
- * Created by Thomas on 09.01.14.
+ * Created by vimCnett
  */
 public class Emner {
+    private String emneKode;
+    private String emneNavn;
+    private Ovingsopplegg ovinger;
+
+    public Emner(String kode, String navn, Ovingsopplegg ovinger) {
+        this.emneKode = kode;
+        this.emneNavn = navn;
+        this.ovinger = ovinger;
+    }
+
+    public Emner() {
+    }
+
+    public String getEmneKode() {
+        return emneKode;
+    }
+
+    public void setEmneKode(String emneKode) {
+        this.emneKode = emneKode;
+    }
+
+    public String getEmneNavn() {
+        return emneNavn;
+    }
+
+    public void setEmneNavn(String emneNavn) {
+        this.emneNavn = emneNavn;
+    }
+
+    public Ovingsopplegg getOvinger() {
+        return ovinger;
+    }
+
+    public void setOvinger(Ovingsopplegg ovinger) {
+        this.ovinger = ovinger;
+    }
 }

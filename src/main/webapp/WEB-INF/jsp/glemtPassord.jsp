@@ -16,18 +16,17 @@
 <body>
 <div class="container">
 
-    <form class="form-signin" role="form">
-        <h2 class="form-signin-heading" id="header">Logg inn</h2>
-        <input type="text" class="form-control" placeholder="Email" required autofocus>
-        <input type="password" class="form-control" placeholder="Passord" required>
-        <label class="checkbox">
-            <input type="checkbox" value="husk"> Husk email
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Logg inn</button>
-        <a href="glemtPassord.htm">Glemt Passord</a>
+    <form class="form-signin" role="form" action="glemtPassord">
+        <div class="form-group">
+            <h2 class="form-signin-heading" id="header">Glemt Passord</h2>
+            <input type="text" class="form-control" placeholder="Email" required autofocus>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Send Passord</button>
+        <a href="<c:url value="login.htm"/>">
+            Tilbake
+        </a>
     </form>
-
-
 </div>
 
 <script src="<c:url value="/resources/js/jquery-1.10.2.js"/>"></script>
