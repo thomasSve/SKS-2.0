@@ -163,7 +163,21 @@ public class Bruker {
         }
         return dobbelKrypt;
     }
-
+    /**
+     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
+     *
+     * @param Gammelt PW, nytt PW & bekreft nytt PW
+     * @return Boolean, passordet endret eller ikkje
+     * @author vimCnett
+     *
+     */
+    public boolean endrePassord(String gPassord, String nPassord, String bPassord){
+        if((gPassord.equals(this.passord))&&(nPassord.equals(bPassord))){
+            setPassord(nPassord);
+            return true;
+        }
+        return false;
+    }
     /**
      * Tar inn en string fra brukeren og krypterer passordet.
      *
