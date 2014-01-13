@@ -18,10 +18,8 @@ public class LoginKontroller {
     @RequestMapping(value="$_POST[]")
     private String loggerInn(@Valid @ModelAttribute Bruker bruker){
         DatabaseConnector db = new DatabaseConnector();
-        db.
-        if(){
-            return "login.htm";
-        }
+
+
 
         return "/";
     }
