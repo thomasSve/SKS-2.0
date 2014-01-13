@@ -18,9 +18,8 @@
     </form:form>
 
 
-
     <!--    KAN GJØRES FANCY MED LIVE UPDATE MED SØKETREFF!
-    <datalist id="treff">
+    <datalist id="treffHittil">
         <option value="ingen"></option>
     </datalist>
     -->
@@ -36,45 +35,52 @@
         </tr>
         </thead>
 
-        <tbody>
+        <form:form action="fjernStudent" method="post" modelAttribute="personerBeans">
 
-        <tr>
-            <td>Olve Andr?</td>
-            <td>B?rmark</td>
-            <td>oabormar@stud.hist.no</td>
-            <td>
-                <div class="btn btn-group">
-                    <button type="remove" class="btn btn-danger" data-task="remove" title="Fjern"
-                            onclick="fjernBruker()"><i class="glyphicon glyphicon-remove"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
+            <tbody>
+            <tr>
+                <td>Olve Andr?</td>
+                <td>B?rmark</td>
+                <td>oabormar@stud.hist.no</td>
+                <td>
+                    <div class="btn btn-group">
+                        <button type="submit" name="37" class="btn btn-danger" data-task="remove" title="Fjern"><i
+                                class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
 
-        <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
-        <tr>
-            <td><c:out value="${bruker.fornavn}"/></td>
-            <td><c:out value="${bruker.etternavn}"/></td>
-            <td><c:out value="${bruker.mail}"/></td>
-            <td><button type="remove" id="${status.index}" class="btn btn-danger" data-task="remove" title="Fjern"
-                        onclick="fjernBruker()"><i class="glyphicon glyphicon-remove"></i>
-            </button></td>
-        </tr>
-        </c:forEach>
+            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                <tr>
+                    <td><c:out value="${bruker.fornavn}"/></td>
+                    <td><c:out value="${bruker.etternavn}"/></td>
+                    <td><c:out value="${bruker.mail}"/></td>
+                    <td>
+                        <input type="submit" class="btn btn-danger" data-task="remove"
+                                title="Fjern" name=${status.index}"><i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
 
-        </tbody>
+            </tbody>
+        </form:form>
     </table>
 
 
-    <select class="form-control" id="opValg" onchange="bestemOperasjon()">
-        <option value="studass">Gj?r til studentassistent</option>
-        <option value="leggInnFag">Legg til nytt fag</option>
-        <option value="fjernFag">Fjern fag</option>
-    </select>
+    <form:form action="bekreftelse" method="post" modelAttribute="personerBeans">
+        <select class="form-control" id="opValg">
+            <option value="studass">Gjør til studentassistent</option>
+            <option value="leggInnFag">Legg til nytt fag</option>
+            <option value="fjernFag">Fjern fag</option>
+        </select>
 
-    <select id="fagValg" class="form-control">
-        <option value="fag1">Fag1</option>
-        <option value="fag2">Fag2</option>
-        <option value="fag3">Fag3</option>
-    </select>
+        <select id="fagValg" class="form-control">
+            <option value="fag1">Fag1</option>
+            <option value="fag2">Fag2</option>
+            <option value="fag3">Fag3</option>
+        </select>
+        <input type="submit" value="Lagre">
+    </form:form>
 </div>

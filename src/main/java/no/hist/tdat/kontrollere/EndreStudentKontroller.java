@@ -18,15 +18,44 @@ import no.hist.tdat.javabeans.Bruker;
 public class EndreStudentKontroller {
 
     @RequestMapping(value="leggTilStudentListe")
-    public String leggTilListe(Model model, HttpServletRequest request){
+    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request){
 
+        if (personerBeans.getValgt() == null || personerBeans.getValgt().size() == 0) {
+            personerBeans = new PersonerBeans();
+        }
         String soketekst = request.getParameter("soketekst");
-        PersonerBeans personerBeans = new PersonerBeans();
-
         Bruker valgtBruker = personerBeans.finnStudent(soketekst);
 
-        model.addAttribute("personerBeans", valgtBruker);
+        personerBeans.leggTil(valgtBruker);
+        model.addAttribute("personerBeans", personerBeans);
 
         return "endreStudent";
     }
+
+    @RequestMapping(value="fjernStudent")
+    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request) {
+        int radNr = -1;
+        for (Integer i = 0; i < personerBeans.getValgt().size(); i++) {
+            String knappNrVar = request.getParameter(i.toString());
+            if (knappNrVar != null && !knappNrVar.equals("")) {
+                radNr = Integer.parseInt(knappNrVar);
+                break;
+            }
+        }
+        personerBeans.fjernStudent(radNr);
+        model.addAttribute("personerBeans", personerBeans);
+
+        return "endreStudent";
+    }
+
+    @RequestMapping(value="bekreftelse")
+    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request){
+
+
+
+        String opersasjon = request.getParameter("soketekst");
+        //TODO
+        return "endreStudent";
+    }
+
 }

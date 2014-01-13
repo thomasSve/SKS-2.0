@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class PersonerBeans {
     //ArrayList<Bruker> alle = null;    unødvendig og ressurskrevende?
     ArrayList<Bruker> valgt;
+    ArrayList<Emner> fellesEmner;
 
     @Qualifier("databaseConnector")
     @Autowired
@@ -34,11 +35,45 @@ public class PersonerBeans {
         valgt = brukere;
     }
 
+    public void leggTil(Bruker b) {
+        getValgt().add(b);
+    }
+
     public Bruker finnStudent(String sok) {
         Bruker b = databaseConnector.finnStudent(sok);
         if (b != null) {
             valgt.add(b);
         }
         return b;
+    }
+
+    public void fjernStudent(int nr) {
+        if (valgt.size() > 0 && nr != -1) {
+            valgt.remove(nr);
+        }
+    }
+
+    public ArrayList<Emner> getFellesEmner() {
+        ArrayList<Emner> emner = valgt.get(0).getEmner();
+        ArrayList<Emner> felles = new ArrayList<Emner>();
+
+        for (int i = 0; i <emner.size(); i++) { //går gjennom alle emner til 1. pers
+            String emneKode = emner.get(i).getEmneKode();
+
+            for (int j = 1; j < valgt.size(); j++) {    //går gjennom alle personer
+                Bruker b = valgt.get(j);
+                ArrayList<Emner> denneEmner = b.getEmner();
+
+                for (int k = 0; k < denneEmner.size(); k++) {
+                    Emner e = denneEmner.get(k);
+                    String denneKode = e.getEmneKode();
+
+                    if (emneKode.equals(denneKode)) {
+                        felles.add(e);
+                    }
+                }
+            }
+        }
+        return felles;
     }
 }

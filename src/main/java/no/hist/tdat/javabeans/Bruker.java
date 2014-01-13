@@ -134,7 +134,6 @@ public class Bruker {
         int min = 0;
         int max = RANDOM_TEGN.length();
         return random.nextInt((max - min) + 1) + min;
-
     }
 
     /**
@@ -209,10 +208,6 @@ public class Bruker {
             kryptertPassord += part4;
         }
         return krypterPassord2(kryptertPassord);
-    }
-
-    public void endreBruker(String t) {
-        databaseConnector.finnBruker(t);
     }
 }
 
