@@ -7,7 +7,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <title><tiles:insertAttribute name="title" ignore="true"/></title>
-    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/css/sb-admin.css"/>" rel="stylesheet">
 </head>
 <body>
