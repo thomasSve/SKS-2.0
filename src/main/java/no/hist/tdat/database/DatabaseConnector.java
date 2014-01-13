@@ -59,4 +59,7 @@ public class DatabaseConnector {
             return false;
         }
     }
+
+    String query = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass)"
+            +"VALUES (?,?,?,?,?)";
 }
