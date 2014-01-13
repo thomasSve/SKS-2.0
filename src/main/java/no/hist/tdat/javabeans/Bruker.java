@@ -3,6 +3,7 @@ package no.hist.tdat.javabeans;
 import no.hist.tdat.database.DatabaseConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Random;
  * NB!!! Mangler variabel for øvinger som er gjort
  */
 
+@Component
 public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
@@ -209,5 +211,9 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
+    public void leggTilBruker(){
+        databaseConnector.leggTilBruker(this);
+    }
+
 }
 
