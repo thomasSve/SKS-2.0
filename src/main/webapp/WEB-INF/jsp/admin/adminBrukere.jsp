@@ -2,8 +2,8 @@
 
 <div class="col-md-8">
     <h2>Administrer brukere</h2>
-
-    <form class="søkbar" role="search">
+    <%--Søkefunksjon etter brukere--%>
+    <form class="søkbar" role="search" action="search" method="POST">
         <div class="input-group">
 
             <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
@@ -53,7 +53,8 @@
     </div>
 
 
-    <form:form method="POST" modelAttribute="leggTilBruker" action="adminBrukere.htm">
+    <%--Legg til bruker funkjson--%>
+    <form:form method="POST" modelAttribute="bruker" action="leggTilBruker.htm">
         <h2>
             <div id="operasjonstekst">
                 Legg til bruker
@@ -91,8 +92,8 @@
         </div>
 
         <div class="form-group">
-            <label for="rettigheter">Rettigheter</label>
-            <form:select id="rettigheter" class="form-control" path="rettighet">
+            <label for="rettighet">Rettigheter</label>
+            <form:select id="rettighet" class="form-control" path="rettighet">
                 <form:option value="0"><i>Ingen valgt</i></form:option>
                 <form:option value="1">Admin</form:option>
                 <form:option value="2">Foreleser</form:option>
@@ -103,6 +104,7 @@
         </input>
     </form:form>
     <br>
+
 
     <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
         <div id="leggTilFilText">
