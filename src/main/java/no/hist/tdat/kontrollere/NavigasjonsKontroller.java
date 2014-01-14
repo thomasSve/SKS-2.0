@@ -1,15 +1,8 @@
 package no.hist.tdat.kontrollere;
 
-<<<<<<< HEAD
+
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.stereotype.Controller;
-=======
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
->>>>>>> ece1ed746dbaf98e8160deb1b3aa5831a8147448
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -77,11 +70,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/login.htm")
-<<<<<<< HEAD
     public String loggInn(@ModelAttribute("bruker") Bruker bruker){
-=======
-    public String loggInn() {
->>>>>>> ece1ed746dbaf98e8160deb1b3aa5831a8147448
         return "loggInn";
     }
 
