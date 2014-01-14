@@ -1,6 +1,9 @@
 package no.hist.tdat.kontrollere;
 
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import no.hist.tdat.javabeans.*;
@@ -12,54 +15,77 @@ public class NavigasjonsKontroller {
     public String omdirigerHjem() {
         return "index";
     }
+
     @RequestMapping("/endrePassord.htm")
-    public String omdirigerEndrePassord() {
+    public String omdirigerEndrePassord(@ModelAttribute("bruker") Bruker bruker) {
         return "endrePassord";
     }
+    @RequestMapping("/sendNyttPassord.htm")
+    public String glemtPassord(@ModelAttribute("bruker") Bruker bruker) {
+        /*if(bruker.getGammeltPassord().equals(bruker.getPassord())){
+
+        }*/
+        return "glemtPassord";
+    }
+
     @RequestMapping("/adminBrukere.htm")
     public String omdirigerAdminBrukere() {
         return "adminBrukere";
+    }
+    @RequestMapping("/godkjennOving.htm")
+    public String omdirigerGodkjenn() {
+        return "godkjennOving";
     }
     @RequestMapping("/adminFag.htm")
     public String omdirigerAdminFag() {
         return "adminFag";
     }
+
     @RequestMapping("/glemtPassord.htm")
     public String glemtPassord() {
         return "glemtPassord";
     }
+
     @RequestMapping("/koOversikt.htm")
     public String koOversikt() {
         return "koOversikt";
     }
+
     @RequestMapping("/error.htm")
-    public String omdirigerError(){
+    public String omdirigerError() {
         return "error";
     }
+
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(){
+    public String omdirigerTilKo() {
         return "settIKo";
     }
+
     @RequestMapping("/endreStudent.htm")
-    public String omdirEndreStudent(){
+    public String omdirEndreStudent() {
         return "endreStudent";
     }
+
     @RequestMapping("/minside.htm")
     public String omdirigerMinside() {
         return "minside";
     }
+
     @RequestMapping("/login.htm")
-    public String loggInn(){
+    public String loggInn() {
         return "loggInn";
     }
+
     @RequestMapping("/ovingsOpplegg.htm")
-    public String ovingsOpplegg(){
+    public String ovingsOpplegg() {
         return "ovingsOpplegg";
     }
+
     @RequestMapping("/*")
     public String direct404() {
         return "error";
     }
+
     @RequestMapping("/nyStudent.htm")
     public String nyStudent(@ModelAttribute("nyStudent") Bruker stud) {
         return "nyStudent";
