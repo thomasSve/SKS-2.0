@@ -3,14 +3,13 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
-=======
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
->>>>>>> 916072b1280c011167218e4d385b68ddb72568a9
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,31 +32,12 @@ public class DatabaseConnector {
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
 
-    private DataSource dataKilde;
+    private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
 
-    public DatabaseConnector () {
-        dataKilde = getDataSource();
-    }
+    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
 
-    /**
-     * Oppretter en tilkobling til databasen
-     * @return
-     */
-    private DriverManagerDataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sks");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        return dataSource;
-
-    }
-
-/*
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
-
-*/
 
     /**
      * Legger til en bruker i databasen
@@ -160,7 +140,21 @@ public class DatabaseConnector {
 
     }
 
-    String query = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass)"
-            + "VALUES (?,?,?,?,?)";
-}
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som er lik søkeordet.
+     *
+     * @param soeketekst Søkeord etter studenter
+     * @return objekt av Bruker, eller null om den ikke finnes
+     */
+    public Bruker finnStudent(String soeketekst) {
 
+        if (soeketekst == null) {
+            return null;
+        }
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
+
+        return brukerList.get(0);
+    }
+}

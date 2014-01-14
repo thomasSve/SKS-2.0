@@ -1,9 +1,15 @@
 package no.hist.tdat.javabeans;
 
+
 import no.hist.tdat.database.DatabaseConnector;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -145,7 +151,6 @@ public class Bruker {
         int min = 0;
         int max = RANDOM_TEGN.length();
         return random.nextInt((max - min) + 1) + min;
-
     }
 
     /**
