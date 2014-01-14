@@ -1,16 +1,17 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.database.DatabaseConnector;
+import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emner;
 import no.hist.tdat.javabeans.PersonerBeans;
-import no.hist.tdat.koe.Koe;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import no.hist.tdat.javabeans.Bruker;
 
 /**
  * Created by Roger Foss
@@ -18,17 +19,22 @@ import no.hist.tdat.javabeans.Bruker;
 @Controller
 public class EndreStudentKontroller {
 
+    @Autowired
+    BrukerService service;
+
     @RequestMapping(value="leggTilStudentListe")
     public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request){
 
-        if (personerBeans.getValgt() == null || personerBeans.getValgt().size() == 0) {
-            personerBeans = new PersonerBeans();
-        }
         String soketekst = request.getParameter("soketekst");
-        Bruker valgtBruker = personerBeans.finnStudent(soketekst);
+        Bruker valgtBruker = service.hentBruker(soketekst);
+
+        System.out.println("nr: "+personerBeans.getValgt().size());
+
 
         personerBeans.leggTil(valgtBruker);
         model.addAttribute("personerBeans", personerBeans);
+
+        System.out.println("nr: "+personerBeans.getValgt().size());
 
         return "endreStudent";
     }
@@ -43,8 +49,6 @@ public class EndreStudentKontroller {
                 break;
             }
         }
-
-        System.out.println(radNr);
 
         personerBeans.fjernStudent(radNr);
         model.addAttribute("personerBeans", personerBeans);

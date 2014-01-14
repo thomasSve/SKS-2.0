@@ -93,7 +93,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer());
+        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {

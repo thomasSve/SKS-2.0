@@ -32,7 +32,7 @@ public class NavigasjonsKontroller {
     public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
         modell.addAttribute("bruker", bruker);
         if(bruker.getMail()!=null){
-            bruker.leggTilBruker();
+            //bruker.leggTilBruker();
         }
         return "adminBrukere";
     }
