@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Klassen tester klassen PassordService
@@ -12,30 +13,36 @@ import static org.junit.Assert.assertEquals;
  * @author vimCnett
  */
 public class PassordServiceTest {
-    private final String helloWorld         = "Hello, World!";
-    private final String helloWorldCrypt    = "0aakoQaKnxamneam0UarTBawWiagfYam";
-
-    private final String hello              = "hello";
-    private final String helloCrypt         = "taa0oQaKnxamneam0Uartaa0oQaKnxam";
-
-
-    private final String helloWorld1 = "Hello, World!";
+    private final String[] hellos = {
+            "Hello, World",
+            "hello",
+            "Hello",
+            "hello, world"
+    };
+    private final String[] hash = {
+            "0aakoQaKnxamneam0UarTBawWiagfYam",
+            "taa0oQaKnxamneam0Uartaa0oQaKnxam",
+            "0aakoQaKnxamneam0Uar0aakoQaKnxam",
+            "taa0oQaKnxamneam0UarTBawWiagjYae"
+    };
 
     @Test
-    public void testRandomIndex() throws Exception {
-        int index = PassordService.randomIndex();
-        System.out.println(index);
-        assertEquals(true, (index > 1 && index < 62));
+    public void testRandomIndex(){
+        for (int i = 0; i < 10000; i++) {
+            int index = PassordService.randomIndex();
+                assertEquals(true, (index >= 0 && index <= 62));
+        }
     }
 
     @Test
     public void testKrypterPassord() throws Exception {
-        String str = PassordService.krypterPassord(hello);
-        System.out.println(str);
+        for (int i = 0; i < hellos.length; i++) {
+            assertEquals(hash[i], PassordService.krypterPassord(hellos[i]));
+        }
     }
 
     @Test
     public void testGenererPassord() throws Exception {
-
+        assertTrue((PassordService.genererPassord().length() == 6));
     }
 }
