@@ -104,18 +104,41 @@
     </form>
     <br>
 
-    <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
+
+    <form method="POST" modelAttribute="lesInnFil" action="leggTilFil.html" id="lesInnFil">
         <div id="leggTilFilText">
             <h2> Legg til flere brukere via fil </h2>
         </div>
-        <input type="file" id="minFil">
-        <output id="filInfo"></output>
+
+        <input type="text" id="text" path="text"/>
+
+        <input type="file" id="files" name="files[]" multiple />
+        <output id="list"></output>
+
         <script>
-            document.getElementById('minFil').addEventListener('change',
-                    handleFileSelect, false);
+            function handleFileSelect(evt) {
+                var files = evt.target.files; // FileList object
+                var leser = new FileReader;
+                var text = document.getElementById('text');
+
+                // files is a FileList of File objects. List some properties.
+                var output = [];
+                for (var i = 0, f; f = files[i]; i++) {
+                    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                            f.size, ' bytes, last modified: ',
+                            f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a','</li>');
+
+                }
+                leser.readAsText(files);
+                document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+            }
+            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
         </script>
         <br>
         <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
+        <input type="submit" value="send">
     </form>
 
     <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"

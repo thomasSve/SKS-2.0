@@ -1,7 +1,6 @@
 package no.hist.tdat.javabeans;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,6 +9,7 @@ import java.util.Random;
  */
 
 public class Bruker {
+    public static final int STUDENT_RETTIGHET = 1;
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     private String mail;
