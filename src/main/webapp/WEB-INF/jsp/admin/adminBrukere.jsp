@@ -1,7 +1,9 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <div class="col-md-8">
     <h2>Administrer brukere</h2>
-
-    <form class="søkbar" role="search">
+    <%--Søkefunksjon etter brukere--%>
+    <form class="søkbar" role="search" action="search" method="POST">
         <div class="input-group">
 
             <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
@@ -51,7 +53,8 @@
     </div>
 
 
-    <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
+    <%--Legg til bruker funkjson--%>
+    <form:form method="POST" modelAttribute="bruker" action="leggTilBruker.htm">
         <h2>
             <div id="operasjonstekst">
                 Legg til bruker
@@ -60,49 +63,48 @@
         <div class="form-group">
             <label for="fornavn">Fornavn</label>
 
-            <input path="fornavn" id="fornavn" class="form-control"/>
+            <form:input path="fornavn" id="fornavn" class="form-control"/>
 
-            <errors path="fornavn"/>
+            <form:errors path="fornavn"/>
         </div>
         <div class="form-group">
             <label for="etternavn">Etternavn:</label>
 
-            <input id="etternavn" path="etternavn" class="form-control"/>
+            <form:input id="etternavn" path="etternavn" class="form-control"/>
 
-            <errors path="etternavn"/>
+            <form:errors path="etternavn"/>
         </div>
 
 
         <div class="form-group">
-            <label for="epost">Epost</label>
+            <label for="mail">Epost</label>
 
-            <input id="epost" path="epost" class="form-control"/>
+            <form:input id="mail" path="mail" class="form-control"/>
 
-            <errors path="epost"/>
+            <form:errors path="mail"/>
         </div>
         <div class="form-group">
             <label>Passord:</label>
 
-            <input path="passord" class="form-control"/>
+            <form:password path="passord" class="form-control"/>
 
-            <errors path="passord"/>
+            <form:errors path="passord"/>
         </div>
 
         <div class="form-group">
-            <label for="rettigheter">Rettigheter</label>
-            <select id="rettigheter" class="form-control">
-                <option value="ingen"><i>Ingen valgt</i></option>
-                <option value="admin">Admin</option>
-                <option value="lærer">L&aeligrer</option>
-                <option value="studentassistent">Studentassistent</option>
-                <option value="student">Student</option>
-            </select>
+            <label for="rettighet">Rettigheter</label>
+            <form:select id="rettighet" class="form-control" path="rettighet">
+                <form:option value="0"><i>Ingen valgt</i></form:option>
+                <form:option value="1">Admin</form:option>
+                <form:option value="2">Foreleser</form:option>
+                <form:option value="3">Student</form:option>
+            </form:select>
         </div>
-        <button type="button" class="btn btn-primary btn-block">
-            <div id="leggtilknapp">Legg til</div>
-        </button>
-    </form>
+        <input type="submit" class="btn btn-primary btn-block">
+        </input>
+    </form:form>
     <br>
+
 
     <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
         <div id="leggTilFilText">
@@ -129,7 +131,7 @@
                 <div class="modal-body">
                     <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
                         <div class="form-group">
-                            <label for="endrefornavn">Fornavn</label>
+                            <label for="endretfornavn">Fornavn</label>
 
                             <input path="endrefornavn" id="endretfornavn" class="form-control"/>
 

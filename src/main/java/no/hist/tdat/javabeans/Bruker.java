@@ -1,16 +1,11 @@
 package no.hist.tdat.javabeans;
 
 import no.hist.tdat.database.DatabaseConnector;
-import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -50,6 +45,16 @@ public class Bruker {
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.passord = genererPassord();
+        this.aktiv = 1;
+        emner = new ArrayList<Emner>();
+    }
+
+    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
+        this.mail = mail;
+        this.rettighet = rettighet;
+        this.fornavn = fornavn;
+        this.etternavn = etternavn;
+        setPassord(passord);
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
     }
@@ -256,7 +261,5 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
-
-
 }
 
