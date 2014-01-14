@@ -20,8 +20,8 @@ import java.util.List;
  * @author VimCnett
  */
 
-@Component("dataKilde")
-public class DatabaseConnector {
+@Component
+    public class DatabaseConnector {
     private static final String QUERY_ERROR = "FEIL I SPØRRING";
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
@@ -127,13 +127,17 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(loggInnBrukerSQL, new BrukerKoordinerer(), bruker.getMail(), bruker.getPassord());
         ArrayList<Bruker> res = new ArrayList<>();
-
+//        System.out.println("************************ LIST LENGTH: "+brukerList.size());
         for (Bruker brukerInfo : brukerList) {
+//            System.out.println("***********************************INNE I løkka ");
             res.add(brukerInfo);
         }
+//        System.out.println("***********************************ETTER løkka ");
         if(res.size() >0){
+//            System.out.println("***********************************IF STATEENT");
             return res.get(0);
         }
+//        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
 
@@ -148,7 +152,6 @@ public class DatabaseConnector {
             return false;
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         int num = con.update(slettBrukerSQL);
-
         return num > 0;
 
     }

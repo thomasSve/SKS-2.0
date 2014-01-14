@@ -13,7 +13,7 @@
         <tr>
             <td>1</td>
             <td>12345</td>
-            <td>Mattematik</td>
+            <td>Mattematikk</td>
             <td>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</td>  <td>?</td>
         </tr>
         <tr>

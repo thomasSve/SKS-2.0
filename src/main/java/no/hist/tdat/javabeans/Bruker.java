@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,7 @@ import java.util.Random;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
-
-@Component
+@Scope("session")
 public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
@@ -35,9 +36,7 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
-    @Qualifier("databaseConnector")
-    @Autowired
-    DatabaseConnector databaseConnector;
+    private DatabaseConnector databaseConnector;
 
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
@@ -133,7 +132,7 @@ public class Bruker {
      * @see "The Java Programming Language"
      */
     public Bruker loggInn(){
-
+        databaseConnector = new DatabaseConnector();
         return databaseConnector.loggInn(this);
     }
 
