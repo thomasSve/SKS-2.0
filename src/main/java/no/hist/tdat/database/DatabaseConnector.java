@@ -4,7 +4,7 @@ import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author VimCnett
  */
-@Component
+@Service
 public class DatabaseConnector {
     private static final String QUERY_ERROR = "FEIL I SPØRRING";
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
@@ -30,8 +30,6 @@ public class DatabaseConnector {
 
     @Autowired
     DataSource dataKilde; //Felles datakilde for alle spørringer.
-
-    public  DatabaseConnector(){}
 
     public void leggTilBruker(Bruker bruker) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -93,7 +91,7 @@ public class DatabaseConnector {
      * @param bruker brukerobjekt med kun mail og passord
      * @return nytt brukerobjekt med all brukerinformasjon
      */
-    public Bruker loggInn(Bruker bruker){
+    public Bruker loggInn(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -103,7 +101,7 @@ public class DatabaseConnector {
         for (Bruker brukerInfo : brukerList) {
             res.add(brukerInfo);
         }
-        if(res.size() == 1){
+        if (res.size() == 1) {
             return res.get(0);
         }
         return null;
@@ -126,6 +124,6 @@ public class DatabaseConnector {
     }
 
     String query = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass)"
-            +"VALUES (?,?,?,?,?)";
+            + "VALUES (?,?,?,?,?)";
 }
 

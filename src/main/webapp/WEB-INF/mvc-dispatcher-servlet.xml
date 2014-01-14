@@ -26,9 +26,6 @@
         <property name="password" value=""/>
     </bean>
 
-    <bean id="databaseConnector" class="no.hist.tdat.database.DatabaseConnector">
-
-    </bean>
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
 
