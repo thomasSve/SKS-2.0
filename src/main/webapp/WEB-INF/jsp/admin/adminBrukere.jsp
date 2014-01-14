@@ -1,5 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="col-md-8">
     <ul class="nav nav-tabs nav-justified">
@@ -11,7 +11,7 @@
         <div class="tab-pane fade in active" id="endre">
             <h2>Administrer brukere</h2>
             <%--Søkefunksjon etter brukere--%>
-            <form class="søkbar" role="search" action="search" method="POST">
+            <form:form class="søkbar" role="search"  modelAttribute="personerBeans" action="search.htm" method="POST">
                 <div class="input-group">
 
                     <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
@@ -22,45 +22,45 @@
                     </div>
 
                 </div>
-            </form>
-            <div class="span5">
-                <table class="table table-hover" id="minTable">
-                    <thead>
-                    <tr>
-                        <th class="header">Fornavn</th>
-                        <th class="header">Etternavn</th>
-                        <th class="header">Epost</th>
-                        <th class="header">Rettighet</th>
-                        <th class="header">Opprettet</th>
-                        <th class="header">Status</th>
-                        <th class="header"></th>
-                    </tr>
-                    </thead>
+                <div class="span5">
+                    <table class="table table-hover" id="minTable">
+                        <thead>
+                        <tr>
+                            <th class="header">Fornavn</th>
+                            <th class="header">Etternavn</th>
+                            <th class="header">Epost</th>
+                            <th class="header">Status</th>
+                            <th class="header"></th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                    <tr>
-                        <td>Olve</td>
-                        <td>Børmark</td>
-                        <td>oabormar@stud.hist.no</td>
-                        <td>Student</td>
-                        <td>2012/08/16</td>
-                        <td><span class="btn btn-success btn-sm active">Aktiv</span></td>
-                        <td>
-                            <div class="input-group-btn">
-                                <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#endrebrukerModal" title="Endre">
-                                    <i class="glyphicon glyphicon-edit"></i></button>
-                                <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
-                                        onclick="slettBruker()" id="removeknapp"><i
-                                        class="glyphicon glyphicon-remove"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                            <tr>
+                                <td><c:out value="${bruker.fornavn}"/></td>
+                                <td><c:out value="${bruker.etternavn}"/></td>
+                                <td><c:out value="${bruker.mail}"/></td>
+                                <td><c:if test="${bruker.aktiv == 1}"><span class="btn btn-success btn-sm active">Aktiv</span>
+                                    </c:if></td>
+                                <td>
+                                    <div class="input-group-btn">
+                                        <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#endrebrukerModal" title="Endre">
+                                            <i class="glyphicon glyphicon-edit"></i></button>
+                                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                                onclick="slettBruker()" id="removeknapp"><i
+                                                class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
+            </form:form>
         </div>
         <div class="tab-pane fade" id="leggTilEnkelBruker">
 
@@ -95,6 +95,7 @@
 
                     <form:errors path="mail"/>
                 </div>
+                <form:hidden id="aktiv" path="aktiv" value="1" class="form-control"/>
 
 
                 <div class="form-group">
@@ -106,7 +107,7 @@
 
                     </form:select>
                 </div>
-                <input type="submit" class="btn btn-primary btn-block"/>
+                <input type="submit" id="leggtil" value="Legg til" class="btn btn-primary btn-block"/>
 
             </form:form>
         </div>

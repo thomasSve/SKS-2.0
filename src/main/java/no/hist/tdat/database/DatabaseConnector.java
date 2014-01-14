@@ -86,8 +86,10 @@ public class DatabaseConnector {
         if (soeketekst == null) {
             return null;
         }
+        String input = "%";
+        input += soeketekst+"%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
+        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), input, input, input);
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {
