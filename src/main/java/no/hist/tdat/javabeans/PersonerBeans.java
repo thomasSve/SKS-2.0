@@ -12,19 +12,13 @@ import java.util.ArrayList;
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
-@Component
 public class PersonerBeans {
 
     ArrayList<Bruker> valgt;
     ArrayList<Emner> fellesEmner;
 
-    @Qualifier("databaseConnector")
-    @Autowired
-    DatabaseConnector databaseConnector;
-
     public PersonerBeans() {
         valgt = null;
-        databaseConnector = new DatabaseConnector();
     }
 
     public ArrayList<Emner> getFellesEmner() {
@@ -40,16 +34,17 @@ public class PersonerBeans {
     }
 
     public void leggTil(Bruker b) {
-        getValgt().add(b);
+        valgt.add(b);
         fellesEmner = finnFellesEmner();
     }
 
     public Bruker finnStudent(String sok) {
-        Bruker b = databaseConnector.finnStudent(sok);
-        if (b != null) {
-            valgt.add(b);
-        }
-        return b;
+//        Bruker b = databaseConnector.finnBruker(sok);
+//        if (b != null) {
+//            valgt.add(b);
+//        }
+//        return b;
+        return null; //TODO fix this
     }
 
     public void fjernStudent(int nr) {
