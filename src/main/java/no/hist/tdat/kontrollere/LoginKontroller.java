@@ -33,6 +33,7 @@ public class LoginKontroller {
             return "loggInn";
         }
         session.setAttribute("innloggetBruker", bruker);
+        session.invalidate();
         System.out.println("på slutten: "+bruker.getPassord()+"navn: "+bruker.getMail());
         return "minside";
     }

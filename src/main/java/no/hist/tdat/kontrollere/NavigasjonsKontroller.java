@@ -96,4 +96,11 @@ public class NavigasjonsKontroller {
         return "nyStudent";
     }
 
+    @RequestMapping("/loggUt.htm")
+    public String loggUt(HttpSession session) {
+        session.invalidate();
+        System.out.println("utlogget");
+        return "/";
+    }
+
 }

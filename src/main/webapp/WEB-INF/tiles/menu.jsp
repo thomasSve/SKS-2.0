@@ -23,7 +23,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="minside.htm" >Minside</a></li>
                     <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
-                    <li><a href=""><i class="fa fa-power-off"></i> Logg ut</a></li>
+                    <li><a href="loggUt.htm"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>
