@@ -1,119 +1,133 @@
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 
 <div class="col-md-8">
-    <h2>Administrer brukere</h2>
-    <%--Søkefunksjon etter brukere--%>
-    <form class="søkbar" role="search" action="search" method="POST">
-        <div class="input-group">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a href="#endre" data-toggle="tab">Adm. brukere</a></li>
+        <li><a href="#leggTilEnkelBruker" data-toggle="tab">Legg til bruker</a></li>
+        <li><a href="#brukereViaFil" data-toggle="tab">Legg til via fil</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="endre">
+            <h2>Administrer brukere</h2>
+            <%--Søkefunksjon etter brukere--%>
+            <form class="søkbar" role="search" action="search" method="POST">
+                <div class="input-group">
 
-            <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
+                    <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
 
-            <div class="input-group-btn">
-                <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
-
-        </div>
-    </form>
-    <div class="span5">
-        <table class="table table-hover" id="minTable">
-            <thead>
-            <tr>
-                <th class="header">Fornavn</th>
-                <th class="header">Etternavn</th>
-                <th class="header">Epost</th>
-                <th class="header">Rettighet</th>
-                <th class="header">Opprettet</th>
-                <th class="header">Status</th>
-                <th class="header"></th>
-            </tr>
-            </thead>
-
-            <tbody>
-
-            <tr>
-                <td>Olve</td>
-                <td>Børmark</td>
-                <td>oabormar@stud.hist.no</td>
-                <td>Student</td>
-                <td>2012/08/16</td>
-                <td><span class="btn btn-success btn-sm active">Aktiv</span></td>
-                <td>
                     <div class="input-group-btn">
-                        <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                data-target="#endrebrukerModal" title="Endre">
-                            <i class="glyphicon glyphicon-edit"></i></button>
-                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
-                                onclick="slettBruker()" id="removeknapp"><i class="glyphicon glyphicon-remove"></i>
+                        <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>
                         </button>
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
+                </div>
+            </form>
+            <div class="span5">
+                <table class="table table-hover" id="minTable">
+                    <thead>
+                    <tr>
+                        <th class="header">Fornavn</th>
+                        <th class="header">Etternavn</th>
+                        <th class="header">Epost</th>
+                        <th class="header">Rettighet</th>
+                        <th class="header">Opprettet</th>
+                        <th class="header">Status</th>
+                        <th class="header"></th>
+                    </tr>
+                    </thead>
 
-    <%--Legg til bruker funkjson--%>
-    <form:form method="POST" modelAttribute="bruker" action="leggTilBruker.htm">
-        <h2>
-            <div id="operasjonstekst">
-                Legg til bruker
+                    <tbody>
+
+                    <tr>
+                        <td>Olve</td>
+                        <td>Børmark</td>
+                        <td>oabormar@stud.hist.no</td>
+                        <td>Student</td>
+                        <td>2012/08/16</td>
+                        <td><span class="btn btn-success btn-sm active">Aktiv</span></td>
+                        <td>
+                            <div class="input-group-btn">
+                                <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                        data-target="#endrebrukerModal" title="Endre">
+                                    <i class="glyphicon glyphicon-edit"></i></button>
+                                <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                        onclick="slettBruker()" id="removeknapp"><i
+                                        class="glyphicon glyphicon-remove"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </h2>
-        <div class="form-group">
-            <label for="fornavn">Fornavn</label>
-
-            <form:input path="fornavn" id="fornavn" class="form-control"/>
-
-            <form:errors path="fornavn"/>
         </div>
-        <div class="form-group">
-            <label for="etternavn">Etternavn:</label>
+        <div class="tab-pane fade" id="leggTilEnkelBruker">
 
-            <form:input id="etternavn" path="etternavn" class="form-control"/>
+            <%--Legg til bruker funkjson--%>
+            <form:form method="POST" modelAttribute="bruker" action="leggTilBruker.htm">
+                <h2>
+                    <div id="operasjonstekst">
+                        Legg til bruker
+                    </div>
+                </h2>
+                <div class="form-group">
+                    <label for="fornavn">Fornavn</label>
 
-            <form:errors path="etternavn"/>
+                    <form:input path="fornavn" id="fornavn" class="form-control"/>
+
+                    <form:errors path="fornavn"/>
+                </div>
+                <div class="form-group">
+                    <label for="etternavn">Etternavn:</label>
+
+                    <form:input id="etternavn" path="etternavn" class="form-control"/>
+
+                    <form:errors path="etternavn"/>
+                    <form:hidden id="passord" path="passord" value="" class="form-control"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="mail">Epost</label>
+
+                    <form:input id="mail" path="mail" class="form-control"/>
+
+                    <form:errors path="mail"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="rettighet">Rettigheter</label>
+                    <form:select id="rettighet" class="form-control" path="rettighet">
+                        <form:option value="3">Student</form:option>
+                        <form:option value="2">Lærer</form:option>
+                        <form:option value="1">Admin</form:option>
+
+                    </form:select>
+                </div>
+                <input type="submit" class="btn btn-primary btn-block"/>
+
+            </form:form>
         </div>
 
+        <div class="tab-pane fade" id="brukereViaFil">
 
-        <div class="form-group">
-            <label for="mail">Epost</label>
-
-            <form:input id="mail" path="mail" class="form-control"/>
-
-            <form:errors path="mail"/>
+            <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
+                <div id="leggTilFilText">
+                    <h2> Legg til flere brukere via fil </h2>
+                </div>
+                <input type="file" id="minFil">
+                <output id="filInfo"></output>
+                <script>
+                    document.getElementById('minFil').addEventListener('change',
+                            handleFileSelect, false);
+                </script>
+                <br>
+                <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
+            </form>
         </div>
-
-
-        <div class="form-group">
-            <label for="rettighet">Rettigheter</label>
-            <form:select id="rettighet" class="form-control" path="rettighet">
-                <form:option value="3">Student</form:option>
-                <form:option value="2">Lærer</form:option>
-                <form:option value="1">Admin</form:option>
-
-            </form:select>
-        </div>
-        <input type="submit" class="btn btn-primary btn-block">
-        </input>
-    </form:form>
-    <br>
-
-
-    <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
-        <div id="leggTilFilText">
-            <h2> Legg til flere brukere via fil </h2>
-        </div>
-        <input type="file" id="minFil">
-        <output id="filInfo"></output>
-        <script>
-            document.getElementById('minFil').addEventListener('change',
-                    handleFileSelect, false);
-        </script>
-        <br>
-        <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
-    </form>
-
+    </div>
     <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -139,13 +153,13 @@
                             <errors path="etternavn"/>
                         </div>
 
-                            <div class="form-group">
-                                <label for="endreepost">Epost</label>
+                        <div class="form-group">
+                            <label for="endreepost">Epost</label>
 
-                                <input id="endreepost" path="mail" class="form-control"/>
+                            <input id="endreepost" path="mail" class="form-control"/>
 
-                                <errors path="mail"/>
-                            </div>
+                            <errors path="mail"/>
+                        </div>
 
                         <div class="form-group">
                             <label for="endrerettigheter">Rettigheter</label>

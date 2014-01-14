@@ -31,15 +31,7 @@ public class Bruker {
     private String fornavn;
     @NotBlank
     private String etternavn;
-    @NotBlank
     private String passord;
-    @NotBlank
-    private String gammeltPassord;
-    @NotBlank
-    private String bekreftPassord;
-    @NotBlank
-    private String nyttPassord;
-
     private int aktiv;
     private ArrayList<Emner> emner;
 
@@ -120,7 +112,11 @@ public class Bruker {
      * @param passord
      */
     public void setPassord(String passord) {
-        this.passord = krypterPassord(passord);
+        if(passord==null || passord.equals("")){
+            this.passord= krypterPassord(genererPassord());
+        }else{
+            this.passord = krypterPassord(passord);
+        }
     }
 
 
@@ -201,31 +197,6 @@ public class Bruker {
         }
         return false;
     }
-
-    public String getBekreftPassord() {
-        return bekreftPassord;
-    }
-
-    public void setBekreftPassord(String bekreftPassord) {
-        this.bekreftPassord = bekreftPassord;
-    }
-
-    public String getGammeltPassord() {
-        return gammeltPassord;
-    }
-
-    public void setGammeltPassord(String gammeltPassord) {
-        this.gammeltPassord = gammeltPassord;
-    }
-
-    public String getNyttPassord() {
-        return nyttPassord;
-    }
-
-    public void setNyttPassord(String nyttPassord) {
-        this.nyttPassord = nyttPassord;
-    }
-
 
     /**
      * Tar inn en string fra brukeren og krypterer passordet.

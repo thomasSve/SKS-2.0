@@ -17,9 +17,16 @@ public class LeggTilBrukerKontroller {
     @Autowired
     BrukerService service;
 
+    /**
+     * Kontroller for å legge til bruker i databasen
+     * @param bruker
+     * @param result
+     * @return adminBrukere sin side, med feilmeldinger om
+     */
     @RequestMapping("/leggTilBruker.htm")
     public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
         if(result.hasErrors()){
+            System.out.println("Binding result feil");
             return "adminBrukere";
         }else{
             if(service.leggTilBruker(bruker)){
