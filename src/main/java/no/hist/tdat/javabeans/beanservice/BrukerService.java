@@ -20,8 +20,8 @@ public class BrukerService {
      * @see
      *
      */
-    public void leggTilBruker(Bruker bruker) {
-        databaseConnector.leggTilBruker(bruker);
+    public boolean leggTilBruker(Bruker bruker) {
+        return databaseConnector.leggTilBruker(bruker);
     }
 
     /**
@@ -45,5 +45,25 @@ public class BrukerService {
         ArrayList<Bruker> brukere = databaseConnector.finnBruker(email);
         return brukere.get(0);
     }
+
+    /**
+     * Henter en liste med mulige bruker
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Bruker> finnBruker(String input){
+        return databaseConnector.finnBruker(input);
+    }
+
+    /**
+     * Sletter en spesifikk bruker
+     * @param bruker brukerens objekt
+     * @return true om bruker ble slettet, ellers false
+     */
+    public boolean slettBruker (Bruker bruker){
+        return databaseConnector.slettBruker(bruker.getMail());
+    }
+
+
 
 }

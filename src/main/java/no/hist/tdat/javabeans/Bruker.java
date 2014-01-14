@@ -4,13 +4,22 @@ package no.hist.tdat.javabeans;
 import no.hist.tdat.database.DatabaseConnector;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.hibernate.validator.constraints.NotBlank;
+import org.omg.DynamicAny._DynAnyFactoryStub;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,18 +28,15 @@ import java.util.Random;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
+@Scope("session")
 public class Bruker {
     @NotBlank
+    @Email
     private String mail;
     private Integer rettighet;
     private String fornavn;
     private String etternavn;
-    @NotBlank
     private String passord;
-    private String gammeltPassord;
-    private String bekreftPassord;
-    private String nyttPassord;
-
     private int aktiv;
     private ArrayList<Emner> emner;
 
@@ -52,16 +58,7 @@ public class Bruker {
         this.passord = PassordService.genererPassord();
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
-    }
 
-    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
-        this.mail = mail;
-        this.rettighet = rettighet;
-        this.fornavn = fornavn;
-        this.etternavn = etternavn;
-        setPassord(passord);
-        this.aktiv = 1;
-        emner = new ArrayList<Emner>();
     }
 
     public Bruker() {
@@ -84,7 +81,7 @@ public class Bruker {
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mail = mail.toLowerCase();
     }
 
     public Integer getRettighet() {
@@ -115,13 +112,18 @@ public class Bruker {
         return passord;
     }
 
+
     /**
      * Bruker hjelpemetoden krypterPassord til å sette passord til bruker
      *
      * @param passord
      */
     public void setPassord(String passord) {
-        this.passord = PassordService.krypterPassord(passord);
+        if(passord==null || passord.equals("")){
+            this.passord= PassordService.krypterPassord(PassordService.genererPassord());
+        }else{
+            this.passord = PassordService.krypterPassord(passord);
+        }
     }
 
 
@@ -141,13 +143,9 @@ public class Bruker {
         this.emner = emner;
     }
 
-
-
     public void addEmne() {
         //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
     }
-
-
 
     /**
      * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
@@ -163,32 +161,5 @@ public class Bruker {
         }
         return false;
     }
-
-    public String getBekreftPassord() {
-        return bekreftPassord;
-    }
-
-    public void setBekreftPassord(String bekreftPassord) {
-        this.bekreftPassord = bekreftPassord;
-    }
-
-    public String getGammeltPassord() {
-        return gammeltPassord;
-    }
-
-    public void setGammeltPassord(String gammeltPassord) {
-        this.gammeltPassord = gammeltPassord;
-    }
-
-    public String getNyttPassord() {
-        return nyttPassord;
-    }
-
-    public void setNyttPassord(String nyttPassord) {
-        this.nyttPassord = nyttPassord;
-    }
-
-
-
 }
 

@@ -1,14 +1,24 @@
 package no.hist.tdat.kontrollere;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.PassordBeans;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import no.hist.tdat.javabeans.*;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class NavigasjonsKontroller {
+    @Autowired
+    private Bruker innloggetBruker;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -16,7 +26,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/endrePassord.htm")
-    public String omdirigerEndrePassord(@ModelAttribute("bruker") Bruker bruker) {
+    public String omdirigerEndrePassord(@ModelAttribute(value = "passord") PassordBeans passord) {
         return "endrePassord";
     }
 
@@ -32,7 +42,7 @@ public class NavigasjonsKontroller {
     public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
         modell.addAttribute("bruker", bruker);
         if(bruker.getMail()!=null){
-           // bruker.leggTilBruker();
+            //TODO add bruker
         }
         return "adminBrukere";
     }
@@ -50,11 +60,6 @@ public class NavigasjonsKontroller {
     @RequestMapping("/adminFag.htm")
     public String omdirigerAdminFag() {
         return "adminFag";
-    }
-
-    @RequestMapping("/glemtPassord.htm")
-    public String glemtPassord() {
-        return "glemtPassord";
     }
 
     @RequestMapping("/koOversikt.htm")
@@ -78,13 +83,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/minside.htm")
-    public String omdirigerMinside() {
+    public String omdirigerMinside(HttpSession session) {
         return "minside";
-    }
-
-    @RequestMapping("/login.htm")
-    public String loggInn(@ModelAttribute("bruker") Bruker bruker){
-        return "loggInn";
     }
 
     @RequestMapping("/ovingsOpplegg.htm")
@@ -100,6 +100,13 @@ public class NavigasjonsKontroller {
     @RequestMapping("/nyStudent.htm")
     public String nyStudent(@ModelAttribute("nyStudent") Bruker stud) {
         return "nyStudent";
+    }
+
+    @RequestMapping("/loggUt.htm")
+    public String loggUt(HttpSession session) {
+        session.invalidate();
+        System.out.println("utlogget");
+        return "/";
     }
 
 }
