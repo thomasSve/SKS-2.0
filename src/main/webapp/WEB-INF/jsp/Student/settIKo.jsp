@@ -15,13 +15,9 @@
                 <option value="labben">13</option>
             </select>
         </div>
+
         <div class="form-group">
-            <label for="ovingnr">Øving:</label>
-            <select class="form-control" name="Øving" id="ovingnr" path="ovingsnr">
-                <option value="labben">1</option>
-            </select>
-        </div>
-        <div class="form-group">
+            <label for="ovingnr">Oving:</label>
             <select multiple="true" class="form-control" path="flereOvinger">
                 <%-- MÅ VÆRE EN FOR-LØKKE SOM GÅR GJENNOM ALLE ØVINGER FOR HVERT ENKELT FAG--%>
                 <option value="Oving1">Oving1</option>
@@ -48,7 +44,7 @@
             <label for="grupper">Gruppe?</label>
             <select id="grupper" class="form-control">
                 <option>Hvem er du i gruppe med?</option>
-                
+
             </select>
         </div>
         <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i kø</button>
