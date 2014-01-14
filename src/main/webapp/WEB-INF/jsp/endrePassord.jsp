@@ -11,11 +11,11 @@
 
 <div class="col-md-4">
 
-    <form:form method="POST" modelattribute="bruker" action="endrePassord.htm">
+    <form:form method="POST" modelattribute="passord" action="skiftPassord.htm" commandName="passord">
         <h2 class="form-header">Endre Passord</h2>
         <div class="form-group">
             <label for="gammeltPassord">N&aring;værende Passord</label>
-            <form:password cssClass="form-control" id="gammeltPassord" placeholder="Gammelt passord" path="gammeltPassord"
+            <form:password class="form-control" id="gammeltPassord" placeholder="Gammelt passord" path="gammeltPassord"
                            autofocus="true"/>
             <form:errors path="gammeltPassord"/>
 
@@ -23,13 +23,13 @@
 
         <div class="form-group">
             <label for="nyttPassord">Nytt Passord</label>
-            <form:password cssClass="form-control" id="nyttPassord" placeholder="Nytt passord" path="nyttPassord"/>
-            <form:password cssClass="form-control" id="bNyttPassord" placeholder="Bekreft passord" path="bekreftPassord"/>
+            <form:password class="form-control" id="nyttPassord" placeholder="Nytt passord" path="nyttPassord"/>
+            <form:password class="form-control" id="bNyttPassord" placeholder="Bekreft passord" path="bekreftPassord"/>
             <form:errors path="bekreftPassord"/>
 
         </div>
 
-        <input class="btn btn-md btn-primary btn-block" type="submit" value="Endre passords">
+        <input class="btn btn-md btn-primary btn-block" type="submit" value="Endre passord">
     </form:form>
 </div>
 <script src="<c:url value="/resources/js/endrePassord.js"/>"></script>

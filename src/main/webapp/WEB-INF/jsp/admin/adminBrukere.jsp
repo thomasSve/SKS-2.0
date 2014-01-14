@@ -131,7 +131,7 @@
                         <div class="form-group">
                             <label for="endrefornavn">Fornavn</label>
 
-                            <input path="endrefornavn" id="endretfornavn" class="form-control"/>
+                            <input path="endrefornavn" id="endrefornavn" class="form-control"/>
 
                             <errors path="fornavn"/>
                         </div>
