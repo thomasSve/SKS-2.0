@@ -13,13 +13,24 @@
 
     <bean id="tilesViewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-          p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView" />
+          p:viewClass="org.springframework.web.servlet.view.tiles2.TilesView"/>
 
     <bean id="tilesConfigurer"
           class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-          p:definitions="/WEB-INF/tiles.xml" />
+          p:definitions="/WEB-INF/tiles.xml"/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <bean id="dataKilde" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/sks"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="message"/>
+    </bean>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
 
 </beans>

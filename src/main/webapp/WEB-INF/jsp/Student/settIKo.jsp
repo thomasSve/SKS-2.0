@@ -1,6 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="col-md-4">
-    <h1>Sett deg i kø </h1>
+    <h1>Sett deg i k&oslash; </h1>
 
     <form action="regKoe" modelAttribute="koeBruker" method="post" role="form">
         <div class="form-group">
@@ -15,7 +15,6 @@
                 <option value="labben">13</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="ovingnr">Oving:</label>
             <select multiple="true" class="form-control" path="flereOvinger">
@@ -31,8 +30,6 @@
                 <option value="Oving3">Oving3</option>
             </select>
         </div>
-
-
         <div class="form-group">
             <label for="beskrivelse">Beskrivelse</label>
             <input class="form-control" type="text" id="beskrivelse" path="beskrivelse">
@@ -47,6 +44,6 @@
 
             </select>
         </div>
-        <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i kø</button>
+        <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i k&oslash;</button>
     </form>
 </div>

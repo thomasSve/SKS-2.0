@@ -40,6 +40,9 @@
           <element id="library" level="project" name="Maven: org.apache.tiles:tiles-request-api:1.0.3" />
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.7.5" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.28" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.1.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.1.4.RELEASE" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="sks/web/Web" />

@@ -111,7 +111,7 @@ INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VAL
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('km@mail.com' , 1, 'Ketta', 'Mykkelgjerd', 'xxx',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('eo@mail.com' , 1, 'Eirik', 'Øvstedal', 'xxx',0);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('grethe@mail.com' , 2, 'Grethe', 'Sandstrak', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('anette@mail.com' , 3, 'Anette', 'Wrålsen', 'xxx',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('anette@mail.com' , 3, 'Anette', 'Wrlsen', 'xxx',1);
 
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2002-A', 'Matematikk 2');

@@ -1,5 +1,5 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE HTML>
@@ -17,18 +17,17 @@
 <body>
 <div class="container">
 
-    <form:form action="loggerinn.SSL" method="POST"  modelAttribute="bruker" class="form-signin">
-        <h2 class="form-signin-heading" id="header">Logg inn</h2>
-        <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email"/>
-        <form:input type="password" class="form-control" path="passord" placeholder="Passord" id="passordInput"/>
-        <!--<label class="checkbox">
-            <input type="checkbox" value="husk"> Husk email
-        </label> -->
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Logg inn"/>
-        <a href="glemtPassord.htm">Glemt Passord</a>
+    <form:form class="form-signin" role="form" action="/sendNyttPassord.htm">
+        <div class="form-group">
+            <h2 class="form-signin-heading" id="header">Glemt Passord</h2>
+            <form:input type="text" path="" class="form-control" placeholder="Email" required="true" autofocus="true"/>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Send Passord</button>
     </form:form>
-
-
+    <a href="login.htm">
+        Tilbake
+    </a>
 </div>
 
 <script src="<c:url value="/resources/js/jquery-1.10.2.js"/>"></script>
