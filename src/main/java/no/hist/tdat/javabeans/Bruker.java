@@ -41,6 +41,7 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
+    @Autowired
     private DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
@@ -52,6 +53,7 @@ public class Bruker {
         this.aktiv = aktiv;
         emner = new ArrayList<Emner>();
     }
+
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn) {
         this.mail = mail;
@@ -209,6 +211,8 @@ public class Bruker {
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
      *
      * @param gPassord passord, nytt PW & bekreft nytt PW
@@ -224,6 +228,7 @@ public class Bruker {
     }
 
     /**
+>>>>>>> 6d3ee4fb9c71726ba06cf15e5e0484817c2b1637
      * Tar inn en string fra brukeren og krypterer passordet.
      *
      * @param pw passord skrevet inn av bruker
