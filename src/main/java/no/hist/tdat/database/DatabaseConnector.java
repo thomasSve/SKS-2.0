@@ -2,6 +2,7 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,7 +55,7 @@ public class DatabaseConnector {
                 bruker.getRettighet(),
                 bruker.getFornavn(),
                 bruker.getEtternavn(),
-                bruker.genererPassord(),
+                PassordService.genererPassord(),
                 bruker.getRettighet());
         return true;
     }
@@ -76,7 +77,7 @@ public class DatabaseConnector {
                     bruker.getRettighet(),
                     bruker.getFornavn(),
                     bruker.getEtternavn(),
-                    bruker.genererPassord(),
+                    PassordService.genererPassord(),
                     ACTIVE);
             return true;
         }
