@@ -23,6 +23,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="sks" />
+        <module name="SKS2.0" />
       </profile>
     </annotationProcessing>
   </component>

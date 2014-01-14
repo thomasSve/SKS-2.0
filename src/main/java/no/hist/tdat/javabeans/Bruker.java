@@ -27,6 +27,10 @@ public class Bruker {
     private String etternavn;
     @NotBlank
     private String passord;
+    private String gammeltPassord;
+    private String bekreftPassord;
+    private String nyttPassord;
+
     private int aktiv;
     private ArrayList<Emner> emner;
 
@@ -174,6 +178,46 @@ public class Bruker {
         }
         return dobbelKrypt;
     }
+
+    /**
+     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
+     *
+     * @param gPassord passord, nytt PW & bekreft nytt PW
+     * @return Boolean, passordet endret eller ikkje
+     * @author vimCnett
+     */
+    public boolean endrePassord(String gPassord, String nPassord, String bPassord) {
+        if ((gPassord.equals(this.passord)) && (nPassord.equals(bPassord))) {
+            setPassord(nPassord);
+            return true;
+        }
+        return false;
+    }
+
+    public String getBekreftPassord() {
+        return bekreftPassord;
+    }
+
+    public void setBekreftPassord(String bekreftPassord) {
+        this.bekreftPassord = bekreftPassord;
+    }
+
+    public String getGammeltPassord() {
+        return gammeltPassord;
+    }
+
+    public void setGammeltPassord(String gammeltPassord) {
+        this.gammeltPassord = gammeltPassord;
+    }
+
+    public String getNyttPassord() {
+        return nyttPassord;
+    }
+
+    public void setNyttPassord(String nyttPassord) {
+        this.nyttPassord = nyttPassord;
+    }
+
 
     /**
      * Tar inn en string fra brukeren og krypterer passordet.

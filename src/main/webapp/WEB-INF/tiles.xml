@@ -59,7 +59,10 @@
         <put-attribute name="title"  value="Min Side"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
     </definition>
-
+    <definition name="godkjennOving" extends="baseLayout">
+        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjennOving.jsp"/>
+    </definition>
     <definition name="nyStudent" extends="baseLayout">
         <put-attribute name="title"  value="Registrer ny student"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/nyStudent.jsp"/>
