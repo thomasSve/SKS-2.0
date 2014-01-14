@@ -83,21 +83,15 @@
 
             <form:errors path="mail"/>
         </div>
-        <div class="form-group">
-            <label>Passord:</label>
 
-            <form:password path="passord" class="form-control"/>
-
-            <form:errors path="passord"/>
-        </div>
 
         <div class="form-group">
             <label for="rettighet">Rettigheter</label>
             <form:select id="rettighet" class="form-control" path="rettighet">
-                <form:option value="0"><i>Ingen valgt</i></form:option>
-                <form:option value="1">Admin</form:option>
-                <form:option value="2">Foreleser</form:option>
                 <form:option value="3">Student</form:option>
+                <form:option value="2">Lærer</form:option>
+                <form:option value="1">Admin</form:option>
+
             </form:select>
         </div>
         <input type="submit" class="btn btn-primary btn-block">
@@ -145,22 +139,13 @@
                             <errors path="etternavn"/>
                         </div>
 
-                        <fieldset disabled>
                             <div class="form-group">
                                 <label for="endreepost">Epost</label>
 
-                                <input id="endreepost" path="epost" class="form-control"/>
+                                <input id="endreepost" path="mail" class="form-control"/>
 
-                                <errors path="epost"/>
+                                <errors path="mail"/>
                             </div>
-                            <div class="form-group">
-                                <label>Passord:</label>
-
-                                <input path="passord" class="form-control"/>
-
-                                <errors path="passord"/>
-                            </div>
-                        </fieldset>
 
                         <div class="form-group">
                             <label for="endrerettigheter">Rettigheter</label>

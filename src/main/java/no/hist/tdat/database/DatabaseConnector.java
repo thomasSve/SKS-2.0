@@ -4,12 +4,8 @@ import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
-=======
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
->>>>>>> 916072b1280c011167218e4d385b68ddb72568a9
+
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -33,31 +29,11 @@ public class DatabaseConnector {
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
 
-    private DataSource dataKilde;
 
-    public DatabaseConnector () {
-        dataKilde = getDataSource();
-    }
-
-    /**
-     * Oppretter en tilkobling til databasen
-     * @return
-     */
-    private DriverManagerDataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sks");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        return dataSource;
-
-    }
-
-/*
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
-*/
+
 
     /**
      * Legger til en bruker i databasen
@@ -74,8 +50,8 @@ public class DatabaseConnector {
                 bruker.getRettighet(),
                 bruker.getFornavn(),
                 bruker.getEtternavn(),
-                bruker.genererPassord(),
-                bruker.getRettighet());
+                bruker.getPassord(),
+                bruker.getAktiv());
         return true;
     }
 

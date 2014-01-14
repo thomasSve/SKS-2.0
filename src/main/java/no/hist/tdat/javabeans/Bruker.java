@@ -1,7 +1,9 @@
 package no.hist.tdat.javabeans;
 
 import no.hist.tdat.database.DatabaseConnector;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -16,14 +18,20 @@ public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     @NotBlank
+    @Email
     private String mail;
     private Integer rettighet;
+    @NotBlank
     private String fornavn;
+    @NotBlank
     private String etternavn;
     @NotBlank
     private String passord;
+    @NotBlank
     private String gammeltPassord;
+    @NotBlank
     private String bekreftPassord;
+    @NotBlank
     private String nyttPassord;
 
     private int aktiv;
@@ -49,16 +57,6 @@ public class Bruker {
         emner = new ArrayList<Emner>();
     }
 
-    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
-        this.mail = mail;
-        this.rettighet = rettighet;
-        this.fornavn = fornavn;
-        this.etternavn = etternavn;
-        setPassord(passord);
-        this.aktiv = 1;
-        emner = new ArrayList<Emner>();
-    }
-
     public Bruker() {
 
     }
@@ -79,7 +77,7 @@ public class Bruker {
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mail = mail.toLowerCase();
     }
 
     public Integer getRettighet() {
