@@ -3,13 +3,9 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
-import javax.naming.Context;
-import javax.naming.InitialContext;
+
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +27,7 @@ public class DatabaseConnector {
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
-
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
-
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
 
     @Autowired
@@ -54,8 +48,8 @@ public class DatabaseConnector {
                 bruker.getRettighet(),
                 bruker.getFornavn(),
                 bruker.getEtternavn(),
-                bruker.genererPassord(),
-                bruker.getRettighet());
+                bruker.getPassord(),
+                bruker.getAktiv());
         return true;
     }
 

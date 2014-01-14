@@ -3,7 +3,6 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,15 +25,6 @@ public class NavigasjonsKontroller {
 
         }*/
         return "glemtPassord";
-    }
-
-    @RequestMapping("/leggTilBruker.htm")
-    public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
-        modell.addAttribute("bruker", bruker);
-        if(bruker.getMail()!=null){
-            bruker.leggTilBruker();
-        }
-        return "adminBrukere";
     }
 
     @RequestMapping("/adminBrukere.htm")
