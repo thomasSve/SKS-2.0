@@ -1,8 +1,14 @@
 package no.hist.tdat.javabeans;
 
+
 import no.hist.tdat.database.DatabaseConnector;
 import org.hibernate.validator.constraints.NotBlank;
 import org.omg.DynamicAny._DynAnyFactoryStub;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -27,17 +32,18 @@ public class Bruker {
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     @NotBlank
+    @Email
     private String mail;
     private Integer rettighet;
-    private String fornavn;
-    private String etternavn;
     @NotBlank
+    private String fornavn;
+    @NotBlank
+    private String etternavn;
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
 
     private DatabaseConnector databaseConnector;
-
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -60,17 +66,8 @@ public class Bruker {
 
     }
 
-    public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, String passord) {
-        this.mail = mail;
-        this.rettighet = rettighet;
-        this.fornavn = fornavn;
-        this.etternavn = etternavn;
-        this.passord = passord;
-        this.aktiv = 1;
-        emner = new ArrayList<Emner>();
-    }
-
     public Bruker() {
+
     }
 
     /**
@@ -93,7 +90,7 @@ public class Bruker {
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mail = mail.toLowerCase();
     }
 
     public Integer getRettighet() {
@@ -142,7 +139,11 @@ public class Bruker {
      * @param passord
      */
     public void setPassord(String passord) {
-        this.passord = krypterPassord(passord);
+        if(passord==null || passord.equals("")){
+            this.passord= krypterPassord(genererPassord());
+        }else{
+            this.passord = krypterPassord(passord);
+        }
     }
 
 
@@ -171,7 +172,6 @@ public class Bruker {
         int min = 0;
         int max = RANDOM_TEGN.length();
         return random.nextInt((max - min) + 1) + min;
-
     }
 
     /**
@@ -208,6 +208,21 @@ public class Bruker {
             dobbelKrypt += krypt1.charAt(index);
         }
         return dobbelKrypt;
+    }
+
+    /**
+     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
+     *
+     * @param gPassord passord, nytt PW & bekreft nytt PW
+     * @return Boolean, passordet endret eller ikkje
+     * @author vimCnett
+     */
+    public boolean endrePassord(String gPassord, String nPassord, String bPassord) {
+        if ((gPassord.equals(this.passord)) && (nPassord.equals(bPassord))) {
+            setPassord(nPassord);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -248,14 +263,11 @@ public class Bruker {
         return krypterPassord2(kryptertPassord);
     }
 
-
-
     public boolean leggTilBruker(){
         System.out.println(getMail()+ getRettighet()+ getFornavn()+ getEtternavn()+ getPassord()+ getAktiv());
         DatabaseConnector dc = new DatabaseConnector();
        return dc.leggTilBruker(this);
     }
-
 
 }
 

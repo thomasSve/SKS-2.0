@@ -34,10 +34,7 @@
             <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
 
 
-
-            <li class="navbar-text">Administrator</li>
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
-            <li class="navbar-text">Fagl&oelig;rer</li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
             <li><a href="adminFag.htm">Administrer fag</a></li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
@@ -48,10 +45,6 @@
                     <li><a href="nyStudent.htm">Ny student</a></li>
                     <li><a href="endreStudent.htm">Endre student</a></li>
                 </ul>
-            </li>
-
-            <li class="navbar-text">Student</li>
-            <hr class="nav-divider">
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>

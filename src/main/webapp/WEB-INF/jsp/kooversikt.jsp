@@ -14,7 +14,7 @@
             K&oslash; for (Emne)
         </div>
     </h3>
-        <a href="<c:url value="settIKo.htm"/>">
+        <a href="settIKo.htm">
             <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
         </a>
     <button class="btn btn-sm btn-success" onclick="statusKoe()" id="koStatus" value="stopp">Start Køen</button>
@@ -32,26 +32,27 @@
 
 
         <tbody>
-
-        <tr>
-            <td>1:20</td>
-            <td>B&oslash;rmark, Olve André</td>
-            <td>1, 2, 3</td>
-            <td>Labben, Bord 13</td>
-            <td>
-                <div class="btn-group">
-                    <button type="choose" class="btn btn-primary" data-task="choose" title="Velg"
-                            onclick="endreBruker()"><i class="glyphicon glyphicon-edit"></i>
-                    </button>
-                    <button type="edit" class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
-                            onclick="endreBruker()"><i class="glyphicon glyphicon-edit"></i>
-                    </button>
-                    <button type="remove" class="btn btn-danger" data-task="remove" title="Fjern"
-                            onclick="slettBruker()"><i class="glyphicon glyphicon-remove"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
+        <%--<c:forEach var="gruppe" items="$">--%>
+            <tr>
+                <td>1:20</td>
+                <td>B&oslash;rmark, Olve André</td>
+                <td>1, 2, 3</td>
+                <td>Labben, Bord 13</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" data-task="choose" title="Velg"
+                                onclick="location.href='godkjennOving.htm'"><i class="glyphicon glyphicon-edit"></i>
+                        </button>
+                        <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
+                                onclick="endreBruker()"><i class="glyphicon glyphicon-edit"></i>
+                        </button>
+                        <button class="btn btn-danger" data-task="remove" title="Fjern"
+                                onclick="slettBruker()"><i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        <%--</c:forEach>--%>
         </tbody>
     </table>
 </div>

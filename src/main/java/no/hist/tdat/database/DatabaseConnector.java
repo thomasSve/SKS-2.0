@@ -20,8 +20,8 @@ import java.util.List;
  * @author VimCnett
  */
 
-@Component
-    public class DatabaseConnector {
+@Service
+public class DatabaseConnector {
     private static final String QUERY_ERROR = "FEIL I SPØRRING";
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
@@ -32,29 +32,19 @@ import java.util.List;
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
-
-
-    private DataSource dataKilde;
-
-    public DatabaseConnector () {
-        dataKilde = getDataSource();
-    }
-
-    private DriverManagerDataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/sks");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        return dataSource;
-    }
+    private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
+    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
 
 
 
+    @Autowired
+    private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
-
-
-
+    /**
+     * Legger til en bruker i databasen
+     * @param bruker
+     * @return true om den blir lagt til, ellers false
+     */
     public boolean leggTilBruker(Bruker bruker) {
         if(bruker == null){
             return false;
@@ -65,8 +55,8 @@ import java.util.List;
                 bruker.getRettighet(),
                 bruker.getFornavn(),
                 bruker.getEtternavn(),
-                bruker.genererPassord(),
-                bruker.getRettighet());
+                bruker.getPassord(),
+                bruker.getAktiv());
         return true;
     }
 
@@ -104,7 +94,8 @@ import java.util.List;
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst,soeketekst,soeketekst);
+        List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
+
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {
@@ -120,7 +111,7 @@ import java.util.List;
      * @return nytt brukerobjekt med all brukerinformasjon
      */
 
-    public Bruker loggInn(Bruker bruker){
+    public Bruker loggInn(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -135,6 +126,8 @@ import java.util.List;
 //        System.out.println("***********************************ETTER løkka ");
         if(res.size() >0){
 //            System.out.println("***********************************IF STATEENT");
+        }
+        if (res.size() == 1) {
             return res.get(0);
         }
 //        System.out.println("***********************************RETURN NULLZa ");
@@ -163,4 +156,24 @@ import java.util.List;
     public DataSource getDataKilde() {
         return dataKilde;
     }
+
+
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som er lik søkeordet.
+     *
+     * @param soeketekst Søkeord etter studenter
+     * @return objekt av Bruker, eller null om den ikke finnes
+     */
+    public Bruker finnStudent(String soeketekst) {
+
+        if (soeketekst == null) {
+            return null;
+        }
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
+
+        return brukerList.get(0);
+    }
 }
+
