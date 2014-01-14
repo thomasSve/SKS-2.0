@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 @Component
 public class PersonerBeans {
-    //ArrayList<Bruker> alle = null;    unødvendig og ressurskrevende?
+
     ArrayList<Bruker> valgt;
     ArrayList<Emner> fellesEmner;
 
@@ -27,6 +27,10 @@ public class PersonerBeans {
         databaseConnector = new DatabaseConnector();
     }
 
+    public ArrayList<Emner> getFellesEmner() {
+        return fellesEmner;
+    }
+
     public ArrayList<Bruker> getValgt() {
         return valgt;
     }
@@ -37,6 +41,7 @@ public class PersonerBeans {
 
     public void leggTil(Bruker b) {
         getValgt().add(b);
+        fellesEmner = finnFellesEmner();
     }
 
     public Bruker finnStudent(String sok) {
@@ -53,7 +58,11 @@ public class PersonerBeans {
         }
     }
 
-    public ArrayList<Emner> getFellesEmner() {
+
+    /**
+     * Finner felles fag for alle valgte elever
+     */
+    public ArrayList<Emner> finnFellesEmner() {
         ArrayList<Emner> emner = valgt.get(0).getEmner();
         ArrayList<Emner> felles = new ArrayList<Emner>();
 

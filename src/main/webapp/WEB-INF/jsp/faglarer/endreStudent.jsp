@@ -44,9 +44,9 @@
                 <td>oabormar@stud.hist.no</td>
                 <td>
                     <div class="btn btn-group">
-                        <button type="submit" name="37" class="btn btn-danger" data-task="remove" title="Fjern"><i
+                        <input type="submit" name="0" value="Slett" class="btn btn-danger" data-task="remove" title="Fjern"><i
                                 class="glyphicon glyphicon-remove"></i>
-                        </button>
+                        </input>
                     </div>
                 </td>
             </tr>
@@ -58,8 +58,8 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <input type="submit" class="btn btn-danger" data-task="remove"
-                                title="Fjern" name=${status.index}"><i class="glyphicon glyphicon-remove"></i>
-                        </button>
+                                title="Fjern" name="${status.index}"><i class="glyphicon glyphicon-remove"></i>
+                        </input>
                     </td>
                 </tr>
             </c:forEach>
@@ -70,17 +70,18 @@
 
 
     <form:form action="bekreftelse" method="post" modelAttribute="personerBeans">
-        <select class="form-control" id="opValg">
+        <select class="form-control" name="opValg">
             <option value="studass">Gjør til studentassistent</option>
             <option value="leggInnFag">Legg til nytt fag</option>
             <option value="fjernFag">Fjern fag</option>
         </select>
 
         <select id="fagValg" class="form-control">
-            <option value="fag1">Fag1</option>
-            <option value="fag2">Fag2</option>
-            <option value="fag3">Fag3</option>
+            <c:forEach var="i" items="${personerBeans.fellesEmner}">
+                <option value="<c:out value="${i}"/>"><c:out value="${i}"/></option>
+            </c:forEach>
         </select>
+
         <input type="submit" value="Lagre">
     </form:form>
 </div>

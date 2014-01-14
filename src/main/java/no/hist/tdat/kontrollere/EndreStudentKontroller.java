@@ -1,6 +1,7 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.database.DatabaseConnector;
+import no.hist.tdat.javabeans.Emner;
 import no.hist.tdat.javabeans.PersonerBeans;
 import no.hist.tdat.koe.Koe;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,9 @@ public class EndreStudentKontroller {
                 break;
             }
         }
+
+        System.out.println(radNr);
+
         personerBeans.fjernStudent(radNr);
         model.addAttribute("personerBeans", personerBeans);
 
@@ -49,11 +53,16 @@ public class EndreStudentKontroller {
     }
 
     @RequestMapping(value="bekreftelse")
-    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request){
+    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request) {
+        String opersasjon = request.getParameter("opValg");
+        ArrayList<Emner> fellesEmner;
+
+        if (!opersasjon.equals("leggInnFag")) {
+            fellesEmner = personerBeans.finnFellesEmner();
+        }
 
 
 
-        String opersasjon = request.getParameter("soketekst");
         //TODO
         return "endreStudent";
     }
