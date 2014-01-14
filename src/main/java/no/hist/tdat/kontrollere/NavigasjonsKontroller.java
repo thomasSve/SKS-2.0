@@ -81,11 +81,6 @@ public class NavigasjonsKontroller {
         return "minside";
     }
 
-    @RequestMapping("/login.htm")
-    public String loggInn(@ModelAttribute("bruker") Bruker bruker){
-        return "loggInn";
-    }
-
     @RequestMapping("/ovingsOpplegg.htm")
     public String ovingsOpplegg() {
         return "ovingsOpplegg";

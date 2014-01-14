@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -34,8 +36,6 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-
-
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -95,7 +95,6 @@ public class DatabaseConnector {
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
-
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {
@@ -111,7 +110,7 @@ public class DatabaseConnector {
      * @return nytt brukerobjekt med all brukerinformasjon
      */
 
-    public Bruker loggInn(Bruker bruker) {
+    public Bruker loggInn(Bruker bruker){
         if (bruker == null) {
             return null;
         }
@@ -126,20 +125,19 @@ public class DatabaseConnector {
 //        System.out.println("***********************************ETTER løkka ");
         if(res.size() >0){
 //            System.out.println("***********************************IF STATEENT");
-        }
-        if (res.size() == 1) {
             return res.get(0);
         }
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
 
-    /**
-     * Sletter bruker med gitt epost.
-     *
-     * @param epost eposten til den brukeren som skal slettes fra databasen
-     * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
-     */
+
+        /**
+         * Sletter bruker med gitt epost.
+         *
+         * @param epost eposten til den brukeren som skal slettes fra databasen
+         * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
+         */
     public boolean slettBruker(String epost) {
         if (epost == null)
             return false;
@@ -148,15 +146,6 @@ public class DatabaseConnector {
         return num > 0;
 
     }
-
-    public void setDataKilde(DataSource dataKilde) {
-        this.dataKilde = dataKilde;
-    }
-
-    public DataSource getDataKilde() {
-        return dataKilde;
-    }
-
 
     /**
      * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som er lik søkeordet.
@@ -176,4 +165,3 @@ public class DatabaseConnector {
         return brukerList.get(0);
     }
 }
-

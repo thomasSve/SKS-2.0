@@ -35,9 +35,7 @@ public class Bruker {
     @Email
     private String mail;
     private Integer rettighet;
-    @NotBlank
     private String fornavn;
-    @NotBlank
     private String etternavn;
     private String passord;
     private int aktiv;

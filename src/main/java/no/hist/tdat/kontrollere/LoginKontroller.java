@@ -24,27 +24,21 @@ public class LoginKontroller {
     @RequestMapping(value = "loggerinn.SSL", method= RequestMethod.POST)
     private String loggerInn(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result,HttpSession session) {
         if(result.hasErrors()){
+            System.out.println("en");
             return "loggInn";
         }
-        bruker=bruker.loggInn();
+        System.out.println(bruker.getPassord()+"navn: "+bruker.getMail());
+        bruker = service.loggInn(bruker);
         if(bruker==null){
             return "loggInn";
         }
-        Bruker brook = service.loggInn(bruker);
-        if(brook==null){
-            return "/login.htm";
-        }
         session.setAttribute("innloggetBruker", bruker);
+        System.out.println("på slutten: "+bruker.getPassord()+"navn: "+bruker.getMail());
         return "minside";
     }
 
     @RequestMapping("/login.htm")
     public String loggInn(@ModelAttribute("bruker") Bruker bruker){
         return "loggInn";
-    }
-
-    @RequestMapping("/")
-    public String omdirigerHjem() {
-        return "index";
     }
 }
