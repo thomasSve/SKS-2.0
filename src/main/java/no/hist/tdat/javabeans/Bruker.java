@@ -124,6 +124,10 @@ public class Bruker {
         }
     }
 
+    public void mapPassord(String passord){
+        this.passord = passord;
+    }
+
     public int getAktiv() {
         return aktiv;
     }
@@ -142,10 +146,6 @@ public class Bruker {
 
     public void addEmne() {
         //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
-    }
-
-    public boolean sammenliknPassord(String gammeltP) {
-        return true; //TODO add this shit
     }
 
     @Override

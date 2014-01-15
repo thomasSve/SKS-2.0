@@ -1,6 +1,7 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PassordBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
@@ -49,7 +50,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/koOversikt.htm")
-    public String koOversikt(@ModelAttribute Emne emne) {
+    public String koOversikt(@ModelAttribute DelEmne delEmne) {
         return "koOversikt";
     }
 

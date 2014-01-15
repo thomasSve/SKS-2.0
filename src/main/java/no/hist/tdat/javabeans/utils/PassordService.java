@@ -1,5 +1,7 @@
 package no.hist.tdat.javabeans.utils;
 
+import no.hist.tdat.javabeans.Bruker;
+
 import java.util.Random;
 
 /**
@@ -88,6 +90,18 @@ public class PassordService {
         for (int i = 0; i < 6; i++) {
             passord += RANDOM_TEGN.charAt(randomIndex());
         }
+        System.out.println(passord);
         return passord;
+    }
+
+    /**
+     *
+     * @param gammeltP
+     * @return
+     */
+    public static boolean sammenliknPassord(String gammeltP, Bruker bruker) {
+        System.out.println(bruker.getPassord());
+        System.out.println(PassordService.krypterPassord(gammeltP));
+        return (PassordService.krypterPassord(gammeltP)).equals(bruker.getPassord());
     }
 }

@@ -24,7 +24,7 @@
         <div class="form-group">
             <label for="nyttPassord">Nytt Passord</label>
             <form:password class="form-control" id="nyttPassord" placeholder="Nytt passord" path="nyttPassord"/>
-            <form:errors path="nyttPassord"></form:errors>
+            <form:errors path="nyttPassord"/>
             <form:password class="form-control" id="bNyttPassord" placeholder="Bekreft passord" path="bekreftPassord"/>
             <form:errors path="bekreftPassord"/>
 

@@ -18,13 +18,13 @@
     <a href="settIKo.htm">
         <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
     </a>
-    <c:if test="${Emner.isKoeAktiv}">
+    <c:if test="${delEmne.koe_status}">
         <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
 
         <input type="button" onclick="location.href='/startKoe.htm'" class="btn btn-sm btn-success" id="startKoe" value="Start Køen">
 
     </c:if>
-    <c:if test="${!Emner.isKoeAktiv}">
+    <c:if test="${!delEmne.koe_status}">
         <input type="button" onclick="location.href='/stoppKoe.htm'" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp Køen">
     </c:if>
 

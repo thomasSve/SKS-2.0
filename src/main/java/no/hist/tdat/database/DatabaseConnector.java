@@ -46,7 +46,6 @@ public class DatabaseConnector {
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
 
-
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
