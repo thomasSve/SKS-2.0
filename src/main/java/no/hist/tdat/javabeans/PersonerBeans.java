@@ -20,8 +20,6 @@ public class PersonerBeans {
     public void setIndex(Integer index) {
         this.index = index;
     }
-<<<<<<< HEAD
-
     /**
      @Qualifier("databaseConnector")
      @Autowired
@@ -35,10 +33,6 @@ public class PersonerBeans {
      */
     public ArrayList<Emne> getFellesEmne() {
         return fellesEmne;
-=======
-    public ArrayList<Emner> getFellesEmner() {
-        return fellesEmner;
->>>>>>> 03bd832c63e34e21b1dd46d256c4f6cdec786c02
     }
 
     public ArrayList<Bruker> getValgt() {
@@ -51,10 +45,7 @@ public class PersonerBeans {
 
     public void leggTil(Bruker b) {
         valgt.add(b);
-<<<<<<< HEAD
         //fellesEmne = finnFellesEmner();
-=======
->>>>>>> 03bd832c63e34e21b1dd46d256c4f6cdec786c02
     }
 
     /**
