@@ -61,6 +61,15 @@ public class Bruker {
         this.passord = PassordService.krypterPassord(passord);
     }
 
+    /**
+     * Konstruktør for glemtpassord.
+     * @param mail
+     */
+    public Bruker(String mail){
+        this.mail = mail;
+    }
+
+
     public String getMail() {
         return mail;
     }

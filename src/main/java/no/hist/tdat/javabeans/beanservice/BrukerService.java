@@ -72,6 +72,16 @@ public class BrukerService {
         return databaseConnector.endrePassord(mail, passord);
     }
 
+    /**
+     * Henter alle medstudenter i emnet du vil sette deg i kø i
+     * @param emnekode og mail
+     * @return ArrayList med brukerobjekter
+     */
+    public ArrayList<Bruker> getMedstudenter(String emnekode, String mail){
+        return databaseConnector.finnAlleDeltakere(emnekode, mail);
+
+    }
+
 
 
 }

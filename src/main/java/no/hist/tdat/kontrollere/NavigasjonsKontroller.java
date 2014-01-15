@@ -2,13 +2,17 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 
 @Controller
@@ -26,11 +30,8 @@ public class NavigasjonsKontroller {
         return "endrePassord";
     }
 
-    @RequestMapping("/sendNyttPassord.htm")
-    public String glemtPassord(@ModelAttribute("innloggetBruker") Bruker bruker) {
-        /*if(bruker.getGammeltPassord().equals(bruker.getPassord())){
-
-        }*/
+    @RequestMapping("/glemtPassord.htm")
+    public String glemtPassord(@ModelAttribute Bruker bruker) {
         return "glemtPassord";
     }
 
@@ -60,8 +61,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-
-    public String omdirigerTilKo(Model model) {
+    public String omdirigerTilKo(Model model){
         return "settIKo";
     }
 

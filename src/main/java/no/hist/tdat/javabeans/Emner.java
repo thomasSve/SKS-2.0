@@ -10,6 +10,7 @@ public class Emner {
     private String emneNavn;
     private ArrayList<Oving> studentovinger;
     private Ovingsopplegg ovingsregler;
+    private boolean koeAktiv;
 
     public Emner(String kode, String navn, Ovingsopplegg ovinger) {
         this.emneKode = kode;
@@ -43,4 +44,12 @@ public class Emner {
     public Ovingsopplegg getOvingsregler() {        return ovingsregler;    }
 
     public void setOvingsregler(Ovingsopplegg ovingsregler) {        this.ovingsregler = ovingsregler;    }
+
+    public boolean isKoeAktiv() {
+        return koeAktiv;
+    }
+
+    public void setKoeAktiv(boolean koeAktiv) {
+        this.koeAktiv = koeAktiv;
+    }
 }

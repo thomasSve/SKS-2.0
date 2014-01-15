@@ -1,7 +1,11 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.koe.Koe;
 import no.hist.tdat.koe.KoeBruker;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +27,8 @@ public class KoeKontroller {
 
     }*/
 
-   /* @RequestMapping(value="")
-    public String hvilketRom(@ModelAttribute("koeBruker") KoeBruker koeBruker){
 
 
-    }*/
 
 
 

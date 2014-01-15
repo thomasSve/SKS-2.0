@@ -33,7 +33,9 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-    private final String endrePassordSQL = "UPDATE PASSORD FROM brukere WHERE mail LIKE ? SET passord = ?";
+    private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
+    private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
+
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -213,8 +215,28 @@ public class DatabaseConnector {
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endrePassordSQL,
-                    mail,
-                    passord);
+                    passord,
+                    mail);
         return true;
+    }
+
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     *
+     * @param emnekode Hvilket emne man vil sette seg i kø i
+     * @return ArrayList med alle studenter i samme emne
+     */
+    public ArrayList<Bruker> finnAlleDeltakere(String emnekode, String mail) {
+        if (emnekode == null) {
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(),emnekode, mail);
+        ArrayList<Bruker> res = new ArrayList<Bruker>();
+
+        for (Bruker bruker : brukerList) {
+            res.add(bruker);
+        }
+        return res;
     }
 }

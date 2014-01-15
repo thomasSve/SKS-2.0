@@ -9,6 +9,7 @@ import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +24,23 @@ public class GlemtPassordKontroller {
 
     @RequestMapping(value = "sendNyttPassord")
     private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request) {
-
         if (result.hasErrors()) {
-            return "glemtPassord.htm";
+            return "glemtPassord";
         }
-        String mail = request.getParameter("mail");
 
-        Bruker brook = service.hentBruker(bruker.getMail());
-        if (brook != null) {
-            String nPassord = PassordService.genererPassord();
-            brook.setPassord(nPassord);
+        String mail = request.getParameter("mail");
+        try {
+            if (service.hentBruker(mail) != null) {
+                bruker = service.hentBruker(mail);
+                String nyttPassord =  PassordService.genererPassord();
+                bruker.setPassord(nyttPassord);
+                //sendMail(bruker, nyttPassord);
+                service.endrePassord(mail, bruker.getPassord());
+                System.out.println("Nytt Passord: " + nyttPassord + "\n");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Mailen ble ikke funnet i databasen.");
         }
-        return "glemtPassord.htm";
+        return "glemtPassord";
     }
 }

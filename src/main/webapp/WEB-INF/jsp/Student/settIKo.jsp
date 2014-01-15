@@ -1,8 +1,12 @@
+<%@ page import="no.hist.tdat.javabeans.Bruker" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="no.hist.tdat.javabeans.beanservice.BrukerService" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-md-4">
     <h1>Sett deg i k&oslash; </h1>
 
-    <form action="regKoe" modelAttribute="koeBruker" method="post" role="form">
+    <form action="regKoe" modelAttribute="bruker" method="post" role="form">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
             <select class="form-control" name="Sitteplass" id="sitteplass" path="plassering">
@@ -43,8 +47,13 @@
         -->
         <div class="form-group">
             <label for="grupper">Gruppe?</label>
-            <select id="grupper" class="form-control">
-                <option>Hvem er du i gruppe med?</option>
+            <select>
+<c:forEach items="${personene}" var="person">
+
+    <option value="${person}">${person}</option>
+
+</c:forEach>
+
 
             </select>
         </div>
