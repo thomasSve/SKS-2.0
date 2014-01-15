@@ -29,6 +29,7 @@ import java.util.Random;
  */
 @Scope("session")
 public class Bruker {
+    public static final int STUDENT_RETTIGHET = 1;
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     @NotBlank

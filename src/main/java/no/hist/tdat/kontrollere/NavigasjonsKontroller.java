@@ -33,15 +33,6 @@ public class NavigasjonsKontroller {
         return "glemtPassord";
     }
 
-    @RequestMapping("/leggTilBruker.htm")
-    public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
-        modell.addAttribute("bruker", bruker);
-        if(bruker.getMail()!=null){
-            //bruker.leggTilBruker();
-        }
-        return "adminBrukere";
-    }
-
     @RequestMapping("/adminBrukere.htm")
     public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker) {
         return "adminBrukere";
