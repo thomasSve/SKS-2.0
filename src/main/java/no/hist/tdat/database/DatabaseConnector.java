@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class DatabaseConnector {
      * @param bruker
      * @return true om den blir lagt til, ellers false
      */
-    public boolean leggTilBruker(Bruker bruker) {
+    public boolean leggTilBruker(Bruker bruker) throws org.springframework.dao.DuplicateKeyException {
         if (bruker == null) {
             return false;
         }

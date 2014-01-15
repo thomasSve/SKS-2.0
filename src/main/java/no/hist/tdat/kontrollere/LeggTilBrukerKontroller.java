@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 
 @Controller
@@ -35,13 +36,20 @@ public class LeggTilBrukerKontroller {
         if(result.hasErrors()){
             return "adminBrukere";
         } else {
+            try{
             if (service.leggTilBruker(bruker)) {
                 return "adminBrukere";
             } else {
                 return "adminBrukere";
             }
+
+        }catch (org.springframework.dao.DuplicateKeyException e){
+                System.out.println("SQL feil");
+                return "adminBrukere";
+            }
         }
     }
+
 
     /**
      * Kontroller for å slette en bruker ifra databasen
