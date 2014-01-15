@@ -83,6 +83,13 @@ public class NavigasjonsKontroller {
         return "minside";
     }
 
+    @RequestMapping("/emne.htm")
+    public String hentMittEmne(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
+        bruker = (Bruker)session.getAttribute("innloggetBruker");
+        bruker.getEmner().get(0);
+        return "minside";
+    }
+
     @RequestMapping("/ovingsOpplegg.htm")
     public String ovingsOpplegg() {
         return "ovingsOpplegg";
