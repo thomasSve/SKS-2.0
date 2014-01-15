@@ -28,7 +28,7 @@ CREATE TABLE koe(
 )ENGINE = InnoDB;
 
 CREATE TABLE brukere(
-	mail                        VARCHAR(255) NOT NULL PRIMARY KEY,
+	      mail                        VARCHAR(255) NOT NULL PRIMARY KEY,
         rettighet_id                 INT NOT NULL,
         fornavn                 VARCHAR(255) NOT NULL,
         etternavn                 VARCHAR(255) NOT NULL,
@@ -44,14 +44,14 @@ CREATE TABLE emner_brukere(
 	)ENGINE = InnoDB;
 
 CREATE TABLE plassering(
-        plassering                  VARCHAR(255),
-        ant_bord                    INT
+        plassering_navn                  VARCHAR(255) NOT NULL PRIMARY KEY,
+        ant_bord                        INT
 )ENGINE = InnoDB;
 
 CREATE TABLE koe_brukere(
         koe_id                        INT NOT NULL AUTO_INCREMENT,
         mail                        VARCHAR(255) NOT NULL,
-        plassering                VARCHAR(255) NOT NULL,
+        plassering_navn                VARCHAR(255) NOT NULL,
         bordnummer                INT NOT NULL,
         ovingsnummer                VARCHAR(30),
         info                    VARCHAR(255),
@@ -92,10 +92,9 @@ CREATE TABLE oving_brukere(
         godkjent_tid                TIMESTAMP
 	)ENGINE = InnoDB;
 
-
 ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk1 FOREIGN KEY(mail) REFERENCES brukere (mail);
 ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk2 FOREIGN KEY(koe_id) REFERENCES koe(koe_id);
-ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk3 FOREIGN KEY(plassering) REFERENCES plassering (plassering);
+ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk3 FOREIGN KEY(plassering_navn) REFERENCES plassering (plassering_navn);
 
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk1 FOREIGN KEY(emnekode) REFERENCES emner(emnekode);
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk2 FOREIGN KEY(mail) REFERENCES brukere(mail);
@@ -113,23 +112,21 @@ ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY(delemne_nr,emnekode) REFE
 ALTER TABLE delemne ADD CONSTRAINT delemne_fk1 FOREIGN KEY(emnekode) REFERENCES emner(emnekode);
 ALTER TABLE delemne ADD CONSTRAINT delemne_fk2 FOREIGN KEY(koe_id) REFERENCES koe(koe_id);
 
-
-
 INSERT INTO rettighet (navn) VALUES ('Admin');
 INSERT INTO rettighet (navn) VALUES ('Foreleser');
 INSERT INTO rettighet (navn) VALUES ('Student');
 
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('gm@mail.com' , 1, 'Geir Morten', 'Larsen', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('tk@mail.com' , 1, 'Ted Johan', 'Kristoffersen', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('js@mail.com' , 1, 'Jørgen Lien', 'Sellæg', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ob@mail.com' , 1, 'Olve Andre', 'Børmark', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ts@mail.com' , 1, 'Thomas', 'Sve', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('hb@mail.com' , 1, 'Henriette', 'Berg', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('og@mail.com' , 1, 'Øyvind', 'Grimstad', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('km@mail.com' , 1, 'Ketta', 'Mykkelgjerd', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('eo@mail.com' , 1, 'Eirik', 'Øvstedal', 'xxx',0);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('grethe@mail.com' , 2, 'Grethe', 'Sandstrak', 'xxx',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('anette@mail.com' , 3, 'Anette', 'Wrlsen', 'xxx',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('gm@mail.com' , 1, 'Geir Morten', 'Larsen', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('tk@mail.com' , 1, 'Ted Johan', 'Kristoffersen', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('js@mail.com' , 1, 'Jørgen Lien', 'Sellæg', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ob@mail.com' , 1, 'Olve Andre', 'Børmark', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ts@mail.com' , 1, 'Thomas', 'Sve', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('hb@mail.com' , 1, 'Henriette', 'Berg', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('og@mail.com' , 1, 'Øyvind', 'Grimstad', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('km@mail.com' , 1, 'Ketta', 'Mykkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('eo@mail.com' , 1, 'Eirik', 'Øvstedal', 'eaaseQasexaseaaseQasexaseaaseQas',0);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('grethe@mail.com' , 2, 'Grethe', 'Sandstrak', 'eaaseQasexaseaaseQasexaseaaseQas',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('anette@mail.com' , 3, 'Anette', 'Wrlsen', 'eaaseQasexaseaaseQasexaseaaseQas',1);
 
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2002-A', 'Matematikk 2');
@@ -193,7 +190,6 @@ INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ov
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES(2 , 'ALM805F-A', 2, 'Kjemi' ,'H', '10', '1-10:8' );
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES(3 , 'ALM805F-A', 3, 'Økonomi' ,'V', '10', '' );
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES(4 , 'ALM805F-A', 4, 'Etikk' ,'V', '10', '2-2:1,5-5:1,8-8:1' );
-
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES(1 , 'TDAT2005-A', 5, 'Algoritmer og datastrukturer' ,'H', '10', '1-6:6' );
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES(1 , 'TDAT2003-A', 6, 'Systemutvikling 2 med web-applikasjoner' ,'H', '10', '1-6:3' );
 
@@ -223,22 +219,22 @@ INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('TDAT2001-A', 'gre
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('IINI3006', 'grethe@mail.com',1);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'grethe@mail.com',1);
 
-INSERT INTO plassering (plassering, ant_bord) VALUES('Labben 2.etg', 19);
-INSERT INTO plassering (plassering, ant_bord) VALUES('Polareal 1.etg', 24);
-INSERT INTO plassering (plassering, ant_bord) VALUES('Sukkerhuset 4.etg', 19);
-INSERT INTO plassering (plassering, ant_bord) VALUES('Tihlde drift', 9);
-INSERT INTO plassering (plassering, ant_bord) VALUES('P-Lab 1.etg', 19);
+INSERT INTO plassering (plassering_navn, ant_bord) VALUES('Labben 2.etg', 19);
+INSERT INTO plassering (plassering_navn, ant_bord) VALUES('Polareal 1.etg', 24);
+INSERT INTO plassering (plassering_navn, ant_bord) VALUES('Sukkerhuset 4.etg', 19);
+INSERT INTO plassering (plassering_navn, ant_bord) VALUES('Tihlde drift', 9);
+INSERT INTO plassering (plassering_navn, ant_bord) VALUES('P-Lab 1.etg', 19);
 
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer,info) VALUES (1, 'gm@mail.com', 'labben', 3, 1, 2, '?!?!?!');
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (2, 'gm@mail.com', 'labben', 2, 1, 3);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer,info) VALUES (3, 'gm@mail.com', 'labben', 5, 1, 4, 'Hjelp!');
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (4, 'gm@mail.com', 'labben', 9, 1, 2);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer,info) VALUES (41, 'gm@mail.com', 'labben', 5, 1, 2, 'Godkjenning!');
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (38, 'gm@mail.com', 'labben', 2, 1, 9);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (1, 'ob@mail.com', 'labben', 9, 2, 9);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (2, 'ob@mail.com', 'labben', 0, 2, 9);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (3, 'ob@mail.com', 'labben', 3, 2, 12);
-INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass, bordnummer) VALUES (6, 'ob@mail.com', 'labben', 9, 2, 9);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer,info) VALUES (1, 'gm@mail.com', 'Labben 2.etg', 3, 1, 2, '?!?!?!');
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (2, 'gm@mail.com', 'Labben 2.etg', 2, 1, 3);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer,info) VALUES (3, 'gm@mail.com', 'Labben 2.etg', 5, 1, 4, 'Hjelp!');
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (4, 'gm@mail.com', 'Labben 2.etg', 9, 1, 2);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer,info) VALUES (41, 'gm@mail.com', 'Labben 2.etg', 5, 1, 2, 'Godkjenning!');
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (38, 'gm@mail.com', 'Labben 2.etg', 2, 1, 9);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (1, 'ob@mail.com', 'Labben 2.etg', 9, 2, 9);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (2, 'ob@mail.com', 'Labben 2.etg', 0, 2, 9);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (3, 'ob@mail.com', 'Labben 2.etg', 3, 2, 12);
+INSERT INTO koe_brukere (koe_id, mail, plassering_navn, ovingsnummer, koe_plass, bordnummer) VALUES (6, 'ob@mail.com', 'Labben 2.etg', 9, 2, 9);
 
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'ALM805F-A', 1);
@@ -267,6 +263,4 @@ INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) V
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(4, 'ob@mail.com', 1, 'Anette', '1989-06-30 10:20:21');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(6, 'ob@mail.com', 1, 'Jørgen', '2000-12-03 09:40:11');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(7, 'ob@mail.com', 0, null, null);
-
-INSER
 
