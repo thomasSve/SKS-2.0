@@ -35,30 +35,16 @@
         </tr>
         </thead>
 
-        <form:form action="fjernStudent" method="post" modelAttribute="personerBeans">
-
+        <form:form action="fjernStudent" method="get" modelAttribute="personerBeans">
             <tbody>
-            <tr>
-                <td>Olve Andr?</td>
-                <td>B?rmark</td>
-                <td>oabormar@stud.hist.no</td>
-                <td>
-                    <div class="btn btn-group">
-                        <input type="submit" name="0" value="Slett" class="btn btn-danger" data-task="remove" title="Fjern"><i
-                                class="glyphicon glyphicon-remove"></i>
-                        </input>
-                    </div>
-                </td>
-            </tr>
-
-            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="rad">
                 <tr>
                     <td><c:out value="${bruker.fornavn}"/></td>
                     <td><c:out value="${bruker.etternavn}"/></td>
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <input type="submit" class="btn btn-danger" data-task="remove"
-                                title="Fjern" name="${status.index}"><i class="glyphicon glyphicon-remove"></i>
+                                title="Fjern" name="${rad.count}" value="Slett">
                         </input>
                     </td>
                 </tr>

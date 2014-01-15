@@ -8,22 +8,23 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 /**
- * Created by Kjetil vimCnett
+ * Created by vimCnett
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
 @Component
 public class PersonerBeans {
 
-    ArrayList<Bruker> valgt;
-    ArrayList<Emner> fellesEmner;
+    private ArrayList<Bruker> valgt;
+    private ArrayList<Emner> fellesEmner;
 
     @Qualifier("databaseConnector")
     @Autowired
     DatabaseConnector databaseConnector;
 
     public PersonerBeans() {
-        valgt = null;
+        valgt = new ArrayList<Bruker>();
+        fellesEmner = new ArrayList<Emner>();
         databaseConnector = new DatabaseConnector();
     }
 
@@ -40,7 +41,7 @@ public class PersonerBeans {
     }
 
     public void leggTil(Bruker b) {
-        getValgt().add(b);
+        valgt.add(b);
         fellesEmner = finnFellesEmner();
     }
 
@@ -66,19 +67,21 @@ public class PersonerBeans {
         ArrayList<Emner> emner = valgt.get(0).getEmner();
         ArrayList<Emner> felles = new ArrayList<Emner>();
 
-        for (int i = 0; i <emner.size(); i++) { //går gjennom alle emner til 1. pers
-            String emneKode = emner.get(i).getEmneKode();
+        if (emner != null && emner.size() > 1) {
+            for (int i = 0; i < emner.size(); i++) { //går gjennom alle emner til 1. pers
+                String emneKode = emner.get(i).getEmneKode();
 
-            for (int j = 1; j < valgt.size(); j++) {    //går gjennom alle personer
-                Bruker b = valgt.get(j);
-                ArrayList<Emner> denneEmner = b.getEmner();
+                for (int j = 1; j < valgt.size(); j++) {    //går gjennom alle personer
+                    Bruker b = valgt.get(j);
+                    ArrayList<Emner> denneEmner = b.getEmner();
 
-                for (int k = 0; k < denneEmner.size(); k++) {
-                    Emner e = denneEmner.get(k);
-                    String denneKode = e.getEmneKode();
+                    for (int k = 0; k < denneEmner.size(); k++) {
+                        Emner e = denneEmner.get(k);
+                        String denneKode = e.getEmneKode();
 
-                    if (emneKode.equals(denneKode)) {
-                        felles.add(e);
+                        if (emneKode.equals(denneKode)) {
+                            felles.add(e);
+                        }
                     }
                 }
             }
