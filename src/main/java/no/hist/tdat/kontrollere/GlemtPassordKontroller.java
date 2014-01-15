@@ -23,12 +23,13 @@ public class GlemtPassordKontroller {
     BrukerService service;
 
     @RequestMapping(value = "sendNyttPassord")
-    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, Model modell, BindingResult result, HttpServletRequest request) {
+    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request) {
+        System.out.println("Hei");
 
         if (result.hasErrors()) {
             return "glemtPassord";
         }
-        modell.addAttribute(bruker);
+
         String mail = request.getParameter("mail");
         System.out.println("Mail: " + mail);
 
@@ -37,7 +38,6 @@ public class GlemtPassordKontroller {
                 bruker = service.hentBruker(mail);
                 String nyttPassord =  bruker.genererPassord();
                 bruker.setPassord(nyttPassord);
-                System.out.println("Hei");
                 //sendMail(bruker, nyttPassord);
                 service.endrePassord(mail, bruker.getPassord());
                 System.out.println("Nytt Passord: " + nyttPassord + "\n");
