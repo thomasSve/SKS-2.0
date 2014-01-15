@@ -3,22 +3,10 @@ package no.hist.tdat.javabeans;
 
 import no.hist.tdat.database.DatabaseConnector;
 import org.hibernate.validator.constraints.NotBlank;
-import org.omg.DynamicAny._DynAnyFactoryStub;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,7 +28,7 @@ public class Bruker {
     private String etternavn;
     private String passord;
     private int aktiv;
-    private ArrayList<Emner> emner;
+    private ArrayList<Emne> emne;
 
 
     @Qualifier("databaseConnector")
@@ -54,7 +42,7 @@ public class Bruker {
         this.etternavn = etternavn;
         this.passord = genererPassord();
         this.aktiv = aktiv;
-        emner = new ArrayList<Emner>();
+        emne = new ArrayList<Emne>();
     }
 
 
@@ -65,7 +53,7 @@ public class Bruker {
         this.etternavn = etternavn;
         this.passord = genererPassord();
         this.aktiv = 1;
-        emner = new ArrayList<Emner>();
+        emne = new ArrayList<Emne>();
 
     }
 
@@ -166,12 +154,12 @@ public class Bruker {
         this.aktiv = aktiv;
     }
 
-    public ArrayList<Emner> getEmner() {
-        return emner;
+    public ArrayList<Emne> getEmne() {
+        return emne;
     }
 
-    public void setEmner(ArrayList<Emner> emner) {
-        this.emner = emner;
+    public void setEmne(ArrayList<Emne> emne) {
+        this.emne = emne;
     }
 
     /**

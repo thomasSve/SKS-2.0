@@ -21,10 +21,11 @@
     <c:if test="${Emner.isKoeAktiv}">
         <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
 
-        <button class="btn btn-sm btn-success" id="koStatus" value="stopp">Start Køen</button>
+        <input type="button" onclick="location.href='/startKoe.htm'" class="btn btn-sm btn-success" id="startKoe" value="Start Køen">
 
-    </c:if><c:if test="${!Emner.isKoeAktiv}">
-        <button class="btn btn-sm btn-danger" id="koStatus" value="start">Stopp Køen</button>
+    </c:if>
+    <c:if test="${!Emner.isKoeAktiv}">
+        <input type="button" onclick="location.href='/stoppKoe.htm'" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp Køen">
     </c:if>
 
     <table class="table table-hover" id="minTable">
@@ -40,10 +41,10 @@
 
 
         <tbody>
-        <c:forEach var="bruker" items="${koeGrupper}">
+        <c:forEach var="gruppe" items="$">
             <tr>
-                <td>1:20</td>
-                <td>bruker.</td>
+                <td>gruppe.tid</td>
+                <td>gruppe.leder</td>
                 <td>1, 2, 3</td>
                 <td>Labben, Bord 13</td>
                 <td>

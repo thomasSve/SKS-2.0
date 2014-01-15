@@ -1,7 +1,7 @@
 package no.hist.tdat.database.verktoy;
 
 
-import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.Emne;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author vimCnett
  */
-public class EmneKoordinerer implements RowMapper<Emner>{
+public class EmneKoordinerer implements RowMapper<Emne>{
     /**
      * Denne metoden er en mal på hvordan Bruker objekter skal opprettes ved henting fra database.
      * @param resultSet settes av Spring, og er resultatet fra database-spørringen
@@ -22,8 +22,8 @@ public class EmneKoordinerer implements RowMapper<Emner>{
      * @throws SQLException exception blir tatt hånd om av rammeverket.
      */
     @Override
-    public Emner mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        Emner emne = new Emner();
+    public Emne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        Emne emne = new Emne();
         emne.setEmneKode(resultSet.getString("emnekode"));
         emne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
         return emne;

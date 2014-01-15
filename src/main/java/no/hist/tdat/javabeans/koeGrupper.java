@@ -7,25 +7,28 @@ import java.util.ArrayList;
  */
 public class koeGrupper {
     private String klokkeslett;
-    private String gruppeLeder;
+    private Bruker gruppeLeder;
     private String sitteplass;
+    private String kommentar;
     private ArrayList<String>medlemmer;
     private ArrayList<Integer>ovinger;
 
 
     public koeGrupper(){}
-    public koeGrupper(String klokkeslett, String gruppeLeder, String sitteplass,ArrayList<String>medlemmer, ArrayList<Integer>ovinger){
+    public koeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<String>medlemmer, ArrayList<Integer>ovinger){
         this.gruppeLeder = gruppeLeder;
         this.klokkeslett = klokkeslett;
         this.medlemmer = medlemmer;
         this.sitteplass = sitteplass;
         this.ovinger = ovinger;
+        this.kommentar = kommentar;
     }
-    public koeGrupper(String sitteplass, String klokkeslett, String gruppeLeder, ArrayList<Integer>ovinger){
+    public koeGrupper(String sitteplass, String klokkeslett, String kommentar, Bruker gruppeLeder, ArrayList<Integer>ovinger){
         this.gruppeLeder = gruppeLeder;
         this.klokkeslett = klokkeslett;
         this.sitteplass = sitteplass;
         this.ovinger = ovinger;
+        this.kommentar = kommentar;
     }
 
     public String getKlokkeslett() {
@@ -36,11 +39,11 @@ public class koeGrupper {
         this.klokkeslett = klokkeslett;
     }
 
-    public String getGruppeLeder() {
+    public Bruker getGruppeLeder() {
         return gruppeLeder;
     }
 
-    public void setGruppeLeder(String gruppeLeder) {
+    public void setGruppeLeder(Bruker gruppeLeder) {
         this.gruppeLeder = gruppeLeder;
     }
 
@@ -66,5 +69,13 @@ public class koeGrupper {
 
     public void setOvinger(ArrayList<Integer> ovinger) {
         this.ovinger = ovinger;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public void setKommentar(String kommentar) {
+        this.kommentar = kommentar;
     }
 }

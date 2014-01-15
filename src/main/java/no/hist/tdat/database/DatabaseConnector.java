@@ -3,14 +3,9 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.Emne;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Component;
 
 import org.springframework.stereotype.Service;
 
@@ -40,6 +35,7 @@ public class DatabaseConnector {
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
+    private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -136,15 +132,15 @@ public class DatabaseConnector {
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
-    public ArrayList<Emner> hentMineEmner(Bruker bruker){
+    public ArrayList<Emne> hentMineEmner(Bruker bruker){
         if (bruker == null) {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emner> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
-        ArrayList<Emner> res = new ArrayList<>();
-        for (Emner emne : emneList) {
-            res.add((Emner)emne);
+        List<Emne> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
+        ArrayList<Emne> res = new ArrayList<>();
+        for (Emne emne : emneList) {
+            res.add((Emne)emne);
         }
 //        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
@@ -206,6 +202,17 @@ public class DatabaseConnector {
         con.update(endrePassordSQL,
                     passord,
                     mail);
+        return true;
+    }
+
+    public boolean endreKoeStatus(int delEmne, int status){
+        if(delEmne==0||status>1){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(endreKoeStatusSQL,
+                delEmne,
+                status);
         return true;
     }
 }

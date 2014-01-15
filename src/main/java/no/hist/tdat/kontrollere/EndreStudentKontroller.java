@@ -2,7 +2,7 @@ package no.hist.tdat.kontrollere;
 
 
 import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PersonerBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +76,10 @@ public class EndreStudentKontroller {
     @RequestMapping(value = "bekreftelse")
     public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
         String opersasjon = request.getParameter("opValg");
-        ArrayList<Emner> fellesEmner;
+        ArrayList<Emne> fellesEmne;
 
         if (!opersasjon.equals("leggInnFag")) {
-            fellesEmner = personerBeans.finnFellesEmner();
+            fellesEmne = personerBeans.finnFellesEmner();
         }
         //TODO
         return "endreStudent";

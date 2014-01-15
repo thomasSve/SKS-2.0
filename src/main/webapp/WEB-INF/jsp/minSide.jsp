@@ -17,8 +17,8 @@
         <tr>
             <%
                     Bruker denne = (Bruker) request.getSession().getAttribute("innloggetBruker");
-                    for(int i = 0; i<denne.getEmner().size();i++){
-                        out.println("<tr ><td>"+i+"</td><td>"+denne.getEmner().get(i).getEmneKode()+"</td><td><button class='btn btn-md btn-primary btn-block'>"+denne.getEmner().get(i).getEmneNavn()+"</button></td><td>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</td><td>(?)</td></tr>");
+                    for(int i = 0; i<denne.getEmne().size();i++){
+                        out.println("<tr ><td>"+i+"</td><td>"+denne.getEmne().get(i).getEmneKode()+"</td><td><button class='btn btn-md btn-primary btn-block'>"+denne.getEmne().get(i).getEmneNavn()+"</button></td><td>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15</td><td>(?)</td></tr>");
                 }
             %>
         </tbody>
