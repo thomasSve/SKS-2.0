@@ -46,11 +46,12 @@ public class DatabaseConnector {
 
     /**
      * Legger til en bruker i databasen
+     *
      * @param bruker
      * @return true om den blir lagt til, ellers false
      */
     public boolean leggTilBruker(Bruker bruker) {
-        if(bruker == null){
+        if (bruker == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -98,7 +99,7 @@ public class DatabaseConnector {
             return null;
         }
         String input = "%";
-        input += soeketekst+"%";
+        input += soeketekst + "%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), input, input, input);
         ArrayList<Bruker> res = new ArrayList<>();
@@ -116,7 +117,7 @@ public class DatabaseConnector {
      * @return nytt brukerobjekt med all brukerinformasjon
      */
 
-    public Bruker loggInn(Bruker bruker){
+    public Bruker loggInn(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -129,14 +130,15 @@ public class DatabaseConnector {
             res.add(brukerInfo);
         }
 //        System.out.println("***********************************ETTER løkka ");
-        if(res.size() >0){
+        if (res.size() > 0) {
 //            System.out.println("***********************************IF STATEENT");
             return res.get(0);
         }
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
-    public ArrayList<Emner> hentMineEmner(Bruker bruker){
+
+    public ArrayList<Emner> hentMineEmner(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -144,12 +146,12 @@ public class DatabaseConnector {
         List<Emner> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
         ArrayList<Emner> res = new ArrayList<>();
         for (Emner emne : emneList) {
-            res.add((Emner)emne);
+            res.add((Emner) emne);
         }
 //        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
 //        System.out.println("***********************************ETTER løkka ");
-        if(res.size() >0){
+        if (res.size() > 0) {
 //            System.out.println("***********************************IF STATEENT");
             return res;
         }
@@ -158,12 +160,12 @@ public class DatabaseConnector {
 
     }
 
-        /**
-         * Sletter bruker med gitt epost.
-         *
-         * @param epost eposten til den brukeren som skal slettes fra databasen
-         * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
-         */
+    /**
+     * Sletter bruker med gitt epost.
+     *
+     * @param epost eposten til den brukeren som skal slettes fra databasen
+     * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
+     */
     public boolean slettBruker(String epost) {
         if (epost == null)
             return false;
@@ -186,7 +188,7 @@ public class DatabaseConnector {
         }
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
 
         return brukerList.get(0);
     }
@@ -195,17 +197,17 @@ public class DatabaseConnector {
      * Tar inn mailen til brukeren som skal endrest samt det nye passordet.
      *
      * @param passord, det nye passordet
-     * @param mail, mailen til brukeren
+     * @param mail,    mailen til brukeren
      * @return true dersom vellykket
      */
-    public boolean endrePassord(String mail, String passord){
-        if(mail == null){
+    public boolean endrePassord(String mail, String passord) {
+        if (mail == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endrePassordSQL,
-                    mail,
-                    passord);
+                mail,
+                passord);
         return true;
     }
 }

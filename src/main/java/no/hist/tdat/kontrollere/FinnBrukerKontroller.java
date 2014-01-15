@@ -21,16 +21,11 @@ public class FinnBrukerKontroller {
     BrukerService service;
 
     @RequestMapping("/search.htm")
-    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request){
+    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
 
         String brukere = request.getParameter("srch-term");
         personerBeans.setValgt(service.finnBruker(brukere));
         modell.addAttribute("personerBeans", personerBeans);
-
-
         return "adminBrukere";
     }
-
-
-
 }

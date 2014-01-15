@@ -22,8 +22,8 @@
             </div>
 
         </div>
-<%--    &lt;%&ndash;</form:form>
-    <fo&ndash;%&gt;rm:form method="POST"  modelAttribute="personerBeans" action="listeBrukerRediger.htm">--%>
+        <%--    &lt;%&ndash;</form:form>
+            <fo&ndash;%&gt;rm:form method="POST"  modelAttribute="personerBeans" action="listeBrukerRediger.htm">--%>
         <div class="span5">
             <table class="table table-condensed table-hover" id="minTable">
                 <thead>
@@ -35,33 +35,6 @@
                     <th class="header col-sm-1"></th>
                 </tr>
                 </thead>
-<script>
-    function slettBrukerFraKnapp(mail){
-
-        if (window.XMLHttpRequest)
-        {// code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {// code for IE6, IE5
-
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange=function(){
-
-        }
-        xmlhttp.open("POST","/listeBrukerRediger.htm",true);
-        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xmlhttp.send("brukerIndex="+mail);
-
-        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            //document.getElementById("calendar").innerHTML=xmlhttp.responseText;
-            alert("jara");
-        }
-
-
-    }
-</script>
 
                 <tbody>
 
@@ -80,12 +53,6 @@
                                 <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#endrebrukerModal" title="Endre">
                                     <i class="glyphicon glyphicon-edit"></i></button>
-
-
-<%--                                <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
-                                        id="${status.count}" onclick="slettBrukerFraKnapp(this.id)"
-                                        title="Slett"><i class="glyphicon glyphicon-remove"></i>
-                                </button>--%>
                                 <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
                                         id="${bruker.mail}" onclick="slettBrukerFraKnapp(this.id)"
                                         title="Slett"><i class="glyphicon glyphicon-remove"></i>
@@ -250,3 +217,5 @@
 </div>
 </div>
 </div>
+
+<script src="<c:url value="/resources/js/admin.js"/>"></script>

@@ -25,25 +25,33 @@ public class LeggTilBrukerKontroller {
 
     /**
      * Kontroller for å legge til bruker i databasen
+     *
      * @param bruker
      * @param result
      * @return adminBrukere sin side, med feilmeldinger om
      */
     @RequestMapping("/leggTilBruker.htm")
     public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "adminBrukere";
-        }else{
-            if(service.leggTilBruker(bruker)){
+        } else {
+            if (service.leggTilBruker(bruker)) {
                 return "adminBrukere";
-            }else{
+            } else {
                 return "adminBrukere";
             }
         }
     }
 
-    @RequestMapping(value="/listeBrukerRediger.htm", method = RequestMethod.POST)
-    public String finnBruker(@ModelAttribute("bruker") Bruker bruker,Model modell,@ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request){
+    /**
+     * Kontroller for å slette en bruker ifra databasen
+     * @param modell
+     * @param personerBeans
+     * @param request
+     * @return til siden search.htm
+     */
+    @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
+    public String finnBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
         modell.addAttribute("personerBeans", personerBeans);

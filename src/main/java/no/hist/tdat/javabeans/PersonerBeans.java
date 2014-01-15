@@ -47,26 +47,15 @@ public class PersonerBeans {
         valgt = brukere;
     }
 
+    /**
+     * Legger til bruker i arraylisten valgt
+     * @param b bruker objekt
+     */
     public void leggTil(Bruker b) {
         valgt.add(b);
         //fellesEmner = finnFellesEmner();
     }
-/**
- public Bruker finnStudent(String sok) {
- Bruker b = databaseConnector.finnStudent(sok);
- if (b != null) {
- valgt.add(b);
- }
- return b;
- }
 
- public void fjernStudent(int nr) {
- if (valgt.size() > 0 && nr != -1) {
- valgt.remove(nr);
- }
- }
-
- */
     /**
      * Finner felles fag for alle valgte elever
      */
