@@ -2,6 +2,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.PersonerBeans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/adminBrukere.htm")
-    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker) {
+    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukere";
     }
 

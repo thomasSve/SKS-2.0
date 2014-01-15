@@ -57,11 +57,11 @@ public class BrukerService {
 
     /**
      * Sletter en spesifikk bruker
-     * @param bruker brukerens objekt
+     * @param mail brukerens mail
      * @return true om bruker ble slettet, ellers false
      */
-    public boolean slettBruker (Bruker bruker){
-        return databaseConnector.slettBruker(bruker.getMail());
+    public boolean slettBruker (String mail){
+        return databaseConnector.slettBruker(mail);
     }
     /**
      * Endrer passordet til en bruker

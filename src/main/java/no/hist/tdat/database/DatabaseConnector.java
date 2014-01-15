@@ -82,7 +82,7 @@ public class DatabaseConnector {
                     bruker.getFornavn(),
                     bruker.getEtternavn(),
                     bruker.genererPassord(),
-                    ACTIVE);
+                    bruker.getAktiv());
             return true;
         }
     }
@@ -168,7 +168,7 @@ public class DatabaseConnector {
         if (epost == null)
             return false;
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        int num = con.update(slettBrukerSQL);
+        int num = con.update(slettBrukerSQL, epost);
         return num > 0;
 
     }

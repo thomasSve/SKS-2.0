@@ -187,6 +187,7 @@ public class Bruker {
         for (int i = 0; i < 6; i++) {
             passord += RANDOM_TEGN.charAt(randomIndex());
         }
+        System.out.println(passord);
         return passord;
     }
 
