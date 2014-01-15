@@ -14,10 +14,18 @@ import java.util.ArrayList;
 
 @Component
 public class PersonerBeans {
+    ArrayList<Bruker> valgt = new ArrayList<>();
+    ArrayList<Emner> fellesEmner = null;
+    Integer index = 0;
+    public Integer getIndex() {
+        return index;
+    }
 
-    private ArrayList<Bruker> valgt;
-    private ArrayList<Emner> fellesEmner;
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 
+    /**
     @Qualifier("databaseConnector")
     @Autowired
     DatabaseConnector databaseConnector;
@@ -27,7 +35,7 @@ public class PersonerBeans {
         fellesEmner = new ArrayList<Emner>();
         databaseConnector = new DatabaseConnector();
     }
-
+*/
     public ArrayList<Emner> getFellesEmner() {
         return fellesEmner;
     }
@@ -42,9 +50,9 @@ public class PersonerBeans {
 
     public void leggTil(Bruker b) {
         valgt.add(b);
-        fellesEmner = finnFellesEmner();
+        //fellesEmner = finnFellesEmner();
     }
-
+/**
     public Bruker finnStudent(String sok) {
         Bruker b = databaseConnector.finnStudent(sok);
         if (b != null) {
@@ -59,7 +67,7 @@ public class PersonerBeans {
         }
     }
 
-
+*/
     /**
      * Finner felles fag for alle valgte elever
      */

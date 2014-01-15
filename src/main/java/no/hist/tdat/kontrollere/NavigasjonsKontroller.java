@@ -1,19 +1,14 @@
 package no.hist.tdat.kontrollere;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import no.hist.tdat.javabeans.*;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class NavigasjonsKontroller {
@@ -78,7 +73,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/endreStudent.htm")
-    public String omdirEndreStudent() {
+    public String omdirEndreStudent(@ModelAttribute("bruker") Bruker bruker) {
         return "endreStudent";
     }
 

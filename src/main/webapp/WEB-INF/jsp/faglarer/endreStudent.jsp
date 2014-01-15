@@ -9,7 +9,7 @@
 
     <form:form class="searchbar" role="search" action="leggTilStudentListe" modelAttribute="personerBeans">
         <div class="input-group">
-            <input type="text" name="soketekst" class="form-control" placeholder="Søk" id="srch-term"/>
+            <input type="text" name="soketekst" class="form-control" placeholder="Sï¿½k" id="srch-term"/>
 
             <div class="input-group-btn">
                 <input type="submit" class="btn" id="leggTil" value="Legg til"/>
@@ -18,7 +18,7 @@
     </form:form>
 
 
-    <!--    KAN GJØRES FANCY MED LIVE UPDATE MED SØKETREFF!
+    <!--    KAN GJï¿½RES FANCY MED LIVE UPDATE MED Sï¿½KETREFF!
     <datalist id="treffHittil">
         <option value="ingen"></option>
     </datalist>
@@ -43,9 +43,8 @@
                     <td><c:out value="${bruker.etternavn}"/></td>
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
-                        <input type="submit" class="btn btn-danger" data-task="remove"
-                                title="Fjern" name="${rad.count}" value="Slett">
-                        </input>
+                        <form:hidden path="index" value="${rad.count}" name="index"></form:hidden>
+                        <input type="submit" value="Fjern" class="btn btn-danger" data-task="remove" title="Fjern" ><i class="glyphicon glyphicon-remove"></i></input>
                     </td>
                 </tr>
             </c:forEach>
@@ -57,7 +56,7 @@
 
     <form:form action="bekreftelse" method="post" modelAttribute="personerBeans">
         <select class="form-control" name="opValg">
-            <option value="studass">Gjør til studentassistent</option>
+            <option value="studass">Gjï¿½r til studentassistent</option>
             <option value="leggInnFag">Legg til nytt fag</option>
             <option value="fjernFag">Fjern fag</option>
         </select>
