@@ -250,7 +250,7 @@ INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES('js@mail.com','AL
 
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(1, 'ob@mail.com', 0, null, null);
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(2, 'ob@mail.com', 0, null, null);
-INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(3, 'ob@mail.com', 1, 'Grethe', '1970-20-01 12:02:09');
+INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(3, 'ob@mail.com', 1, 'Grethe', '2000-20-01 12:02:09');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(4, 'ob@mail.com', 1, 'Anette', '1989-06-30 10:20:21');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(6, 'ob@mail.com', 1, 'Jørgen', '2000-12-03 09:40:11');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(7, 'ob@mail.com', 0, null, null);
