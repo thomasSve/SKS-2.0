@@ -9,10 +9,18 @@ public class DelEmne {
     private int nr;
     private char semester;
     private int koe_id;
-    private Ovingsopplegg ovinger;
+    private String ovingsRegler;
     private boolean koe_status;
     private ArrayList<Oving> studentovinger;
+    private String delEmneNavn;
 
+    public String getDelEmneNavn() {
+        return delEmneNavn;
+    }
+
+    public void setDelEmneNavn(String delEmneNavn) {
+        this.delEmneNavn = delEmneNavn;
+    }
 
     public DelEmne() {
     }
@@ -44,13 +52,9 @@ public class DelEmne {
         this.koe_id = koe_id;
     }
 
-    public Ovingsopplegg getOvinger() {
-        return ovinger;
-    }
+    public String getOvingsRegler() { return ovingsRegler; }
 
-    public void setOvinger(Ovingsopplegg ovinger) {
-        this.ovinger = ovinger;
-    }
+    public void setOvingsRegler(String ovingsRegler) {this.ovingsRegler = ovingsRegler;}
 
     public boolean isKoe_status() {
         return koe_status;
