@@ -111,7 +111,7 @@ public class DatabaseConnector {
                     bruker.getRettighet(),
                     bruker.getFornavn(),
                     bruker.getEtternavn(),
-                    bruker.genererPassord(),
+                    bruker.getPassord(),
                     bruker.getAktiv());
             return true;
         }

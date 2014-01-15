@@ -135,35 +135,6 @@ public class Bruker {
         this.emner = emner;
     }
 
-<<<<<<< HEAD
-    /**
-     * Hjelpemetode til genererPassord, generer random int verdier
-     *
-     * @return et tall mellom 0 og RANDOM_TEGN.length()
-     */
-    public int randomIndex() {
-        int min = 0;
-        int max = RANDOM_TEGN.length();
-        return random.nextInt((max - min) + 1) + min;
-    }
-
-    /**
-     * Generer et random passord på lengde 6 tegn
-     *
-     * @return kryptert random passord på lengde 6
-     */
-    public String genererPassord() {
-        String passord = "";
-        for (int i = 0; i < 6; i++) {
-            passord += RANDOM_TEGN.charAt(randomIndex());
-        }
-        System.out.println(passord);
-        return passord;
-    }
-
-
-=======
->>>>>>> 03bd832c63e34e21b1dd46d256c4f6cdec786c02
     public void addEmne() {
         //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
     }
