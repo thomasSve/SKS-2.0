@@ -1,17 +1,15 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
-<<<<<<< HEAD
 import no.hist.tdat.javabeans.PassordBeans;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
-import no.hist.tdat.koe.KoeBruker;
->>>>>>> 90ac5c736d025651fbf7e01c3285b1ddab21d02a
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class NavigasjonsKontroller {
@@ -62,12 +60,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-<<<<<<< HEAD
-    public String omdirigerTilKo() {
-=======
-    public String omdirigerTilKo(Model model){
->>>>>>> 90ac5c736d025651fbf7e01c3285b1ddab21d02a
 
+    public String omdirigerTilKo(Model model){
         return "settIKo";
     }
 
