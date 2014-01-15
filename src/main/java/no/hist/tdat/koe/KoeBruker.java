@@ -7,6 +7,8 @@ public class KoeBruker {
     private int koe_id;
     private String mail;
     private String plassering;
+    private String bordnr;
+
     private String ovingsnr;
     private int koe_plass;
     private String beskrivelse;

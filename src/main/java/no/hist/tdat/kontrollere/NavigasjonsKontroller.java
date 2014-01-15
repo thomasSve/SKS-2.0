@@ -33,7 +33,7 @@ public class NavigasjonsKontroller {
     public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
         modell.addAttribute("bruker", bruker);
         if(bruker.getMail()!=null){
-            bruker.leggTilBruker();
+           // bruker.leggTilBruker();
         }
         return "adminBrukere";
     }
@@ -65,13 +65,12 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/error.htm")
     public String omdirigerError() {
-        return "error";
+        return   "error";
     }
 
     @RequestMapping("/settIKo.htm")
     public String omdirigerTilKo(Model model){
-        KoeBruker koeBruker = new KoeBruker();
-        model.addAttribute("bruker", koeBruker);
+
         return "settIKo";
     }
 

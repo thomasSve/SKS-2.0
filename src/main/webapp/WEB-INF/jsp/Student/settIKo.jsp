@@ -7,11 +7,15 @@
             <label for="sitteplass">Sitteplass:</label>
             <select class="form-control" name="Sitteplass" id="sitteplass" path="plassering">
                 <option value="labben">Labben</option>
+                <option value="labben">Polarealet</option>
+                <option value="labben">Sukkerhuset</option>
             </select>
         </div>
         <div class="form-group">
             <label for="bordnr">Bordnr:</label>
             <select class="form-control" name="Bord" id="bordnr" path="plassering">
+                <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
+                valgt på "sitteplass"--%>
                 <option value="labben">13</option>
             </select>
         </div>

@@ -23,6 +23,12 @@ public class KoeKontroller {
 
     }*/
 
+   /* @RequestMapping(value="")
+    public String hvilketRom(@ModelAttribute("koeBruker") KoeBruker koeBruker){
+
+
+    }*/
+
 
 
 }
