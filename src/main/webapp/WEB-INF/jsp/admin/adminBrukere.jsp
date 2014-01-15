@@ -22,8 +22,6 @@
             </div>
 
         </div>
-        <%--    &lt;%&ndash;</form:form>
-            <fo&ndash;%&gt;rm:form method="POST"  modelAttribute="personerBeans" action="listeBrukerRediger.htm">--%>
         <div class="span5">
             <table class="table table-condensed table-hover" id="minTable">
                 <thead>
