@@ -1,17 +1,21 @@
 package no.hist.tdat.javabeans;
 
+import java.util.ArrayList;
+
 /**
  * Created by vimCnett
  */
 public class Emner {
     private String emneKode;
     private String emneNavn;
-    private Ovingsopplegg ovinger;
+    private ArrayList<Oving> studentovinger;
+    private Ovingsopplegg ovingsregler;
+    private boolean koeAktiv;
 
     public Emner(String kode, String navn, Ovingsopplegg ovinger) {
         this.emneKode = kode;
         this.emneNavn = navn;
-        this.ovinger = ovinger;
+        this.ovingsregler = ovinger;
     }
 
     public Emner() {
@@ -33,11 +37,19 @@ public class Emner {
         this.emneNavn = emneNavn;
     }
 
-    public Ovingsopplegg getOvinger() {
-        return ovinger;
+    public ArrayList<Oving> getStudentovinger() {        return studentovinger;    }
+
+    public void setStudentovinger(ArrayList<Oving> studentovinger) {        this.studentovinger = studentovinger;    }
+
+    public Ovingsopplegg getOvingsregler() {        return ovingsregler;    }
+
+    public void setOvingsregler(Ovingsopplegg ovingsregler) {        this.ovingsregler = ovingsregler;    }
+
+    public boolean isKoeAktiv() {
+        return koeAktiv;
     }
 
-    public void setOvinger(Ovingsopplegg ovinger) {
-        this.ovinger = ovinger;
+    public void setKoeAktiv(boolean koeAktiv) {
+        this.koeAktiv = koeAktiv;
     }
 }

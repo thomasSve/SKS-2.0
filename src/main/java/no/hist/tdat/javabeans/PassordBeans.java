@@ -1,5 +1,7 @@
 package no.hist.tdat.javabeans;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -7,9 +9,12 @@ import javax.validation.constraints.NotNull;
  */
 public class PassordBeans {
     @NotNull
+    @NotBlank
     private String gammeltPassord;
+    @NotBlank
     @NotNull
     private String nyttPassord;
+    @NotBlank
     @NotNull
     private String bekreftPassord;
 

@@ -26,7 +26,6 @@ public class LeggTilBrukerKontroller {
     @RequestMapping("/leggTilBruker.htm")
     public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
         if(result.hasErrors()){
-            System.out.println("Binding result feil");
             return "adminBrukere";
         }else{
             if(service.leggTilBruker(bruker)){

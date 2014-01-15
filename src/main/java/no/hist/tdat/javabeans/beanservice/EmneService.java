@@ -20,7 +20,13 @@ public class EmneService {
 
 
     public void hentEmner(Bruker bruker) {
-        bruker.setEmner((ArrayList<Emner>)databaseConnector.hentMineEmner(bruker));
+       bruker.setEmner((ArrayList<Emner>)databaseConnector.hentMineEmner(bruker));
+       ArrayList<Emner> tempList = bruker.getEmner();
+
+        for (int i = 0; i < tempList.size(); i++) {
+            //tempList.get(i).setStudentovinger(databaseConnector.hentStudOvinger(bruker)); //TODO fiks
+
+        }
     }
 
 }

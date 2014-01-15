@@ -7,6 +7,16 @@ import java.util.ArrayList;
  */
 public class Ovingsopplegg {
     private int totaltOvinger;
+    private ArrayList<Oving> ovinger;
+
+    public ArrayList<Oving> getOvinger() {
+        return ovinger;
+    }
+
+    public void setOvinger(ArrayList<Oving> ovinger) {
+        this.ovinger = ovinger;
+    }
+
     private int kravOvinger;
     private ArrayList<AvanserteKrav> avanserteKrav;
 
