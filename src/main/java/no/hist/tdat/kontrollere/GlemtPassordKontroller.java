@@ -5,6 +5,7 @@ package no.hist.tdat.kontrollere;
  */
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class GlemtPassordKontroller {
 
         Bruker brook = service.hentBruker(bruker.getMail());
         if(brook!=null){
-            String nPassord = brook.genererPassord();
+            String nPassord = PassordService.genererPassord();
             brook.setPassord(nPassord);
 
             return "glemtPassord.htm";
