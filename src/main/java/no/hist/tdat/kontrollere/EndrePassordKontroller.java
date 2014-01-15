@@ -7,6 +7,7 @@ package no.hist.tdat.kontrollere;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -23,7 +25,7 @@ public class EndrePassordKontroller {
     BrukerService service;
 
     @RequestMapping(value = "skiftPassord.htm")
-    private String endrePassordet(@Valid @ModelAttribute("passord") PassordBeans passord, BindingResult result, HttpServletRequest request) {
+    private String endrePassordet(@Valid @ModelAttribute("passord") PassordBeans passord, BindingResult result, HttpServletRequest request, HttpSession session) {
 
         if (result.hasErrors()) {
             return "endrePassord";
@@ -33,17 +35,11 @@ public class EndrePassordKontroller {
         String bekreftPassord = request.getParameter("bekreftPassord");
         String nyttPassord = request.getParameter("nyttPassord");
         System.out.println("Gammelt: " + gammeltP + ", Bekreft: " + bekreftPassord + ", Nytt: " + nyttPassord);
-        java.util.Enumeration<String> sessEnum = request.getSession().getAttributeNames();
-        Bruker denne = new Bruker();
-        while (sessEnum.hasMoreElements()) {
-            String s = sessEnum.nextElement();
-            denne = (Bruker) request.getSession().getAttribute(s);
-        }
-
-
+        Bruker bruker = (Bruker)session.getAttribute("innloggetBruker");
         if ((nyttPassord.equals(bekreftPassord)) && nyttPassord.length() > 4) {
-            if (denne.sammenliknPassord(gammeltP)) {
-                if(service.endrePassord(denne.getMail(), nyttPassord)){
+            if (PassordService.sammenliknPassord(gammeltP, bruker)) {
+                bruker.setPassord(nyttPassord);
+                if(service.endrePassord(bruker.getMail(), bruker.getPassord())){
                     System.out.println("Vellykket");
                     return "endrePassord";
                 }
@@ -54,7 +50,7 @@ public class EndrePassordKontroller {
             System.out.println("Feil ved sammenlikning av gamle");
             return "endrePassord";
         }
-        System.out.println("Feil ved bekrefting av Passord.");
+        System.out.println("Feil ved bekrefting av Passord. Evt. \nFor kort nytt Passord");
         return "endrePassord";
     }
 }

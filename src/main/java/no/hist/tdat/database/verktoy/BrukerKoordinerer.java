@@ -28,6 +28,7 @@ public class BrukerKoordinerer implements RowMapper<Bruker>{
         bruker.setMail(resultSet.getString("mail"));
         bruker.setRettighet(resultSet.getInt("rettighet_id"));
         bruker.setAktiv(resultSet.getInt("aktiv"));
+        bruker.mapPassord(resultSet.getString("passord"));
         return bruker;
     }
 }

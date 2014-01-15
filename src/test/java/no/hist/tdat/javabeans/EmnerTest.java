@@ -9,11 +9,11 @@ import org.junit.Test;
  * @author vimCnett
  */
 public class EmnerTest {
-    private Emner emne;
+    private Emne emne;
 
     @Before
     public void foerHverTest(){
-        emne = new Emner();
+        emne = new Emne();
     }
 
     @Test

@@ -45,7 +45,7 @@
     </definition>
 	
     <definition name="endreStudent" extends="baseLayout">
-        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="title"  value="Administrer student"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/endreStudent.jsp"/>
     </definition>
     

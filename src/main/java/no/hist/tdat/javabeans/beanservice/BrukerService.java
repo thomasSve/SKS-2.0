@@ -5,6 +5,7 @@ import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Service
@@ -20,7 +21,7 @@ public class BrukerService {
      * @see
      *
      */
-    public boolean leggTilBruker(Bruker bruker) {
+    public boolean leggTilBruker(Bruker bruker) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.leggTilBruker(bruker);
     }
 
@@ -56,12 +57,21 @@ public class BrukerService {
     }
 
     /**
+     * Henter en liste med mulige studenter
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Bruker> finnStudenter(String input){
+        return databaseConnector.finnStudenter(input);
+    }
+
+    /**
      * Sletter en spesifikk bruker
-     * @param bruker brukerens objekt
+     * @param mail brukerens mail
      * @return true om bruker ble slettet, ellers false
      */
-    public boolean slettBruker (Bruker bruker){
-        return databaseConnector.slettBruker(bruker.getMail());
+    public boolean slettBruker (String mail){
+        return databaseConnector.slettBruker(mail);
     }
     /**
      * Endrer passordet til en bruker
