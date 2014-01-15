@@ -110,43 +110,65 @@
 
             </form:form>
         </div>
-    </form>
     <br>
-    <form method="POST" modelAttribute="lesInnFil" action="leggTilFil.html" id="lesInnFil">
+    <form method="POST" action="leggTilFil.html" id="lesInnFil">
         <div id="leggTilFilText">
             <h2> Legg til flere brukere via fil </h2>
         </div>
 
-        <input type="text" id="text" path="text"/>
-
-        <input type="file" id="files" name="files[]" multiple />
-        <output id="list"></output>
+        <label for="files">Select a file: </label>
+        <input id="files" type="file" />
 
         <script>
-            function handleFileSelect(evt) {
-                var files = evt.target.files; // FileList object
-                var leser = new FileReader;
-                var text = document.getElementById('text');
+            window.onload = function() {
 
-                // files is a FileList of File objects. List some properties.
-                var output = [];
-                for (var i = 0, f; f = files[i]; i++) {
-                    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                            f.size, ' bytes, last modified: ',
-                            f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a','</li>');
+                //Sjekker om browseren har filstøtte
+                if (window.File && window.FileList && window.FileReader) {
+                    var filesInput = document.getElementById("files");
 
+                    filesInput.addEventListener("change", function(event) {
+
+                        var files = event.target.files; //FileListe objekt
+                        var output = document.getElementById("result");
+
+                        for (var i = 0; i < files.length; i++) {
+                            var file = files[i];
+
+                            //Bare tekst
+                            if (!file.type.match('plain')) continue;
+
+                            var picReader = new FileReader();
+
+                                picReader.addEventListener("load", function(event) {
+
+                                var textFile = event.target;
+
+                                var div = document.getElementById("newText");
+
+                                div.value = textFile.result;
+
+                            });
+
+                            //Leser tekstfil
+                            picReader.readAsText(file);
+                        }
+
+                    });
                 }
-                leser.readAsText(files);
-                document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-
+                else {
+                    console.log("Your browser does not support File API");
+                }
             }
-            document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
         </script>
+        <input type="hidden" name = "newText" id="newText"/>
+        <!--<output id="text"></output>-->
         <br>
-        <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
-        <input type="submit" value="send">
+        <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
+
     </form>
+
+
+
     </div>
     <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
          aria-hidden="true">
