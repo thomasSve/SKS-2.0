@@ -5,13 +5,19 @@ import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PersonerBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
@@ -21,44 +27,29 @@ import java.util.ArrayList;
 public class EndreStudentKontroller {
     @Autowired
     BrukerService service;
+    @Autowired
+    EmneService service2;
 
     @RequestMapping(value = "leggTilStudentListe")
-    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
-        String brukere = request.getParameter("soketekst");
-        personerBeans.leggTil(service.hentBruker(brukere));
+    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model modell, HttpServletRequest request) {
+        String txt = request.getParameter("soketekst");
+        personerBeans.setValgt(service.finnStudenter(txt));
         modell.addAttribute("personerBeans", personerBeans);
         return "endreStudent";
-
-
-/**
- if (personerBeans.getValgt() == null || personerBeans.getValgt().size() == 0) {
- personerBeans = new PersonerBeans();
- }
- >>>>>>> 5bab364c3bf13b819cede335feebe43377be9625
- String soketekst = request.getParameter("soketekst");
- Bruker valgtBruker = service.hentBruker(soketekst);
-
- System.out.println("nr: "+personerBeans.getValgt().size());
-
-
- personerBeans.leggTil(valgtBruker);
- model.addAttribute("personerBeans", personerBeans);
-
- System.out.println("nr: "+personerBeans.getValgt().size());
-
- return "endreStudent";
- */
     }
 
-    @RequestMapping(value = "bekreftelse")
-    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
-        String opersasjon = request.getParameter("opValg");
-        ArrayList<Emne> fellesEmne;
 
-        if (!opersasjon.equals("leggInnFag")) {
-            fellesEmne = personerBeans.finnFellesEmner();
-        }
-        //TODO
+    @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
+    public String ananasbiter(Model modell,@ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request){
+        String mail = request.getParameter("brukerIndex");
+        Bruker bruker = service.hentBruker(mail);
+        System.out.println(bruker.getFornavn());
+        ArrayList<Emne> emner = service2.hentEmnerForStud(mail);
+        System.out.println(emner.size());
+        //service.slettBruker(mail.trim());
+        modell.addAttribute("personerBeans", personerBeans);
         return "endreStudent";
     }
 }
+
+

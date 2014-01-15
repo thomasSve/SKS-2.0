@@ -41,10 +41,11 @@ public class DatabaseConnector {
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
-    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
+    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
+    private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -143,6 +144,28 @@ public class DatabaseConnector {
         input += soeketekst + "%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), input, input, input);
+        ArrayList<Bruker> res = new ArrayList<>();
+
+        for (Bruker bruker : brukerList) {
+            res.add(bruker);
+        }
+        return res;
+    }
+
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     *
+     * @param soeketekst Søkeord etter studentr
+     * @return ArrayList med bruker objekter eller null om ingen finnes.
+     */
+    public ArrayList<Bruker> finnStudenter(String soeketekst) {
+        if (soeketekst == null) {
+            return null;
+        }
+        String input = "%";
+        input += soeketekst+"%";
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(), input, input, input);
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {
@@ -280,5 +303,27 @@ public class DatabaseConnector {
             res.add(bruker);
         }
         return res;
+
+    }
+
+    public ArrayList<Emne> hentEmnerForStud(String mail) {
+        if (mail == null) {
+            return null;
+        }
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+
+        System.out.println("følgende blir feil fo fockz zake!");
+        List<Emne> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
+        System.out.println("halla");
+        ArrayList<Emne> res = new ArrayList<>();
+        System.out.println("testEN"+emneList.size());
+        System.out.println("Mail: "+mail);
+        for (Emne emne : emneList) {
+            System.out.println("test");
+            res.add(emne);
+        }
+        return res;
     }
 }
+

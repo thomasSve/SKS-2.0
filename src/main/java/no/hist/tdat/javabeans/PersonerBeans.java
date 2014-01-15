@@ -1,5 +1,10 @@
 package no.hist.tdat.javabeans;
 
+
+import no.hist.tdat.database.DatabaseConnector;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -35,6 +40,31 @@ public class PersonerBeans {
         return fellesEmne;
     }
 
+    ArrayList<Emne> fellesEmner = new ArrayList<>();
+    Bruker valgtBruker;
+    int valgtIndex = 0;
+
+    /**
+     @Qualifier("databaseConnector")
+     @Autowired
+     DatabaseConnector databaseConnector;
+
+     public PersonerBeans() {
+     valgt = new ArrayList<Bruker>();
+     fellesEmner = new ArrayList<Emner>();
+     databaseConnector = new DatabaseConnector();
+     }
+     */
+
+    public int getValgtIndex() {
+        return valgtIndex;
+    }
+
+    public void setValgtIndex(int t) {
+        valgtIndex = t;
+    }
+
+
     public ArrayList<Bruker> getValgt() {
         return valgt;
     }
@@ -51,6 +81,38 @@ public class PersonerBeans {
         valgt.add(b);
         //fellesEmne = finnFellesEmner();
     }
+
+    public Bruker getValgtBruker() {
+        return valgtBruker;
+    }
+
+    public void setValgtBruker(String mail) {
+        System.out.println(valgt.size());
+        for (int i = 0; i < valgt.size(); i++) {
+            Bruker b1 = valgt.get(i);
+            System.out.println(i);
+            if (mail.equalsIgnoreCase(b1.getMail())) {
+                valgtBruker = b1;
+                System.out.println("setter bruker");
+                return;
+            }
+        }
+    }
+/**
+ public Bruker finnStudent(String sok) {
+ Bruker b = databaseConnector.finnStudent(sok);
+ if (b != null) {
+ valgt.add(b);
+ }
+ return b;
+ }
+
+ public void fjernStudent(int nr) {
+ if (valgt.size() > 0 && nr != -1) {
+ valgt.remove(nr);
+ }
+ }
+>>>>>>> bcdc2a2eaef6581bbdf82572c9a1186b65762fde
 
     /**
      * Finner felles fag for alle valgte elever

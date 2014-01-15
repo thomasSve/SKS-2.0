@@ -56,6 +56,15 @@ public class BrukerService {
     }
 
     /**
+     * Henter en liste med mulige studenter
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Bruker> finnStudenter(String input){
+        return databaseConnector.finnStudenter(input);
+    }
+
+    /**
      * Sletter en spesifikk bruker
      * @param mail brukerens mail
      * @return true om bruker ble slettet, ellers false
