@@ -45,20 +45,5 @@ public class PassordBeans {
     public void setBekreftPassord(String bekreftPassord) {
         this.bekreftPassord = bekreftPassord;
     }
-    /**
-     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
-     *
-     * @param gPassord passord, nytt PW & bekreft nytt PW
-     * @return Boolean, passordet endret eller ikkje
-     * @author vimCnett
-     */
-    public boolean endrePassord(String gPassord, String nPassord, String bPassord){
-       /*if(nPassord.equals(bPassord)){
 
-            if(){
-
-            }
-        }*/
-        return false;
-    }
 }

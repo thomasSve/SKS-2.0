@@ -36,6 +36,7 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
+    private final String endrePassordSQL = "UPDATE PASSORD FROM brukere WHERE mail LIKE ? SET passord = ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -163,5 +164,22 @@ public class DatabaseConnector {
         List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
 
         return brukerList.get(0);
+    }
+    /**
+     * Tar inn mailen til brukeren som skal endrest samt det nye passordet.
+     *
+     * @param passord, det nye passordet
+     * @param mail, mailen til brukeren
+     * @return true dersom vellykket
+     */
+    public boolean endrePassord(String mail, String passord){
+        if(mail == null){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(endrePassordSQL,
+                    mail,
+                    passord);
+        return true;
     }
 }
