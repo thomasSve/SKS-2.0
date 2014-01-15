@@ -168,7 +168,6 @@
         <input type="hidden" name = "newText" id="newText"/>
         <!--<output id="text"></output>-->
         <br>
-<<<<<<< HEAD
         <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
     </form>
 </div>
