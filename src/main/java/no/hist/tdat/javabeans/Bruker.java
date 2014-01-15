@@ -41,6 +41,8 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
+
+    @Qualifier("databaseConnector")
     @Autowired
     private DatabaseConnector databaseConnector;
 
