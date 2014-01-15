@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -20,18 +21,16 @@ public class GlemtPassordKontroller {
     BrukerService service;
 
     @RequestMapping(value = "sendNyttPassord")
-    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
+    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request) {
 
         if(result.hasErrors()){
             return "glemtPassord.htm";
         }
+        String mail = request.getParameter("mail");
+        System.out.println("Mail: " + mail);
 
-        Bruker brook = service.hentBruker(bruker.getMail());
-        if(brook!=null){
-            String nPassord = brook.genererPassord();
-            brook.setPassord(nPassord);
+        if (service.hentBruker(mail)!=null) {
 
-            return "glemtPassord.htm";
         }
         return "glemtPassord.htm";
     }
