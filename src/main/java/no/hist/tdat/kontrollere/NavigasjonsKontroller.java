@@ -2,6 +2,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 
 @Controller
@@ -60,7 +62,6 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-
     public String omdirigerTilKo(Model model){
         return "settIKo";
     }
