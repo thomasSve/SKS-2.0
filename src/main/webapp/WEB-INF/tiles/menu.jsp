@@ -1,6 +1,6 @@
 <%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<a href="<c:url value="test.htm"/>" >test</a> --%>                <%-- Fix --%>
+<%--<a href="<c:url value="test.htm"/>" >test</a> --%> <%-- Fix --%>
 
 <!-- Sidebar -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

@@ -1,21 +1,15 @@
 package no.hist.tdat.kontrollere;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import no.hist.tdat.javabeans.*;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
-import java.util.List;
-
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class NavigasjonsKontroller {
@@ -40,7 +34,6 @@ public class NavigasjonsKontroller {
         return "glemtPassord";
     }
 
-
     @RequestMapping("/adminBrukere.htm")
     public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker) {
         return "adminBrukere";
@@ -63,17 +56,17 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/error.htm")
     public String omdirigerError() {
-        return "error";
+        return   "error";
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo() {
 
+    public String omdirigerTilKo(Model model){
         return "settIKo";
     }
 
     @RequestMapping("/endreStudent.htm")
-    public String omdirEndreStudent() {
+    public String omdirEndreStudent(@ModelAttribute("bruker") Bruker bruker) {
         return "endreStudent";
     }
 

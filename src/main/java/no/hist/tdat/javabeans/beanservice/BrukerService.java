@@ -63,6 +63,14 @@ public class BrukerService {
     public boolean slettBruker (Bruker bruker){
         return databaseConnector.slettBruker(bruker.getMail());
     }
+    /**
+     * Endrer passordet til en bruker
+     * @param mail og nytt passord
+     * @return true om vellykket
+     */
+    public boolean endrePassord(String mail, String passord){
+        return databaseConnector.endrePassord(mail, passord);
+    }
 
 
 

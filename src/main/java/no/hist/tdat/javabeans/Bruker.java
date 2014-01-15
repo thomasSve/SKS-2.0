@@ -29,6 +29,7 @@ import java.util.Random;
  */
 @Scope("session")
 public class Bruker {
+    public static final int STUDENT_RETTIGHET = 1;
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     @NotBlank
@@ -213,24 +214,20 @@ public class Bruker {
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
+     * Tar inn et passord og sammenlikner det med det eksisterande
      *
-     * @param gPassord passord, nytt PW & bekreft nytt PW
-     * @return Boolean, passordet endret eller ikkje
+     * @param Passord passord, nytt PW & bekreft nytt PW
+     * @return Boolean, passordene er like eller ikke
      * @author vimCnett
      */
-    public boolean endrePassord(String gPassord, String nPassord, String bPassord) {
-        if ((gPassord.equals(this.passord)) && (nPassord.equals(bPassord))) {
-            setPassord(nPassord);
+    public boolean sammenliknPassord(String Passord) {
+        if(krypterPassord(Passord).equals(getPassord())){
             return true;
         }
         return false;
     }
 
     /**
->>>>>>> 6d3ee4fb9c71726ba06cf15e5e0484817c2b1637
      * Tar inn en string fra brukeren og krypterer passordet.
      *
      * @param pw passord skrevet inn av bruker

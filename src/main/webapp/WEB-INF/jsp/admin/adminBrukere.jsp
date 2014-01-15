@@ -1,5 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="col-md-8">
     <ul class="nav nav-tabs nav-justified">
@@ -11,7 +11,7 @@
         <div class="tab-pane fade in active" id="endre">
             <h2>Administrer brukere</h2>
             <%--Søkefunksjon etter brukere--%>
-            <form class="søkbar" role="search" action="search" method="POST">
+            <form:form class="søkbar" role="search"  modelAttribute="personerBeans" action="search.htm" method="POST">
                 <div class="input-group">
 
                     <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
@@ -22,45 +22,45 @@
                     </div>
 
                 </div>
-            </form>
-            <div class="span5">
-                <table class="table table-hover" id="minTable">
-                    <thead>
-                    <tr>
-                        <th class="header">Fornavn</th>
-                        <th class="header">Etternavn</th>
-                        <th class="header">Epost</th>
-                        <th class="header">Rettighet</th>
-                        <th class="header">Opprettet</th>
-                        <th class="header">Status</th>
-                        <th class="header"></th>
-                    </tr>
-                    </thead>
+                <div class="span5">
+                    <table class="table table-hover" id="minTable">
+                        <thead>
+                        <tr>
+                            <th class="header">Fornavn</th>
+                            <th class="header">Etternavn</th>
+                            <th class="header">Epost</th>
+                            <th class="header">Status</th>
+                            <th class="header"></th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                    <tr>
-                        <td>Olve</td>
-                        <td>Børmark</td>
-                        <td>oabormar@stud.hist.no</td>
-                        <td>Student</td>
-                        <td>2012/08/16</td>
-                        <td><span class="btn btn-success btn-sm active">Aktiv</span></td>
-                        <td>
-                            <div class="input-group-btn">
-                                <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#endrebrukerModal" title="Endre">
-                                    <i class="glyphicon glyphicon-edit"></i></button>
-                                <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
-                                        onclick="slettBruker()" id="removeknapp"><i
-                                        class="glyphicon glyphicon-remove"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                        <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                            <tr>
+                                <td><c:out value="${bruker.fornavn}"/></td>
+                                <td><c:out value="${bruker.etternavn}"/></td>
+                                <td><c:out value="${bruker.mail}"/></td>
+                                <td><c:if test="${bruker.aktiv == 1}"><span class="btn btn-success btn-sm active">Aktiv</span>
+                                    </c:if></td>
+                                <td>
+                                    <div class="input-group-btn">
+                                        <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                                data-target="#endrebrukerModal" title="Endre">
+                                            <i class="glyphicon glyphicon-edit"></i></button>
+                                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                                onclick="slettBruker()" id="removeknapp"><i
+                                                class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+
+                        </tbody>
+                    </table>
+                </div>
+            </form:form>
         </div>
         <div class="tab-pane fade" id="leggTilEnkelBruker">
 
@@ -95,6 +95,7 @@
 
                     <form:errors path="mail"/>
                 </div>
+                <form:hidden id="aktiv" path="aktiv" value="1" class="form-control"/>
 
 
                 <div class="form-group">
@@ -103,30 +104,49 @@
                         <form:option value="3">Student</form:option>
                         <form:option value="2">Lærer</form:option>
                         <form:option value="1">Admin</form:option>
-
                     </form:select>
                 </div>
-                <input type="submit" class="btn btn-primary btn-block"/>
+                <input type="submit" id="leggtil" value="Legg til" class="btn btn-primary btn-block"/>
 
             </form:form>
         </div>
-
-        <div class="tab-pane fade" id="brukereViaFil">
-
-            <form method="POST" modelAttribute="leggTilViaFIl" action="leggTilFil.html">
-                <div id="leggTilFilText">
-                    <h2> Legg til flere brukere via fil </h2>
-                </div>
-                <input type="file" id="minFil">
-                <output id="filInfo"></output>
-                <script>
-                    document.getElementById('minFil').addEventListener('change',
-                            handleFileSelect, false);
-                </script>
-                <br>
-                <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
-            </form>
+    </form>
+    <br>
+    <form method="POST" modelAttribute="lesInnFil" action="leggTilFil.html" id="lesInnFil">
+        <div id="leggTilFilText">
+            <h2> Legg til flere brukere via fil </h2>
         </div>
+
+        <input type="text" id="text" path="text"/>
+
+        <input type="file" id="files" name="files[]" multiple />
+        <output id="list"></output>
+
+        <script>
+            function handleFileSelect(evt) {
+                var files = evt.target.files; // FileList object
+                var leser = new FileReader;
+                var text = document.getElementById('text');
+
+                // files is a FileList of File objects. List some properties.
+                var output = [];
+                for (var i = 0, f; f = files[i]; i++) {
+                    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                            f.size, ' bytes, last modified: ',
+                            f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a','</li>');
+
+                }
+                leser.readAsText(files);
+                document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+            }
+            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+        </script>
+        <br>
+        <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
+        <input type="submit" value="send">
+    </form>
     </div>
     <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
          aria-hidden="true">
@@ -139,7 +159,7 @@
                 <div class="modal-body">
                     <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
                         <div class="form-group">
-                            <label for="endretfornavn">Fornavn</label>
+                            <label for="endrefornavn">Fornavn</label>
 
                             <input path="endrefornavn" id="endrefornavn" class="form-control"/>
 
