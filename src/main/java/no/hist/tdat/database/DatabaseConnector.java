@@ -246,14 +246,14 @@ public class DatabaseConnector {
         return true;
     }
 
-    public boolean endreKoeStatus(int delEmne, int status){
-        if(delEmne==0||status>1){
+    public boolean endreKoeStatus(int koe_id, int status){
+        if(koe_id==0||status>1){
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
-                delEmne,
-                status);
+                status,
+                koe_id);
         return true;
     }
     /**

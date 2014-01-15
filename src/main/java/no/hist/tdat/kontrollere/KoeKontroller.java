@@ -30,15 +30,13 @@ public class KoeKontroller {
     @RequestMapping(value="/startKoe.htm")
     public String startKoen(@ModelAttribute DelEmne emne) {
         emne.setKoe_status(true);
-        int koe_id = 0;
-        service.endreKoeStatus(koe_id, 1);
+        service.endreKoeStatus(emne.getKoe_id(), 1);
         return "koOversikt";
     }
     @RequestMapping(value="/stoppKoe.htm")
     public String stoppKoen(@ModelAttribute DelEmne emne) {
         emne.setKoe_status(false);
-        int koe_id = 0;
-        service.endreKoeStatus(koe_id, 0);
+        service.endreKoeStatus(emne.getKoe_id(), 0);
         return "koOversikt";
     }
 }
