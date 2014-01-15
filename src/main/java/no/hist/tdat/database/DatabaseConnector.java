@@ -2,11 +2,16 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
+import no.hist.tdat.database.verktoy.OvingKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.Oving;
+import no.hist.tdat.javabeans.utils.PassordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -26,6 +31,9 @@ public class DatabaseConnector {
     private static final Integer ACTIVE = 1;
 
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
+
+
+    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
@@ -34,19 +42,49 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
+    private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
+
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
+
+
+    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emne emne){
+        if (bruker==null){
+            System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(),emne.getEmneKode());
+       ArrayList<Oving> output = new ArrayList<>();//TODO Hent alle ovinger for alle fag!
+        System.out.println("DATABASECONNECTOR: midt i hentstudovinger.........");
+       for(Oving denne : ovingList){
+           output.add(denne);
+       }
+        System.out.println("DATABASECONNECTOR: Like før output  i hentstudovinger");
+        return output;
+    }
+
+    /**
+     * Denne klassen skal kun brukes av TESTPROGRAMMET ikke noe annet.
+     *
+     * @param dataKilde testdatakilde
+     */
+    public void setDataKilde(DataSource dataKilde) { //TODO (OR NOT TODO) IKKE LOV TIL Å BRUKE!!!!!!!!!!
+        this.dataKilde = dataKilde;
+    }
+
     /**
      * Legger til en bruker i databasen
+     *
      * @param bruker
      * @return true om den blir lagt til, ellers false
      */
     public boolean leggTilBruker(Bruker bruker) {
-        if(bruker == null){
+        if (bruker == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -77,7 +115,7 @@ public class DatabaseConnector {
                     bruker.getRettighet(),
                     bruker.getFornavn(),
                     bruker.getEtternavn(),
-                    bruker.genererPassord(),
+                    PassordService.genererPassord(),
                     ACTIVE);
             return true;
         }
@@ -111,8 +149,7 @@ public class DatabaseConnector {
      * @param bruker brukerobjekt med kun mail og passord
      * @return nytt brukerobjekt med all brukerinformasjon
      */
-
-    public Bruker loggInn(Bruker bruker){
+    public Bruker loggInn(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -125,13 +162,19 @@ public class DatabaseConnector {
             res.add(brukerInfo);
         }
 //        System.out.println("***********************************ETTER løkka ");
-        if(res.size() >0){
+        if (res.size() > 0) {
 //            System.out.println("***********************************IF STATEENT");
             return res.get(0);
         }
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
+    /**
+     * Henter emnene en bruker har
+     *
+     * @param bruker
+     * @return en ArrayList med emner.
+     */
     public ArrayList<Emne> hentMineEmner(Bruker bruker){
         if (bruker == null) {
             return null;
@@ -151,15 +194,14 @@ public class DatabaseConnector {
         }
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
-
     }
 
-        /**
-         * Sletter bruker med gitt epost.
-         *
-         * @param epost eposten til den brukeren som skal slettes fra databasen
-         * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
-         */
+    /**
+     * Sletter bruker med gitt epost.
+     *
+     * @param epost eposten til den brukeren som skal slettes fra databasen
+     * @return true hvis en eller flere rader fra tabellen har blitt slettet. false hvis ingen rader blir slettet.
+     */
     public boolean slettBruker(String epost) {
         if (epost == null)
             return false;
@@ -182,7 +224,7 @@ public class DatabaseConnector {
         }
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(),soeketekst,soeketekst,soeketekst);
+        List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(), soeketekst, soeketekst, soeketekst);
 
         return brukerList.get(0);
     }
@@ -214,5 +256,24 @@ public class DatabaseConnector {
                 delEmne,
                 status);
         return true;
+    }
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     *
+     * @param emnekode Hvilket emne man vil sette seg i kø i
+     * @return ArrayList med alle studenter i samme emne
+     */
+    public ArrayList<Bruker> finnAlleDeltakere(String emnekode, String mail) {
+        if (emnekode == null) {
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(),emnekode, mail);
+        ArrayList<Bruker> res = new ArrayList<Bruker>();
+
+        for (Bruker bruker : brukerList) {
+            res.add(bruker);
+        }
+        return res;
     }
 }

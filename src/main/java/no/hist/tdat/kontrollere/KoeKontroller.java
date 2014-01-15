@@ -3,6 +3,11 @@ package no.hist.tdat.kontrollere;
 import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.beanservice.EmneService;
+import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.koe.Koe;
+import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,13 +24,6 @@ public class KoeKontroller {
 
 
     }*/
-
-   /* @RequestMapping(value="")
-    public String hvilketRom(@ModelAttribute("koeBruker") KoeBruker koeBruker){
-
-
-    }*/
-
 
     @Autowired
     EmneService service;

@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
-@Component
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();
     ArrayList<Emne> fellesEmne = null;
@@ -21,6 +20,7 @@ public class PersonerBeans {
     public void setIndex(Integer index) {
         this.index = index;
     }
+<<<<<<< HEAD
 
     /**
      @Qualifier("databaseConnector")
@@ -35,6 +35,10 @@ public class PersonerBeans {
      */
     public ArrayList<Emne> getFellesEmne() {
         return fellesEmne;
+=======
+    public ArrayList<Emner> getFellesEmner() {
+        return fellesEmner;
+>>>>>>> 03bd832c63e34e21b1dd46d256c4f6cdec786c02
     }
 
     public ArrayList<Bruker> getValgt() {
@@ -47,24 +51,12 @@ public class PersonerBeans {
 
     public void leggTil(Bruker b) {
         valgt.add(b);
+<<<<<<< HEAD
         //fellesEmne = finnFellesEmner();
+=======
+>>>>>>> 03bd832c63e34e21b1dd46d256c4f6cdec786c02
     }
-/**
- public Bruker finnStudent(String sok) {
- Bruker b = databaseConnector.finnStudent(sok);
- if (b != null) {
- valgt.add(b);
- }
- return b;
- }
 
- public void fjernStudent(int nr) {
- if (valgt.size() > 0 && nr != -1) {
- valgt.remove(nr);
- }
- }
-
- */
     /**
      * Finner felles fag for alle valgte elever
      */

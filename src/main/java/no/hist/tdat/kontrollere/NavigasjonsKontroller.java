@@ -3,6 +3,7 @@ package no.hist.tdat.kontrollere;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,11 +55,10 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/error.htm")
     public String omdirigerError() {
-        return   "error";
+        return "error";
     }
 
     @RequestMapping("/settIKo.htm")
-
     public String omdirigerTilKo(Model model){
         return "settIKo";
     }
@@ -69,8 +69,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/minside.htm")
-    public String omdirigerMinside(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
-        bruker = (Bruker)session.getAttribute("innloggetBruker");
+    public String omdirigerMinside(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
+        bruker = (Bruker) session.getAttribute("innloggetBruker");
         return "minside";
     }
 

@@ -6,8 +6,8 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,19 +24,15 @@ public class GlemtPassordKontroller {
 
     @RequestMapping(value = "sendNyttPassord")
     private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request) {
-        System.out.println("Hei");
-
         if (result.hasErrors()) {
             return "glemtPassord";
         }
 
         String mail = request.getParameter("mail");
-        System.out.println("Mail: " + mail);
-
         try {
             if (service.hentBruker(mail) != null) {
                 bruker = service.hentBruker(mail);
-                String nyttPassord =  bruker.genererPassord();
+                String nyttPassord =  PassordService.genererPassord();
                 bruker.setPassord(nyttPassord);
                 //sendMail(bruker, nyttPassord);
                 service.endrePassord(mail, bruker.getPassord());
