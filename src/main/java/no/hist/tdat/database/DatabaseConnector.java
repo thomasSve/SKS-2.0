@@ -1,7 +1,9 @@
 package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
+import no.hist.tdat.database.verktoy.EmneKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.Emner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,6 +31,7 @@ public class DatabaseConnector {
     private static final Integer ACTIVE = 1;
 
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
+    private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, passord = ?, aktiv = ? WHERE mail = ?";
@@ -133,7 +136,27 @@ public class DatabaseConnector {
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
+    public ArrayList<Emner> hentMineEmner(Bruker bruker){
+        if (bruker == null) {
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emner> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
+        ArrayList<Emner> res = new ArrayList<>();
+        for (Emner emne : emneList) {
+            res.add((Emner)emne);
+        }
+//        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
+//        System.out.println("***********************************ETTER løkka ");
+        if(res.size() >0){
+//            System.out.println("***********************************IF STATEENT");
+            return res;
+        }
+//        System.out.println("***********************************RETURN NULLZa ");
+        return null;
+
+    }
 
         /**
          * Sletter bruker med gitt epost.

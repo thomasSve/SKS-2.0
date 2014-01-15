@@ -4,7 +4,6 @@ import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,7 +25,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/sendNyttPassord.htm")
-    public String glemtPassord(@ModelAttribute("bruker") Bruker bruker) {
+    public String glemtPassord(@ModelAttribute("innloggetBruker") Bruker bruker) {
         /*if(bruker.getGammeltPassord().equals(bruker.getPassord())){
 
         }*/
@@ -60,6 +59,7 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/settIKo.htm")
     public String omdirigerTilKo() {
+
         return "settIKo";
     }
 
@@ -69,7 +69,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/minside.htm")
-    public String omdirigerMinside(HttpSession session) {
+    public String omdirigerMinside(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
+        bruker = (Bruker)session.getAttribute("innloggetBruker");
         return "minside";
     }
 
@@ -89,10 +90,9 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/loggUt.htm")
-    public String loggUt(HttpSession session) {
+    public String loggUt(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
         session.invalidate();
         System.out.println("utlogget");
-        return "/";
+        return "loggInn";
     }
-
 }

@@ -2,6 +2,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,11 @@ import java.util.Enumeration;
 public class LoginKontroller {
 
     @Autowired
+    EmneService emneService;
+    @Autowired
     BrukerService service;
+    @Autowired
+    Bruker bruker;
 
     @RequestMapping(value = "loggerinn.SSL", method= RequestMethod.POST)
     private String loggerInn(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result,HttpSession session) {
@@ -30,6 +35,7 @@ public class LoginKontroller {
         if(bruker==null){
             return "loggInn";
         }
+        emneService.hentEmner(bruker);
         session.setAttribute("innloggetBruker", bruker);
         return "minside";
     }

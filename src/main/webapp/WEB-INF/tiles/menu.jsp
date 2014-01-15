@@ -1,3 +1,4 @@
+<%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<a href="<c:url value="test.htm"/>" >test</a> --%>                <%-- Fix --%>
 
@@ -19,7 +20,8 @@
 
         <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">John Smith <b class="caret"></b></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.innloggetBruker.fornavn}
+                <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="minside.htm" >Minside</a></li>
                     <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
