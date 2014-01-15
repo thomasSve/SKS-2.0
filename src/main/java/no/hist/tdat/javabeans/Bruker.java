@@ -84,6 +84,14 @@ public class Bruker {
         this.passord = krypterPassord(passord);
     }
 
+    /**
+     * Konstruktør for glemtpassord.
+     * @param mail
+     */
+    public Bruker(String mail){
+        this.mail = mail;
+    }
+
     public void setDatabaseConnector(DatabaseConnector databaseConnector) {
         this.databaseConnector = databaseConnector;
     }

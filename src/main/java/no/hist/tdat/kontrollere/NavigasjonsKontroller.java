@@ -26,11 +26,8 @@ public class NavigasjonsKontroller {
         return "endrePassord";
     }
 
-    @RequestMapping("/sendNyttPassord.htm")
-    public String glemtPassord(@ModelAttribute("innloggetBruker") Bruker bruker) {
-        /*if(bruker.getGammeltPassord().equals(bruker.getPassord())){
-
-        }*/
+    @RequestMapping("/glemtPassord.htm")
+    public String glemtPassord(@ModelAttribute("bruker") Bruker bruker) {
         return "glemtPassord";
     }
 

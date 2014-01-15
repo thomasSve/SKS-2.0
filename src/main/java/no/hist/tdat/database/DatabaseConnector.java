@@ -39,7 +39,7 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-    private final String endrePassordSQL = "UPDATE PASSORD FROM brukere WHERE mail LIKE ? SET passord = ?";
+    private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -204,8 +204,8 @@ public class DatabaseConnector {
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endrePassordSQL,
-                    mail,
-                    passord);
+                    passord,
+                    mail);
         return true;
     }
 }
