@@ -11,7 +11,7 @@
         <div class="tab-pane fade in active" id="endre">
             <h2>Administrer brukere</h2>
             <%--Søkefunksjon etter brukere--%>
-            <form:form class="søkbar" role="search"  modelAttribute="personerBeans" action="search.htm" method="POST">
+            <form:form class="søkbar" role="search" modelAttribute="personerBeans" action="search.htm" method="POST">
                 <div class="input-group">
 
                     <input type="text" class="form-control" placeholder="Søk" name="srch-term" id="srch-term">
@@ -41,14 +41,16 @@
                                 <td><c:out value="${bruker.fornavn}"/></td>
                                 <td><c:out value="${bruker.etternavn}"/></td>
                                 <td><c:out value="${bruker.mail}"/></td>
-                                <td><c:if test="${bruker.aktiv == 1}"><span class="btn btn-success btn-sm active">Aktiv</span>
-                                    </c:if></td>
+                                <td><c:if test="${bruker.aktiv == 1}"><span
+                                        class="btn btn-success btn-sm active">Aktiv</span>
+                                </c:if></td>
                                 <td>
                                     <div class="input-group-btn">
                                         <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
                                                 data-target="#endrebrukerModal" title="Endre">
                                             <i class="glyphicon glyphicon-edit"></i></button>
-                                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove"
+                                                title="Fjern"
                                                 onclick="slettBruker()" id="removeknapp"><i
                                                 class="glyphicon glyphicon-remove"></i>
                                         </button>
@@ -110,62 +112,65 @@
 
             </form:form>
         </div>
-    <br>
-    <form method="POST" action="leggTilFil.html" id="lesInnFil">
-        <div id="leggTilFilText">
-            <h2> Legg til flere brukere via fil </h2>
-        </div>
 
-        <label for="files">Select a file: </label>
-        <input id="files" type="file" />
+        <div class="tab-pane fade" id="brukereViaFil">
+        <form method="POST" action="leggTilFil.htm" id="lesInnFil">
+            <div id="leggTilFilText">
+                <h2> Legg til flere brukere via fil </h2>
+            </div>
 
-        <script>
-            window.onload = function() {
+            <label for="files">Select a file: </label>
+            <input id="files" type="file"/>
 
-                //Sjekker om browseren har filstøtte
-                if (window.File && window.FileList && window.FileReader) {
-                    var filesInput = document.getElementById("files");
+            <script>
+                window.onload = function () {
 
-                    filesInput.addEventListener("change", function(event) {
+                    //Sjekker om browseren har filstøtte
+                    if (window.File && window.FileList && window.FileReader) {
+                        var filesInput = document.getElementById("files");
 
-                        var files = event.target.files; //FileListe objekt
-                        var output = document.getElementById("result");
+                        filesInput.addEventListener("change", function (event) {
 
-                        for (var i = 0; i < files.length; i++) {
-                            var file = files[i];
+                            var files = event.target.files; //FileListe objekt
+                            var output = document.getElementById("result");
 
-                            //Bare tekst
-                            if (!file.type.match('plain')) continue;
+                            for (var i = 0; i < files.length; i++) {
+                                var file = files[i];
 
-                            var picReader = new FileReader();
+                                //Bare tekst
+                                if (!file.type.match('plain')) continue;
 
-                                picReader.addEventListener("load", function(event) {
+                                var picReader = new FileReader();
 
-                                var textFile = event.target;
+                                picReader.addEventListener("load", function (event) {
 
-                                var div = document.getElementById("newText");
+                                    var textFile = event.target;
 
-                                div.value = textFile.result;
+                                    var div = document.getElementById("newText");
 
-                            });
+                                    div.value = textFile.result;
 
-                            //Leser tekstfil
-                            picReader.readAsText(file);
-                        }
+                                });
 
-                    });
+                                //Leser tekstfil
+                                picReader.readAsText(file);
+                            }
+
+                        });
+                    }
+                    else {
+                        console.log("Your browser does not support File API");
+                    }
                 }
-                else {
-                    console.log("Your browser does not support File API");
-                }
-            }
-        </script>
-        <input type="hidden" name = "newText" id="newText"/>
-        <!--<output id="text"></output>-->
-        <br>
-        <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
+            </script>
+            <input type="hidden" name="newText" id="newText"/>
+            <!--<output id="text"></output>-->
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
 
-    </form>
+        </form>
+    </div>
+    </div>
 
 
 
