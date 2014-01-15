@@ -62,7 +62,7 @@
         </select>
 
         <select id="fagValg" class="form-control">
-            <c:forEach var="i" items="${personerBeans.fellesEmner}">
+            <c:forEach var="i" items="${personerBeans.fellesEmne}">
                 <option value="<c:out value="${i}"/>"><c:out value="${i}"/></option>
             </c:forEach>
         </select>

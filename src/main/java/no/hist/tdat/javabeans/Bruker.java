@@ -1,6 +1,11 @@
 package no.hist.tdat.javabeans;
 
 
+import no.hist.tdat.database.DatabaseConnector;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,7 +28,7 @@ public class Bruker {
     private String etternavn;
     private String passord;
     private int aktiv;
-    private ArrayList<Emner> emner;
+    private ArrayList<Emne> emne;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -32,7 +37,7 @@ public class Bruker {
         this.etternavn = etternavn;
         this.passord = PassordService.genererPassord();
         this.aktiv = aktiv;
-        emner = new ArrayList<Emner>();
+        emne = new ArrayList<Emne>();
     }
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn) {
@@ -42,7 +47,7 @@ public class Bruker {
         this.etternavn = etternavn;
         this.passord = PassordService.genererPassord();
         this.aktiv = 1;
-        emner = new ArrayList<Emner>();
+        emne = new ArrayList<Emne>();
 
     }
 
@@ -127,12 +132,12 @@ public class Bruker {
         this.aktiv = aktiv;
     }
 
-    public ArrayList<Emner> getEmner() {
-        return emner;
+    public ArrayList<Emne> getEmne() {
+        return emne;
     }
 
-    public void setEmner(ArrayList<Emner> emner) {
-        this.emner = emner;
+    public void setEmne(ArrayList<Emne> emne) {
+        this.emne = emne;
     }
 
     public void addEmne() {
@@ -152,7 +157,7 @@ public class Bruker {
                 ", etternavn='" + etternavn + '\'' +
                 ", passord='" + passord + '\'' +
                 ", aktiv=" + aktiv +
-                ", emner=" + emner +
+                ", emner=" + emne +
                 '}';
     }
 }

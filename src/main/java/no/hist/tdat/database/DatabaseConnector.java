@@ -3,9 +3,10 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
 import no.hist.tdat.database.verktoy.OvingKoordinerer;
-import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.Emner;
-import no.hist.tdat.javabeans.Oving;
+import no.hist.tdat.javabeans.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,6 +32,7 @@ public class DatabaseConnector {
 
 
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ?";
+    private final String brukerDelemnerSQL = "SELECT * FROM delemnne LEFT JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode WHERE emner_brukere.mail = ? AND emner.emnekode = ?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
@@ -41,14 +43,29 @@ public class DatabaseConnector {
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
+    private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
 
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
 
-
-    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emner emne){
+    public ArrayList<DelEmne> hentStudDelemner(Bruker bruker,Emne emne){
+        if (bruker==null){
+            System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<DelEmne> delemneList = con.query(brukerDelemnerSQL, new DelEmneKoordinerer(), bruker.getMail(),emne.getEmneKode());
+        ArrayList<DelEmne> output = new ArrayList<>();
+        System.out.println("DATABASECONNECTOR: midt i hentstudovinger.........");
+        for(DelEmne denne : delemneList){
+            output.add(denne);
+        }
+        System.out.println("DATABASECONNECTOR: Like før output  i hentstudovinger");
+        return output;
+    }
+    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emne emne){
         if (bruker==null){
             System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
             return null;
@@ -165,22 +182,21 @@ public class DatabaseConnector {
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
-
     /**
      * Henter emnene en bruker har
      *
      * @param bruker
      * @return en ArrayList med emner.
      */
-    public ArrayList<Emner> hentMineEmner(Bruker bruker){
+    public ArrayList<Emne> hentMineEmner(Bruker bruker){
         if (bruker == null) {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emner> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
-        ArrayList<Emner> res = new ArrayList<>();
-        for (Emner emne : emneList) {
-            res.add((Emner)emne);
+        List<Emne> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
+        ArrayList<Emne> res = new ArrayList<>();
+        for (Emne emne : emneList) {
+            res.add((Emne)emne);
         }
 //        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
@@ -244,6 +260,16 @@ public class DatabaseConnector {
         return true;
     }
 
+    public boolean endreKoeStatus(int delEmne, int status){
+        if(delEmne==0||status>1){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(endreKoeStatusSQL,
+                delEmne,
+                status);
+        return true;
+    }
     /**
      * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *

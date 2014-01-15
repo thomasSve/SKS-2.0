@@ -1,6 +1,7 @@
 package no.hist.tdat.database.verktoy;
 
 
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,19 +14,25 @@ import java.sql.SQLException;
  *
  * @author vimCnett
  */
-public class EmneKoordinerer implements RowMapper<Emne>{
+public class DelEmneKoordinerer implements RowMapper<DelEmne>{
     /**
      * Denne metoden er en mal på hvordan Bruker objekter skal opprettes ved henting fra database.
      * @param resultSet settes av Spring, og er resultatet fra database-spørringen
      * @param rowNum sier hvor langt i resultsettet vi har kommet
      * @return et Bruker-objekt ut i fra datane i databasen.
-     * @throws SQLException exception blir tatt hånd om av rammeverket.
+     * @throws java.sql.SQLException exception blir tatt hånd om av rammeverket.
      */
     @Override
-    public Emne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        Emne emne = new Emne();
-        emne.setEmneKode(resultSet.getString("emnekode"));
-        emne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
-        return emne;
+    public DelEmne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        DelEmne delEmne = new DelEmne();
+        delEmne.setEmneKode(resultSet.getString("emnekode"));
+        delEmne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
+        return delEmne;
     }
 }
+private int nr;
+private char semester;
+private int koe_id;
+private Ovingsopplegg ovinger;
+private boolean koe_status;
+private ArrayList<Oving> studentovinger;

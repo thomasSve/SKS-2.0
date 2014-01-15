@@ -36,13 +36,13 @@ public class LoginKontroller {
             return "loggInn";
         }
         emneService.hentEmner(bruker);
-        for (int i = 0; i < bruker.getEmner().size(); i++) {
-            System.out.println(bruker.getEmner().get(i).getEmneNavn());
-            for (int j = 0; j < bruker.getEmner().get(i).getStudentovinger().size() ; j++) {
+        for (int i = 0; i < bruker.getEmne().size(); i++) {
+            System.out.println(bruker.getEmne().get(i).getEmneNavn());
+/*            for (int j = 0; j < bruker.getEmne().get(i).getStudentovinger().size() ; j++) {
                 System.out.println("\tovingsnr: "+bruker.getEmner().get(i).getStudentovinger().get(j).getOvingnr());
                 System.out.println("\tgodkjent av: "+bruker.getEmner().get(i).getStudentovinger().get(j).getGodkjentAv());
                 System.out.println("\tgodkjent dato: "+bruker.getEmner().get(i).getStudentovinger().get(j).getGodkjentTid());
-            }
+            }*/ //TODO TED
 
         }
 

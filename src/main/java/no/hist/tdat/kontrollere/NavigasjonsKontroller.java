@@ -1,18 +1,16 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PassordBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 
 @Controller
@@ -51,7 +49,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/koOversikt.htm")
-    public String koOversikt() {
+    public String koOversikt(@ModelAttribute Emne emne) {
         return "koOversikt";
     }
 
@@ -77,9 +75,9 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/emne.htm")
-    public String hentMittEmne(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
-        bruker = (Bruker) session.getAttribute("innloggetBruker");
-        bruker.getEmner().get(0);
+    public String hentMittEmne(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
+        bruker = (Bruker)session.getAttribute("innloggetBruker");
+        bruker.getEmne().get(0);
         return "minside";
     }
 
