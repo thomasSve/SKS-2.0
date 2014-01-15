@@ -38,18 +38,6 @@
         <form:form action="fjernStudent" method="post" modelAttribute="personerBeans">
 
             <tbody>
-            <tr>
-                <td>Olve Andr?</td>
-                <td>B?rmark</td>
-                <td>oabormar@stud.hist.no</td>
-                <td>
-                    <div class="btn btn-group">
-                        <input type="submit" name="0" value="Slett" class="btn btn-danger" data-task="remove" title="Fjern"><i
-                                class="glyphicon glyphicon-remove"></i>
-                        </input>
-                    </div>
-                </td>
-            </tr>
 
             <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
                 <tr>
@@ -58,9 +46,10 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <form:hidden path="index" value="${status.index}" name="index"></form:hidden>
-                        <input type="submit" value="Fjern" class="btn btn-danger" data-task="remove"
-                                title="Fjern" ><i class="glyphicon glyphicon-remove"></i>
-                        </input>
+
+                        <button type="submit" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                            id="removeknapp"> <i class="glyphicon glyphicon-remove"></i>  </button>
+
                     </td>
                 </tr>
             </c:forEach>

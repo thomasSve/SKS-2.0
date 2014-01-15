@@ -41,17 +41,16 @@
                                 <td><c:out value="${bruker.fornavn}"/></td>
                                 <td><c:out value="${bruker.etternavn}"/></td>
                                 <td><c:out value="${bruker.mail}"/></td>
-                                <td><c:if test="${bruker.aktiv == 1}"><span class="btn btn-success btn-sm active">Aktiv</span>
-                                    </c:if></td>
+                                <td><c:if test="${bruker.aktiv == 1}"><span class="btn btn-success btn-sm active">&nbsp;Aktiv&nbsp;&nbsp;</span>
+                                    </c:if><c:if test="${bruker.aktiv == 0}"><span class="btn btn-danger btn-sm active">Inaktiv</span>
+                                </c:if></td>
                                 <td>
                                     <div class="input-group-btn">
                                         <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
                                                 data-target="#endrebrukerModal" title="Endre">
                                             <i class="glyphicon glyphicon-edit"></i></button>
-                                        <button type="remove" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
-                                                onclick="slettBruker()" id="removeknapp"><i
-                                                class="glyphicon glyphicon-remove"></i>
-                                        </button>
+                                        <button type="submit" value="Slett" class="btn btn-danger btn-sm" data-task="remove" title="Slett"
+                                               id="removeknapp"> <i class="glyphicon glyphicon-remove"></i> </button>
                                     </div>
                                 </td>
                             </tr>
