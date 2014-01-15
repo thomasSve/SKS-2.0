@@ -190,6 +190,7 @@ public class DatabaseConnector {
 
         return brukerList.get(0);
     }
+
     /**
      * Tar inn mailen til brukeren som skal endrest samt det nye passordet.
      *
