@@ -5,6 +5,7 @@ import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Service
@@ -20,7 +21,7 @@ public class BrukerService {
      * @see
      *
      */
-    public boolean leggTilBruker(Bruker bruker) {
+    public boolean leggTilBruker(Bruker bruker) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.leggTilBruker(bruker);
     }
 

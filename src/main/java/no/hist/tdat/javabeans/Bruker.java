@@ -45,7 +45,7 @@ public class Bruker {
         this.rettighet = rettighet;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
-        this.passord = PassordService.genererPassord();
+        this.passord = PassordService.krypterPassord(PassordService.genererPassord());
         this.aktiv = 1;
         emne = new ArrayList<Emne>();
 
