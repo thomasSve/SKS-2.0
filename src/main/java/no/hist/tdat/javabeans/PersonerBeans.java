@@ -26,16 +26,16 @@ public class PersonerBeans {
     }
 
     /**
-    @Qualifier("databaseConnector")
-    @Autowired
-    DatabaseConnector databaseConnector;
+     @Qualifier("databaseConnector")
+     @Autowired
+     DatabaseConnector databaseConnector;
 
-    public PersonerBeans() {
-        valgt = new ArrayList<Bruker>();
-        fellesEmner = new ArrayList<Emner>();
-        databaseConnector = new DatabaseConnector();
-    }
-*/
+     public PersonerBeans() {
+     valgt = new ArrayList<Bruker>();
+     fellesEmner = new ArrayList<Emner>();
+     databaseConnector = new DatabaseConnector();
+     }
+     */
     public ArrayList<Emner> getFellesEmner() {
         return fellesEmner;
     }
@@ -53,21 +53,21 @@ public class PersonerBeans {
         //fellesEmner = finnFellesEmner();
     }
 /**
-    public Bruker finnStudent(String sok) {
-        Bruker b = databaseConnector.finnStudent(sok);
-        if (b != null) {
-            valgt.add(b);
-        }
-        return b;
-    }
+ public Bruker finnStudent(String sok) {
+ Bruker b = databaseConnector.finnStudent(sok);
+ if (b != null) {
+ valgt.add(b);
+ }
+ return b;
+ }
 
-    public void fjernStudent(int nr) {
-        if (valgt.size() > 0 && nr != -1) {
-            valgt.remove(nr);
-        }
-    }
+ public void fjernStudent(int nr) {
+ if (valgt.size() > 0 && nr != -1) {
+ valgt.remove(nr);
+ }
+ }
 
-*/
+ */
     /**
      * Finner felles fag for alle valgte elever
      */
