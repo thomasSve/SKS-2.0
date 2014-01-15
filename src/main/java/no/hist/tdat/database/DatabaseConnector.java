@@ -114,8 +114,8 @@ public class DatabaseConnector {
                     bruker.getRettighet(),
                     bruker.getFornavn(),
                     bruker.getEtternavn(),
-                    PassordService.genererPassord(),
-                    ACTIVE);
+                    bruker.getPassord(),
+                    bruker.getAktiv());
             return true;
         }
     }
@@ -131,7 +131,7 @@ public class DatabaseConnector {
             return null;
         }
         String input = "%";
-        input += soeketekst+"%";
+        input += soeketekst + "%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), input, input, input);
         ArrayList<Bruker> res = new ArrayList<>();
@@ -187,7 +187,7 @@ public class DatabaseConnector {
 //        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
 //        System.out.println("***********************************ETTER løkka ");
-        if(res.size() >0){
+        if (res.size() > 0) {
 //            System.out.println("***********************************IF STATEENT");
             return res;
         }
@@ -205,7 +205,7 @@ public class DatabaseConnector {
         if (epost == null)
             return false;
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        int num = con.update(slettBrukerSQL);
+        int num = con.update(slettBrukerSQL, epost);
         return num > 0;
 
     }
@@ -232,11 +232,11 @@ public class DatabaseConnector {
      * Tar inn mailen til brukeren som skal endrest samt det nye passordet.
      *
      * @param passord, det nye passordet
-     * @param mail, mailen til brukeren
+     * @param mail,    mailen til brukeren
      * @return true dersom vellykket
      */
-    public boolean endrePassord(String mail, String passord){
-        if(mail == null){
+    public boolean endrePassord(String mail, String passord) {
+        if (mail == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);

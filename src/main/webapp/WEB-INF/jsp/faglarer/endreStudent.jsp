@@ -36,18 +36,24 @@
         </thead>
 
         <form:form action="fjernStudent" method="get" modelAttribute="personerBeans">
+
             <tbody>
-            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="rad">
-                <tr>
-                    <td><c:out value="${bruker.fornavn}"/></td>
-                    <td><c:out value="${bruker.etternavn}"/></td>
-                    <td><c:out value="${bruker.mail}"/></td>
-                    <td>
-                        <form:hidden path="index" value="${rad.count}" name="index"></form:hidden>
-                        <input type="submit" value="Fjern" class="btn btn-danger" data-task="remove" title="Fjern" ><i class="glyphicon glyphicon-remove"></i></input>
-                    </td>
-                </tr>
-            </c:forEach>
+                <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+
+                    <tr>
+                        <td><c:out value="${bruker.fornavn}"/></td>
+                        <td><c:out value="${bruker.etternavn}"/></td>
+                        <td><c:out value="${bruker.mail}"/></td>
+                        <td>
+
+                            <form:hidden path="index" value="${status.index}" name="index"></form:hidden>
+
+                            <button type="submit" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                id="removeknapp"> <i class="glyphicon glyphicon-remove"></i>  </button>
+
+                        </td>
+                    </tr>
+                </c:forEach>
 
             </tbody>
         </form:form>

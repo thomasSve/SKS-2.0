@@ -13,6 +13,16 @@ public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();
     ArrayList<Emne> fellesEmne = null;
     Integer index = 0;
+    String indexen = "";
+
+    public String getIndexen() {
+        return indexen;
+    }
+
+    public void setIndexen(String indexen) {
+        this.indexen = indexen;
+    }
+
     public Integer getIndex() {
         return index;
     }
@@ -20,17 +30,7 @@ public class PersonerBeans {
     public void setIndex(Integer index) {
         this.index = index;
     }
-    /**
-     @Qualifier("databaseConnector")
-     @Autowired
-     DatabaseConnector databaseConnector;
 
-     public PersonerBeans() {
-     valgt = new ArrayList<Bruker>();
-     fellesEmne = new ArrayList<Emne>();
-     databaseConnector = new DatabaseConnector();
-     }
-     */
     public ArrayList<Emne> getFellesEmne() {
         return fellesEmne;
     }
@@ -43,6 +43,10 @@ public class PersonerBeans {
         valgt = brukere;
     }
 
+    /**
+     * Legger til bruker i arraylisten valgt
+     * @param b bruker objekt
+     */
     public void leggTil(Bruker b) {
         valgt.add(b);
         //fellesEmne = finnFellesEmner();

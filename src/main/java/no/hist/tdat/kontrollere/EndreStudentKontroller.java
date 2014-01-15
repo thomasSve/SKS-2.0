@@ -50,29 +50,6 @@ public class EndreStudentKontroller {
  */
     }
 
-    @RequestMapping(value = "fjernStudent")
-    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
-        /**
-         int radNr = -1;
-         for (Integer i = 0; i < personerBeans.getValgt().size(); i++) {
-
-         String knappNrVar = request.getParameter(i.toString());
-         if (knappNrVar != null && !knappNrVar.equals("")) {
-         radNr = Integer.parseInt(knappNrVar);
-         break;
-         }
-         }
-         */
-        System.out.println(request.getParameter("index"));
-        String index = request.getParameter("index");
-        Integer indexen = Integer.parseInt(index);
-
-        service.slettBruker(personerBeans.getValgt().get(indexen));
-        model.addAttribute("personerBeans", personerBeans);
-
-        return "endreStudent";
-    }
-
     @RequestMapping(value = "bekreftelse")
     public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
         String opersasjon = request.getParameter("opValg");
