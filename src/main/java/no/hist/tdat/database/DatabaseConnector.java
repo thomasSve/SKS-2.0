@@ -40,7 +40,7 @@ public class DatabaseConnector {
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
-    private final String hentEmnerForStudSQL = "SELECT emnekode FROM emner_brukere WHERE mail LIKE ?";
+    private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -236,11 +236,16 @@ public class DatabaseConnector {
         if (mail == null) {
             return null;
         }
-        JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emner> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
-        ArrayList<Emner> res = new ArrayList<>();
 
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        System.out.println("halla");
+        List<Emner> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
+        System.out.println("halla");
+        ArrayList<Emner> res = new ArrayList<>();
+        System.out.println("testEN"+emneList.size());
+        System.out.println("Mail: "+mail);
         for (Emner emne : emneList) {
+            System.out.println("test");
             res.add(emne);
         }
         return res;
