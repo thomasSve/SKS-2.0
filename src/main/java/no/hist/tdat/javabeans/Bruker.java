@@ -1,28 +1,12 @@
 package no.hist.tdat.javabeans;
 
 
-import no.hist.tdat.database.DatabaseConnector;
 import no.hist.tdat.javabeans.utils.PassordService;
-import org.hibernate.validator.constraints.NotBlank;
-import org.omg.DynamicAny._DynAnyFactoryStub;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by vimCnett on 09.01.14.
@@ -30,6 +14,7 @@ import java.util.Random;
  */
 @Scope("session")
 public class Bruker {
+    public static final int STUDENT_RETTIGHET = 1;
     @NotBlank
     @Email
     private String mail;
@@ -68,7 +53,7 @@ public class Bruker {
     /**
      * Konstruktør for innlogging
      *
-     * @param mail Brukerens epostadresse
+     * @param mail    Brukerens epostadresse
      * @param passord brukerens passord
      */
     public Bruker(String mail, String passord) {
@@ -112,7 +97,6 @@ public class Bruker {
         return passord;
     }
 
-
     /**
      * Bruker hjelpemetoden krypterPassord til å sette passord til bruker
      *
@@ -125,7 +109,6 @@ public class Bruker {
             this.passord = PassordService.krypterPassord(passord);
         }
     }
-
 
     public int getAktiv() {
         return aktiv;
@@ -145,21 +128,6 @@ public class Bruker {
 
     public void addEmne() {
         //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
-    }
-
-    /**
-     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
-     *
-     * @param gPassord passord, nytt PW & bekreft nytt PW
-     * @return Boolean, passordet endret eller ikkje
-     * @author vimCnett
-     */
-    public boolean endrePassord(String gPassord, String nPassord, String bPassord) {
-        if ((gPassord.equals(this.passord)) && (nPassord.equals(bPassord))) {
-            setPassord(nPassord);
-            return true;
-        }
-        return false;
     }
 }
 

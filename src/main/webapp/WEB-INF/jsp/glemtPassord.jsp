@@ -20,7 +20,7 @@
     <form:form class="form-signin" method="post" action="sendNyttPassord" commandName="bruker">
         <div class="form-group">
             <h2 class="form-signin-heading" id="header">Glemt Passord</h2>
-            <form:input type="text" class="form-control" placeholder="Email" required="true" autofocus="true" path="mail"/>
+            <form:input type="text" class="form-control" placeholder="Email" id="mail" required="true" autofocus="true" path="mail"/>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Send Passord</button>
