@@ -2,8 +2,10 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
+import no.hist.tdat.database.verktoy.OvingKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.Oving;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +32,7 @@ public class DatabaseConnector {
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
 
-    // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
+    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
@@ -43,6 +45,24 @@ public class DatabaseConnector {
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
+
+
+
+    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emner emne){
+        if (bruker==null){
+            System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(),emne.getEmneKode());
+       ArrayList<Oving> output = new ArrayList<>();//TODO Hent alle ovinger for alle fag!
+        System.out.println("DATABASECONNECTOR: midt i hentstudovinger.........");
+       for(Oving denne : ovingList){
+           output.add(denne);
+       }
+        System.out.println("DATABASECONNECTOR: Like før output  i hentstudovinger");
+        return output;
+    }
 
     /**
      * Legger til en bruker i databasen
