@@ -44,7 +44,7 @@ public class EndreStudentKontroller {
     }
 
     @RequestMapping(value="fjernStudent")
-    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request) {
+    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
         /**
         int radNr = -1;
         for (Integer i = 0; i < personerBeans.getValgt().size(); i++) {
@@ -67,7 +67,7 @@ public class EndreStudentKontroller {
     }
 
     @RequestMapping(value="bekreftelse")
-    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request) {
+    public String bekreftelse(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker") Bruker bruker, Model model, HttpServletRequest request) {
         String opersasjon = request.getParameter("opValg");
         ArrayList<Emner> fellesEmner;
 

@@ -58,7 +58,7 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <form:hidden path="index" value="${status.index}" name="index"></form:hidden>
-                        <input type="submit" class="btn btn-danger" data-task="remove"
+                        <input type="submit" value="Fjern" class="btn btn-danger" data-task="remove"
                                 title="Fjern" ><i class="glyphicon glyphicon-remove"></i>
                         </input>
                     </td>

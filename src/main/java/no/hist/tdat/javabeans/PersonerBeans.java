@@ -50,8 +50,8 @@ public class PersonerBeans {
     }
 
     public void leggTil(Bruker b) {
-        getValgt().add(b);
-        fellesEmner = finnFellesEmner();
+        valgt.add(b);
+        //fellesEmner = finnFellesEmner();
     }
 /**
     public Bruker finnStudent(String sok) {

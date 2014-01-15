@@ -64,7 +64,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/endreStudent.htm")
-    public String omdirEndreStudent() {
+    public String omdirEndreStudent(@ModelAttribute("bruker") Bruker bruker) {
         return "endreStudent";
     }
 
