@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 /**
@@ -29,9 +30,16 @@ public class EndreStudentKontroller {
         Bruker valgtBruker = service.hentBruker(soketekst);
 
         System.out.println("nr: "+personerBeans.getValgt().size());
+/*
+        for (int i = 0; i < 3; i++) {
+            personerBeans.leggTil(valgtBruker);
+        }
 
-
-        personerBeans.leggTil(valgtBruker);
+        ArrayList<Bruker> hei = new ArrayList<Bruker>();
+        hei.add(new Bruker("sfasd@adsf.sk", 1, "Per", "Foss"));
+        hei.add(new Bruker("sfasfdd@adsf.sk", 1, "Pål", "Hål"));
+        hei.add(new Bruker("sfaaaa@adsf.sk", 1, "Gunnar", "Penis"));
+  */
         model.addAttribute("personerBeans", personerBeans);
 
         System.out.println("nr: "+personerBeans.getValgt().size());
@@ -40,7 +48,7 @@ public class EndreStudentKontroller {
     }
 
     @RequestMapping(value="fjernStudent")
-    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request) {
+    public String fjernStudent(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model model, HttpServletRequest request, HttpServletResponse response) {
         int radNr = -1;
         for (Integer i = 0; i < personerBeans.getValgt().size(); i++) {
             String knappNrVar = request.getParameter(i.toString());
