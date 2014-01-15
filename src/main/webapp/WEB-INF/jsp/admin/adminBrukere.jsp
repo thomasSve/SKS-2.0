@@ -115,62 +115,67 @@
 
     </form:form>
 </div>
-<div class="tab-pane fade" id="brukereViaFil">
-    <form method="POST" modelAttribute="lesInnFil" action="leggTilFil.html" id="lesInnFil">
 
-        <div id="leggTilFilText">
-            <h2> Legg til flere brukere via fil </h2>
-        </div>
-        <label for="files">Select a file: </label>
-        <input id="files" type="file" />
 
-        <script>
-            window.onload = function() {
+    <div class="tab-pane fade" id="brukereViaFil">
+        <form method="POST" action="leggTilFil.htm" id="lesInnFil">
+            <div id="leggTilFilText">
+                <h2> Legg til flere brukere via fil </h2>
+            </div>
 
-                //Sjekker om browseren har filstøtte
-                if (window.File && window.FileList && window.FileReader) {
-                    var filesInput = document.getElementById("files");
+            <label for="files">Select a file: </label>
+            <input id="files" type="file"/>
 
-                    filesInput.addEventListener("change", function(event) {
+            <script>
+                window.onload = function () {
 
-                        var files = event.target.files; //FileListe objekt
-                        var output = document.getElementById("result");
+                    //Sjekker om browseren har filstøtte
+                    if (window.File && window.FileList && window.FileReader) {
+                        var filesInput = document.getElementById("files");
 
-                        for (var i = 0; i < files.length; i++) {
-                            var file = files[i];
+                        filesInput.addEventListener("change", function (event) {
 
-                            //Bare tekst
-                            if (!file.type.match('plain')) continue;
+                            var files = event.target.files; //FileListe objekt
+                            var output = document.getElementById("result");
 
-                            var picReader = new FileReader();
+                            for (var i = 0; i < files.length; i++) {
+                                var file = files[i];
 
-                                picReader.addEventListener("load", function(event) {
+                                //Bare tekst
+                                if (!file.type.match('plain')) continue;
 
-                                var textFile = event.target;
+                                var picReader = new FileReader();
 
-                                var div = document.getElementById("newText");
+                                picReader.addEventListener("load", function (event) {
 
-                                div.value = textFile.result;
+                                    var textFile = event.target;
 
-                            });
+                                    var div = document.getElementById("newText");
 
-                            //Leser tekstfil
-                            picReader.readAsText(file);
-                        }
+                                    div.value = textFile.result;
 
-                    });
+                                });
+
+                                //Leser tekstfil
+                                picReader.readAsText(file);
+                            }
+
+                        });
+                    }
+                    else {
+                        console.log("Your browser does not support File API");
+                    }
                 }
-                else {
-                    console.log("Your browser does not support File API");
-                }
-            }
-        </script>
-        <input type="hidden" name = "newText" id="newText"/>
-        <!--<output id="text"></output>-->
-        <br>
-        <button type="button" class="btn btn-primary btn-block">Last opp fil</button>
-    </form>
+            </script>
+            <input type="hidden" name="newText" id="newText"/>
+            <!--<output id="text"></output>-->
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
+
+        </form>
+    </div>
 </div>
+
 
 <%--HVA er dette--%>
 <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
@@ -235,6 +240,6 @@
     </div>
 </div>
 </div>
-</div>
+
 
 <script src="<c:url value="/resources/js/admin.js"/>"></script>
