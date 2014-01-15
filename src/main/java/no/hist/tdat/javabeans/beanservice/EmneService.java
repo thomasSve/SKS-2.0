@@ -17,9 +17,6 @@ public class EmneService {
     @Autowired
     DatabaseConnector databaseConnector;
 
-
-
-
     public void hentEmner(Bruker bruker) {
        bruker.setEmner(databaseConnector.hentMineEmner(bruker));
        ArrayList<Emner> tempList = bruker.getEmner();
