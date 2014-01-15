@@ -25,14 +25,12 @@ public class DelEmneKoordinerer implements RowMapper<DelEmne>{
     @Override
     public DelEmne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         DelEmne delEmne = new DelEmne();
-        delEmne.setEmneKode(resultSet.getString("emnekode"));
-        delEmne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
+        delEmne.setNr(resultSet.getInt("delemne_nr"));
+        delEmne.setDelEmneNavn(resultSet.getString("delemnenavn"));
+        delEmne.setSemester((char)resultSet.getString("semester").charAt(0));
+        delEmne.setKoe_id(resultSet.getInt("koe_id"));
+        delEmne.setOvingsRegler(resultSet.getString("ovingsregler"));
         return delEmne;
     }
 }
-private int nr;
-private char semester;
-private int koe_id;
-private Ovingsopplegg ovinger;
-private boolean koe_status;
-private ArrayList<Oving> studentovinger;
+

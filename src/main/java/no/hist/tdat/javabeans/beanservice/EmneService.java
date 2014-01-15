@@ -23,17 +23,16 @@ public class EmneService {
         ArrayList<Oving> ovingList;
         for(int a=0;a<emneList.size();a++){ // For hvert emne i lista
             Emne tempEmne = emneList.get(a);
-            delEmneList = databaseConnector.hentDelemner(tempEmne);
+            delEmneList = databaseConnector.hentDelemner(bruker,tempEmne);
             tempEmne.setDelemner(delEmneList);
             for (int b = 0; b <delEmneList.size(); b++) {   //for hvert delemne pr emne
                 DelEmne tempDelEmne = delEmneList.get(b);
-                ovingList = databaseConnector.hentStudOvinger(bruker, tempDelEmne);
+                ovingList = databaseConnector.hentStudOvinger(bruker,tempEmne,tempDelEmne);
                 tempDelEmne.setStudentovinger(ovingList);
-
-
             }
         }
     }
+
     public boolean endreKoeStatus(int koeId, int status){
         return databaseConnector.endreKoeStatus(koeId, status);
     }

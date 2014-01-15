@@ -1,6 +1,7 @@
 package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
+import no.hist.tdat.database.verktoy.DelEmneKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
 import no.hist.tdat.database.verktoy.OvingKoordinerer;
 import no.hist.tdat.javabeans.*;
@@ -31,8 +32,8 @@ public class DatabaseConnector {
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
 
 
-    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ?";
-    private final String brukerDelemnerSQL = "SELECT * FROM delemnne LEFT JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode WHERE emner_brukere.mail = ? AND emner.emnekode = ?";
+    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
+    private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
@@ -50,34 +51,29 @@ public class DatabaseConnector {
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
 
-    public ArrayList<DelEmne> hentStudDelemner(Bruker bruker,Emne emne){
+    public ArrayList<DelEmne> hentDelemner(Bruker bruker,Emne emne){
         if (bruker==null){
-            System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<DelEmne> delemneList = con.query(brukerDelemnerSQL, new DelEmneKoordinerer(), bruker.getMail(),emne.getEmneKode());
         ArrayList<DelEmne> output = new ArrayList<>();
-        System.out.println("DATABASECONNECTOR: midt i hentstudovinger.........");
         for(DelEmne denne : delemneList){
             output.add(denne);
         }
-        System.out.println("DATABASECONNECTOR: Like før output  i hentstudovinger");
         return output;
     }
-    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emne emne){
+    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emne emne,DelEmne delemne){
         if (bruker==null){
-            System.out.println("DATABASECONNECTOR: Hent students ovinger pr fag: brukerobjekt var null");
             return null;
         }
+
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(),emne.getEmneKode());
+        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(),emne.getEmneKode(),delemne.getNr());
        ArrayList<Oving> output = new ArrayList<>();//TODO Hent alle ovinger for alle fag!
-        System.out.println("DATABASECONNECTOR: midt i hentstudovinger.........");
        for(Oving denne : ovingList){
            output.add(denne);
        }
-        System.out.println("DATABASECONNECTOR: Like før output  i hentstudovinger");
         return output;
     }
 
@@ -169,17 +165,17 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(loggInnBrukerSQL, new BrukerKoordinerer(), bruker.getMail(), bruker.getPassord());
         ArrayList<Bruker> res = new ArrayList<>();
-//        System.out.println("************************ LIST LENGTH: "+brukerList.size());
+
         for (Bruker brukerInfo : brukerList) {
-//            System.out.println("***********************************INNE I løkka ");
+
             res.add(brukerInfo);
         }
-//        System.out.println("***********************************ETTER løkka ");
+
         if (res.size() > 0) {
-//            System.out.println("***********************************IF STATEENT");
+
             return res.get(0);
         }
-//        System.out.println("***********************************RETURN NULLZa ");
+
         return null;
     }
     /**
@@ -198,14 +194,10 @@ public class DatabaseConnector {
         for (Emne emne : emneList) {
             res.add((Emne)emne);
         }
-//        System.out.println("************************ LIST LENGTH: "+brukerList.size());
 
-//        System.out.println("***********************************ETTER løkka ");
         if(res.size() >0){
-//            System.out.println("***********************************IF STATEENT");
             return res;
         }
-//        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
 
