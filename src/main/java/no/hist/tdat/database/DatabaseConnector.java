@@ -238,7 +238,8 @@ public class DatabaseConnector {
         }
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        System.out.println("halla");
+
+        System.out.println("følgende blir feil fo fockz zake!");
         List<Emner> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
         System.out.println("halla");
         ArrayList<Emner> res = new ArrayList<>();
