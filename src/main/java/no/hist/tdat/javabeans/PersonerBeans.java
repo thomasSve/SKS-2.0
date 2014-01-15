@@ -3,6 +3,7 @@ package no.hist.tdat.javabeans;
 import no.hist.tdat.database.DatabaseConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -15,15 +16,9 @@ import java.util.ArrayList;
 @Component
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();
-    ArrayList<Emner> fellesEmner = null;
-    Integer index = 0;
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
+    ArrayList<Emner> fellesEmner = new ArrayList<>();
+    Bruker valgtBruker;
+    int valgtIndex = 0;
 
     /**
      @Qualifier("databaseConnector")
@@ -36,6 +31,15 @@ public class PersonerBeans {
      databaseConnector = new DatabaseConnector();
      }
      */
+
+    public int getValgtIndex() {
+        return valgtIndex;
+    }
+
+    public void setValgtIndex(int t) {
+        valgtIndex = t;
+    }
+
     public ArrayList<Emner> getFellesEmner() {
         return fellesEmner;
     }
@@ -51,6 +55,23 @@ public class PersonerBeans {
     public void leggTil(Bruker b) {
         valgt.add(b);
         //fellesEmner = finnFellesEmner();
+    }
+
+    public Bruker getValgtBruker() {
+        return valgtBruker;
+    }
+
+    public void setValgtBruker(String mail) {
+        System.out.println(valgt.size());
+        for (int i = 0; i < valgt.size(); i++) {
+            Bruker b1 = valgt.get(i);
+            System.out.println(i);
+            if (mail.equalsIgnoreCase(b1.getMail())) {
+                valgtBruker = b1;
+                System.out.println("setter bruker");
+                return;
+            }
+        }
     }
 /**
  public Bruker finnStudent(String sok) {

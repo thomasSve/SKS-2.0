@@ -29,4 +29,13 @@ public class EmneService {
         }
     }
 
+    /**
+     * Henter alle emner knyttet til en bruker (mail)
+     *
+     * @param mail, unik identifikator
+     * @return liste over alle emner
+     */
+    public ArrayList<Emner> hentEmnerForStud(String mail) {
+        return databaseConnector.hentEmnerForStud(mail);
+    }
 }
