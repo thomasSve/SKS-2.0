@@ -32,7 +32,7 @@ public class LeggTilBrukerKontroller {
      */
     @RequestMapping("/leggTilBruker.htm")
     public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
-        if (result.hasErrors()) {
+        if(result.hasErrors()){
             return "adminBrukere";
         } else {
             if (service.leggTilBruker(bruker)) {

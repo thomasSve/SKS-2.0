@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
-@Component
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();
     ArrayList<Emner> fellesEmner = null;
@@ -53,7 +52,6 @@ public class PersonerBeans {
      */
     public void leggTil(Bruker b) {
         valgt.add(b);
-        //fellesEmner = finnFellesEmner();
     }
 
     /**
