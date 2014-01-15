@@ -35,24 +35,25 @@
         </tr>
         </thead>
 
-        <form:form action="fjernStudent" method="post" modelAttribute="personerBeans">
+        <form:form action="fjernStudent" method="get" modelAttribute="personerBeans">
 
             <tbody>
+                <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
 
-            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
-                <tr>
-                    <td><c:out value="${bruker.fornavn}"/></td>
-                    <td><c:out value="${bruker.etternavn}"/></td>
-                    <td><c:out value="${bruker.mail}"/></td>
-                    <td>
-                        <form:hidden path="index" value="${status.index}" name="index"></form:hidden>
+                    <tr>
+                        <td><c:out value="${bruker.fornavn}"/></td>
+                        <td><c:out value="${bruker.etternavn}"/></td>
+                        <td><c:out value="${bruker.mail}"/></td>
+                        <td>
 
-                        <button type="submit" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
-                            id="removeknapp"> <i class="glyphicon glyphicon-remove"></i>  </button>
+                            <form:hidden path="index" value="${status.index}" name="index"></form:hidden>
 
-                    </td>
-                </tr>
-            </c:forEach>
+                            <button type="submit" class="btn btn-danger btn-sm" data-task="remove" title="Fjern"
+                                id="removeknapp"> <i class="glyphicon glyphicon-remove"></i>  </button>
+
+                        </td>
+                    </tr>
+                </c:forEach>
 
             </tbody>
         </form:form>

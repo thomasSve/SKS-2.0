@@ -2,16 +2,23 @@ package no.hist.tdat.javabeans;
 
 
 import no.hist.tdat.database.DatabaseConnector;
+import org.hibernate.validator.constraints.NotBlank;
+import org.omg.DynamicAny._DynAnyFactoryStub;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,20 +27,25 @@ import java.util.Random;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
+@Scope("session")
 public class Bruker {
+    public static final int STUDENT_RETTIGHET = 1;
     private static final String RANDOM_TEGN = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     private final Random random = new Random();
     @NotBlank
     @Email
     private String mail;
     private Integer rettighet;
-    @NotBlank
     private String fornavn;
-    @NotBlank
     private String etternavn;
     private String passord;
     private int aktiv;
     private ArrayList<Emner> emner;
+
+
+    @Qualifier("databaseConnector")
+    @Autowired
+    private DatabaseConnector databaseConnector;
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
@@ -45,6 +57,7 @@ public class Bruker {
         emner = new ArrayList<Emner>();
     }
 
+
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn) {
         this.mail = mail;
         this.rettighet = rettighet;
@@ -53,6 +66,7 @@ public class Bruker {
         this.passord = genererPassord();
         this.aktiv = 1;
         emner = new ArrayList<Emner>();
+
     }
 
     public Bruker() {
@@ -68,6 +82,10 @@ public class Bruker {
     public Bruker(String mail, String passord) {
         this.mail = mail;
         this.passord = krypterPassord(passord);
+    }
+
+    public void setDatabaseConnector(DatabaseConnector databaseConnector) {
+        this.databaseConnector = databaseConnector;
     }
 
     public String getMail() {
@@ -104,6 +122,18 @@ public class Bruker {
 
     public String getPassord() {
         return passord;
+    }
+
+    /**
+     * Sjekker om mail og passord korresponderer
+     * Brukerobjekt opprettes av mail og passord før denne kalles.
+     * @return boolean, true om mail og passord korresponderer
+     * @author vimCnett
+     * @see "The Java Programming Language"
+     */
+    public Bruker loggInn(){
+        databaseConnector = new DatabaseConnector();
+        return databaseConnector.loggInn(this);
     }
 
     /**
@@ -184,15 +214,14 @@ public class Bruker {
     }
 
     /**
-     * Tar inn tre variabler, det gamle, nye og bekrefta det nye.
+     * Tar inn et passord og sammenlikner det med det eksisterande
      *
-     * @param gPassord passord, nytt PW & bekreft nytt PW
-     * @return Boolean, passordet endret eller ikkje
+     * @param Passord passord, nytt PW & bekreft nytt PW
+     * @return Boolean, passordene er like eller ikke
      * @author vimCnett
      */
-    public boolean endrePassord(String gPassord, String nPassord, String bPassord) {
-        if ((gPassord.equals(this.passord)) && (nPassord.equals(bPassord))) {
-            setPassord(nPassord);
+    public boolean sammenliknPassord(String Passord) {
+        if(krypterPassord(Passord).equals(getPassord())){
             return true;
         }
         return false;
@@ -235,5 +264,12 @@ public class Bruker {
         }
         return krypterPassord2(kryptertPassord);
     }
+
+    public boolean leggTilBruker(){
+        System.out.println(getMail()+ getRettighet()+ getFornavn()+ getEtternavn()+ getPassord()+ getAktiv());
+        DatabaseConnector dc = new DatabaseConnector();
+       return dc.leggTilBruker(this);
+    }
+
 }
 

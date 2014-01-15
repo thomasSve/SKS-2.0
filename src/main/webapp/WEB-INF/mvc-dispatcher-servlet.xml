@@ -7,9 +7,9 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="no.hist.tdat"/>
     <mvc:annotation-driven/>
-
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <context:component-scan base-package="no.hist.tdat" />
 
     <bean id="tilesViewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver"
@@ -17,8 +17,9 @@
 
     <bean id="tilesConfigurer"
           class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-          p:definitions="/WEB-INF/tiles.xml"/>
+          p:definitions="/WEB-INF/tiles.xml" />
 
+    <bean id="bruker" class="no.hist.tdat.javabeans.Bruker"/>
 
     <bean id="dataKilde" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -32,8 +33,4 @@
         <property name="basename" value="classpath:message"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
-
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
-
-
 </beans>
