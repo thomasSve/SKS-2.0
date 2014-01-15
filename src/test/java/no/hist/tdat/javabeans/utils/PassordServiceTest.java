@@ -28,7 +28,7 @@ public class PassordServiceTest {
 
     @Test
     public void testRandomIndex(){
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             int index = PassordService.randomIndex();
                 assertEquals(true, (index >= 0 && index <= 62));
         }
@@ -43,6 +43,8 @@ public class PassordServiceTest {
 
     @Test
     public void testGenererPassord() throws Exception {
-        assertTrue((PassordService.genererPassord().length() == 6));
+        for (int i = 0; i < 100000; i++) {
+            assertTrue((PassordService.genererPassord().length() == 6));
+        }
     }
 }

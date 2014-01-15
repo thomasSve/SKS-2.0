@@ -21,7 +21,7 @@ public class PassordService {
     public static int randomIndex() {
         int min = 0;
         int max = RANDOM_TEGN.length();
-        return random.nextInt((max - min) + 1) + min;
+        return random.nextInt(max);
     }
 
     /**

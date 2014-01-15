@@ -129,5 +129,22 @@ public class Bruker {
     public void addEmne() {
         //TODO legg til et emne en bruker er medlem av. Her skal ikke tilgangsrettigheter være
     }
+
+    public boolean sammenliknPassord(String gammeltP) {
+        return true; //TODO add this shit
+    }
+
+    @Override
+    public String toString() {
+        return "Bruker{" +
+                "mail='" + mail + '\'' +
+                ", rettighet=" + rettighet +
+                ", fornavn='" + fornavn + '\'' +
+                ", etternavn='" + etternavn + '\'' +
+                ", passord='" + passord + '\'' +
+                ", aktiv=" + aktiv +
+                ", emner=" + emner +
+                '}';
+    }
 }
 

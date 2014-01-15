@@ -33,11 +33,19 @@ public class DatabaseConnector {
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_brukere (koe_id, mail, plassering, ovingsnummer, koe_plass) VALUES (?,?,?,?,?)";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-
     private final String endrePassordSQL = "UPDATE PASSORD FROM brukere WHERE mail LIKE ? SET passord = ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
+
+    /**
+     * Denne klassen skal kun brukes av TESTPROGRAMMET ikke noe annet.
+     *
+     * @param dataKilde testdatakilde
+     */
+    public void setDataKilde(DataSource dataKilde) { //TODO (OR NOT TODO) IKKE LOV TIL Å BRUKE!!!!!!!!!!
+        this.dataKilde = dataKilde;
+    }
 
     /**
      * Legger til en bruker i databasen
@@ -111,7 +119,6 @@ public class DatabaseConnector {
      * @param bruker brukerobjekt med kun mail og passord
      * @return nytt brukerobjekt med all brukerinformasjon
      */
-
     public Bruker loggInn(Bruker bruker) {
         if (bruker == null) {
             return null;
@@ -132,6 +139,13 @@ public class DatabaseConnector {
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
+
+    /**
+     * Henter emnene en bruker har
+     *
+     * @param bruker
+     * @return en ArrayList med emner.
+     */
     public ArrayList<Emner> hentMineEmner(Bruker bruker){
         if (bruker == null) {
             return null;
@@ -152,6 +166,7 @@ public class DatabaseConnector {
 //        System.out.println("***********************************RETURN NULLZa ");
         return null;
     }
+
     /**
      * Sletter bruker med gitt epost.
      *

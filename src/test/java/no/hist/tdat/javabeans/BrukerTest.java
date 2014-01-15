@@ -50,6 +50,7 @@ public class BrukerTest {
     @Test
     public void testGetRettighet() throws Exception {
         int i = bruker.getRettighet();
+        System.out.println(i);
         assertEquals(id, i);
     }
 
