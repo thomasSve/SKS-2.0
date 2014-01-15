@@ -7,6 +7,7 @@ public class Emner {
     private String emneKode;
     private String emneNavn;
     private Ovingsopplegg ovinger;
+    private boolean koeAktiv;
 
     public Emner(String kode, String navn, Ovingsopplegg ovinger) {
         this.emneKode = kode;
@@ -39,5 +40,13 @@ public class Emner {
 
     public void setOvinger(Ovingsopplegg ovinger) {
         this.ovinger = ovinger;
+    }
+
+    public boolean isKoeAktiv() {
+        return koeAktiv;
+    }
+
+    public void setKoeAktiv(boolean koeAktiv) {
+        this.koeAktiv = koeAktiv;
     }
 }
