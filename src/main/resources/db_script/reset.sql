@@ -92,20 +92,20 @@ CREATE TABLE oving_brukere(
         godkjent_tid                TIMESTAMP
 	)ENGINE = InnoDB;
 
-ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk1 FOREIGN KEY(mail) REFERENCES brukere (mail);
+ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk1 FOREIGN KEY(mail) REFERENCES brukere (mail)ON DELETE CASCADE;
 ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk2 FOREIGN KEY(koe_id) REFERENCES koe(koe_id);
 ALTER TABLE koe_brukere ADD CONSTRAINT koe_brukere_fk3 FOREIGN KEY(plassering_navn) REFERENCES plassering (plassering_navn);
 
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk1 FOREIGN KEY(emnekode) REFERENCES emner(emnekode);
-ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk2 FOREIGN KEY(mail) REFERENCES brukere(mail);
+ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk2 FOREIGN KEY(mail) REFERENCES brukere(mail)ON DELETE CASCADE;
 
-ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk1 FOREIGN KEY(mail) REFERENCES brukere(mail);
+ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk1 FOREIGN KEY(mail) REFERENCES brukere(mail)ON DELETE CASCADE;
 ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk2 FOREIGN KEY(delemne_nr, emnekode) REFERENCES delemne(delemne_nr, emnekode);
 
 ALTER TABLE brukere ADD CONSTRAINT brukere_fk1 FOREIGN KEY(rettighet_id) REFERENCES rettighet(rettighet_id);
 
 ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk1 FOREIGN KEY(oving_id) REFERENCES oving(oving_id);
-ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk2 FOREIGN KEY(mail) REFERENCES brukere(mail);
+ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk2 FOREIGN KEY(mail) REFERENCES brukere(mail)ON DELETE CASCADE;
 
 ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY(delemne_nr,emnekode) REFERENCES delemne(delemne_nr, emnekode);
 
