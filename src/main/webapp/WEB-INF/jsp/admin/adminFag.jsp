@@ -22,8 +22,7 @@
         <option value="emne4">Fag 4</option>
     </select>
 
-    <form role="form">
-
+    <form:form method="post" modelAttribute="emne">
         <h3>
             <div id="operasjonstekst">
                 Lag nytt fag
@@ -31,7 +30,7 @@
         </h3>
         <div class="form-group">
             <label for="emnekode">Emnekode:</label>
-            <input  class="form-control" path="kode" id="emnekode" placeholder="Emnekode"/>
+            <form:input  class="form-control" path="kode" id="emnekode" placeholder="Emnekode"/>
             <form:errors path="kode"/>
         </div>
         <div class="form-group">

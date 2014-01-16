@@ -17,17 +17,18 @@
 <body>
 <div class="container">
 
-    <form:form class="form-signin" role="form" action="/sendNyttPassord.htm">
+    <form:form class="form-signin" modelattribute="bruker" method="post" action="sendNyttPassord" commandName="bruker">
         <div class="form-group">
             <h2 class="form-signin-heading" id="header">Glemt Passord</h2>
-            <form:input type="text" path="" class="form-control" placeholder="Email" required="true" autofocus="true"/>
+            <form:input type="text" class="form-control" placeholder="Email" id="mail" autofocus="true" path="mail"/>
+            <form:errors path="mail"></form:errors>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Send Passord</button>
+        <a href="login.htm">
+            Tilbake
+        </a>
     </form:form>
-    <a href="login.htm">
-        Tilbake
-    </a>
 </div>
 
 <script src="<c:url value="/resources/js/jquery-1.10.2.js"/>"></script>

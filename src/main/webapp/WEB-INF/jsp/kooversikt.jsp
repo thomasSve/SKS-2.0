@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="col-md-8">
     <h3>
@@ -14,10 +15,18 @@
             K&oslash; for (Emne)
         </div>
     </h3>
-        <a href="settIKo.htm">
-            <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
-        </a>
-    <button class="btn btn-sm btn-success" onclick="statusKoe()" id="koStatus" value="stopp">Start Køen</button>
+    <a href="settIKo.htm">
+        <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
+    </a>
+    <c:if test="${delEmne.koe_status}">
+        <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
+
+        <input type="button" onclick="location.href='/startKoe.htm'" class="btn btn-sm btn-success" id="startKoe" value="Start Køen">
+
+    </c:if>
+    <c:if test="${!delEmne.koe_status}">
+        <input type="button" onclick="location.href='/stoppKoe.htm'" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp Køen">
+    </c:if>
 
     <table class="table table-hover" id="minTable">
         <thead>
@@ -32,10 +41,10 @@
 
 
         <tbody>
-        <%--<c:forEach var="gruppe" items="$">--%>
+        <c:forEach var="gruppe" items="$">
             <tr>
-                <td>1:20</td>
-                <td>B&oslash;rmark, Olve André</td>
+                <td>gruppe.tid</td>
+                <td>gruppe.leder</td>
                 <td>1, 2, 3</td>
                 <td>Labben, Bord 13</td>
                 <td>
@@ -52,7 +61,7 @@
                     </div>
                 </td>
             </tr>
-        <%--</c:forEach>--%>
+        </c:forEach>
         </tbody>
     </table>
 </div>

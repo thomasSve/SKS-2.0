@@ -5,6 +5,7 @@ import no.hist.tdat.javabeans.Bruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Service
@@ -20,8 +21,8 @@ public class BrukerService {
      * @see
      *
      */
-    public void leggTilBruker(Bruker bruker) {
-        databaseConnector.leggTilBruker(bruker);
+    public boolean leggTilBruker(Bruker bruker) throws org.springframework.dao.DuplicateKeyException{
+        return databaseConnector.leggTilBruker(bruker);
     }
 
     /**
@@ -45,5 +46,52 @@ public class BrukerService {
         ArrayList<Bruker> brukere = databaseConnector.finnBruker(email);
         return brukere.get(0);
     }
+
+    /**
+     * Henter en liste med mulige bruker
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Bruker> finnBruker(String input){
+        return databaseConnector.finnBruker(input);
+    }
+
+    /**
+     * Henter en liste med mulige studenter
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Bruker> finnStudenter(String input){
+        return databaseConnector.finnStudenter(input);
+    }
+
+    /**
+     * Sletter en spesifikk bruker
+     * @param mail brukerens mail
+     * @return true om bruker ble slettet, ellers false
+     */
+    public boolean slettBruker (String mail){
+        return databaseConnector.slettBruker(mail);
+    }
+    /**
+     * Endrer passordet til en bruker
+     * @param mail og nytt passord
+     * @return true om vellykket
+     */
+    public boolean endrePassord(String mail, String passord){
+        return databaseConnector.endrePassord(mail, passord);
+    }
+
+    /**
+     * Henter alle medstudenter i emnet du vil sette deg i kø i
+     * @param emnekode og mail
+     * @return ArrayList med brukerobjekter
+     */
+    public ArrayList<Bruker> getMedstudenter(String emnekode, String mail){
+        return databaseConnector.finnAlleDeltakere(emnekode, mail);
+
+    }
+
+
 
 }

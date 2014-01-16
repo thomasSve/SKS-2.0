@@ -1,5 +1,6 @@
+<%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<a href="<c:url value="test.htm"/>" >test</a> --%>                <%-- Fix --%>
+<%--<a href="<c:url value="test.htm"/>" >test</a> --%> <%-- Fix --%>
 
 <!-- Sidebar -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -19,25 +20,33 @@
 
         <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">John Smith <b class="caret"></b></a>
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.innloggetBruker.fornavn}
+                <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="minside.htm" >Minside</a></li>
                     <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
-                    <li><a href=""><i class="fa fa-power-off"></i> Logg ut</a></li>
+                    <li><a href="loggUt.htm"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>
         </ul>
         <ul class="nav navbar-nav side-nav">
-            <li><a href="error.htm">Error</a></li>
             <li><a href="login.htm">Logg inn</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
+                    Emner <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
+                        <li><a href="">${emne.emneNavn}</a></li>
+                    </c:forEach>
+                </ul>
+            </li>
             <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
 
 
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
             <li><a href="adminFag.htm">Administrer fag</a></li>
-            <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Administrer studenter <b class="caret"></b></a>
@@ -46,16 +55,7 @@
                     <li><a href="endreStudent.htm">Endre student</a></li>
                 </ul>
 
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
-                    Emner <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="emne.html">Emne1</a></li>
-                    <li><a href="#">Another Item</a></li>
-                    <li><a href="#">Third Item</a></li>
-                    <li><a href="#">Last Item</a></li>
-                </ul>
-            </li>
+
         </ul>
     </div>
     <!-- /.navbar-collapse -->

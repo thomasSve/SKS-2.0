@@ -1,35 +1,69 @@
 package no.hist.tdat.javabeans;
 
+
 import no.hist.tdat.database.DatabaseConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 /**
- * Created by Kjetil vimCnett
+ * Created by vimCnett
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
-@Component
 public class PersonerBeans {
+    ArrayList<Bruker> valgt = new ArrayList<>();
+    ArrayList<Emne> fellesEmne = null;
+    Integer index = 0;
+    String indexen = "";
 
-    ArrayList<Bruker> valgt;
-    ArrayList<Emner> fellesEmner;
-
-    @Qualifier("databaseConnector")
-    @Autowired
-    DatabaseConnector databaseConnector;
-
-    public PersonerBeans() {
-        valgt = null;
-        databaseConnector = new DatabaseConnector();
+    public String getIndexen() {
+        return indexen;
     }
 
-    public ArrayList<Emner> getFellesEmner() {
-        return fellesEmner;
+    public void setIndexen(String indexen) {
+        this.indexen = indexen;
     }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
+
+    public ArrayList<Emne> getFellesEmne() {
+        return fellesEmne;
+    }
+
+    ArrayList<Emne> fellesEmner = new ArrayList<>();
+    Bruker valgtBruker;
+    int valgtIndex = 0;
+
+    /**
+     @Qualifier("databaseConnector")
+     @Autowired
+     DatabaseConnector databaseConnector;
+
+     public PersonerBeans() {
+     valgt = new ArrayList<Bruker>();
+     fellesEmner = new ArrayList<Emner>();
+     databaseConnector = new DatabaseConnector();
+     }
+     */
+
+    public int getValgtIndex() {
+        return valgtIndex;
+    }
+
+    public void setValgtIndex(int t) {
+        valgtIndex = t;
+    }
+
 
     public ArrayList<Bruker> getValgt() {
         return valgt;
@@ -39,46 +73,69 @@ public class PersonerBeans {
         valgt = brukere;
     }
 
+    /**
+     * Legger til bruker i arraylisten valgt
+     * @param b bruker objekt
+     */
     public void leggTil(Bruker b) {
-        getValgt().add(b);
-        fellesEmner = finnFellesEmner();
+        valgt.add(b);
+        //fellesEmne = finnFellesEmner();
     }
 
-    public Bruker finnStudent(String sok) {
-        Bruker b = databaseConnector.finnStudent(sok);
-        if (b != null) {
-            valgt.add(b);
+    public Bruker getValgtBruker() {
+        return valgtBruker;
+    }
+
+    public void setValgtBruker(String mail) {
+        System.out.println(valgt.size());
+        for (int i = 0; i < valgt.size(); i++) {
+            Bruker b1 = valgt.get(i);
+            System.out.println(i);
+            if (mail.equalsIgnoreCase(b1.getMail())) {
+                valgtBruker = b1;
+                System.out.println("setter bruker");
+                return;
+            }
         }
-        return b;
     }
+/**
+ public Bruker finnStudent(String sok) {
+ Bruker b = databaseConnector.finnStudent(sok);
+ if (b != null) {
+ valgt.add(b);
+ }
+ return b;
+ }
 
-    public void fjernStudent(int nr) {
-        if (valgt.size() > 0 && nr != -1) {
-            valgt.remove(nr);
-        }
-    }
-
+ public void fjernStudent(int nr) {
+ if (valgt.size() > 0 && nr != -1) {
+ valgt.remove(nr);
+ }
+ }
+>>>>>>> bcdc2a2eaef6581bbdf82572c9a1186b65762fde
 
     /**
      * Finner felles fag for alle valgte elever
      */
-    public ArrayList<Emner> finnFellesEmner() {
-        ArrayList<Emner> emner = valgt.get(0).getEmner();
-        ArrayList<Emner> felles = new ArrayList<Emner>();
+    public ArrayList<Emne> finnFellesEmner() {
+        ArrayList<Emne> emne = valgt.get(0).getEmne();
+        ArrayList<Emne> felles = new ArrayList<Emne>();
 
-        for (int i = 0; i <emner.size(); i++) { //går gjennom alle emner til 1. pers
-            String emneKode = emner.get(i).getEmneKode();
+        if (emne != null && emne.size() > 1) {
+            for (int i = 0; i < emne.size(); i++) { //går gjennom alle emne til 1. pers
+                String emneKode = emne.get(i).getEmneKode();
 
-            for (int j = 1; j < valgt.size(); j++) {    //går gjennom alle personer
-                Bruker b = valgt.get(j);
-                ArrayList<Emner> denneEmner = b.getEmner();
+                for (int j = 1; j < valgt.size(); j++) {    //går gjennom alle personer
+                    Bruker b = valgt.get(j);
+                    ArrayList<Emne> denneEmne = b.getEmne();
 
-                for (int k = 0; k < denneEmner.size(); k++) {
-                    Emner e = denneEmner.get(k);
-                    String denneKode = e.getEmneKode();
+                    for (int k = 0; k < denneEmne.size(); k++) {
+                        Emne e = denneEmne.get(k);
+                        String denneKode = e.getEmneKode();
 
-                    if (emneKode.equals(denneKode)) {
-                        felles.add(e);
+                        if (emneKode.equals(denneKode)) {
+                            felles.add(e);
+                        }
                     }
                 }
             }

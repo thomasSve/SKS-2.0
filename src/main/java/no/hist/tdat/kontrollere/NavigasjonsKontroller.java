@@ -1,14 +1,24 @@
 package no.hist.tdat.kontrollere;
 
-
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.PersonerBeans;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
+
 @Controller
 public class NavigasjonsKontroller {
+    @Autowired
+    private Bruker innloggetBruker;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -16,29 +26,17 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/endrePassord.htm")
-    public String omdirigerEndrePassord(@ModelAttribute("bruker") Bruker bruker) {
+    public String omdirigerEndrePassord(@ModelAttribute(value = "passord") PassordBeans passord) {
         return "endrePassord";
     }
 
-    @RequestMapping("/sendNyttPassord.htm")
-    public String glemtPassord(@ModelAttribute("bruker") Bruker bruker) {
-        /*if(bruker.getGammeltPassord().equals(bruker.getPassord())){
-
-        }*/
+    @RequestMapping("/glemtPassord.htm")
+    public String glemtPassord(@ModelAttribute Bruker bruker) {
         return "glemtPassord";
     }
 
-    @RequestMapping("/leggTilBruker.htm")
-    public String leggTilBruker(@ModelAttribute Bruker bruker, Model modell) {
-        modell.addAttribute("bruker", bruker);
-        if(bruker.getMail()!=null){
-            bruker.leggTilBruker();
-        }
-        return "adminBrukere";
-    }
-
     @RequestMapping("/adminBrukere.htm")
-    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker) {
+    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukere";
     }
 
@@ -52,13 +50,8 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping("/glemtPassord.htm")
-    public String glemtPassord() {
-        return "glemtPassord";
-    }
-
     @RequestMapping("/koOversikt.htm")
-    public String koOversikt() {
+    public String koOversikt(@ModelAttribute DelEmne delEmne) {
         return "koOversikt";
     }
 
@@ -68,23 +61,26 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo() {
+    public String omdirigerTilKo(Model model){
         return "settIKo";
     }
 
     @RequestMapping("/endreStudent.htm")
-    public String omdirEndreStudent() {
+    public String omdirEndreStudent(@ModelAttribute("bruker") Bruker bruker) {
         return "endreStudent";
     }
 
     @RequestMapping("/minside.htm")
-    public String omdirigerMinside() {
+    public String omdirigerMinside(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
+        bruker = (Bruker) session.getAttribute("innloggetBruker");
         return "minside";
     }
 
-    @RequestMapping("/login.htm")
-    public String loggInn(@ModelAttribute("bruker") Bruker bruker){
-        return "loggInn";
+    @RequestMapping("/emne.htm")
+    public String hentMittEmne(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
+        bruker = (Bruker)session.getAttribute("innloggetBruker");
+        bruker.getEmne().get(0);
+        return "minside";
     }
 
     @RequestMapping("/ovingsOpplegg.htm")
@@ -102,4 +98,10 @@ public class NavigasjonsKontroller {
         return "nyStudent";
     }
 
+    @RequestMapping("/loggUt.htm")
+    public String loggUt(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
+        session.invalidate();
+        System.out.println("utlogget");
+        return "loggInn";
+    }
 }
