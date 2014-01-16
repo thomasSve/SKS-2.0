@@ -42,11 +42,6 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emner> emner;
 
-
-    @Qualifier("databaseConnector")
-    @Autowired
-    private DatabaseConnector databaseConnector;
-
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
         this.rettighet = rettighet;
@@ -56,7 +51,6 @@ public class Bruker {
         this.aktiv = aktiv;
         emner = new ArrayList<Emner>();
     }
-
 
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn) {
         this.mail = mail;
@@ -90,10 +84,6 @@ public class Bruker {
      */
     public Bruker(String mail){
         this.mail = mail;
-    }
-
-    public void setDatabaseConnector(DatabaseConnector databaseConnector) {
-        this.databaseConnector = databaseConnector;
     }
 
     public String getMail() {
@@ -139,10 +129,7 @@ public class Bruker {
      * @author vimCnett
      * @see "The Java Programming Language"
      */
-    public Bruker loggInn(){
-        databaseConnector = new DatabaseConnector();
-        return databaseConnector.loggInn(this);
-    }
+
 
     /**
      * Bruker hjelpemetoden krypterPassord til å sette passord til bruker

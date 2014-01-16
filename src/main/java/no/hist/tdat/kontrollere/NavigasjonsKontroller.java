@@ -2,23 +2,31 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
+import no.hist.tdat.javabeans.PersonerBeans;
+import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+import java.util.ArrayList;
 
 
 @Controller
 public class NavigasjonsKontroller {
+
     @Autowired
-    private Bruker innloggetBruker;
+    Bruker innloggetBruker;
+
+    @Autowired
+    BrukerService service;
+
+    @Autowired
+    KoeService koeservice;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -61,7 +69,14 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(Model model){
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker, @ModelAttribute("plassering") Plassering plassering, Model model, HttpSession session){
+        innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
+        System.out.println(innloggetBruker.getFornavn());
+        personerBeans.setValgt(service.getMedstudenter("ALM802F-B", innloggetBruker.getMail()));
+        model.addAttribute("personerBeans", personerBeans);
+        koeservice.getPlasseringer();
+        model.addAttribute("plassering", koeservice);
+
         return "settIKo";
     }
 

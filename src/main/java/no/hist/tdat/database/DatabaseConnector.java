@@ -2,8 +2,10 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.BrukerKoordinerer;
 import no.hist.tdat.database.verktoy.EmneKoordinerer;
+import no.hist.tdat.database.verktoy.PlasseringKoordinerer;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.Plassering;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,6 +43,8 @@ public class DatabaseConnector {
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
+    private final String finnAllePlasserSQL = "SELECT * FROM plassering";
+    private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
 
 
     @Autowired
@@ -230,4 +234,29 @@ public class DatabaseConnector {
         }
         return res;
     }
+
+    public ArrayList<Plassering> finnAllePlasseringer() {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Plassering> plassListe = con.query(finnAllePlasserSQL, new PlasseringKoordinerer());
+        ArrayList<Plassering> res = new ArrayList<Plassering>();
+
+        for (Plassering plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
+    }
+
+    public int getAntallBord(String romnr) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Plassering> plassListe = con.query(finnAntBordSQL, new PlasseringKoordinerer(), romnr);
+        ArrayList<Plassering> res = new ArrayList<Plassering>();
+        for (Plassering plass : plassListe) {
+            res.add(plass);
+        }
+        return plassListe.get(0).getAnt_bord();
+    }
+
+
+
+
 }
