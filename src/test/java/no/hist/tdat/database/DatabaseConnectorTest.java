@@ -51,7 +51,6 @@ public class DatabaseConnectorTest {
 
     @After
     public void etterHverTest(){
-        db.shutdown();
     }
 
     @Test
