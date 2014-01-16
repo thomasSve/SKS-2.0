@@ -29,7 +29,7 @@ public class DatabaseConnectorTest {
     @Before
     public void foerHverTest() {
         db = new EmbeddedDatabaseBuilder().addScript("db_script/install.sql")
-                .setType(EmbeddedDatabaseType.H2).build();
+                .setType(EmbeddedDatabaseType.DERBY).build();
         bruker = new Bruker(email, password);
         connector.setDataKilde(db);
         legg_til_ny_ok = new Bruker[]{
@@ -51,7 +51,7 @@ public class DatabaseConnectorTest {
 
     @After
     public void etterHverTest(){
-
+        db.shutdown();
     }
 
     @Test
