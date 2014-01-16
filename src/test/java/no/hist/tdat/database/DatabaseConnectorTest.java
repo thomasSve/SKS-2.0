@@ -51,6 +51,7 @@ public class DatabaseConnectorTest {
 
     @After
     public void etterHverTest(){
+
     }
 
     @Test

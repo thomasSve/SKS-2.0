@@ -1,20 +1,12 @@
 package no.hist.tdat.database;
 
-import no.hist.tdat.database.verktoy.BrukerKoordinerer;
-import no.hist.tdat.database.verktoy.DelEmneKoordinerer;
-import no.hist.tdat.database.verktoy.EmneKoordinerer;
-import no.hist.tdat.database.verktoy.OvingKoordinerer;
+import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import no.hist.tdat.javabeans.Emne;
-import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +39,8 @@ public class DatabaseConnector {
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
+    private final String finnAllePlasserSQL = "SELECT * FROM plassering";
+    private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -326,5 +320,30 @@ public class DatabaseConnector {
         }
         return res;
     }
+
+    public ArrayList<Plassering> finnAllePlasseringer() {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Plassering> plassListe = con.query(finnAllePlasserSQL, new PlasseringKoordinerer());
+        ArrayList<Plassering> res = new ArrayList<Plassering>();
+
+        for (Plassering plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
+    }
+
+    public int getAntallBord(String romnr) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Plassering> plassListe = con.query(finnAntBordSQL, new PlasseringKoordinerer(), romnr);
+        ArrayList<Plassering> res = new ArrayList<Plassering>();
+        for (Plassering plass : plassListe) {
+            res.add(plass);
+        }
+        return plassListe.get(0).getAnt_bord();
+    }
+
+
+
+
 }
 
