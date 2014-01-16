@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
-@Scope("session")
+//@Scope("session")
 public class Bruker {
     public static final int STUDENT_RETTIGHET = 1;
     @NotBlank
