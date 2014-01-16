@@ -40,14 +40,15 @@ public class EndreStudentKontroller {
 
 
     @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
-    public String ananasbiter(Model modell,@ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request){
+    public String ananasbiter(Model modell, HttpServletRequest request){
         String mail = request.getParameter("brukerIndex");
         Bruker bruker = service.hentBruker(mail);
-        System.out.println(bruker.getFornavn());
-        ArrayList<Emne> emner = service2.hentEmnerForStud(mail);
-        System.out.println(emner.size());
-        //service.slettBruker(mail.trim());
-        modell.addAttribute("personerBeans", personerBeans);
+        //ArrayList<Bruker> b = new ArrayList<Bruker>();
+        //b.add(bruker);
+        System.out.println(bruker);
+        //personerBeans.setValgtBruker(b);
+        modell.addAttribute("valgtBruker", bruker);
+        //modell.addAttribute("personerBeans", personerBeans);
         return "endreStudent";
     }
 }

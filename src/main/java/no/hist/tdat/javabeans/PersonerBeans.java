@@ -15,53 +15,21 @@ import java.util.ArrayList;
  */
 
 public class PersonerBeans {
-    ArrayList<Bruker> valgt = new ArrayList<>();
+    ArrayList<Bruker> valgt = new ArrayList<>();    //alle
+    ArrayList<Bruker> valgtBruker = new ArrayList<>();  //mer eksplisitt valgte
     ArrayList<Emne> fellesEmne = null;
-    Integer index = 0;
-    String indexen = "";
 
-    public String getIndexen() {
-        return indexen;
+    public ArrayList<Bruker> getValgtBruker() {
+        return valgtBruker;
     }
 
-    public void setIndexen(String indexen) {
-        this.indexen = indexen;
-    }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setValgtBruker(ArrayList<Bruker> br) {
+        System.out.println("PersBeans, setter valgt: "+valgtBruker.get(0));
+        valgtBruker = br;
     }
 
     public ArrayList<Emne> getFellesEmne() {
         return fellesEmne;
-    }
-
-    ArrayList<Emne> fellesEmner = new ArrayList<>();
-    Bruker valgtBruker;
-    int valgtIndex = 0;
-
-    /**
-     @Qualifier("databaseConnector")
-     @Autowired
-     DatabaseConnector databaseConnector;
-
-     public PersonerBeans() {
-     valgt = new ArrayList<Bruker>();
-     fellesEmner = new ArrayList<Emner>();
-     databaseConnector = new DatabaseConnector();
-     }
-     */
-
-    public int getValgtIndex() {
-        return valgtIndex;
-    }
-
-    public void setValgtIndex(int t) {
-        valgtIndex = t;
     }
 
 
@@ -81,11 +49,7 @@ public class PersonerBeans {
         valgt.add(b);
         //fellesEmne = finnFellesEmner();
     }
-
-    public Bruker getValgtBruker() {
-        return valgtBruker;
-    }
-
+/*
     public void setValgtBruker(String mail) {
         System.out.println(valgt.size());
         for (int i = 0; i < valgt.size(); i++) {
@@ -97,22 +61,7 @@ public class PersonerBeans {
                 return;
             }
         }
-    }
-/**
- public Bruker finnStudent(String sok) {
- Bruker b = databaseConnector.finnStudent(sok);
- if (b != null) {
- valgt.add(b);
- }
- return b;
- }
-
- public void fjernStudent(int nr) {
- if (valgt.size() > 0 && nr != -1) {
- valgt.remove(nr);
- }
- }
->>>>>>> bcdc2a2eaef6581bbdf82572c9a1186b65762fde
+    }*/
 
     /**
      * Finner felles fag for alle valgte elever
