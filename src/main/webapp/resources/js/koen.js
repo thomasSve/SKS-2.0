@@ -9,16 +9,16 @@ function hentKoeStudent(koe_id){
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange=function(){
-
             if (xmlhttp.readyState==4 && xmlhttp.status==200){
-               // document.getElementById("infowindow").innerHTML=xmlhttp.responseText;
+                document.getElementById("page-wrapper").innerHTML=xmlhttp.responseText;
             }
+
         }
-        alert("ID: "+koe_id);
         xmlhttp.open("POST","/koOversikt.htm",true);
-        //xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("koeid="+koe_id);
-    }
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("koeid=" + koe_id);
+
+}
 
 
 

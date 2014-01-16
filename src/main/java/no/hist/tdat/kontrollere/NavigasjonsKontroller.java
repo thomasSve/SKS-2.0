@@ -55,7 +55,6 @@ public class NavigasjonsKontroller {
     @RequestMapping(value="/koOversikt.htm", method=RequestMethod.POST)
     public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
         String koeId = request.getParameter("koeid");
-        System.out.println("FRA KONTROLLER:: koe_id=" +koeId);
         return "koOversikt";
     }
 
