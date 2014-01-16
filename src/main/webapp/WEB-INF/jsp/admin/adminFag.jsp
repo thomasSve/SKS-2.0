@@ -22,7 +22,7 @@
         <option value="emne4">Fag 4</option>
     </select>
 
-    <form:form method="post" modelAttribute="emner">
+    <form:form method="post" modelAttribute="emne">
         <h3>
             <div id="operasjonstekst">
                 Lag nytt fag

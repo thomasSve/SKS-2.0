@@ -36,12 +36,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Emner <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <c:forEach items="emne">
-                        <li><a href="">Emne1</a></li>
+                    <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
+                        <li><a href="">${emne.emneNavn}</a></li>
                     </c:forEach>
-                    <li><a href="#">Another Item</a></li>
-                    <li><a href="#">Third Item</a></li>
-                    <li><a href="#">Last Item</a></li>
                 </ul>
             </li>
             <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>

@@ -1,8 +1,8 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
-import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.Emner;
+import no.hist.tdat.javabeans.*;
+import no.hist.tdat.javabeans.Emne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,25 @@ public class EmneService {
     @Autowired
     DatabaseConnector databaseConnector;
 
-
-
-
     public void hentEmner(Bruker bruker) {
-       bruker.setEmner((ArrayList<Emner>)databaseConnector.hentMineEmner(bruker));
-       ArrayList<Emner> tempList = bruker.getEmner();
-
-        for (int i = 0; i < tempList.size(); i++) {
-            //tempList.get(i).setStudentovinger(databaseConnector.hentStudOvinger(bruker)); //TODO fiks
-
+       bruker.setEmne(databaseConnector.hentMineEmner(bruker));
+       ArrayList<Emne> emneList  = bruker.getEmne();                           //TODO Ted
+       ArrayList<DelEmne> delEmneList;
+        ArrayList<Oving> ovingList;
+        for(int a=0;a<emneList.size();a++){ // For hvert emne i lista
+            Emne tempEmne = emneList.get(a);
+            delEmneList = databaseConnector.hentDelemner(bruker,tempEmne);
+            tempEmne.setDelemner(delEmneList);
+            for (int b = 0; b <delEmneList.size(); b++) {   //for hvert delemne pr emne
+                DelEmne tempDelEmne = delEmneList.get(b);
+                ovingList = databaseConnector.hentStudOvinger(bruker,tempEmne,tempDelEmne);
+                tempDelEmne.setStudentovinger(ovingList);
+            }
         }
+    }
+
+    public boolean endreKoeStatus(int koeId, int status){
+        return databaseConnector.endreKoeStatus(koeId, status);
     }
 
     /**
@@ -35,7 +43,8 @@ public class EmneService {
      * @param mail, unik identifikator
      * @return liste over alle emner
      */
-    public ArrayList<Emner> hentEmnerForStud(String mail) {
+   public ArrayList<Emne> hentEmnerForStud(String mail) {
         return databaseConnector.hentEmnerForStud(mail);
     }
+
 }

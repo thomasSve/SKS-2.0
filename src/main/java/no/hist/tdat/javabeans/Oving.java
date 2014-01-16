@@ -1,6 +1,6 @@
 package no.hist.tdat.javabeans;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by ted on 1/15/14.
