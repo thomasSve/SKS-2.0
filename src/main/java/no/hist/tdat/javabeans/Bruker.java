@@ -1,11 +1,6 @@
 package no.hist.tdat.javabeans;
 
 
-import no.hist.tdat.database.DatabaseConnector;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Email;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -73,7 +68,6 @@ public class Bruker {
     public Bruker(String mail){
         this.mail = mail;
     }
-
 
     public String getMail() {
         return mail;
