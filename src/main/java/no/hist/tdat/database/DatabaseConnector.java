@@ -239,7 +239,7 @@ public class DatabaseConnector {
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
 
-        System.out.println("følgende blir feil fo fockz zake!");
+        System.out.println("heisann");
         List<Emner> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
         System.out.println("halla");
         ArrayList<Emner> res = new ArrayList<>();
@@ -249,6 +249,7 @@ public class DatabaseConnector {
             System.out.println("test");
             res.add(emne);
         }
+
         return res;
     }
 }
