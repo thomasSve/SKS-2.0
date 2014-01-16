@@ -29,7 +29,7 @@ public class DatabaseConnectorTest {
     @Before
     public void foerHverTest() {
         db = new EmbeddedDatabaseBuilder().addScript("db_script/install.sql")
-                .setType(EmbeddedDatabaseType.DERBY).build();
+                .setType(EmbeddedDatabaseType.H2).build();
         bruker = new Bruker(email, password);
         connector.setDataKilde(db);
         legg_til_ny_ok = new Bruker[]{
@@ -45,7 +45,7 @@ public class DatabaseConnectorTest {
 
         for (int i = 0; i < legg_til_ny_ok.length; i++) {
             Bruker bruker1 = legg_til_ny_ok[i];
-            bruker1.setPassord("xxx");
+            bruker1.setPassord(password);
         }
     }
 
