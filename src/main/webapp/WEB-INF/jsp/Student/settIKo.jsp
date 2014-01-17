@@ -9,7 +9,7 @@
 <div class="col-md-4">
     <h1>Sett deg i k&oslash; </h1>
 
-    <form action="velgPlass.htm" modelAttribute="plassering" method="post" role="form">
+    <form:form action="velgPlass.htm" modelAttribute="plassering" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
             <select class="form-control" name="Sitteplass" id="sitteplass" path="plassering" onchange="">
@@ -57,5 +57,5 @@
         </div>
 
         <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i k&oslash;</button>
-    </form>
+    </form:form>
 </div>
