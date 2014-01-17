@@ -47,24 +47,49 @@ public class EndreStudentKontroller {
 
 
     @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
-    public void ananasbiter(Model modell, HttpServletRequest request, HttpSession session){
+    public String ananasbiter(Model modell, HttpServletRequest request, HttpSession session){
         PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         String mail = request.getParameter("brukerIndex");
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
         personerBeans.setValgtBruker(b);
-        System.out.println(personerBeans);
         session.setAttribute("personerBeans", personerBeans);
+        return "endreStudent";
     }
 
+        //ikke begynt
     @RequestMapping(value = "gjorTilStudass")
     public String studass(Model modell, HttpServletRequest request, HttpSession session) {
         PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         Bruker b = personerBeans.getValgtBruker();
         System.out.println(personerBeans);
+        for (int i = 0; i < b.getEmne().size(); i++) {
+            System.out.println(b.getEmne().get(i).getEmneNavn());
+        }
 
-;
+        return "endreStudent";
+    }
+
+    @RequestMapping(value = "leggTilFag")
+    public String leggTilFag(Model modell, HttpServletRequest request, HttpSession session) {
+        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        Bruker b = personerBeans.getValgtBruker();
+        System.out.println(personerBeans.getValgtBruker().getFornavn()+" "+personerBeans.getValgtBruker().getEtternavn());
+
+        service.leggTilEmne("EMNEKODE",b.getMail(), 0); //kan legges i if, for å få tilbakemeld, bruker boolean
+
+        return "endreStudent";
+    }
+
+    @RequestMapping(value = "fjernFag")
+    public String fjernFag(Model modell, HttpServletRequest request, HttpSession session) {
+        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        Bruker b = personerBeans.getValgtBruker();
+        System.out.println(personerBeans);
+        for (int i = 0; i < b.getEmne().size(); i++) {
+            System.out.println(b.getEmne().get(i).getEmneNavn());
+        }
 
         return "endreStudent";
     }

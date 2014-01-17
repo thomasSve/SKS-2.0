@@ -41,6 +41,7 @@ public class DatabaseConnector {
     private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
+    private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
 
 
     @Autowired
@@ -343,8 +344,19 @@ public class DatabaseConnector {
         return plassListe.get(0).getAnt_bord();
     }
 
-
-
-
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     *
+     * @param mail id-mail
+     * @return ArrayList med alle emner
+     */
+    public boolean leggTilEmne(String emnekode, String mail, int foreleser) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(leggTilEmneSQL, emnekode, mail, foreleser);
+        return true;
+    }
 }
 

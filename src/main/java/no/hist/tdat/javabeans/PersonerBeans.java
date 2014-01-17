@@ -19,7 +19,6 @@ public class PersonerBeans {
     }
 
     public void setValgtBruker(Bruker br) {
-        System.out.println("Setter valgtBruker: "+br);
         valgtBruker = br;
     }
 

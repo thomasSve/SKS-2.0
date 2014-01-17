@@ -92,6 +92,16 @@ public class BrukerService {
 
     }
 
+    /**
+     * Gir bruker tilgang til nytt fag
+     * @param emnekode og mail
+     * @return ArrayList med brukerobjekter
+     */
+    public boolean leggTilEmne(String emnekode, String mail, int foreleser){
+        return databaseConnector.leggTilEmne(emnekode, mail, foreleser);
+
+    }
+
 
 
 }
