@@ -23,7 +23,6 @@ public class OvingKoordinerer implements RowMapper<Oving>{
      */
     @Override
     public Oving mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        System.out.println("oppretter øving i ovingskoordinerer");
         Oving oving = new Oving();
         oving.setOvingnr(resultSet.getInt("oving_nr"));
         if(resultSet.getInt("godkjent")>0) {
