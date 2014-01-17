@@ -4,11 +4,13 @@
 
 <div class="col-md-8">
 <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a href="#endre" data-toggle="tab">Adm. brukere</a></li>
-    <li><a href="#leggTilEnkelBruker"  data-toggle="tab">Legg til bruker</a></li>
-    <li><a href="#brukereViaFil"  data-toggle="tab">Legg til via fil</a></li>
+    <li id="lenkeEndre" class="active"><a href="#endre" data-toggle="tab">Adm. brukere</a></li>
+    <li id="lenkeleggTilEnkelBruker"> <a href="#leggTilEnkelBruker"  data-toggle="tab">Legg til bruker</a></li>
+    <li id="lenkebrukereViaFil"><a href="#brukereViaFil"  data-toggle="tab">Legg til via fil</a></li>
 </ul>
 <div class="tab-content">
+    <p id="tabForms" hidden> ${tabForm} </p>
+
 <div class="tab-pane fade in active" id="endre">
     <h2>Administrer brukere</h2>
     <%--Søkefunksjon etter brukere--%>
@@ -64,6 +66,7 @@
 
                 </tbody>
             </table>
+            <input type="hidden" name="tab" value="endre">
         </div>
     </form:form>
 </div>
@@ -76,6 +79,7 @@
                 Legg til bruker
             </div>
         </h2>
+        <p style="color: red"><strong>${melding}</strong></p>
         <div class="form-group">
             <label for="fornavn">Fornavn</label>
 
@@ -111,6 +115,7 @@
                 <form:option value="1">Admin</form:option>
             </form:select>
         </div>
+        <input type="hidden" name="tab" value="leggTilEnkelBruker">
 
         <input type="submit" id="leggtil" value="Legg til" class="btn btn-primary btn-block"/>
 
@@ -168,6 +173,7 @@
                     }
                 }
             </script>
+            <input type="hidden" name="tab" value="brukereViaFil">
             <input type="hidden" name="newText" id="newText"/>
             <!--<output id="text"></output>-->
             <br>
@@ -230,6 +236,7 @@
                             <option value="admin">Inaktiv</option>
                         </select>
                     </div>
+                    <input type="hidden" name="tab" value="leggTilEnkelBruker">l
                 </form>
 
             </div>
@@ -244,3 +251,34 @@
 
 
 <script src="<c:url value="/resources/js/admin.js"/>"></script>
+
+<%--JavaScriptet skal ligge her! og må til for å endre fane--%>
+<script>
+    var tabValue = String(document.getElementById("tabForms").innerHTML);
+    if(tabValue.match(/endre/)){
+        document.getElementById("endre").className = "tab-pane fade in active";
+        document.getElementById("leggTilEnkelBruker").className = "tab-pane fade";
+        document.getElementById("brukereViaFil").className = "tab-pane fade";
+
+        document.getElementById("lenkeEndre").className="active";
+        document.getElementById("lenkeleggTilEnkelBruker").className="";
+        document.getElementById("lenkebrukereViaFil").className="";
+    }else if(tabValue.match(/leggTilEnkelBruker/)){
+        document.getElementById("endre").className = "tab-pane fade";
+        document.getElementById("leggTilEnkelBruker").className = "tab-pane fade in active";
+        document.getElementById("brukereViaFil").className = "tab-pane fade";
+
+        document.getElementById("lenkeEndre").className="";
+        document.getElementById("lenkeleggTilEnkelBruker").className="active";
+        document.getElementById("lenkebrukereViaFil").className="";
+    }else if(tabValue.match(/brukereViaFil/)){
+        document.getElementById("endre").className = "tab-pane fade";
+        document.getElementById("leggTilEnkelBruker").className = "tab-pane fade";
+        document.getElementById("brukereViaFil").className = "tab-pane fade in active";
+
+        document.getElementById("lenkeEndre").className="";
+        document.getElementById("lenkeleggTilEnkelBruker").className="";
+        document.getElementById("lenkebrukereViaFil").className="active";
+    }
+</script>
+

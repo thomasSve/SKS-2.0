@@ -32,7 +32,8 @@ public class AdminBrukereKontroller {
      */
 
     @RequestMapping(value = "leggTilFil.htm", method = RequestMethod.POST)
-    public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req) {
+    public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req,Model modell) {
+        String tab = req.getParameter("tab");
         String text = req.getParameter("newText");
         String[] linje = text.split("\\r?\\n");
         String epost, fnavn, enavn = "";
@@ -51,18 +52,19 @@ public class AdminBrukereKontroller {
                 teller++;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Finner ingen tekst i filen. " + e);
+            modell.addAttribute("tabForm", tab);
             return "adminBrukere";
         }
-
+        modell.addAttribute("tabForm", tab);
         return "adminBrukere";
     }
 
     @RequestMapping("/search.htm")
     public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
-
+        String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
         personerBeans.setValgt(service.finnBruker(brukere));
+        modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
     }
@@ -75,19 +77,30 @@ public class AdminBrukereKontroller {
      * @return adminBrukere sin side, med feilmeldinger om
      */
     @RequestMapping("/leggTilBruker.htm")
-    public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result) {
+    public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, Model modell, HttpServletRequest request) {
+        String tab = request.getParameter("tab");
         if (result.hasErrors()) {
+            modell.addAttribute("melding","FEIL: Fyll inn alle feltene");
+            modell.addAttribute("tabForm", tab);
             return "adminBrukere";
-        } else {
+        }else if(bruker.getEtternavn().trim().length()<2 || bruker.getEtternavn().trim().length()<2){
+            modell.addAttribute("melding","FEIL: Fornavn og/eller etternavn er for kort");
+            modell.addAttribute("tabForm", tab);
+            return "adminBrukere";
+        }else{
             try {
                 if (service.leggTilBruker(bruker)) {
+                    modell.addAttribute("melding","REGISTRERT: Bruker " + bruker.getMail());
+                    modell.addAttribute("tabForm", tab);
                     return "adminBrukere";
                 } else {
+                    modell.addAttribute("melding","FEIL: Fyll inn alle feltene");
                     return "adminBrukere";
                 }
 
             } catch (org.springframework.dao.DuplicateKeyException e) {
-                System.out.println("SQL feil");
+                modell.addAttribute("melding","FEIL: e-postadresse <" + bruker.getMail() + "> finnes fra før");
+                modell.addAttribute("tabForm", tab);
                 return "adminBrukere";
             }
         }
@@ -104,8 +117,10 @@ public class AdminBrukereKontroller {
      */
     @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
     public String finnBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
+        String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
+        modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "/search.htm";
     }
