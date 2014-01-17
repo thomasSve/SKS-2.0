@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class NavigasjonsKontroller {
@@ -61,12 +63,15 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping(value="/koOversikt.htm" ,method=RequestMethod.POST)
-    public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request, HttpSession session) {
+    public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
         int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
         int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
         innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-        System.out.println("HEI OG HP:   "+delEmne.getDelEmneNavn());
+        int koeId = delEmne.getKoe_id();
+        ArrayList<koeGrupper> koegrupper = koeservice.getKoe(koeId);
+        model.addAttribute(delEmne);
+        model.addAttribute(koegrupper);
         return "koOversikt";
     }
 
