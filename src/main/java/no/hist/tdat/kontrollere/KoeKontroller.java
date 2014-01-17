@@ -36,6 +36,10 @@ public class KoeKontroller {
 
     @RequestMapping(value="velgPlass.htm")
     public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error, Model modell, HttpServletRequest request){
+        if(error.hasErrors()){
+            return "sittIKo.htm";
+        }
+
         try{
             String plass = request.getParameter("sitteplass");
             koe_service.getAntBord(plass);

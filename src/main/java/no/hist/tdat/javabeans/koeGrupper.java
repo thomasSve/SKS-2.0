@@ -6,16 +6,17 @@ import java.util.ArrayList;
  * Created by Thomas on 15.01.14.
  */
 public class koeGrupper {
-    private String klokkeslett;
+    private String klokkeslett; //TODO maybe date?
     private Bruker gruppeLeder;
     private String sitteplass;
+    private int bordnr;
     private String kommentar;
-    private ArrayList<String>medlemmer;
-    private ArrayList<Integer>ovinger;
+    private ArrayList<Bruker>medlemmer;
+    private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
 
 
     public koeGrupper(){}
-    public koeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<String>medlemmer, ArrayList<Integer>ovinger){
+    public koeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<Bruker>medlemmer, ArrayList<Integer>ovinger){
         this.gruppeLeder = gruppeLeder;
         this.klokkeslett = klokkeslett;
         this.medlemmer = medlemmer;
@@ -55,11 +56,19 @@ public class koeGrupper {
         this.sitteplass = sitteplass;
     }
 
-    public ArrayList<String> getMedlemmer() {
+    public int getBordnr() {
+        return bordnr;
+    }
+
+    public void setBordnr(int bordnr) {
+        this.bordnr = bordnr;
+    }
+
+    public ArrayList<Bruker> getMedlemmer() {
         return medlemmer;
     }
 
-    public void setMedlemmer(ArrayList<String> medlemmer) {
+    public void setMedlemmer(ArrayList<Bruker> medlemmer) {
         this.medlemmer = medlemmer;
     }
 
@@ -74,6 +83,7 @@ public class koeGrupper {
     public String getKommentar() {
         return kommentar;
     }
+
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;

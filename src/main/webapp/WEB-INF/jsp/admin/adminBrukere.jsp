@@ -123,7 +123,7 @@
                 <h2> Legg til flere brukere via fil </h2>
             </div>
 
-            <label for="files">Select a file: </label>
+            <label for="files">Velg en fil: </label>
             <input id="files" type="file"/>
 
             <script>
@@ -163,12 +163,11 @@
                         });
                     }
                     else {
-                        console.log("Your browser does not support File API");
+                        console.log("Nettleseren din støtter ikke Fil API");
                     }
                 }
             </script>
             <input type="hidden" name="newText" id="newText"/>
-            <!--<output id="text"></output>-->
             <br>
             <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
 
