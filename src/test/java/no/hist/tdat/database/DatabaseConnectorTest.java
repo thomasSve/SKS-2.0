@@ -4,11 +4,13 @@ import no.hist.tdat.javabeans.Bruker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -23,11 +25,11 @@ public class DatabaseConnectorTest {
     private EmbeddedDatabase db;
     private Bruker bruker;
     private String email = "js@mail.com";
-    private String password = "xxx";
+    private String password = "12345";
 
     @Before
     public void foerHverTest() {
-        db = new EmbeddedDatabaseBuilder().addScript("db_script/schema.sql")
+        db = new EmbeddedDatabaseBuilder().addScript("db_script/schema.sql").addScript("db_script/data.sql")
                 .setType(EmbeddedDatabaseType.H2).build();
         bruker = new Bruker(email, password);
         connector.setDataKilde(db);
@@ -55,24 +57,26 @@ public class DatabaseConnectorTest {
 
     @Test
     public void testLoggInn() throws Exception {
+        System.out.println(bruker);
         Bruker inne = connector.loggInn(bruker);
+        System.out.println(inne);
         assertTrue(inne.getMail().equals(email));
         System.out.println(inne.toString());
     }
 
-    @Test
+    @Test(expected = DuplicateKeyException.class)
     public void testLeggTilBruker() throws Exception {
 
         for (int i = 0; i < legg_til_ny_ok.length; i++) {
             Bruker bruker1 = legg_til_ny_ok[i];
             assertTrue(connector.leggTilBruker(bruker1));
         }
-/*
+
         for (int i = 0; i < legg_til_ny_fail.length; i++) {
             Bruker bruker1 = legg_til_ny_fail[i];
-            assertFalse(connector.leggTilBruker(bruker1));
+            assert(connector.leggTilBruker(bruker1));
         }
-  */
+
     }
 
     @Test
