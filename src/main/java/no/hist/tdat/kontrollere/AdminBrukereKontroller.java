@@ -79,6 +79,7 @@ public class AdminBrukereKontroller {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
         personerBeans.setValgt(service.finnBruker(brukere));
+        modell.addAttribute("sok", brukere);
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
@@ -130,7 +131,7 @@ public class AdminBrukereKontroller {
      * @return til siden search.htm
      */
     @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
-    public String finnBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
+    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
