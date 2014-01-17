@@ -4,11 +4,10 @@ import no.hist.tdat.javabeans.Bruker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.sql.DataSource;
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,14 +20,14 @@ public class DatabaseConnectorTest {
     public Bruker[] legg_til_ny_fail;
 
     DatabaseConnector connector = new DatabaseConnector();
-    private DataSource db;
+    private EmbeddedDatabase db;
     private Bruker bruker;
     private String email = "js@mail.com";
     private String password = "xxx";
 
     @Before
     public void foerHverTest() {
-        db = new EmbeddedDatabaseBuilder().addScript("db_script/install.sql")
+        db = new EmbeddedDatabaseBuilder().addScript("db_script/schema.sql")
                 .setType(EmbeddedDatabaseType.H2).build();
         bruker = new Bruker(email, password);
         connector.setDataKilde(db);
@@ -51,7 +50,7 @@ public class DatabaseConnectorTest {
 
     @After
     public void etterHverTest(){
-
+        db.shutdown();
     }
 
     @Test
