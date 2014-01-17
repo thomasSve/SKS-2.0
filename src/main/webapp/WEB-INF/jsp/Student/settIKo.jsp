@@ -10,9 +10,9 @@
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
             <select class="form-control" name="Sitteplass" id="sitteplass" path="plassering">
-                <option value="labben">Labben</option>
-                <option value="labben">Polarealet</option>
-                <option value="labben">Sukkerhuset</option>
+                <option value="labben" onclick="visBilde()">Labben</option>
+                <option value="polet" onclick="visBilde()">Polarealet</option>
+                <option value="nettlab" onclick="visBilde()">Nettlab</option>
             </select>
         </div>
         <div class="form-group">
@@ -60,3 +60,28 @@
         <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i k&oslash;</button>
     </form>
 </div>
+<img src = "resources/img/lab.png" style="padding:1px;border:thin solid black;" id = "img"/>
+                                    <%-- Svart ramme rundt bildet --%>
+                                    <%-- style="float:right"   align="right" --%>
+<script>
+    function visBilde(){
+        var valg = document.getElementById('sitteplass');
+
+
+
+        if(valg.value == "labben"){
+            document.getElementById("img").src = "resources/img/lab.png";
+
+        } else if(valg.value == "polet"){
+            document.getElementById("img").src = "resources/img/pol.png";
+
+        } else if(valg.value == "nettlab"){
+            document.getElementById("img").src = "resources/img/nettlab.png";
+
+        }else{
+            document.getElementById("img").src = "resources/img/lab.png";
+        }
+    }
+</script>
+
+            <%--  <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">  --%>
