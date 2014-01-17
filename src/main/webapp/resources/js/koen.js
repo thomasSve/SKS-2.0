@@ -17,7 +17,10 @@ function hentKoeStudent(koe_id){
         xmlhttp.open("POST","/koOversikt.htm",true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("koeid=" + koe_id);
+}
 
+function setKoeId(num){
+    document.getElementById('hiddenKoe').value =num;
 }
 
 
