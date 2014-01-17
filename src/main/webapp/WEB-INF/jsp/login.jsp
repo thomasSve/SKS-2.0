@@ -21,7 +21,7 @@
         <h2 class="form-signin-heading" id="header">Logg inn</h2>
         <p style="color: red;"><strong>${nyPassord}</strong></p>
 
-        <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email"/>
+        <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email" autofocus="true"/>
         <form:input type="password" class="form-control" path="passord" placeholder="Passord" id="passordInput"/>
         <!--<label class="checkbox">
             <input type="checkbox" value="husk"> Husk email

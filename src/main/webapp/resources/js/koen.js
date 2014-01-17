@@ -23,6 +23,15 @@ function setKoeId(num){
     document.getElementById('hiddenKoe').value =num;
 }
 
+var clicked;
+var emnenr;
+function mysubmit() {
+    var koeIdField = document.getElementById("hiddenKoe");
+    var emneNavnField = document.getElementById("hiddenEmneNavn");
+    koeIdField.value=clicked;
+    emneNavnField.value=emnenr;
+    }
+
 
 
 //Fjernet visadmin, statuskoe og var statusknapp.

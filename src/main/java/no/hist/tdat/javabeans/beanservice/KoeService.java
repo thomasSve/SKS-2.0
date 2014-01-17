@@ -2,6 +2,7 @@ package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
 import no.hist.tdat.javabeans.Plassering;
+import no.hist.tdat.javabeans.koeGrupper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,12 @@ public class KoeService {
     }
 
     public int getAntBord(String romnr){
-        int ant_bord = databaseConnector.getAntallBord(romnr);
-        return ant_bord;
+        return databaseConnector.getAntallBord(romnr);
+
     }
 
+
+    public ArrayList<koeGrupper> getKoe(int koeId) {
+        return databaseConnector.getKoe(koeId);
+    }
 }
