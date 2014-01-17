@@ -37,6 +37,7 @@ public class GlemtPassordKontroller {
                 //sendMail(bruker, nyttPassord);
                 service.endrePassord(mail, bruker.getPassord());
                 System.out.println("Nytt Passord: " + nyttPassord + "\n");
+                return "loggInn";
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Mailen ble ikke funnet i databasen.");

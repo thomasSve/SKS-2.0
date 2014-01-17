@@ -7,7 +7,7 @@ DROP TABLE emner_brukere;
 DROP TABLE plassering;
 DROP TABLE brukere;
 DROP TABLE koe;
-DROP TABLE emne;
+DROP TABLE emner;
 DROP TABLE rettighet;
 
 
@@ -113,7 +113,7 @@ ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk2 FOREIGN KEY(mail) REF
 
 ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY(delemne_nr,emnekode) REFERENCES delemne(delemne_nr, emnekode);
 
-ALTER TABLE delemne ADD CONSTRAINT delemne_fk1 FOREIGN KEY(emnekode) REFERENCES emne(emnekode);
+ALTER TABLE delemne ADD CONSTRAINT delemne_fk1 FOREIGN KEY(emnekode) REFERENCES emner(emnekode);
 ALTER TABLE delemne ADD CONSTRAINT delemne_fk2 FOREIGN KEY(koe_id) REFERENCES koe(koe_id);
 
 INSERT INTO rettighet (navn) VALUES ('Admin');
@@ -124,7 +124,7 @@ INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VAL
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('tk@mail.com' , 1, 'Ted Johan', 'Kristoffersen', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('js@mail.com' , 1, 'Jørgen Lien', 'Sellæg', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ob@mail.com' , 1, 'Olve Andre', 'Børmark', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
-INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('ts@mail.com' , 1, 'Thomas', 'Sve', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('thomas@mail.com' , 1, 'Thomas', 'Sve', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('hb@mail.com' , 1, 'Henriette', 'Berg', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('og@mail.com' , 1, 'Øyvind', 'Grimstad', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES ('km@mail.com' , 1, 'Ketta', 'Mykkelgjerd', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav',1);
@@ -135,20 +135,20 @@ INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VAL
 
 
 
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT2002-A', 'Matematikk 2');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT2003-A', 'Systemutvikling 2 med web-applikasjoner');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT2004-A', 'Datakommunikasjon med nettverksprogrammering');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT2005-A', 'Algoritmer ig datastrukturer');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT3018-A', 'Internasjonalt emne');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT1003-A', 'Datateknikk og operativsystem');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('TDAT1001-A', 'Programmering grunnkurs');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('IINI3006', 'HTML5');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('ALM800F-B', 'Fysikk');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('ALM801F-A', 'Engelsk');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('ALM802F-B', 'Matematikk');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('ALM803F-A', 'Norsk');
-INSERT INTO emne (emnekode, emnenavn) VALUES ('ALM805F-A', 'Teknologi og samfunn');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2002-A', 'Matematikk 2');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2003-A', 'Systemutvikling 2 med web-applikasjoner');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2004-A', 'Datakommunikasjon med nettverksprogrammering');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2005-A', 'Algoritmer ig datastrukturer');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT3018-A', 'Internasjonalt emne');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT1003-A', 'Datateknikk og operativsystem');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT1001-A', 'Programmering grunnkurs');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('IINI3006', 'HTML5');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('ALM800F-B', 'Fysikk');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('ALM801F-A', 'Engelsk');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('ALM802F-B', 'Matematikk');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('ALM803F-A', 'Norsk');
+INSERT INTO emner (emnekode, emnenavn) VALUES ('ALM805F-A', 'Teknologi og samfunn');
 
 INSERT INTO koe (aapen) VALUES (1);
 INSERT INTO koe (aapen) VALUES (1);
@@ -224,7 +224,7 @@ INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM802F-B', 'gret
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM802F-B', 'anette@mail.com',1);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('TDAT2001-A', 'grethe@mail.com',1);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('IINI3006', 'grethe@mail.com',1);
-INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'grethe@mail.com',1);
+INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'thomas@mail.com',1);
 
 INSERT INTO plassering (romnr, plassering_navn, ant_bord) VALUES('P-205', 'Labben 2.etg', 19);
 INSERT INTO plassering (romnr, plassering_navn, ant_bord) VALUES('bg-103','Polareal 1.etg', 24);

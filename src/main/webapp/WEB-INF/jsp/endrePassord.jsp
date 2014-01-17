@@ -27,7 +27,6 @@
             <form:errors path="nyttPassord"/>
             <form:password class="form-control" id="bNyttPassord" placeholder="Bekreft passord" path="bekreftPassord"/>
             <form:errors path="bekreftPassord"/>
-
         </div>
 
         <input class="btn btn-md btn-primary btn-block" type="submit" value="Endre passord">
