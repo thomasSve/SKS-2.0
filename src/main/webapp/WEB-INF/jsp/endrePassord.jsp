@@ -13,6 +13,7 @@
 
     <form:form method="POST" modelattribute="passord" action="skiftPassord.htm" commandName="passord">
         <h2 class="form-header">Endre Passord</h2>
+        <p style="color: red;"><strong>${melding}</strong></p>
         <div class="form-group">
             <label for="gammeltPassord">N&aring;værende Passord</label>
             <form:password class="form-control" id="gammeltPassord" placeholder="Gammelt passord" path="gammeltPassord"

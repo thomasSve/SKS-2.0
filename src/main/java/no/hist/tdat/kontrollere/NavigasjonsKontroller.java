@@ -3,6 +3,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.*;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class NavigasjonsKontroller {
 
     @Autowired
     KoeService koeservice;
+
+    @Autowired
+    EmneService emneService;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -56,9 +60,13 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping(value="/koOversikt.htm", method=RequestMethod.POST)
-    public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
-        String koeId = request.getParameter("koeid");
+    @RequestMapping(value="/koOversikt.htm" ,method=RequestMethod.POST)
+    public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request, HttpSession session) {
+        int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
+        int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
+        innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
+        delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+        System.out.println("HEI OG HP:   "+delEmne.getDelEmneNavn());
         return "koOversikt";
     }
 
@@ -68,7 +76,9 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker, @ModelAttribute("plassering") Plassering plassering, Model model, HttpSession session){
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
+                                 @ModelAttribute("plassering") Plassering plassering,@ModelAttribute("koegrupper") koeGrupper koegrupper,
+                                 Model model, HttpSession session){
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         System.out.println(innloggetBruker.getFornavn());
         personerBeans.setValgt(service.getMedstudenter("ALM802F-B", innloggetBruker.getMail()));
