@@ -1,16 +1,27 @@
-var statusKnapp = document.getElementById("koStatus");
+function hentKoeStudent(koe_id){
 
-function statusKoe() {
-    if (statusKnapp.value === "start") {
-        statusKnapp.className = "btn btn-sm btn-success";
-        statusKnapp.innerHTML = "Start K&oslash;en";
-        statusKnapp.value = "stopp";
-    } else {
-        statusKnapp.className = "btn btn-sm btn-danger";
-        statusKnapp.innerHTML = "Stopp K&oslash;en";
-        statusKnapp.value = "start";
-    }
-}
-function visAdmin(){
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                document.getElementById("page-wrapper").innerHTML=xmlhttp.responseText;
+            }
+
+        }
+        xmlhttp.open("POST","/koOversikt.htm",true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("koeid=" + koe_id);
 
 }
+
+
+
+//Fjernet visadmin, statuskoe og var statusknapp.
+
+

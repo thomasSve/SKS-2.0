@@ -1,11 +1,6 @@
 package no.hist.tdat.javabeans;
 
 
-import no.hist.tdat.database.DatabaseConnector;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Email;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,7 +12,7 @@ import java.util.ArrayList;
  * Created by vimCnett on 09.01.14.
  * NB!!! Mangler variabel for øvinger som er gjort
  */
-@Scope("session")
+//@Scope("session")
 public class Bruker {
     public static final int STUDENT_RETTIGHET = 1;
     @NotBlank
@@ -73,7 +68,6 @@ public class Bruker {
     public Bruker(String mail){
         this.mail = mail;
     }
-
 
     public String getMail() {
         return mail;

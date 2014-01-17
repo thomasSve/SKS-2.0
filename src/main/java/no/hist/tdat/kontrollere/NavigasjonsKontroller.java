@@ -1,24 +1,30 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.DelEmne;
-import no.hist.tdat.javabeans.Emne;
-import no.hist.tdat.javabeans.PassordBeans;
-import no.hist.tdat.javabeans.PersonerBeans;
+
+import no.hist.tdat.javabeans.*;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 @Controller
 public class NavigasjonsKontroller {
+
     @Autowired
-    private Bruker innloggetBruker;
+    Bruker innloggetBruker;
+
+    @Autowired
+    BrukerService service;
+
+    @Autowired
+    KoeService koeservice;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -50,8 +56,9 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping("/koOversikt.htm")
-    public String koOversikt(@ModelAttribute DelEmne delEmne) {
+    @RequestMapping(value="/koOversikt.htm", method=RequestMethod.POST)
+    public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
+        String koeId = request.getParameter("koeid");
         return "koOversikt";
     }
 
@@ -61,7 +68,14 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(Model model){
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker, @ModelAttribute("plassering") Plassering plassering, Model model, HttpSession session){
+        innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
+        System.out.println(innloggetBruker.getFornavn());
+        personerBeans.setValgt(service.getMedstudenter("ALM802F-B", innloggetBruker.getMail()));
+        model.addAttribute("personerBeans", personerBeans);
+        koeservice.getPlasseringer();
+        model.addAttribute("plassering", koeservice);
+
         return "settIKo";
     }
 

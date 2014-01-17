@@ -24,6 +24,7 @@
 </script>
 
 <div class="col-md-8">
+
     <h2>Administrer studenter</h2>
     <%--Søkefunksjon etter brukere--%>
     <form:form class="søkbar" role="search" modelAttribute="personerBeans" action="leggTilStudentListe"
@@ -39,38 +40,39 @@
 
         </div>
 
-            <table class="table table-condensed table-hover" id="minTable">
-                <thead>
+        <table class="table table-condensed table-hover" id="minTable">
+            <thead>
+            <tr>
+                <th class="header">Fornavn</th>
+                <th class="header">Etternavn</th>
+                <th class="header">Epost</th>
+                <th class="header"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
                 <tr>
-                    <th class="header">Fornavn</th>
-                    <th class="header">Etternavn</th>
-                    <th class="header">Epost</th>
-                    <th class="header"></th>
+                    <td><c:out value="${bruker.fornavn}"/></td>
+                    <td><c:out value="${bruker.etternavn}"/></td>
+                    <td><c:out value="${bruker.mail}"/></td>
+                    <td>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-sm" id="${bruker.mail}"
+                                    data-toggle="modal" onclick="finnRettBruker(this.id)"
+                                    data-target="#endrebrukerModal" value="Endre" title="Endre">
+                                <i class="glyphicon glyphicon-edit"></i></button>
+                        </div>
+                    </td>
                 </tr>
-                </thead>
-
-                <tbody>
-
-                <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
-                    <tr>
-                        <td><c:out value="${bruker.fornavn}"/></td>
-                        <td><c:out value="${bruker.etternavn}"/></td>
-                        <td><c:out value="${bruker.mail}"/></td>
-                        <td>
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-warning btn-sm" id="${bruker.mail}"
-                                        data-toggle="modal" onclick="finnRettBruker(this.id)"
-                                        data-target="#endrebrukerModal" value="Endre" title="Endre">
-                                    <i class="glyphicon glyphicon-edit"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            </c:forEach>
+            </tbody>
+        </table>
 
     </form:form>
 </div>
+
 
 <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
      aria-hidden="true">
@@ -78,11 +80,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title">Endre student</h2>
+                <h2 class="modal-title" id="velgøvingLabel">Endre Bruker</h2>
             </div>
             <div class="modal-body">
 
-                <table class="table table-condensed table-hover" id="table">
+                <table class="table table-condensed table-hover">
                     <thead>
                     <tr>
                         <th class="header">Fornavn</th>
@@ -92,65 +94,39 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td><c:out value="${valgtBruker.fornavn}"/></td>
-                        <td><c:out value="${valgtBruker.etternavn}"/></td>
-                        <td><c:out value="${valgtBruker.mail}"/></td>
-                    </tr>
-                        <c:forEach var="bruker" items="${personerBeans.valgtBruker}" varStatus="status">
-                            <tr>
-                                <td><c:out value="${bruker.fornavn}"/></td>
-                                <td><c:out value="${bruker.etternavn}"/></td>
-                                <td><c:out value="${bruker.mail}"/></td>
-                            </tr>
-                        </c:forEach>
+
+                    <c:forEach var="bruker" items="${personerBeans.valgtBruker}" varStatus="status">
+                        <tr>
+                            <td><c:out value="${bruker.fornavn}"/></td>
+                            <td><c:out value="${bruker.etternavn}"/></td>
+                            <td><c:out value="${bruker.mail}"/></td>
+
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
 
+                <table class="table table-condensed table-hover" id="minTable">
+                    <thead>
+                    <tr>
+                        <th class="header">Fornavn</th>
+                        <th class="header">Etternavn</th>
+                        <th class="header">Epost</th>
+                    </tr>
+                    </thead>
 
-                <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
-                    <div class="form-group">
-                        <label for="endrefornavn">Fornavn</label>
+                    <tbody>
 
-                        <input path="endrefornavn" id="endrefornavn" class="form-control"/>
+                    <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                        <tr>
+                            <td><c:out value="${bruker.fornavn}"/></td>
+                            <td><c:out value="${bruker.etternavn}"/></td>
+                            <td><c:out value="${bruker.mail}"/></td>
 
-                        <errors path="fornavn"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="endreetternavn">Etternavn:</label>
-
-                        <input id="endreetternavn" path="etternavn" class="form-control"/>
-
-                        <errors path="etternavn"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="endreepost">Epost</label>
-
-                        <input id="endreepost" path="mail" class="form-control"/>
-
-                        <errors path="mail"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="endrerettigheter">Rettigheter</label>
-                        <select id="endrerettigheter" class="form-control">
-                            <option value="ingen"><i>Ingen valgt</i></option>
-                            <option value="admin">Admin</option>
-                            <option value="lærer">L&aeligrer</option>
-                            <option value="studentassistent">Studentassistent</option>
-                            <option value="student">Student</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="endrestatus">Status</label>
-                        <select id="endrestatus" class="form-control">
-                            <option value="ingen"><i>Aktiv</i></option>
-                            <option value="admin">Inaktiv</option>
-                        </select>
-                    </div>
-                </form>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
             </div>
             <div class="modal-footer">
@@ -159,4 +135,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
