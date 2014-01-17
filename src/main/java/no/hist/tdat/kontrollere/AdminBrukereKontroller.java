@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.sql.SQLException;
 
@@ -60,11 +61,12 @@ public class AdminBrukereKontroller {
     }
 
     @RequestMapping("/search.htm")
-    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
+    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
         personerBeans.setValgt(service.finnBruker(brukere));
-        modell.addAttribute("sok", brukere);
+        //modell.addAttribute("sok", brukere);
+        session.setAttribute("sok",brukere);
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
@@ -117,9 +119,15 @@ public class AdminBrukereKontroller {
      * @return til siden search.htm
      */
     @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
-    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
+    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
+        System.out.println(mail);
+        String sok = (String)session.getAttribute("sok");
+        if(sok.length()>0 || sok != null){
+            modell.addAttribute("soek", sok);
+        }
+
         service.slettBruker(mail.trim());
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);

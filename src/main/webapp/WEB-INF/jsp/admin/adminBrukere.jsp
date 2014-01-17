@@ -10,6 +10,8 @@
 </ul>
 <div class="tab-content">
     <p id="tabForms" hidden> ${tabForm} </p>
+    <p id="sok">${soek}</p>
+
 
 <div class="tab-pane fade in active" id="endre">
     <h2>Administrer brukere</h2>
