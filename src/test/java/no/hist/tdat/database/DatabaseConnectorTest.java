@@ -10,7 +10,6 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,7 +19,6 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseConnectorTest {
     public Bruker[] legg_til_ny_ok;
     public Bruker[] legg_til_ny_fail;
-
     DatabaseConnector connector = new DatabaseConnector();
     private EmbeddedDatabase db;
     private Bruker bruker;
@@ -38,7 +36,7 @@ public class DatabaseConnectorTest {
                 new Bruker("geirml@stud.hist.no", 1, "Geir Morten", "Larsen"),
                 new Bruker("tedszyy@stud.hist.no", 1, "Ted Johan", "Kristoffersen"),
         };
-        legg_til_ny_fail = new Bruker[] {
+        legg_til_ny_fail = new Bruker[]{
                 new Bruker("js@mail.com", 1, "Jørgen Lien", "Sellæg"),
                 new Bruker("tk@mail.com", 1, "Jørgen Lien", "Sellæg"),
                 new Bruker()
@@ -51,7 +49,7 @@ public class DatabaseConnectorTest {
     }
 
     @After
-    public void etterHverTest(){
+    public void etterHverTest() {
         db.shutdown();
     }
 
@@ -74,13 +72,15 @@ public class DatabaseConnectorTest {
 
         for (int i = 0; i < legg_til_ny_fail.length; i++) {
             Bruker bruker1 = legg_til_ny_fail[i];
-            assert(connector.leggTilBruker(bruker1));
+            assert (connector.leggTilBruker(bruker1));
         }
 
     }
 
     @Test
     public void testSlettBruker() throws Exception {
-        assertTrue(true);
+        assertTrue(connector.slettBruker(email));
     }
+
+
 }
