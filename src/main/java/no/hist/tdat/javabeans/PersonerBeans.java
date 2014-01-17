@@ -1,12 +1,6 @@
 package no.hist.tdat.javabeans;
 
 
-import no.hist.tdat.database.DatabaseConnector;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 /**
@@ -14,22 +8,27 @@ import java.util.ArrayList;
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 
+
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();    //alle
-    ArrayList<Bruker> valgtBruker = new ArrayList<>();  //mer eksplisitt valgte
-    ArrayList<Emne> fellesEmne = null;
+    Bruker valgtBruker;  //mer eksplisitt valgte
+    ArrayList<Emne> brukteEmner = new ArrayList<>();
 
-    public ArrayList<Bruker> getValgtBruker() {
+    public Bruker getValgtBruker() {
         return valgtBruker;
     }
 
-    public void setValgtBruker(ArrayList<Bruker> br) {
-        System.out.println("PersBeans, setter valgt: "+valgtBruker.get(0));
+    public void setValgtBruker(Bruker br) {
+        System.out.println("Setter valgtBruker: "+br);
         valgtBruker = br;
     }
 
-    public ArrayList<Emne> getFellesEmne() {
-        return fellesEmne;
+    public ArrayList<Emne> getBrukteEmner() {
+        return brukteEmner;
+    }
+
+    public void setBrukteEmner(ArrayList<Emne> e) {
+        brukteEmner = e;
     }
 
 
@@ -41,27 +40,6 @@ public class PersonerBeans {
         valgt = brukere;
     }
 
-    /**
-     * Legger til bruker i arraylisten valgt
-     * @param b bruker objekt
-     */
-    public void leggTil(Bruker b) {
-        valgt.add(b);
-        //fellesEmne = finnFellesEmner();
-    }
-/*
-    public void setValgtBruker(String mail) {
-        System.out.println(valgt.size());
-        for (int i = 0; i < valgt.size(); i++) {
-            Bruker b1 = valgt.get(i);
-            System.out.println(i);
-            if (mail.equalsIgnoreCase(b1.getMail())) {
-                valgtBruker = b1;
-                System.out.println("setter bruker");
-                return;
-            }
-        }
-    }*/
 
     /**
      * Finner felles fag for alle valgte elever
@@ -90,5 +68,13 @@ public class PersonerBeans {
             }
         }
         return felles;
+    }
+
+    @Override
+    public String toString() {
+        if (valgtBruker != null) {
+            return valgtBruker.getFornavn() + " " + valgtBruker.getEtternavn() + ", " + valgtBruker.getMail();
+        }
+        return "toString i personerBeans. Ingen hellig utvalgt valgt.";
     }
 }

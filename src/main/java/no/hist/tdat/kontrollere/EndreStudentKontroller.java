@@ -18,37 +18,54 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
  * Created by Roger Foss
  */
 @Controller
+
 public class EndreStudentKontroller {
     @Autowired
     BrukerService service;
     @Autowired
     EmneService service2;
 
+
+
     @RequestMapping(value = "leggTilStudentListe")
-    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model modell, HttpServletRequest request) {
+    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model modell, HttpServletRequest request, HttpSession session) {
         String txt = request.getParameter("soketekst");
+        if (txt == null || txt.equals("")) {
+            return "endreStudent";
+        }
         personerBeans.setValgt(service.finnStudenter(txt));
-        modell.addAttribute("personerBeans", personerBeans);
+        session.setAttribute("personerBeans", personerBeans);
         return "endreStudent";
     }
 
 
     @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
-    public String ananasbiter(Model modell, HttpServletRequest request){
+    public void ananasbiter(Model modell, HttpServletRequest request, HttpSession session){
+        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         String mail = request.getParameter("brukerIndex");
-        Bruker bruker = service.hentBruker(mail);
-        //ArrayList<Bruker> b = new ArrayList<Bruker>();
-        //b.add(bruker);
-        System.out.println(bruker);
-        //personerBeans.setValgtBruker(b);
-        modell.addAttribute("valgtBruker", bruker);
-        //modell.addAttribute("personerBeans", personerBeans);
+        Bruker b = service.hentBruker(mail);
+        b.setEmne(service2.hentEmnerForStud(b.getMail()));
+
+        personerBeans.setValgtBruker(b);
+        System.out.println(personerBeans);
+        session.setAttribute("personerBeans", personerBeans);
+    }
+
+    @RequestMapping(value = "gjorTilStudass")
+    public String studass(Model modell, HttpServletRequest request, HttpSession session) {
+        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        Bruker b = personerBeans.getValgtBruker();
+        System.out.println(personerBeans);
+
+;
+
         return "endreStudent";
     }
 }

@@ -1,5 +1,8 @@
+<%@ page import="no.hist.tdat.javabeans.PersonerBeans" %>
+<%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
 
 <script>
     function finnRettBruker(mail) {
@@ -34,7 +37,7 @@
             <input type="text" class="form-control" placeholder="Søk" name="soketekst" id="srch-term">
 
             <div class="input-group-btn">
-                <input class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>
+                <input class="btn btn-success" value="Søk" type="submit"><i class="glyphicon glyphicon-search"></i>
                 </input>
             </div>
 
@@ -84,28 +87,6 @@
             </div>
             <div class="modal-body">
 
-                <table class="table table-condensed table-hover">
-                    <thead>
-                    <tr>
-                        <th class="header">Fornavn</th>
-                        <th class="header">Etternavn</th>
-                        <th class="header">Epost</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                    <c:forEach var="bruker" items="${personerBeans.valgtBruker}" varStatus="status">
-                        <tr>
-                            <td><c:out value="${bruker.fornavn}"/></td>
-                            <td><c:out value="${bruker.etternavn}"/></td>
-                            <td><c:out value="${bruker.mail}"/></td>
-
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-
                 <table class="table table-condensed table-hover" id="minTable">
                     <thead>
                     <tr>
@@ -116,17 +97,66 @@
                     </thead>
 
                     <tbody>
-
-                    <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
                         <tr>
-                            <td><c:out value="${bruker.fornavn}"/></td>
-                            <td><c:out value="${bruker.etternavn}"/></td>
-                            <td><c:out value="${bruker.mail}"/></td>
-
+                            <td><c:out value="${personerBeans.valgtBruker}"/></td>
+                            <td><c:out value="${sessionScope.personerBeans.valgtBruker}"/></td>
+                            <td><c:out value="${sessionScope.personerBeans}"/></td>
                         </tr>
-                    </c:forEach>
                     </tbody>
                 </table>
+
+
+                <hr>
+
+                <form:form action="gjorTilStudass" method="post">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="emner">Gjør til studentassistent i valgte fag:</label>
+                        <select id="emner" class="form-control">
+                            <option value="hei1">1</option>
+                            <option value="hei2">2</option>
+
+                            <c:forEach var="emne" items="${sessionScope.personerBeans.valgtBruker.emne}" varStatus="status">
+                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                            </c:forEach>
+
+                        </select>
+                    </div>
+                    <input type="submit" value="Lagre"/>
+                </div>
+                </form:form>
+
+                <hr>
+
+                <form:form action="fjernFag" method="post">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="emner2">Fjern tilgang til valgte fag:</label>
+                            <select id="emner2" class="form-control">
+
+                            </select>
+                        </div>
+                        <input type="submit" value="Lagre"/>
+                    </div>
+                </form:form>
+
+                <hr>
+
+
+                <form:form action="leggTilFag" method="post">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="emner3">Gi tilgang til valgte fag:</label>
+                            <select id="emner3" class="form-control">
+
+                            </select>
+                        </div>
+                        <input type="submit" value="Lagre"/>
+                    </div>
+                </form:form>
+
+
+
 
             </div>
             <div class="modal-footer">
