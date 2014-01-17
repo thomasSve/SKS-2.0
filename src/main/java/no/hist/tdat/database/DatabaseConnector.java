@@ -345,6 +345,15 @@ public class DatabaseConnector {
 
     public ArrayList<koeGrupper> getKoe(int koeId) {
 
+        //TODO FIKXS
+        //Hent gruppe_id'er i køen
+        //legg til tidspunkt, sitteplass, bordnr, info.
+        //legg til leder
+        //fyll gruppene med medlemmer
+
+
+        //fylle gruppe med øvinger
+        return null;
     }
 }
 
