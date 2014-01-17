@@ -95,13 +95,27 @@ public class BrukerService {
     /**
      * Gir bruker tilgang til nytt fag
      * @param emnekode og mail
-     * @return ArrayList med brukerobjekter
+     * @return boolean
      */
     public boolean leggTilEmne(String emnekode, String mail, int foreleser){
         return databaseConnector.leggTilEmne(emnekode, mail, foreleser);
-
     }
 
+    /**
+     * Fjerner tilgang til emne for bruker
+     * @param emnekode og mail
+     * @return boolean
+     */
+    public boolean fjernEmne(String emnekode, String mail){
+        return databaseConnector.fjernEmne(emnekode, mail);
+    }
 
-
+    /**
+     * Setter student som studass
+     * @param emnekode, delemne og mail
+     * @return boolean
+     */
+    public boolean settStudass(String emnekode, String delEmne, String mail){
+        return databaseConnector.fjernEmne(emnekode, delEmne, mail);
+    }
 }

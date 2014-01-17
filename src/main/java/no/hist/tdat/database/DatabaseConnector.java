@@ -42,6 +42,8 @@ public class DatabaseConnector {
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
+    private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
+    private final String settStudassSQL = "INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES (?,?,?)";
 
 
     @Autowired
@@ -345,10 +347,10 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     * legger til emne for bruker, gitt mail
      *
-     * @param mail id-mail
-     * @return ArrayList med alle emner
+     * @param mail id-mail, emnekode, foreleser
+     * @return boolean
      */
     public boolean leggTilEmne(String emnekode, String mail, int foreleser) {
         if (mail == null || emnekode == null) {
@@ -356,6 +358,36 @@ public class DatabaseConnector {
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggTilEmneSQL, emnekode, mail, foreleser);
+        return true;
+    }
+
+    /**
+     * Fjerner tilgang til emne
+     *
+     * @param mail id-mail og emnekode
+     * @return boolean
+     */
+    public boolean fjernEmne(String emnekode, String mail) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(fjernEmneSQL, mail, emnekode);
+        return true;
+    }
+
+    /**
+     * Setter studass
+     *
+     * @param mail id-mail og emnekode og delemne
+     * @return boolean
+     */
+    public boolean settStudass(String emnekode, String delEmne, String mail) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(settStudassSQL, mail, emnekode, delEmne);
         return true;
     }
 }

@@ -58,38 +58,35 @@ public class EndreStudentKontroller {
         return "endreStudent";
     }
 
-        //ikke begynt
+        //ferdig, men ikke testet
     @RequestMapping(value = "gjorTilStudass")
-    public String studass(Model modell, HttpServletRequest request, HttpSession session) {
+    public String settStudass(Model modell, HttpServletRequest request, HttpSession session) {
         PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         Bruker b = personerBeans.getValgtBruker();
-        System.out.println(personerBeans);
-        for (int i = 0; i < b.getEmne().size(); i++) {
-            System.out.println(b.getEmne().get(i).getEmneNavn());
-        }
+
+        service.settStudass("EMNEKODE","DELEMNE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }
 
+        //ferdig, men ikke testet
     @RequestMapping(value = "leggTilFag")
     public String leggTilFag(Model modell, HttpServletRequest request, HttpSession session) {
         PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         Bruker b = personerBeans.getValgtBruker();
-        System.out.println(personerBeans.getValgtBruker().getFornavn()+" "+personerBeans.getValgtBruker().getEtternavn());
 
         service.leggTilEmne("EMNEKODE",b.getMail(), 0); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }
 
+        //ferdig, men ikke testet
     @RequestMapping(value = "fjernFag")
     public String fjernFag(Model modell, HttpServletRequest request, HttpSession session) {
         PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         Bruker b = personerBeans.getValgtBruker();
-        System.out.println(personerBeans);
-        for (int i = 0; i < b.getEmne().size(); i++) {
-            System.out.println(b.getEmne().get(i).getEmneNavn());
-        }
+
+        service.fjernEmne("EMNEKODE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }
