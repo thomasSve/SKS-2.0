@@ -1,11 +1,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <div class="col-md-8">
 <ul class="nav nav-tabs nav-justified">
     <li class="active"><a href="#endre" data-toggle="tab">Adm. brukere</a></li>
-    <li><a href="#leggTilEnkelBruker" data-toggle="tab">Legg til bruker</a></li>
-    <li><a href="#brukereViaFil" data-toggle="tab">Legg til via fil</a></li>
+    <li><a href="#leggTilEnkelBruker"  data-toggle="tab">Legg til bruker</a></li>
+    <li><a href="#brukereViaFil"  data-toggle="tab">Legg til via fil</a></li>
 </ul>
 <div class="tab-content">
 <div class="tab-pane fade in active" id="endre">
