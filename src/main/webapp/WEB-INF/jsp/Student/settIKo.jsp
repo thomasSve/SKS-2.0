@@ -9,56 +9,56 @@
 <div class="col-md-4">
     <h1>Sett deg i k&oslash; </h1>
 
-    <form:form action="velgPlass.htm" modelAttribute="plassering" method="post">
+    <form:form action="velgPlass.htm" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <select class="form-control" name="Sitteplass" id="sitteplass" path="plassering" onchange="">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="rom" onchange="">
                 <%--<c:forEach items="${plassering}" var="plassering">
-                    <option onclick="visBilde(this)" id="${plassering.plassering_navn}" value="${plassering.plassering_navn}">${plassering.plassering_navn}</option>
+                    <form:option onclick="visBilde(this)" id="${plassering.plassering_navn}" value="${plassering.plassering_navn}">${plassering.plassering_navn}</form:option>
                 </c:forEach>--%>
-            </select>
+            </form:select>
         </div>
 
 
         <div class="form-group">
             <label for="bordnr">Bordnr:</label>
-            <select class="form-control" name="Bord" id="bordnr" path="plassering" onchange="visBord(this.value)">
+            <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" onchange="visBord(this.value)">
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
                 <%--
-                <c:forEacb items="${}" var="bordNr">
-
+                <c:forEacb items="1" var="bordNr" end="${plassering.ant_bord}">
+                    <form:option>bordNr</form:option>
                 </c:forEach>
                 --%>
-            </select>
+            </form:select>
         </div>
 
         <div class="form-group">
             <label for="oving">Oving:</label>
-            <select id="oving" multiple="true" class="form-control" path="flereOvinger">
+            <form:select id="oving" multiple="true" class="form-control" path="oving">
                 <%--
                 <c:forEach items="delEmne.studentovinger" var="ovinger">
-                    <option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</option>
+                    <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
                 </c:forEach>
                 --%>
-            </select>
+            </form:select>
         </div>
 
         <div class="form-group">
             <label for="beskrivelse">Beskrivelse</label>
-            <input class="form-control" type="text" id="beskrivelse" path="beskrivelse">
+            <form:textarea class="form-control" type="text" id="beskrivelse" path="beskrivelse"/>
         </div>
 
         <div class="form-group">
             <label for="gruppe">Gruppe?</label>
-            <select id="gruppe">
+            <form:select id="gruppe" path="">
                 <c:forEach items="${personerBeans.valgt}" var="bruker">
-                    <option value="${bruker.fornavn}">${bruker.fornavn}</option>
+                    <form:option value="${bruker.fornavn}">${bruker.fornavn}</form:option>
                  </c:forEach>
-            </select>
+            </form:select>
         </div>
 
-        <button type="submit" id="leggTil" class="btn btn-md btn-primary">Legg til i k&oslash;</button>
+        <input type="submit" id="leggTil" class="btn btn-md btn-primary" value="Legg til i k&oslash;">
     </form:form>
 </div>
 <img src = "<c:url value="/resources/img/lab.png"/>" style="padding:1px;border:thin solid black;" id = "img"/>
