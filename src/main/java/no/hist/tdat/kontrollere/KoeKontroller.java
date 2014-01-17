@@ -36,8 +36,13 @@ public class KoeKontroller {
 
     @RequestMapping(value="velgPlass.htm")
     public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error, Model modell, HttpServletRequest request){
-        String plass = request.getParameter("sitteplass");
-        koe_service.getAntBord(plass);
+        try{
+            String plass = request.getParameter("sitteplass");
+            koe_service.getAntBord(plass);
+        }catch(NullPointerException e){
+            System.out.println("Du må være logget inn før du kan sette  deg i kø!");
+            return "koOversikt";
+        }
         return "sittIKo.htm";
 
     }

@@ -12,7 +12,8 @@
     <form:form action="velgPlass.htm" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="rom" onchange="">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="rom" onchange="visBord()">
+                <option id="tom" value="tom">Velg Sitteplass</option>
                 <%--<c:forEach items="${plassering}" var="plassering">
                     <form:option onclick="visBilde(this)" id="${plassering.plassering_navn}" value="${plassering.plassering_navn}">${plassering.plassering_navn}</form:option>
                 </c:forEach>--%>
@@ -22,7 +23,7 @@
 
         <div class="form-group">
             <label for="bordnr">Bordnr:</label>
-            <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" onchange="visBord(this.value)">
+            <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" disabled="true">
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
                 <%--
@@ -35,7 +36,7 @@
 
         <div class="form-group">
             <label for="oving">Oving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="oving">
+            <form:select id="oving" multiple="true" class="form-control" path="oving" disabled="true">
                 <%--
                 <c:forEach items="delEmne.studentovinger" var="ovinger">
                     <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
@@ -51,7 +52,7 @@
 
         <div class="form-group">
             <label for="gruppe">Gruppe?</label>
-            <form:select id="gruppe" path="">
+            <form:select id="gruppe" path="medlemmer">
                 <c:forEach items="${personerBeans.valgt}" var="bruker">
                     <form:option value="${bruker.fornavn}">${bruker.fornavn}</form:option>
                  </c:forEach>
@@ -81,6 +82,13 @@
 
         }else{
             document.getElementById("img").src = "resources/img/lab.png";
+        }
+    }
+    function visBord(){
+        if(document.getElementById("sitteplass").value!="tom"){
+            document.getElementById("bordnr").disabled = false;
+        }else{
+            document.getElementById("bordnr").disabled = true;
         }
     }
 </script>
