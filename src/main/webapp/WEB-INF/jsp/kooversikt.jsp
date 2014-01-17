@@ -12,7 +12,7 @@
 <div class="pull-left col-md-8">
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (Emne)
+            K&oslash; for (${delEmne.delEmneNavn})
         </div>
     </h3>
     <a href="settIKo.htm">
