@@ -15,7 +15,23 @@
             </tr>
             </thead>
             <tbody>
-            <jsp:include page="populerMinSide.jsp" />
+            <script>
+                var clicked;
+                var emnenr;
+                function mysubmit() {
+                    alert(clicked);
+                    var koeIdField = document.getElementById("hiddenKoe");
+                    var emneNavnField = document.getElementById("hiddenEmneNavn");
+                    koeIdField.value=clicked;
+                    emneNavnField.value=emnenr;
+                    //alert("FIELDVALUE: "+hiddenField.value);
+                }
+            </script>
+            <form onsubmit="mysubmit()" method="POST" action="koOversikt.htm">
+                <input type="hidden" name="hiddenKoe" id="hiddenKoe" />
+                <input type="hidden" name="hiddenEmneNavn" id="hiddenEmneNavn" />
+                <jsp:include page="populerMinSide.jsp" />
+            </form>
             </tbody>
         </table>
     </div>
