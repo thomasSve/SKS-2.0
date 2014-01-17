@@ -116,6 +116,6 @@ public class BrukerService {
      * @return boolean
      */
     public boolean settStudass(String emnekode, String delEmne, String mail){
-        return databaseConnector.fjernEmne(emnekode, delEmne, mail);
+        return databaseConnector.settStudass(emnekode, delEmne, mail);
     }
 }
