@@ -13,24 +13,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.sql.SQLException;
 
 /**
- * Created by Eirik on 13.01.14.
+ * Tar av seg kontrollerer adminoppgaver i fra viewene.
+ *
+ * @author  Eirik, Henriette, Geir Morten
  */
 @Controller
 public class AdminBrukereKontroller {
 
     @Autowired
-    BrukerService service;
+    private BrukerService service;
 
     /**
      * Kontroller for å legge til bruker i databasen
      *
-     * @param
+     * @param bruker et brukerobjekt //TODO ikke nødvendig her.
+     * @param req http-request form data. Inneholder fil-teksten
+     * @param modell modellen som data sendes tilbake til klienten med.
      * @return adminBrukere sin side, med feilmeldinger om
+     *
+     * @author Henriette; Eirik
      */
-
     @RequestMapping(value = "leggTilFil.htm", method = RequestMethod.POST)
     public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req,Model modell) {
         String tab = req.getParameter("tab");
@@ -59,6 +63,17 @@ public class AdminBrukereKontroller {
         return "adminBrukere";
     }
 
+    /**
+     * Sender en liste med brukere tilbake til viewet.
+     *
+     * @param personerBeans tar med beans
+     * @param bruker //TODO vet ikke om det er nødvendig her.
+     * @param modell objektet lista sendes til
+     * @param request forespørselobjektet.
+     * @return view-navn til det viewet som skal vises
+     *
+     * @author //TODO legg til hvem som er maintainer.
+     */
     @RequestMapping("/search.htm")
     public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
         String tab = request.getParameter("tab");
@@ -105,7 +120,6 @@ public class AdminBrukereKontroller {
             }
         }
     }
-
 
     /**
      * Kontroller for å slette en bruker ifra databasen
