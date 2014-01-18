@@ -69,11 +69,10 @@ xmlhttp.open("POST", "/listeBrukerRediger.htm", true);
 xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xmlhttp.send("brukerIndex=" + mail);
 
-xmlhttp.send("sok="${sok});
-
-
 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
+
+    window.location = "search.htm";
 
 
 }

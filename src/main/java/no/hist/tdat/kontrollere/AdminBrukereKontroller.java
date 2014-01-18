@@ -64,9 +64,13 @@ public class AdminBrukereKontroller {
     public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
-        personerBeans.setValgt(service.finnBruker(brukere));
-        //modell.addAttribute("sok", brukere);
-        session.setAttribute("sok",brukere);
+        if(session.getAttribute("sok")!=null){
+            personerBeans.setValgt(service.finnBruker((String)session.getAttribute("sok")));
+            session.removeAttribute("sok");
+        }else{
+            personerBeans.setValgt(service.finnBruker(brukere));
+            session.setAttribute("sok", brukere);
+        }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
@@ -122,16 +126,11 @@ public class AdminBrukereKontroller {
     public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
-        System.out.println(mail);
-        String sok = (String)session.getAttribute("sok");
-        if(sok.length()>0 || sok != null){
-            modell.addAttribute("soek", sok);
-        }
-
         service.slettBruker(mail.trim());
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
-        return "/search.htm";
+        return "/adminBrukere.htm";
     }
+
 }
 
