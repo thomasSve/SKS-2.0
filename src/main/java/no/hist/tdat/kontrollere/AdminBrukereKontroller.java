@@ -54,9 +54,11 @@ public class AdminBrukereKontroller {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             modell.addAttribute("tabForm", tab);
+            modell.addAttribute("filMelding", "Feil under registrering av brukere");
             return "adminBrukere";
         }
         modell.addAttribute("tabForm", tab);
+        modell.addAttribute("filMelding", "Brukere registrert");
         return "adminBrukere";
     }
 
@@ -64,12 +66,16 @@ public class AdminBrukereKontroller {
     public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
-        if(session.getAttribute("sok")!=null){
-            personerBeans.setValgt(service.finnBruker((String)session.getAttribute("sok")));
-            session.removeAttribute("sok");
+        if(brukere == null){
+            if(session.getAttribute("sok")!=null){
+                personerBeans.setValgt(service.finnBruker((String)session.getAttribute("sok")));
+                session.removeAttribute("sok");
+            }else{
+                personerBeans.setValgt(service.finnBruker(brukere));
+                session.setAttribute("sok", brukere);
+            }
         }else{
             personerBeans.setValgt(service.finnBruker(brukere));
-            session.setAttribute("sok", brukere);
         }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
@@ -122,8 +128,8 @@ public class AdminBrukereKontroller {
      * @param request
      * @return til siden search.htm
      */
-    @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
-    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request, HttpSession session) {
+    @RequestMapping(value = "/slettBruker.htm", method = RequestMethod.POST)
+    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
@@ -131,6 +137,23 @@ public class AdminBrukereKontroller {
         modell.addAttribute("personerBeans", personerBeans);
         return "/adminBrukere.htm";
     }
+
+
+    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
+    public String redigerBruker(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
+        String tab = request.getParameter("tab");
+        String mail = request.getParameter("brukerIndex");
+        Bruker redigerBrukere = service.hentBruker(mail);
+        session.removeAttribute("redigerBrukere");
+        session.setAttribute("redigerBrukere", redigerBrukere);
+        if(redigerBrukere==null){
+            modell.addAttribute("melding", "Finner ikke bruker i databasen");
+            return "adminBrukere";
+        }else{
+            return "adminBrukere";
+        }
+    }
+
 
 }
 
