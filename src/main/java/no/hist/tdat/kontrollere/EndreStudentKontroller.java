@@ -47,24 +47,32 @@ public class EndreStudentKontroller {
 
 
     @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
-    public String ananasbiter(Model modell, HttpServletRequest request, HttpSession session){
-        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+    public String endreValgtBruker(Model modell, HttpServletRequest request, HttpSession session){
+        //PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
         String mail = request.getParameter("brukerIndex");
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
-        personerBeans.setValgtBruker(b);
-        session.setAttribute("personerBeans", personerBeans);
-        return "endreStudent";
+        //personerBeans.setValgtBruker(b);
+        //session.setAttribute("personerBeans", personerBeans);
+        session.setAttribute("valgtPerson", b);
+        System.out.println("e no hær ja");
+        return "error";
+    }
+
+    @RequestMapping(value = "videresend")
+    public String videresend(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model modell, HttpServletRequest request, HttpSession session) {
+        return "endreValgtStudent";
     }
 
         //ferdig, men ikke testet
     @RequestMapping(value = "gjorTilStudass")
     public String settStudass(Model modell, HttpServletRequest request, HttpSession session) {
-        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
-        Bruker b = personerBeans.getValgtBruker();
-
-        service.settStudass("EMNEKODE","DELEMNE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
+        //PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        //Bruker b = personerBeans.getValgtBruker();
+        Bruker b = (Bruker) session.getAttribute("valgtPerson");
+        System.out.println("Setter studass for "+b.getEtternavn());
+        //service.settStudass("EMNEKODE","DELEMNE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }
@@ -72,10 +80,11 @@ public class EndreStudentKontroller {
         //ferdig, men ikke testet
     @RequestMapping(value = "leggTilFag")
     public String leggTilFag(Model modell, HttpServletRequest request, HttpSession session) {
-        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
-        Bruker b = personerBeans.getValgtBruker();
-
-        service.leggTilEmne("EMNEKODE",b.getMail(), 0); //kan legges i if, for å få tilbakemeld, bruker boolean
+        //PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        //Bruker b = personerBeans.getValgtBruker();
+        Bruker b = (Bruker) session.getAttribute("valgtPerson");
+        System.out.println("Legger til fag for "+b.getEtternavn());
+        //service.leggTilEmne("EMNEKODE",b.getMail(), 0); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }
@@ -83,10 +92,11 @@ public class EndreStudentKontroller {
         //ferdig, men ikke testet
     @RequestMapping(value = "fjernFag")
     public String fjernFag(Model modell, HttpServletRequest request, HttpSession session) {
-        PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
-        Bruker b = personerBeans.getValgtBruker();
-
-        service.fjernEmne("EMNEKODE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
+        //PersonerBeans personerBeans = (PersonerBeans) session.getAttribute("personerBeans");
+        //Bruker b = personerBeans.getValgtBruker();
+        Bruker b = (Bruker) session.getAttribute("valgtPerson");
+        System.out.println("Fjerner fag for "+b.getEtternavn());
+        //service.fjernEmne("EMNEKODE",b.getMail()); //kan legges i if, for å få tilbakemeld, bruker boolean
 
         return "endreStudent";
     }

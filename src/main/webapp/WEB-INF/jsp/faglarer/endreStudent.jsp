@@ -42,7 +42,9 @@
             </div>
 
         </div>
+    </form:form>
 
+    <form:form action="videresend">
         <table class="table table-condensed table-hover" id="minTable">
             <thead>
             <tr>
@@ -54,7 +56,6 @@
             </thead>
 
             <tbody>
-
             <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
                 <tr>
                     <td><c:out value="${bruker.fornavn}"/></td>
@@ -62,10 +63,10 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-warning btn-sm" id="${bruker.mail}"
+                            <input type="submit" class="btn btn-warning btn-sm" id="${bruker.mail}"
                                     data-toggle="modal" onclick="finnRettBruker(this.id)"
                                     data-target="#endrebrukerModal" value="Endre" title="Endre">
-                                <i class="glyphicon glyphicon-edit"></i></button>
+                                <i class="glyphicon glyphicon-edit"></i></input>
                         </div>
                     </td>
                 </tr>
@@ -75,6 +76,7 @@
 
     </form:form>
 </div>
+
 
 
 <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
@@ -98,8 +100,8 @@
 
                     <tbody>
                         <tr>
-                            <td><c:out value="${personerBeans.valgtBruker}"/></td>
-                            <td><c:out value="${sessionScope.personerBeans.valgtBruker}"/></td>
+                            <td>må kanskje settes med innerhtml elns?</td>
+                            <td><c:out value="${sessionScope.valgtPerson.etternavn}"/></td>
                             <td><c:out value="${sessionScope.personerBeans}"/></td>
                         </tr>
                     </tbody>
@@ -113,10 +115,7 @@
                     <div class="form-group">
                         <label for="emner">Gjør til studentassistent i valgte fag:</label>
                         <select id="emner" class="form-control">
-                            <option value="hei1">1</option>
-                            <option value="hei2">2</option>
-
-                            <c:forEach var="emne" items="${sessionScope.personerBeans.valgtBruker.emne}" varStatus="status">
+                            <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
                                 <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
                             </c:forEach>
 
@@ -133,7 +132,9 @@
                         <div class="form-group">
                             <label for="emner2">Fjern tilgang til valgte fag:</label>
                             <select id="emner2" class="form-control">
-
+                                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
+                                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                                </c:forEach>
                             </select>
                         </div>
                         <input type="submit" value="Lagre"/>
@@ -148,7 +149,7 @@
                         <div class="form-group">
                             <label for="emner3">Gi tilgang til valgte fag:</label>
                             <select id="emner3" class="form-control">
-
+                                <option value="hei">faglærers fag, osv</option>
                             </select>
                         </div>
                         <input type="submit" value="Lagre"/>
@@ -166,4 +167,4 @@
         </div>
     </div>
 </div>
-</div>
+

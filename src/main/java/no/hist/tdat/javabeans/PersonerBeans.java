@@ -68,12 +68,4 @@ public class PersonerBeans {
         }
         return felles;
     }
-
-    @Override
-    public String toString() {
-        if (valgtBruker != null) {
-            return valgtBruker.getFornavn() + " " + valgtBruker.getEtternavn() + ", " + valgtBruker.getMail();
-        }
-        return "toString i personerBeans. Ingen hellig utvalgt valgt.";
-    }
 }
