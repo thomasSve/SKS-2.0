@@ -1,3 +1,4 @@
+<%@ page import="no.hist.tdat.javabeans.DelEmne" %>
 <%--
   Created by IntelliJ IDEA.
   User: Thomas
@@ -18,16 +19,16 @@
     <a href="settIKo.htm">
         <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
     </a>
-    <c:if test="${delEmne.koe_status}">
-        <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
-
-        <input type="button" onclick="location.href='/startKoe.htm'" class="btn btn-sm btn-success" id="startKoe" value="Start Køen">
-
-    </c:if>
-    <c:if test="${!delEmne.koe_status}">
-        <input type="button" onclick="location.href='/stoppKoe.htm'" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp Køen">
-    </c:if>
-
+    <%
+        DelEmne delEmne = (DelEmne)request.getAttribute("delEmne");
+        System.out.println(delEmne.getNr());
+        if(delEmne.isKoe_status()){
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + delEmne.getNr() +")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
+                    "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + delEmne.getNr() +")>Still i k&oslash;</button>\n");
+        }else{
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + delEmne.getNr() +")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+        }
+    %>
     <table class="table table-hover" id="minTable">
         <thead>
         <tr>
@@ -41,12 +42,12 @@
 
 
         <tbody>
-        <c:forEach var="gruppe" items="$">
+        <c:forEach var="koegrupper" items="${grupper}">
             <tr>
-                <td>gruppe.tid</td>
-                <td>gruppe.leder</td>
-                <td>1, 2, 3</td>
-                <td>Labben, Bord 13</td>
+                <td><c:out value="${koegrupper.klokkeslett}"/> </td>
+                <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out value="${koegrupper.medlemmer[0].etternavn}"/>  </td>
+                <td><c:out value="${koegrupper.kommentar}"/></td>
+                <td><c:out value="${koegrupper.sitteplass}"/>,bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
                     <div class="btn-group">
                         <button class="btn btn-primary" data-task="choose" title="Velg"

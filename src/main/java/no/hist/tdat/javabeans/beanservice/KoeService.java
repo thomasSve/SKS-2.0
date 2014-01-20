@@ -1,10 +1,10 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
+import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
-import no.hist.tdat.javabeans.koeGrupper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +28,10 @@ public class KoeService {
     }
 
 
-    public ArrayList<koeGrupper> getKoe(int koeId) {
+    public ArrayList<KoeGrupper> getKoe(int koeId) {
         return databaseConnector.getKoe(koeId);
+    }
+    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, int koe_id){
+        return databaseConnector.leggTilIKo(koeGruppe, delEmne, koe_id);
     }
 }
