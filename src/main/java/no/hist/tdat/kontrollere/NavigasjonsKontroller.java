@@ -80,7 +80,6 @@ public class NavigasjonsKontroller {
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
         model.addAttribute("grupper",grupper);
         model.addAttribute("delEmne", delEmne);
-        System.out.println(koe);
         return "koOversikt";
     }
 

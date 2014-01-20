@@ -311,14 +311,9 @@ public class DatabaseConnector {
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
 
-        System.out.println("følgende blir feil fo fockz zake!");
         List<Emne> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
-        System.out.println("halla");
         ArrayList<Emne> res = new ArrayList<>();
-        System.out.println("testEN"+emneList.size());
-        System.out.println("Mail: "+mail);
         for (Emne emne : emneList) {
-            System.out.println("test");
             res.add(emne);
         }
         return res;
@@ -350,11 +345,9 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), gruppeId);
         ArrayList<Bruker> brukere = new ArrayList<>();
-        System.out.println("ØLENGDE: "+brukereFraDb.size());
         Bruker bruker;
         for (int i = 0; i < brukereFraDb.size(); i++) {
              bruker = brukereFraDb.get(i);
-            System.out.println("henter bruker: "+bruker.getFornavn()+" "+ bruker.getEtternavn());
             brukere.add(bruker);
         }
         return brukere;
@@ -383,7 +376,6 @@ public class DatabaseConnector {
 
             koeGrupper.setMedlemmer(getBrukereIKoeGruppe(koeGrupper.getGruppeID()));
             koeGrupper.setOvinger(getOvingerIKoeGruppe(koeGrupper.getGruppeID()));
-            System.out.println("ant medlemmer " + koeGrupper.getMedlemmer().size() + "\nant ovinger: " + koeGrupper.getOvinger().size());
             grupper.add(koeGrupper);
         }
         if(grupper.size()>0){
