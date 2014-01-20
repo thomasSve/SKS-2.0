@@ -1,10 +1,6 @@
 package no.hist.tdat.kontrollere;
 
-
-
-import com.sun.xml.internal.bind.v2.TODO;
 import no.hist.tdat.javabeans.DelEmne;
-import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.EmneService;
