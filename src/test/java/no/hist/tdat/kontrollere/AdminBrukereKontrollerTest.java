@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,17 +22,23 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
 
 /**
- * @author vimCnett
+ * @author Jørgen
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = WebContextLoader.class, locations = {"classpath:mvc-dispatcher-servlet.xml"})
 public class AdminBrukereKontrollerTest {
-    String fileMock = "test@test.no, Fornavn, Etternavn \n rest@test.no, Fornavn, Etternavn";
+    private String file_dummy = "test@test.no, Fornavn, Etternavn \n rest@test.no, Fornavn, Etternavn";
+    private String mail = "js@mail.com";
+
+
     @Resource
     WebApplicationContext context;
     @Autowired
     DataSource dataSource;
     private MockMvc mockMvc;
+
+    @Autowired
+    BrukerService service;
 
     @Before
     public void foerHverTest() {
@@ -41,7 +48,7 @@ public class AdminBrukereKontrollerTest {
 
     @Test
     public void testLeggTilFil() throws Exception {
-        mockMvc.perform(post("/leggTilFil.htm").param("newText", fileMock))
+        mockMvc.perform(post("/leggTilFil.htm").param("newText", file_dummy))
                 .andExpect(status().isOk())
                 .andExpect(view().name("adminBrukere"));
     }
@@ -63,4 +70,10 @@ public class AdminBrukereKontrollerTest {
         con.update("DELETE FROM brukere WHERE mail LIKE ?", "%@test.no");
     }
 
+    @Test
+    public void testSlettBruker() throws Exception{
+        mockMvc.perform(post("/slettBruker.htm").param("brukerIndex", mail))
+                .andExpect(status().isOk())
+                .andExpect(view().name("adminBrukere"));
+    }
 }

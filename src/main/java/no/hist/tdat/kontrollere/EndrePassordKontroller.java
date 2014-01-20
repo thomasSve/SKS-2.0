@@ -1,8 +1,5 @@
 package no.hist.tdat.kontrollere;
 
-/**
- * Created by Thomas on 14.01.14.
- */
 
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.PassordBeans;
@@ -20,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
+/**
+ * @author Thomas
+ */
 @Controller
 public class EndrePassordKontroller {
     @Autowired

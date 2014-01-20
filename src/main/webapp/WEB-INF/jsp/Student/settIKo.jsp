@@ -8,10 +8,10 @@
 <div class="col-md-4">
     <h1>Sett deg i k&oslash; </h1>
 
-    <form:form action="velgPlass.htm" modelAttribute="koegrupper" method="post">
+    <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="visBilde()">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="visBilde(), location.href='velgPlass.htm'">
                 <option id="tom" value="tom">Velg Sitteplass</option>
                 <c:forEach items="${plassering}" var="plassering">
                     <form:option onclick="visBilde(this)" id="${plassering.plassering_navn}"
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label for="kommentar">Kommentar</label>
+            <label for="kommentar">Kommentar:</label>
             <form:textarea class="form-control" type="text" id="kommentar" path="kommentar"/>
         </div>
 
@@ -56,7 +56,7 @@
                 </c:forEach>
             </form:select>
         </div>
-        <input type="submit" id="leggTil" class="btn btn-md btn-primary" value="Legg til i k&oslash;">
+        <input type="submit" id="leggTil" class="btn btn-md btn-primary" onclick="StillIKo(${delEmne.nr})" value="Legg til i k&oslash;">
     </form:form>
 </div>
 <img src="<c:url value="/resources/img/lab.png"/>" style="padding:1px;border:thin solid black;" id="img"/>
