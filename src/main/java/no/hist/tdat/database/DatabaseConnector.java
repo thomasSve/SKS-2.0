@@ -38,12 +38,13 @@ public class DatabaseConnector {
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-    private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
+    private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES (?,?,?)";
+    private final String finnEmnerUtenTilgangSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
 
 
     @Autowired
@@ -316,7 +317,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emne> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
+        List<Emne> emneList = con.query(hentEmnerForBrukerSQL, new EmneKoordinerer(), mail);
         ArrayList<Emne> res = new ArrayList<>();
         for (Emne emne : emneList) {
             res.add(emne);
@@ -389,6 +390,23 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(settStudassSQL, mail, emnekode, delEmne);
         return true;
+    }
+
+    /**
+     * Henter alle emner en bruker ikke har tilgang til
+     *
+     * @param mail id-mail
+     * @return boolean
+     */
+    public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> alle = con.query(finnEmnerUtenTilgangSQL, new EmneKoordinerer(), mail);
+
+        ArrayList<Emne> res = new ArrayList<Emne>();
+        for (Emne emne : alle) {
+            res.add(emne);
+        }
+        return res;
     }
 }
 
