@@ -51,6 +51,11 @@ public class NavigasjonsKontroller {
         return "adminBrukere";
     }
 
+    @RequestMapping("/adminBrukereEndre.htm")
+    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+        return "adminBrukereEndre";
+    }
+
     @RequestMapping("/godkjennOving.htm")
     public String omdirigerGodkjenn() {
         return "godkjennOving";
@@ -69,10 +74,12 @@ public class NavigasjonsKontroller {
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
 
         int koeId = delEmne.getKoe_id();
-        System.out.println("koe_id: "+ koeId);
-        ArrayList<KoeGrupper> koegrupper = koeservice.getKoe(koeId);
-        //model.addAttribute(delEmne);
-        //model.addAttribute(koegrupper);
+        Koe koe = new Koe();
+        koe.setGrupper(koeservice.getKoe(koeId));
+        koe.setKoeId(koeId);
+        ArrayList<KoeGrupper> grupper = koe.getGrupper();
+        model.addAttribute("grupper",grupper);
+        System.out.println(koe);
         return "koOversikt";
     }
 

@@ -41,12 +41,12 @@
 
 
         <tbody>
-        <c:forEach var="gruppe" items="$">
+        <c:forEach var="koegrupper" items="${grupper}">
             <tr>
-                <td>gruppe.tid</td>
-                <td>gruppe.leder</td>
-                <td>1, 2, 3</td>
-                <td>Labben, Bord 13</td>
+                <td><c:out value="${koegrupper.klokkeslett}"/> </td>
+                <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out value="${koegrupper.medlemmer[0].etternavn}"/>  </td>
+                <td><c:out value="${koegrupper.kommentar}"/></td>
+                <td><c:out value="${koegrupper.sitteplass}"/>,bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
                     <div class="btn-group">
                         <button class="btn btn-primary" data-task="choose" title="Velg"

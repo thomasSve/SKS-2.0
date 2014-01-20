@@ -103,4 +103,19 @@ public class KoeGrupper {
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
     }
+
+    @Override
+    public String toString() {
+        return "KoeGrupper{" +
+                "klokkeslett=" + klokkeslett +
+                ", gruppeID=" + gruppeID +
+                ", koePlassering=" + koePlassering +
+                ", gruppeLeder=" + gruppeLeder +
+                ", sitteplass='" + sitteplass + '\'' +
+                ", bordnr=" + bordnr +
+                ", kommentar='" + kommentar + '\'' +
+                ", medlemmer=" + medlemmer +
+                ", ovinger=" + ovinger +
+                '}';
+    }
 }
