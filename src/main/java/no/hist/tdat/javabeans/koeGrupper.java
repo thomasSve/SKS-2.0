@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Thomas on 15.01.14.
  */
-public class koeGrupper {
+public class KoeGrupper {
     private String klokkeslett; //TODO maybe date?
     private Bruker gruppeLeder;
     private String sitteplass;
@@ -15,8 +15,8 @@ public class koeGrupper {
     private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
 
 
-    public koeGrupper(){}
-    public koeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<Bruker>medlemmer, ArrayList<Integer>ovinger){
+    public KoeGrupper(){}
+    public KoeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger){
         this.gruppeLeder = gruppeLeder;
         this.klokkeslett = klokkeslett;
         this.medlemmer = medlemmer;
@@ -24,7 +24,7 @@ public class koeGrupper {
         this.ovinger = ovinger;
         this.kommentar = kommentar;
     }
-    public koeGrupper(String sitteplass, String klokkeslett, String kommentar, Bruker gruppeLeder, ArrayList<Integer>ovinger){
+    public KoeGrupper(String sitteplass, String klokkeslett, String kommentar, Bruker gruppeLeder, ArrayList<Integer> ovinger){
         this.gruppeLeder = gruppeLeder;
         this.klokkeslett = klokkeslett;
         this.sitteplass = sitteplass;
