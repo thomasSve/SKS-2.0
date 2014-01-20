@@ -62,6 +62,15 @@ public class AdminBrukereKontroller {
         return "adminBrukere";
     }
 
+    /**
+     * Søkemetode i adminBrukere
+     * @param personerBeans hjelpeklasse
+     * @param bruker bruker objekt
+     * @param modell sende objekt vidre
+     * @param request henter objekt
+     * @param session lagrer objekt i session
+     * @return wiew adminBrukere
+     */
     @RequestMapping("/search.htm")
     public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
@@ -139,7 +148,7 @@ public class AdminBrukereKontroller {
     }
 
 
-    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
+/*    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
     public String redigerBruker(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
@@ -152,7 +161,7 @@ public class AdminBrukereKontroller {
         }else{
             return "adminBrukere";
         }
-    }
+    }*/
 
 
 }
