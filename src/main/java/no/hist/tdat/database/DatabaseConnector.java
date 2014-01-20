@@ -24,7 +24,7 @@ public class DatabaseConnector {
 
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
 
-
+    private final String getKoeSQL = "";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
@@ -343,7 +343,17 @@ public class DatabaseConnector {
     }
 
 
+    public ArrayList<koeGrupper> getKoe(int koeId) {
+
+        //TODO FIKXS
+        //Hent gruppe_id'er i køen
+        //legg til tidspunkt, sitteplass, bordnr, info.
+        //legg til leder
+        //fyll gruppene med medlemmer
 
 
+        //fylle gruppe med øvinger
+        return null;
+    }
 }
 

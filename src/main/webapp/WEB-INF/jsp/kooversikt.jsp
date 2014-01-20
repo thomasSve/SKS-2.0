@@ -9,10 +9,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<div class="col-md-8">
+<div class="pull-left col-md-8">
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (Emne)
+            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
         </div>
     </h3>
     <a href="settIKo.htm">

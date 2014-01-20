@@ -14,24 +14,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.SQLException;
 
 /**
- * Created by Eirik on 13.01.14.
+ * Tar av seg kontrollerer adminoppgaver i fra viewene.
+ *
+ * @author  Eirik, Henriette, Geir Morten
  */
 @Controller
 public class AdminBrukereKontroller {
 
     @Autowired
-    BrukerService service;
+    private BrukerService service;
 
     /**
      * Kontroller for å legge til bruker i databasen
      *
-     * @param
+     * @param bruker et brukerobjekt //TODO ikke nødvendig her.
+     * @param req http-request form data. Inneholder fil-teksten
+     * @param modell modellen som data sendes tilbake til klienten med.
      * @return adminBrukere sin side, med feilmeldinger om
+     *
+     * @author Henriette; Eirik
      */
-
     @RequestMapping(value = "leggTilFil.htm", method = RequestMethod.POST)
     public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req,Model modell) {
         String tab = req.getParameter("tab");
@@ -128,7 +132,6 @@ public class AdminBrukereKontroller {
         }
     }
 
-
     /**
      * Kontroller for å slette en bruker ifra databasen
      *
@@ -161,13 +164,14 @@ public class AdminBrukereKontroller {
         }else{
             return "adminBrukereEndre";
         }
+
     }
 
     @RequestMapping(value = "/redigerBrukerLagre.htm", method = RequestMethod.POST )
     public String redigerBrukerLagre(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
-        Bruker redigerBrukere = service.e(mail);
+        Bruker redigerBrukere = service.hentBruker(mail); //TODO GM FIX
         session.removeAttribute("redigerBrukere");
         session.setAttribute("redigerBrukere", redigerBrukere);
         if(redigerBrukere==null){
@@ -177,6 +181,5 @@ public class AdminBrukereKontroller {
             return "search.htm";
         }
     }
-
 }
 

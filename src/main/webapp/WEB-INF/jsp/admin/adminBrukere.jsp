@@ -131,7 +131,7 @@
                 <p style="color: red"><strong>${filMelding}</strong></p>
             </div>
 
-            <label for="files">Select a file: </label>
+            <label for="files">Velg en fil: </label>
             <input id="files" type="file"/>
 
             <script>
@@ -171,13 +171,12 @@
                         });
                     }
                     else {
-                        console.log("Your browser does not support File API");
+                        console.log("Nettleseren din støtter ikke Fil API");
                     }
                 }
             </script>
             <input type="hidden" name="tab" value="brukereViaFil">
             <input type="hidden" name="newText" id="newText"/>
-            <!--<output id="text"></output>-->
             <br>
             <button type="submit" class="btn btn-primary btn-block">Last opp fil</button>
 

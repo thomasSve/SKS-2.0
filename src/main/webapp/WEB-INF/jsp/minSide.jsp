@@ -15,7 +15,12 @@
             </tr>
             </thead>
             <tbody>
-            <jsp:include page="populerMinSide.jsp" />
+
+            <form onsubmit="mysubmit()" method="POST" action="koOversikt.htm">
+                <input type="hidden" name="hiddenKoe" id="hiddenKoe" />
+                <input type="hidden" name="hiddenEmneNavn" id="hiddenEmneNavn" />
+                <jsp:include page="populerMinSide.jsp" />
+            </form>
             </tbody>
         </table>
     </div>

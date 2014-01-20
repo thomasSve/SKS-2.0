@@ -9,6 +9,9 @@ DROP TABLE brukere;
 DROP TABLE koe;
 DROP TABLE emner;
 DROP TABLE rettighet;
+<<<<<<< HEAD
+#ufullstendig!
+=======
 
 
 
@@ -270,3 +273,4 @@ INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) V
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(4, 'ob@mail.com', 1, 'Anette', '1989-06-30 10:20:21');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(6, 'ob@mail.com', 1, 'Jørgen', '2000-12-03 09:40:11');
 INSERT INTO oving_brukere(oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUES(7, 'ob@mail.com', 0, null, null);
+>>>>>>> 72b7d7f6de21c0951ae82c072676f284cbe2de13

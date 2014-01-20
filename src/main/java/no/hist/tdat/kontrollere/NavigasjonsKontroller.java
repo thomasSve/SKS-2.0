@@ -3,6 +3,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.*;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
+import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class NavigasjonsKontroller {
@@ -25,6 +28,9 @@ public class NavigasjonsKontroller {
 
     @Autowired
     KoeService koeservice;
+
+    @Autowired
+    EmneService emneService;
 
     @RequestMapping("/")
     public String omdirigerHjem() {
@@ -61,9 +67,16 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping(value="/koOversikt.htm", method=RequestMethod.POST)
-    public String koOversikt(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
-        String koeId = request.getParameter("koeid");
+    @RequestMapping(value="/koOversikt.htm" ,method=RequestMethod.POST)
+    public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
+        int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
+        int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
+        innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
+        delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+        int koeId = delEmne.getKoe_id();
+        ArrayList<koeGrupper> koegrupper = koeservice.getKoe(koeId);
+        model.addAttribute(delEmne);
+        model.addAttribute(koegrupper);
         return "koOversikt";
     }
 
@@ -73,7 +86,9 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/settIKo.htm")
-    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker, @ModelAttribute("plassering") Plassering plassering, Model model, HttpSession session){
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
+                                 @ModelAttribute("koegrupper") koeGrupper koegrupper,
+                                 Model model, HttpSession session){
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         System.out.println(innloggetBruker.getFornavn());
         personerBeans.setValgt(service.getMedstudenter("ALM802F-B", innloggetBruker.getMail()));

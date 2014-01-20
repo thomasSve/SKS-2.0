@@ -10,6 +10,7 @@ import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.utils.PassordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +26,10 @@ public class EndrePassordKontroller {
     BrukerService service;
 
     @RequestMapping(value = "skiftPassord.htm")
-    private String endrePassordet(@Valid @ModelAttribute("passord") PassordBeans passord, BindingResult result, HttpServletRequest request, HttpSession session) {
+    private String endrePassordet(@Valid @ModelAttribute("passord") PassordBeans passord, BindingResult result, HttpServletRequest request, HttpSession session, Model modell) {
 
         if (result.hasErrors()) {
+            modell.addAttribute("melding", "");
             return "endrePassord";
         }
 
@@ -36,21 +38,25 @@ public class EndrePassordKontroller {
         String nyttPassord = request.getParameter("nyttPassord");
         System.out.println("Gammelt: " + gammeltP + ", Bekreft: " + bekreftPassord + ", Nytt: " + nyttPassord);
         Bruker bruker = (Bruker)session.getAttribute("innloggetBruker");
-        if ((nyttPassord.equals(bekreftPassord)) && nyttPassord.length() > 4) {
-            if (PassordService.sammenliknPassord(gammeltP, bruker)) {
-                bruker.setPassord(nyttPassord);
-                if(service.endrePassord(bruker.getMail(), bruker.getPassord())){
-                    System.out.println("Vellykket");
+        if(nyttPassord.length() > 4){
+            if ((nyttPassord.equals(bekreftPassord))) {
+                if (PassordService.sammenliknPassord(gammeltP, bruker)) {
+                    bruker.setPassord(nyttPassord);
+                    if(service.endrePassord(bruker.getMail(), bruker.getPassord())){
+                        modell.addAttribute("melding", "Vellykket");
+                        return "endrePassord";
+                    }
+                    modell.addAttribute("melding", "Feil ved Database");
                     return "endrePassord";
-                }
-                System.out.println("Feil ved Database");
-                return "endrePassord";
 
+                }
+                modell.addAttribute("melding", "Du skreiv inn feil passord!");
+                return "endrePassord";
             }
-            System.out.println("Feil ved sammenlikning av gamle");
+            modell.addAttribute("melding", "Feil ved bekrefting av Passord!");
             return "endrePassord";
         }
-        System.out.println("Feil ved bekrefting av Passord. Evt. \nFor kort nytt Passord");
+        modell.addAttribute("melding", "For kort nytt Passord, må være minst 5 karakterer lang!");
         return "endrePassord";
     }
 }
