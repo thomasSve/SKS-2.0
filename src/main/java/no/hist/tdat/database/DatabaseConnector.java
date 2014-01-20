@@ -47,7 +47,10 @@ public class DatabaseConnector {
     private final String finnOvingerSQL = "SELECT * FROM koe_brukere, brukere WHERE koe_brukere.mail = brukere.mail AND koe_brukere.mail = ? AND koe_brukere.koe_id = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, ovingsnummer, info, koe_plass) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE delemne_nr LIKE ?";
+    private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
+    private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
+
+
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
@@ -310,6 +313,7 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
+        System.out.println("Kø id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
@@ -441,9 +445,9 @@ public class DatabaseConnector {
         return null;
     }
 
-    public DelEmne hentDelEmne(int delEmneId) {
+    public DelEmne hentDelEmne(int koe_id) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<DelEmne> delEmne = con.query(finnDelEmneSQL, new DelEmneKoordinerer(), delEmneId);
+        List<DelEmne> delEmne = con.query(finnDelEmneSQL, new DelEmneKoordinerer(), koe_id);
         return delEmne.get(0);
     }
 
@@ -468,6 +472,11 @@ public class DatabaseConnector {
                 koe_plass
         );
         return true;
+    }
+    public DelEmne getKoeObjekt(int koe_id){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<DelEmne> delEmne = con.query(hentKoeObjektSQL, new KoestatusDelEmneKoordinerer(), koe_id);
+        return delEmne.get(0);
     }
 }
 

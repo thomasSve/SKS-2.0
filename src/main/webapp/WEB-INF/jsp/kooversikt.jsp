@@ -1,4 +1,5 @@
 <%@ page import="no.hist.tdat.javabeans.DelEmne" %>
+<%@ page import="no.hist.tdat.javabeans.Koe" %>
 <%--
   Created by IntelliJ IDEA.
   User: Thomas
@@ -9,24 +10,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <div class="pull-left col-md-8">
     <h3>
         <div id="operasjonstekst">
             K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
         </div>
     </h3>
-    <a href="settIKo.htm">
-        <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
-    </a>
     <%
-        DelEmne delEmne = (DelEmne)request.getAttribute("delEmne");
-        System.out.println(delEmne.getNr());
-        if(delEmne.isKoe_status()){
-            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + delEmne.getNr() +")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
-                    "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + delEmne.getNr() +")>Still i k&oslash;</button>\n");
-        }else{
-            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + delEmne.getNr() +")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+        DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
+        int koe_id = delEmne.getKoe_id();
+        if (delEmne.isKoe_status()) {
+
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
+                    "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>");
+        } else {
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
         }
     %>
     <table class="table table-hover" id="minTable">
@@ -44,8 +42,9 @@
         <tbody>
         <c:forEach var="koegrupper" items="${grupper}">
             <tr>
-                <td><c:out value="${koegrupper.klokkeslett}"/> </td>
-                <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out value="${koegrupper.medlemmer[0].etternavn}"/>  </td>
+                <td><c:out value="${koegrupper.klokkeslett}"/></td>
+                <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
+                        value="${koegrupper.medlemmer[0].etternavn}"/></td>
                 <td><c:out value="${koegrupper.kommentar}"/></td>
                 <td><c:out value="${koegrupper.sitteplass}"/>,bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>

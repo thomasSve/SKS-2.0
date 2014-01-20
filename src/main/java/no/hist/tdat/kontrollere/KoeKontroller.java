@@ -1,6 +1,7 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,18 +28,18 @@ public class KoeKontroller {
     @Autowired
     EmneService emne_service;
 
-    @RequestMapping(value="/StartStoppKoe.htm")
-    public String startKoen(@ModelAttribute DelEmne emne, HttpServletRequest request) {
-        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
-        emne = emne_service.hentDelEmne(Emne_id);
-        System.out.println(Emne_id);
-        if(emne.isKoe_status()){
-            emne.setKoe_status(false);
-            emne_service.endreKoeStatus(emne.getKoe_id(), 0);
+    @RequestMapping(value="/StartStoppKoe.htm", method = RequestMethod.POST)
+    public String startKoen(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
+        int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
+
+        delEmne = koe_service.hentDelEmneStatus(koe_id);
+        if(delEmne.isKoe_status()){
+            delEmne.setKoe_status(false);
+            emne_service.endreKoeStatus(koe_id, 0);
+            System.out.println("Hei");
             return "koOversikt";
         }
-        emne.setKoe_status(true);
-        emne_service.endreKoeStatus(emne.getKoe_id(), 1);
+        emne_service.endreKoeStatus(koe_id, 1);
         return "koOversikt";
     }
 
@@ -59,7 +61,7 @@ public class KoeKontroller {
         return "sittIKo.htm";
 
     }
-    @RequestMapping(value="StillIKo")
+    @RequestMapping(value="StillIKo", method = RequestMethod.POST)
    public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
                           @ModelAttribute("koegrupper") KoeGrupper koegrupper){
         int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
