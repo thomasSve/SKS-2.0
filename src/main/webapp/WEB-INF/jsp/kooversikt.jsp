@@ -21,6 +21,7 @@
     </a>
     <%
         DelEmne delEmne = (DelEmne)request.getAttribute("delEmne");
+        System.out.println(delEmne.getNr());
         if(delEmne.isKoe_status()){
             out.println("<input type=\"button\" onclick=\"startStoppKoe(" + delEmne.getNr() +")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
                     "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + delEmne.getNr() +")>Still i k&oslash;</button>\n");

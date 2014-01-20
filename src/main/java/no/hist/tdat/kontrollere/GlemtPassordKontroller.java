@@ -36,7 +36,7 @@ public class GlemtPassordKontroller {
                 bruker.setPassord(nyttPassord);
                 //sendMail(bruker, nyttPassord);
                 service.endrePassord(mail, bruker.getPassord());
-                modell.addAttribute("nyPassord", "Vellykket! Det nye passordet er sendt på mail.");
+                modell.addAttribute("nyPassord", "Vellykket! Det nye passordet er sendt p&aring; mail.");
                 System.out.println("Nytt Passord: " + nyttPassord + "\n");
                 return "loggInn";
             }
