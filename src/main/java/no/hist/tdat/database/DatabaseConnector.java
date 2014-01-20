@@ -25,10 +25,10 @@ public class DatabaseConnector {
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
 
     private final String getKoeSQL = "";
-    private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving JOIN oving ON gruppe_oving.oving_id = oving.oving_id WHERE gruppe_oving.gruppe_id=?";
-    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
+    private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
+        private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe NATURAL JOIN brukere WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
     private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
-    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
+    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere NATURAL JOIN oving WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
@@ -350,8 +350,10 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), gruppeId);
         ArrayList<Bruker> brukere = new ArrayList<>();
+        System.out.println("ØLENGDE: "+brukereFraDb.size());
+        Bruker bruker;
         for (int i = 0; i < brukereFraDb.size(); i++) {
-            Bruker bruker = brukereFraDb.get(i);
+             bruker = brukereFraDb.get(i);
             System.out.println("henter bruker: "+bruker.getFornavn()+" "+ bruker.getEtternavn());
             brukere.add(bruker);
         }
@@ -361,10 +363,11 @@ public class DatabaseConnector {
 
     public ArrayList<Integer> getOvingerIKoeGruppe(int gruppeId) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Oving> ovingerFraDb = con.query(hentGruppeOvingerSQL, new OvingKoordinerer(), gruppeId);
+        List<Oving> ovingerFraDb = con.query(hentGruppeOvingerSQL, new KoeOvingKoordinerer(), gruppeId);
         ArrayList<Integer> ovinger= new ArrayList<>();
+        Oving oving;
         for (int i = 0; i < ovingerFraDb.size(); i++) {
-            Oving oving = ovingerFraDb.get(i);
+             oving = ovingerFraDb.get(i);
             ovinger.add(oving.getOvingnr());
         }
         return ovinger;
@@ -374,11 +377,13 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
        List<KoeGrupper> grupperFromDb = con.query(hentkoeGrupperSQL, new KoeGruppeKoordinerer(), koeId);
         ArrayList<KoeGrupper> grupper = new ArrayList<>();
+        KoeGrupper koeGrupper;
         for (int i = 0;  i < grupperFromDb.size();  i++) {
-            KoeGrupper koeGrupper =  grupperFromDb.get(i);
+            koeGrupper =  grupperFromDb.get(i);
+
             koeGrupper.setMedlemmer(getBrukereIKoeGruppe(koeGrupper.getGruppeID()));
             koeGrupper.setOvinger(getOvingerIKoeGruppe(koeGrupper.getGruppeID()));
-            System.out.println("ant medlemmer "+koeGrupper.getMedlemmer().size()+"\nant ovinger: "+koeGrupper.getOvinger().size());
+            System.out.println("ant medlemmer " + koeGrupper.getMedlemmer().size() + "\nant ovinger: " + koeGrupper.getOvinger().size());
             grupper.add(koeGrupper);
         }
         if(grupper.size()>0){

@@ -79,6 +79,7 @@ public class NavigasjonsKontroller {
         koe.setKoeId(koeId);
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
         model.addAttribute("grupper",grupper);
+        model.addAttribute("delEmne", delEmne);
         System.out.println(koe);
         return "koOversikt";
     }

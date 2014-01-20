@@ -1,6 +1,5 @@
 package no.hist.tdat.database.verktoy;
 
-import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Oving;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -13,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author vimCnett
  */
-public class OvingKoordinerer implements RowMapper<Oving>{
+public class KoeOvingKoordinerer implements RowMapper<Oving>{
     /**
      * Denne metoden er en mal på hvordan Bruker objekter skal opprettes ved henting fra database.
      * @param resultSet settes av Spring, og er resultatet fra database-spørringen
@@ -25,11 +24,6 @@ public class OvingKoordinerer implements RowMapper<Oving>{
     public Oving mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Oving oving = new Oving();
         oving.setOvingnr(resultSet.getInt("oving_nr"));
-        if(resultSet.getInt("godkjent")>0) {
-            oving.setGodkjent( resultSet.getInt("godkjent")>0);
-            oving.setGodkjentAv(resultSet.getString("godkjent_av"));
-            oving.setGodkjentTid(resultSet.getDate("godkjent_tid"));
-        }
         return oving;
     }
 }
