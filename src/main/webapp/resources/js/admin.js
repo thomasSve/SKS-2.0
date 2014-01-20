@@ -72,7 +72,7 @@ xmlhttp.send("brukerIndex=" + mail);
 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
 
-    window.location = "search.htm";
+    window.location = "search.htm"
 
 
 }
@@ -110,10 +110,11 @@ function adminBrukereTilbake(mail) {
     xmlhttp.onreadystatechange = function () {
 
     }
-    xmlhttp.open("POST", "/redigerBruker.htm", true);
+    xmlhttp.open("POST", "/search.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("brukerIndex=" + mail);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
     window.location = "search.htm"
 }
+
