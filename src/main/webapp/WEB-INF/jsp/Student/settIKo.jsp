@@ -27,7 +27,7 @@
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
 
-                <c:forEach items="1" var="bordNr" end="${plassering.ant_bord}">
+                <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
                     <form:option value="bordNr">bordNr</form:option>
                 </c:forEach>
 
