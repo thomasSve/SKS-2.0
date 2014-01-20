@@ -1,6 +1,6 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-public class OpprettEmneKontroller {
+public class OpprettDelemneKontroller {
     @Autowired
     EmneService service;
-    @RequestMapping("/lagEmne.htm")
-    public String emne(@ModelAttribute(value = "emne") Emne emne, BindingResult result, Model model) {
+    @RequestMapping("/setKrav.htm")
+    public String delemne(@ModelAttribute(value = "delemne")DelEmne delEmne, BindingResult result, Model model) {
         try{
-            service.leggTilEmne(emne);
-            model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
+            //service.leggTilEmne(emne);
+            //model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
             return "opprettDelemne";
         }catch(org.springframework.dao.DuplicateKeyException e){
             model.addAttribute("emneSQLfeil", "Emnenavn eller emnekode er opprettet fra f&oslash;r");

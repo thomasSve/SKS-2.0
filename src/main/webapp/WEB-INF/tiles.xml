@@ -73,4 +73,8 @@
         <put-attribute name="title"  value="Opprett emne"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettEmne.jsp"/>
     </definition>
+    <definition name="opprettDelemne" extends="baseLayout">
+        <put-attribute name="title"  value="Opprett delemne"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettDelemne.jsp"/>
+    </definition>
 </tiles-definitions>

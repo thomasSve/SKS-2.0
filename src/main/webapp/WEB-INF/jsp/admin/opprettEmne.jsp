@@ -18,11 +18,11 @@
 
     <div class="form-group">
         <label for="emneNavn">Emnenavn:</label>
-        <form:input path="emneNavn" id="emneNavn" class="form-control"/>
+        <form:input path="emneNavn" id="emneNavn" class="form-control" required="true"/>
     </div>
     <div class="form-group">
         <label for="emneKode">Emnekode:</label>
-        <form:input path="emneKode" id="emneKode" class="form-control"/>
+        <form:input path="emneKode" id="emneKode" class="form-control" required="true"/>
     </div>
 
     <input type="submit" class="btn btn-primary btn-block" value="Legg til"/>
