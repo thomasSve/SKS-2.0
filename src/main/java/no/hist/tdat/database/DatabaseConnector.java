@@ -41,7 +41,7 @@ public class DatabaseConnector {
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail LIKE ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
-    private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
+    private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
     private final String finnOvingerSQL = "SELECT * FROM koe_brukere, brukere WHERE koe_brukere.mail = brukere.mail AND koe_brukere.mail = ? AND koe_brukere.koe_id = ?";
@@ -49,7 +49,12 @@ public class DatabaseConnector {
     private final String leggTilIKoSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, ovingsnummer, info, koe_plass) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
-
+    private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
+    private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
+    private final String settStudassSQL = "INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES(?,?,?)";
+    private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
+    private final String hentStudassFagSQL = "SELECT * FROM delemne_brukere JOIN delemne ON delemne_brukere.emnekode LIKE delemne.emnekode AND delemne.delemne_nr LIKE delemne_brukere.delemne_nr WHERE delemne_brukere.mail LIKE ?";
+    private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -58,7 +63,6 @@ public class DatabaseConnector {
         if (mail == null) {
             return null;
         }
-
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<KoeBruker> koBrukerList = con.query(finnOvingerSQL, new KoeBrukerKoordinerer(), mail, koe_id);
         ArrayList<KoeBruker> output = new ArrayList<>();
@@ -66,7 +70,6 @@ public class DatabaseConnector {
             output.add(denne);
         }
         return output;
-
     }
 
     public ArrayList<DelEmne> hentDelemner(Bruker bruker, Emne emne) {
@@ -342,14 +345,18 @@ public class DatabaseConnector {
 
     }
 
+    /**
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
+     *
+     * @param mail id-mail
+     * @return ArrayList med alle emner
+     */
     public ArrayList<Emne> hentEmnerForStud(String mail) {
         if (mail == null) {
             return null;
         }
-
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-
-        List<Emne> emneList = con.query(hentEmnerForStudSQL, new EmneKoordinerer(), mail);
+        List<Emne> emneList = con.query(hentEmnerForBrukerSQL, new EmneKoordinerer(), mail);
         ArrayList<Emne> res = new ArrayList<>();
         for (Emne emne : emneList) {
             res.add(emne);
@@ -390,18 +397,43 @@ public class DatabaseConnector {
     }
 
     /**
-     * @param
-     * @return true om den blir lagt til, ellers false
-     * @author henriette
-     * Lager en plass i køen
+     * legger til emne for bruker, gitt mail
+     *
+     * @param mail id-mail, emnekode, foreleser
+     * @return boolean
      */
-    public boolean lagKoeplass(Koe koe) {//TODO henrisett fort
+    public boolean leggTilEmne(String emnekode, String mail, int foreleser) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        //   con.update(leggTilIKoSQL, koe.getKoe_id(),  );
+        try {
+            con.update(leggTilEmneSQL, emnekode, mail, foreleser);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
-
-
     }
+
+    /**
+     * Fjerner tilgang til emne
+     *
+     * @param mail id-mail og emnekode
+     * @return boolean
+     */
+    public boolean fjernEmne(String emnekode, String mail) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        try {
+            con.update(fjernEmneSQL, mail, emnekode);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 
     public ArrayList<Bruker> getBrukereIKoeGruppe(int gruppeId) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -477,6 +509,77 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<DelEmne> delEmne = con.query(hentKoeObjektSQL, new KoestatusDelEmneKoordinerer(), koe_id);
         return delEmne.get(0);
+    }
+
+    /**
+     * Setter studass
+     *
+     * @param mail id-mail og emnekode og delemne
+     * @return boolean
+     */
+    public boolean settStudass(String emnekode, int delEmne, String mail) {
+        if (mail == null || emnekode == null) {
+            return false;
+        }
+        System.out.println("setter studass: kode: "+emnekode+", "+delEmne+", "+mail);
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+ //       try {
+            con.update(settStudassSQL, mail, emnekode, delEmne);
+ //       } catch (Exception e) {
+  //          return false;
+  //      }
+        return true;
+    }
+
+    /**
+     * Henter alle emner en bruker ikke har tilgang til
+     *
+     * @param mail id-mail
+     * @return boolean
+     */
+    public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> alle = con.query(finnEmnerUtenTilgangSQL, new EmneKoordinerer(), mail);
+
+        ArrayList<Emne> res = new ArrayList<Emne>();
+        for (Emne emne : alle) {
+            res.add(emne);
+        }
+        return res;
+    }
+
+    /**
+     * Henter alle emner en bruker ikke har tilgang til
+     *
+     * @param mail id-mail
+     * @return boolean
+     */
+    public ArrayList<DelEmne> hentStudassFag(String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<DelEmne> alle = con.query(hentStudassFagSQL, new DelEmneKoordinerer(), mail);
+
+        ArrayList<DelEmne> res = new ArrayList<DelEmne>();
+        for (DelEmne emne : alle) {
+            res.add(emne);
+        }
+        return res;
+    }
+
+    /**
+     * Fjerner studass
+     *
+     * @param mail id-mail, delemne
+     * @return boolean
+     */
+    public boolean fjernStudass(String navn, String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        try {
+            con.update(fjernStudassSQL, mail, navn, navn);
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
 

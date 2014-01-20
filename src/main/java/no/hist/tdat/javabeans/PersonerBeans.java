@@ -1,12 +1,6 @@
 package no.hist.tdat.javabeans;
 
 
-import no.hist.tdat.database.DatabaseConnector;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 /**
@@ -14,43 +8,18 @@ import java.util.ArrayList;
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
 public class PersonerBeans {
-    ArrayList<Bruker> valgt = new ArrayList<>();
-    ArrayList<Emne> fellesEmne = null;
-    Integer index = 0;
-    String indexen = "";
-
-    ArrayList<Emne> fellesEmner = new ArrayList<>();
     Bruker valgtBruker;
-    int valgtIndex = 0;
+    ArrayList<Bruker> valgt = new ArrayList<>();    //alle
+    ArrayList<Emne> brukteEmner = new ArrayList<>();
 
-    public String getIndexen() {
-        return indexen;
+    public ArrayList<Emne> getBrukteEmner() {
+        return brukteEmner;
+
     }
 
-    public void setIndexen(String indexen) {
-        this.indexen = indexen;
+    public void setBrukteEmner(ArrayList<Emne> e) {
+        brukteEmner = e;
     }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
-
-    public ArrayList<Emne> getFellesEmne() {
-        return fellesEmne;
-    }
-
-    public int getValgtIndex() {
-        return valgtIndex;
-    }
-
-    public void setValgtIndex(int t) {
-        valgtIndex = t;
-    }
-
 
     public ArrayList<Bruker> getValgt() {
         return valgt;
