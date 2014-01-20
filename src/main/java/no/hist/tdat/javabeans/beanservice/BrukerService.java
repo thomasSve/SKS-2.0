@@ -118,4 +118,13 @@ public class BrukerService {
     public boolean settStudass(String emnekode, int delEmne, String mail){
         return databaseConnector.settStudass(emnekode, delEmne, mail);
     }
+
+    /**
+     * Slett studass
+     * @param delemne og mail
+     * @return boolean
+     */
+    public boolean fjernStudass(String delEmne, String mail){
+        return databaseConnector.fjernStudass(delEmne, mail);
+    }
 }

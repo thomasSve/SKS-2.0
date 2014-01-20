@@ -43,10 +43,10 @@ public class DatabaseConnector {
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
-    private final String settStudassSQL = "INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES (?,?,?)";
+    private final String settStudassSQL = "INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES(?,?,?)";
     private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
-    private final String hentStudassFagSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
-
+    private final String hentStudassFagSQL = "SELECT * FROM delemne_brukere JOIN delemne ON delemne_brukere.emnekode LIKE delemne.emnekode AND delemne.delemne_nr LIKE delemne_brukere.delemne_nr WHERE delemne_brukere.mail LIKE ?";
+    private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -399,12 +399,13 @@ public class DatabaseConnector {
         if (mail == null || emnekode == null) {
             return false;
         }
+        System.out.println("setter studass: kode: "+emnekode+", "+delEmne+", "+mail);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        try {
+ //       try {
             con.update(settStudassSQL, mail, emnekode, delEmne);
-        } catch (Exception e) {
-            return false;
-        }
+ //       } catch (Exception e) {
+  //          return false;
+  //      }
         return true;
     }
 
@@ -431,15 +432,32 @@ public class DatabaseConnector {
      * @param mail id-mail
      * @return boolean
      */
-    public ArrayList<Emne> hentStudassFag(String mail) {
+    public ArrayList<DelEmne> hentStudassFag(String mail) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emne> alle = con.query(hentStudassFagSQL, new EmneKoordinerer(), mail);
+        List<DelEmne> alle = con.query(hentStudassFagSQL, new DelEmneKoordinerer(), mail);
 
-        ArrayList<Emne> res = new ArrayList<Emne>();
-        for (Emne emne : alle) {
+        ArrayList<DelEmne> res = new ArrayList<DelEmne>();
+        for (DelEmne emne : alle) {
             res.add(emne);
         }
         return res;
+    }
+
+    /**
+     * Fjerner studass
+     *
+     * @param mail id-mail, delemne
+     * @return boolean
+     */
+    public boolean fjernStudass(String navn, String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        try {
+            con.update(fjernStudassSQL, mail, navn, navn);
+        }
+        catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }
 

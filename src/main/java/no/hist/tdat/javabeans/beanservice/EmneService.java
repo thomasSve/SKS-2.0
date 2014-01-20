@@ -58,12 +58,12 @@ public class EmneService {
     }
 
     /**
-     * Henter alle emner en student er studass i
+     * Henter alle delemner en student er studass i
      *
      * @param mail, unik identifikator
      * @return liste over alle emner
      */
-    public ArrayList<Emne> hentStudassFag(String mail) {
+    public ArrayList<DelEmne> hentStudassFag(String mail) {
         return databaseConnector.hentStudassFag(mail);
     }
 

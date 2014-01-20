@@ -48,7 +48,6 @@ public class EndreStudentKontroller {
         session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
         session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
         session.setAttribute("valgtPerson", b);
-        System.out.println("setter valgt som "+b.getFornavn()+" "+b.getEtternavn());
         return "videresend";
     }
 
@@ -58,6 +57,7 @@ public class EndreStudentKontroller {
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
             session.removeAttribute("emnerUtenTilgang");
+            session.removeAttribute("studassFag");
             return "endreStudent";
         }
         return "endreValgtStudent";
@@ -67,6 +67,7 @@ public class EndreStudentKontroller {
     public String utførOperasjon(Model modell, HttpServletRequest request, HttpSession session) {
         String lagre = request.getParameter("lagre");
         String fjern = request.getParameter("fjern");
+        String leggTil = request.getParameter("leggTil");
 
         Bruker b = (Bruker) session.getAttribute("valgtPerson");
 
@@ -74,7 +75,6 @@ public class EndreStudentKontroller {
             String emnekode = request.getParameter("emner");
             int delemne = Integer.parseInt(request.getParameter("delemne"));
             if (service.settStudass(emnekode,delemne,b.getMail())) {
-                System.out.println(emnekode +" "+delemne+" "+b.getMail());
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
             }
             else {
@@ -92,7 +92,7 @@ public class EndreStudentKontroller {
                 modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
             }
         }
-        else {  //legg til fag
+        else if (leggTil != null) {  //legg til fag
             String emnekode3 = request.getParameter("emner3");
             if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
                 modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
@@ -101,6 +101,16 @@ public class EndreStudentKontroller {
             }
             else {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);
+            }
+        }
+        else {  //fjern som studass
+            String emne4 = request.getParameter("emner4");
+            if (service.fjernStudass(emne4,b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
+                session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
             }
         }
         return "endreValgtStudent";

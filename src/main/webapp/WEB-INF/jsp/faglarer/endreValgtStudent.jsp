@@ -57,11 +57,11 @@
                         <label for="emner4">Fjern som studentassistent i valgte delemne:</label>
                         <select id="emner4" name="emner4" class="form-control">
                             <c:forEach var="emne" items="${sessionScope.studassFag}" varStatus="status">
-                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                                <option value="${emne.delEmneNavn}"><c:out value="${emne.delEmneNavn}"/></option>
                             </c:forEach>
                         </select>
                     </div>
-                    <input type="submit" class="btn btn-success" value="Lagre" name="lagre"/>
+                    <input type="submit" class="btn btn-danger" value="Fjern" name="fjernStudass"/>
                 </div>
             </td>
         </tr>
