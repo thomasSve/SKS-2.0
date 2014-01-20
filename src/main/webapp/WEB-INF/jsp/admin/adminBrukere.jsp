@@ -39,7 +39,7 @@
 
                 <tbody>
 
-                <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                <c:forEach var="random" items="${personerBeans.valgt}" varStatus="status">
 
                     <tr>
                         <td><c:out value="${bruker.fornavn}"/></td>
@@ -115,6 +115,7 @@
                 <form:option value="1">Admin</form:option>
             </form:select>
         </div>
+        <br>
         <input type="hidden" name="tab" value="leggTilEnkelBruker">
 
         <input type="submit" id="leggtil" value="Legg til" class="btn btn-primary btn-block"/>
@@ -217,7 +218,7 @@
                         <errors path="mail"/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group form-control">
                         <label for="endrerettigheter">Rettigheter</label>
                         <select id="endrerettigheter" class="form-control">
                             <option value="ingen"><i>Ingen valgt</i></option>

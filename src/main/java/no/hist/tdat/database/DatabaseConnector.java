@@ -2,6 +2,7 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
+import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,30 @@ public class DatabaseConnector {
     private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
+    private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
+    private final String finnOvingerSQL = "SELECT * FROM koe_brukere, brukere WHERE koe_brukere.mail = brukere.mail AND koe_brukere.mail = ? AND koe_brukere.koe_id = ?";
+    // list opp emner en person ikke har
+    private final String hentEmnerEnStudentIkkeHarSQL = "SELECT emnekode FROM ";
+
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
+
+    public ArrayList<KoeBruker> hentBrukerFraKo (String mail, int koe_id ){
+        if(mail == null) {
+            return null;
+        }
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<KoeBruker> koBrukerList = con.query(finnOvingerSQL, new KoeBrukerKoordinerer(), mail, koe_id);
+        ArrayList<KoeBruker> output = new ArrayList<>();
+        for (KoeBruker denne : koBrukerList) {
+            output.add(denne);
+        }
+        return output;
+
+    }
 
     public ArrayList<DelEmne> hentDelemner(Bruker bruker,Emne emne){
         if (bruker==null){
@@ -145,6 +166,20 @@ public class DatabaseConnector {
             res.add(bruker);
         }
         return res;
+    }
+
+    public boolean oppdaterOving(Oving oving, String mail,int oving_id) {
+        if (oving == null) {
+            return false;
+        } else {
+            JdbcTemplate con = new JdbcTemplate(dataKilde);
+            con.update(oppdaterOvingSQL,
+                    mail, oving_id,
+                    oving.denneErGodkjent(),
+                    oving.getGodkjentAv(),
+                    oving.getGodkjentTid());
+            return true;
+        }
     }
 
     /**
@@ -355,5 +390,7 @@ public class DatabaseConnector {
         //fylle gruppe med øvinger
         return null;
     }
+
+
 }
 

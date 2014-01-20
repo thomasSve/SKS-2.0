@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="be718a76-a218-42e5-8a42-ea7f69e47964">
-    <database-info product="MySQL" version="5.5.34" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.28 ( Revision: alexander.soklakov@oracle.com-20131125092425-yvejy3xvci77ru3k )">
+  <data-source source="LOCAL" name="MySQL - sks@localhost [2]" uuid="adf21de3-c16d-42eb-bb4a-f5f08874254c">
+    <database-info product="MySQL" version="5.5.32" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.28 ( Revision: alexander.soklakov@oracle.com-20131125092425-yvejy3xvci77ru3k )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
@@ -12,6 +12,8 @@
     <schema name="" catalog="performance_schema"/>
     <schema name="" catalog="phpmyadmin"/>
     <schema name="" catalog="sks"/>
+    <schema name="" catalog="spring13"/>
+    <schema name="" catalog="spring15"/>
     <schema name="" catalog="test"/>
     <schema name="" catalog="webauth"/>
     <table name="cds" schema="" catalog="cdcol" type="TABLE">
@@ -1145,8 +1147,8 @@
       <column name="ant_ovinger" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="ovingsregler" sqlType="VARCHAR" length="225" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="delemne_nr,emnekode"/>
-      <foreign-key name="delemne_fk1" columns="emnekode" ref-table="emner" ref-schema="" ref-catalog="sks" ref-columns="emnekode" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="delemne_fk2" columns="koe_id" ref-table="koe" ref-schema="" ref-catalog="sks" ref-columns="koe_id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="delemne_fk1" columns="emnekode" ref-table="emner" ref-schema="" ref-catalog="sks" ref-columns="emnekode" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="delemne_brukere_fk2" table="delemne_brukere" schema="" catalog="sks" columns="delemne_nr,emnekode"/>
       <exported-key name="oving_fk1" table="oving" schema="" catalog="sks" columns="delemne_nr,emnekode"/>
     </table>
@@ -1155,8 +1157,8 @@
       <column name="emnekode" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <column name="delemne_nr" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="mail,emnekode,delemne_nr"/>
-      <foreign-key name="delemne_brukere_fk1" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="delemne_brukere_fk2" columns="delemne_nr,emnekode" ref-table="delemne" ref-schema="" ref-catalog="sks" ref-columns="delemne_nr,emnekode" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="delemne_brukere_fk1" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="0" deferrability="2"/>
     </table>
     <table name="emner" schema="" catalog="sks" type="TABLE">
       <column name="emnekode" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
@@ -1170,8 +1172,8 @@
       <column name="mail" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <column name="foreleser" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="emnekode,mail"/>
+      <foreign-key name="emner_brukere_fk2" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="emner_brukere_fk1" columns="emnekode" ref-table="emner" ref-schema="" ref-catalog="sks" ref-columns="emnekode" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="emner_brukere_fk2" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="koe" schema="" catalog="sks" type="TABLE">
       <column name="koe_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1183,13 +1185,15 @@
     <table name="koe_brukere" schema="" catalog="sks" type="TABLE">
       <column name="koe_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="mail" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
-      <column name="plassering" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
+      <column name="romnr" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <column name="bordnummer" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="ovingsnummer" sqlType="VARCHAR" length="30" precision="0" nullable="true" jdbcType="12"/>
       <column name="info" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="koe_plass" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="faar_hjelp" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="koe_id,mail"/>
-      <foreign-key name="koe_brukere_fk1" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="koe_brukere_fk3" columns="romnr" ref-table="plassering" ref-schema="" ref-catalog="sks" ref-columns="romnr" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="koe_brukere_fk1" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="koe_brukere_fk2" columns="koe_id" ref-table="koe" ref-schema="" ref-catalog="sks" ref-columns="koe_id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="oving" schema="" catalog="sks" type="TABLE">
@@ -1207,18 +1211,39 @@
       <column name="godkjent" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6"/>
       <column name="godkjent_av" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="godkjent_tid" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <foreign-key name="oving_brukere_fk2" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="oving_brukere_fk1" columns="oving_id" ref-table="oving" ref-schema="" ref-catalog="sks" ref-columns="oving_id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="oving_brukere_fk2" columns="mail" ref-table="brukere" ref-schema="" ref-catalog="sks" ref-columns="mail" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="plassering" schema="" catalog="sks" type="TABLE">
-      <column name="plassering" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="romnr" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
+      <column name="plassering_navn" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <column name="ant_bord" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="romnr"/>
+      <exported-key name="koe_brukere_fk3" table="koe_brukere" schema="" catalog="sks" columns="romnr"/>
     </table>
     <table name="rettighet" schema="" catalog="sks" type="TABLE">
       <column name="rettighet_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="navn" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="rettighet_id"/>
       <exported-key name="brukere_fk1" table="brukere" schema="" catalog="sks" columns="rettighet_id"/>
+    </table>
+    <table name="person" schema="" catalog="spring13" type="TABLE">
+      <column name="personnr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="fornavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="etternavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="personnr"/>
+    </table>
+    <table name="varer" schema="" catalog="spring13" type="TABLE">
+      <column name="varenr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="varenavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="pris" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="varenr"/>
+    </table>
+    <table name="person" schema="" catalog="spring15" type="TABLE">
+      <column name="personnr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="fornavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="etternavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="personnr"/>
     </table>
     <table name="user_pwd" schema="" catalog="webauth" type="TABLE">
       <column name="name" sqlType="CHAR" length="30" precision="0" nullable="false" jdbcType="1" def="Jyc="/>
