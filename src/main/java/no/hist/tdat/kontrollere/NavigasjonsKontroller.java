@@ -83,10 +83,12 @@ public class NavigasjonsKontroller {
     @RequestMapping("/settIKo.htm")
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
                                  @ModelAttribute("koegrupper") koeGrupper koegrupper,
-                                 Model model, HttpSession session){
+                                 Model model, HttpSession session, HttpServletRequest request){
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         System.out.println(innloggetBruker.getFornavn());
-        personerBeans.setValgt(service.getMedstudenter("ALM802F-B", innloggetBruker.getMail()));
+        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
+        DelEmne delemne = emneService.hentDelEmne(Emne_id);
+        personerBeans.setValgt(service.getMedstudenter(delemne.getDelEmneNavn(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
         koeservice.getPlasseringer();
         model.addAttribute("plassering", koeservice);

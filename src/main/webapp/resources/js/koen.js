@@ -32,7 +32,7 @@ function mysubmit() {
     emneNavnField.value=emnenr;
     }
 
-function startStoppKoe(koe_id){
+function startStoppKoe(emne_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -45,12 +45,12 @@ function startStoppKoe(koe_id){
     }
     xmlhttp.open("POST", "/StartStoppKoe.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("KoeIndex=" + koe_id);
+    xmlhttp.send("EmneIndex=" + emne_id);
 
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
 }
-function settIKo(koe_id){
+function settIKo(emne_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -61,9 +61,9 @@ function settIKo(koe_id){
     xmlhttp.onreadystatechange = function () {
 
     }
-    xmlhttp.open("POST", "velgPlass.htm", true);
+    xmlhttp.open("POST", "/settIKo.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("KoeIndex=" + koe_id);
+    xmlhttp.send("EmneIndex=" + emne_id);
 
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }

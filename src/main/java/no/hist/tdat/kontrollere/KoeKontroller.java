@@ -3,9 +3,11 @@ package no.hist.tdat.kontrollere;
 
 
 import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
+import no.hist.tdat.javabeans.koeGrupper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,22 +31,21 @@ public class KoeKontroller {
 
     @RequestMapping(value="/StartStoppKoe.htm")
     public String startKoen(@ModelAttribute DelEmne emne, HttpServletRequest request) {
-        int Koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
-        System.out.println(Koe_id);
+        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
+        emne = emne_service.hentDelEmne(Emne_id);
+        System.out.println(Emne_id);
         if(emne.isKoe_status()){
             emne.setKoe_status(false);
-            emne_service.endreKoeStatus(Koe_id, 0);
+            emne_service.endreKoeStatus(emne.getKoe_id(), 0);
             return "koOversikt";
         }
         emne.setKoe_status(true);
-        emne_service.endreKoeStatus(Koe_id, 1);
+        emne_service.endreKoeStatus(emne.getKoe_id(), 1);
         return "koOversikt";
     }
 
     @RequestMapping(value="velgPlass.htm")
     public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request){
-        int Koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
-
         if(error.hasErrors()){
             return "sittIKo.htm";
         }
@@ -59,4 +60,19 @@ public class KoeKontroller {
         return "sittIKo.htm";
 
     }
+
+    @RequestMapping(value="/settIKo.htm")
+    public String settIKoe(@ModelAttribute("koeGruppe") koeGrupper koeGruppe, HttpServletRequest request) {
+        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
+        DelEmne emne = emne_service.hentDelEmne(Emne_id);
+        System.out.println(Emne_id);
+        if(emne.isKoe_status()){
+            emne.setKoe_status(false);
+            emne_service.endreKoeStatus(emne.getKoe_id(), 0);
+            return "koOversikt";
+        }
+
+        return "koOversikt";
+    }
+
 }
