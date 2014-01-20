@@ -41,6 +41,7 @@ public class DatabaseConnector {
     private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
+    private final String leggTilEmneSQL = "INSERT INTO emner (emnekode, emnenavn) VALUES (?,?)";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -342,8 +343,15 @@ public class DatabaseConnector {
         return plassListe.get(0).getAnt_bord();
     }
 
-
-
-
+    public boolean leggTilEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
+        if (emne == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(leggTilEmneSQL,
+                emne.getEmneKode(),
+                emne.getEmneNavn());
+        return true;
+    }
 }
 

@@ -69,4 +69,8 @@
         <put-attribute name="title"  value="Kø oversikt"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/kooversikt.jsp"/>
     </definition>
+    <definition name="opprettEmne" extends="baseLayout">
+        <put-attribute name="title"  value="Opprett emne"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettEmne.jsp"/>
+    </definition>
 </tiles-definitions>
