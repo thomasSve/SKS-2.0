@@ -2,3 +2,4 @@ tasks.xml
 workspace.xml
 target
 out
+.idea/dataSources.ids
