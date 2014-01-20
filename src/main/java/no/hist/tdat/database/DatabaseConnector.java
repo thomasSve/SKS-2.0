@@ -26,7 +26,7 @@ public class DatabaseConnector {
 
     private final String getKoeSQL = "";
     private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving JOIN oving ON gruppe_oving.oving_id = oving.oving_id WHERE gruppe_oving.gruppe_id=?";
-    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=? ORDER BY gruppe.leder DESC;";
+    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
     private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
@@ -346,30 +346,41 @@ public class DatabaseConnector {
     }
 
 
+    public ArrayList<Bruker> getBrukereIKoeGruppe(int gruppeId) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), gruppeId);
+        ArrayList<Bruker> brukere = new ArrayList<>();
+        for (int i = 0; i < brukereFraDb.size(); i++) {
+            Bruker bruker = brukereFraDb.get(i);
+            System.out.println("henter bruker: "+bruker.getFornavn()+" "+ bruker.getEtternavn());
+            brukere.add(bruker);
+        }
+        return brukere;
+    }
+
+
+    public ArrayList<Integer> getOvingerIKoeGruppe(int gruppeId) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> ovingerFraDb = con.query(hentGruppeOvingerSQL, new OvingKoordinerer(), gruppeId);
+        ArrayList<Integer> ovinger= new ArrayList<>();
+        for (int i = 0; i < ovingerFraDb.size(); i++) {
+            Oving oving = ovingerFraDb.get(i);
+            ovinger.add(oving.getOvingnr());
+        }
+        return ovinger;
+    }
+
     public ArrayList<KoeGrupper> getKoe(int koeId) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        //TODO FIKXS
        List<KoeGrupper> grupperFromDb = con.query(hentkoeGrupperSQL, new KoeGruppeKoordinerer(), koeId);
         ArrayList<KoeGrupper> grupper = new ArrayList<>();
         for (int i = 0;  i < grupperFromDb.size();  i++) {
             KoeGrupper koeGrupper =  grupperFromDb.get(i);
-            List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), koeGrupper.getGruppeID());
-            ArrayList<Bruker> brukere = new ArrayList<>();
-            List<Oving> ovingerFraDb = con.query(hentGruppeOvingerSQL, new OvingKoordinerer(), koeGrupper.getGruppeID());
-            ArrayList<Integer> ovinger = new ArrayList<>();
-            for (int k = 0; k < ovingerFraDb.size(); k++) {
-                Oving oving = ovingerFraDb.get(k);
-                ovinger.add(oving.getOvingnr());
-            }
-            for (int j = 0; j < brukereFraDb.size(); j++) {
-                Bruker bruker = brukereFraDb.get(j);
-                brukere.add(bruker);
-            }
-            koeGrupper.setMedlemmer(brukere);
-            koeGrupper.setOvinger(ovinger);
+            koeGrupper.setMedlemmer(getBrukereIKoeGruppe(koeGrupper.getGruppeID()));
+            koeGrupper.setOvinger(getOvingerIKoeGruppe(koeGrupper.getGruppeID()));
+            System.out.println("ant medlemmer "+koeGrupper.getMedlemmer().size()+"\nant ovinger: "+koeGrupper.getOvinger().size());
             grupper.add(koeGrupper);
         }
-
         if(grupper.size()>0){
             return grupper;
         }
