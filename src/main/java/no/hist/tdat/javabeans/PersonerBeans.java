@@ -11,16 +11,7 @@ import java.util.ArrayList;
 
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();    //alle
-    Bruker valgtBruker;  //mer eksplisitt valgte
     ArrayList<Emne> brukteEmner = new ArrayList<>();
-
-    public Bruker getValgtBruker() {
-        return valgtBruker;
-    }
-
-    public void setValgtBruker(Bruker br) {
-        valgtBruker = br;
-    }
 
     public ArrayList<Emne> getBrukteEmner() {
         return brukteEmner;

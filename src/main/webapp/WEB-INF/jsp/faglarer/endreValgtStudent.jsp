@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1>Endre student</h1>
+<form:form action="videresend" method="post">
+    <input type="submit" value="Tilbake" name="tilbake"/>
+</form:form>
 <table class="table table-condensed table-hover" id="minTable">
     <thead>
     <tr>
@@ -13,9 +16,9 @@
 
     <tbody>
     <tr>
-        <td>må kanskje settes med innerhtml elns?</td>
+        <td><c:out value="${sessionScope.valgtPerson.fornavn}"/></td>
         <td><c:out value="${sessionScope.valgtPerson.etternavn}"/></td>
-        <td><c:out value="${sessionScope.personerBeans}"/></td>
+        <td><c:out value="${sessionScope.valgtPerson.mail}"/></td>
     </tr>
     </tbody>
 </table>
@@ -26,18 +29,14 @@
 <form:form action="gjorTilStudass" method="post">
     <div class="form-group">
         <div class="form-group">
-            <label for="emner">Gjør til studentassistent i valgte fag:</label>
+            <label for="emner">Gj�r til studentassistent i valgte fag:</label>
             <select id="emner" class="form-control">
-                <option value="hei1">1</option>
-                <option value="hei2">2</option>
-
-                <c:forEach var="emne" items="${sessionScope.personerBeans.valgtBruker.emne}" varStatus="status">
+                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
                     <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
                 </c:forEach>
-
             </select>
         </div>
-        <input type="submit" value="Lagre"/>
+        <input type="submit" value="Lagre" name="lagre"/>
     </div>
 </form:form>
 
@@ -48,10 +47,12 @@
         <div class="form-group">
             <label for="emner2">Fjern tilgang til valgte fag:</label>
             <select id="emner2" class="form-control">
-
+                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
+                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                </c:forEach>
             </select>
         </div>
-        <input type="submit" value="Lagre"/>
+        <input type="submit" value="Lagre" name="lagre"/>
     </div>
 </form:form>
 
@@ -63,10 +64,12 @@
         <div class="form-group">
             <label for="emner3">Gi tilgang til valgte fag:</label>
             <select id="emner3" class="form-control">
-
+                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
+                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                </c:forEach>
             </select>
         </div>
-        <input type="submit" value="Lagre"/>
+        <input type="submit" value="Lagre" name="lagre"/>
     </div>
 </form:form>
 

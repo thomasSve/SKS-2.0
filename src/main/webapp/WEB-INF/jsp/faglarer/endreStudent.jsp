@@ -23,6 +23,7 @@
             //document.getElementById("calendar").innerHTML=xmlhttp.responseText;
             alert("jara");
         }
+        window.location = "videresend";
     }
 </script>
 
@@ -73,98 +74,5 @@
             </c:forEach>
             </tbody>
         </table>
-
     </form:form>
 </div>
-
-
-
-<div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="velgøvingLabel">Endre Bruker</h2>
-            </div>
-            <div class="modal-body">
-
-                <table class="table table-condensed table-hover" id="minTable">
-                    <thead>
-                    <tr>
-                        <th class="header">Fornavn</th>
-                        <th class="header">Etternavn</th>
-                        <th class="header">Epost</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>må kanskje settes med innerhtml elns?</td>
-                            <td><c:out value="${sessionScope.valgtPerson.etternavn}"/></td>
-                            <td><c:out value="${sessionScope.personerBeans}"/></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <hr>
-
-                <form:form action="gjorTilStudass" method="post">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="emner">Gjør til studentassistent i valgte fag:</label>
-                        <select id="emner" class="form-control">
-                            <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
-                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
-                            </c:forEach>
-
-                        </select>
-                    </div>
-                    <input type="submit" value="Lagre"/>
-                </div>
-                </form:form>
-
-                <hr>
-
-                <form:form action="fjernFag" method="post">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="emner2">Fjern tilgang til valgte fag:</label>
-                            <select id="emner2" class="form-control">
-                                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
-                                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <input type="submit" value="Lagre"/>
-                    </div>
-                </form:form>
-
-                <hr>
-
-
-                <form:form action="leggTilFag" method="post">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="emner3">Gi tilgang til valgte fag:</label>
-                            <select id="emner3" class="form-control">
-                                <option value="hei">faglærers fag, osv</option>
-                            </select>
-                        </div>
-                        <input type="submit" value="Lagre"/>
-                    </div>
-                </form:form>
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                <button type="button" class="btn btn-primary">Lagre</button>
-            </div>
-        </div>
-    </div>
-</div>
-
