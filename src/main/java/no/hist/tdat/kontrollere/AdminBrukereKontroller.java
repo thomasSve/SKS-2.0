@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -57,29 +58,38 @@ public class AdminBrukereKontroller {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             modell.addAttribute("tabForm", tab);
+            modell.addAttribute("filMelding", "Feil under registrering av brukere");
             return "adminBrukere";
         }
         modell.addAttribute("tabForm", tab);
+        modell.addAttribute("filMelding", "Brukere registrert");
         return "adminBrukere";
     }
 
     /**
-     * Sender en liste med brukere tilbake til viewet.
-     *
-     * @param personerBeans tar med beans
-     * @param bruker //TODO vet ikke om det er nødvendig her.
-     * @param modell objektet lista sendes til
-     * @param request forespørselobjektet.
-     * @return view-navn til det viewet som skal vises
-     *
-     * @author //TODO legg til hvem som er maintainer.
+     * Søkemetode i adminBrukere
+     * @param personerBeans hjelpeklasse
+     * @param bruker bruker objekt
+     * @param modell sende objekt vidre
+     * @param request henter objekt
+     * @param session lagrer objekt i session
+     * @return wiew adminBrukere
      */
     @RequestMapping("/search.htm")
-    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
+    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
-        personerBeans.setValgt(service.finnBruker(brukere));
-        modell.addAttribute("sok", brukere);
+        if(brukere == null){
+            if(session.getAttribute("sok")!=null){
+                personerBeans.setValgt(service.finnBruker((String)session.getAttribute("sok")));
+                session.removeAttribute("sok");
+            }else{
+                personerBeans.setValgt(service.finnBruker(brukere));
+                session.setAttribute("sok", brukere);
+            }
+        }else{
+            personerBeans.setValgt(service.finnBruker(brukere));
+        }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
@@ -130,14 +140,30 @@ public class AdminBrukereKontroller {
      * @param request
      * @return til siden search.htm
      */
-    @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/slettBruker.htm", method = RequestMethod.POST)
     public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
-        return "/search.htm";
+        return "/adminBrukere.htm";
     }
+
+
+/*    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
+    public String redigerBruker(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
+        String tab = request.getParameter("tab");
+        String mail = request.getParameter("brukerIndex");
+        Bruker redigerBrukere = service.hentBruker(mail);
+        session.removeAttribute("redigerBrukere");
+        session.setAttribute("redigerBrukere", redigerBrukere);
+        if(redigerBrukere==null){
+            modell.addAttribute("melding", "Finner ikke bruker i databasen");
+            return "adminBrukere";
+        }else{
+            return "adminBrukere";
+        }
+    }*/
 }
 

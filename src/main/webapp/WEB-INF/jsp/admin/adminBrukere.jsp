@@ -11,6 +11,7 @@
 <div class="tab-content">
     <p id="tabForms" hidden> ${tabForm} </p>
 
+
 <div class="tab-pane fade in active" id="endre">
     <h2>Administrer brukere</h2>
     <%--Søkefunksjon etter brukere--%>
@@ -52,6 +53,7 @@
                         <td>
                             <div class="input-group-btn">
                                 <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                        id="${bruker.mail}" onclick="redigerBrukerFraKnapp(this.id)"
                                         data-target="#endrebrukerModal" title="Endre">
                                     <i class="glyphicon glyphicon-edit"></i></button>
                                 <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
@@ -127,6 +129,7 @@
         <form method="POST" action="leggTilFil.htm" id="lesInnFil">
             <div id="leggTilFilText">
                 <h2> Legg til flere brukere via fil </h2>
+                <p style="color: red"><strong>${filMelding}</strong></p>
             </div>
 
             <label for="files">Velg en fil: </label>
@@ -183,28 +186,29 @@
 </div>
 
 
-<%--HVA er dette--%>
+<%--Rediger bruker--%>
 <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <p style="color: red"><strong>${melding}</strong></p>
                 <h2 class="modal-title" id="velgøvingLabel">Endre Bruker</h2>
             </div>
             <div class="modal-body">
-                <form method="POST" modelAttribute="leggTilBruker" action="leggtilbruker.html">
+                <form:form method="POST" modelAttribute="bruker" action="redigerBruker.htm">
                     <div class="form-group">
                         <label for="endrefornavn">Fornavn</label>
-
-                        <input path="endrefornavn" id="endrefornavn" class="form-control"/>
+                         <p>${redigerBrukere.fornavn}</p>
+                        <form:input value="${redigerBrukere.fornavn}" path="fornavn" id="endrefornavn" class="form-control" />
 
                         <errors path="fornavn"/>
                     </div>
                     <div class="form-group">
                         <label for="endreetternavn">Etternavn:</label>
 
-                        <input id="endreetternavn" path="etternavn" class="form-control"/>
+                        <form:input value="${redigerBrukere.etternavn}" id="endreetternavn" path="etternavn" class="form-control"/>
 
                         <errors path="etternavn"/>
                     </div>
@@ -212,37 +216,37 @@
                     <div class="form-group">
                         <label for="endreepost">Epost</label>
 
-                        <input id="endreepost" path="mail" class="form-control"/>
+                        <form:input value="${redigerBrukere.mail}" id="endreepost" path="mail" class="form-control"/>
 
                         <errors path="mail"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="endrerettigheter">Rettigheter</label>
-                        <select id="endrerettigheter" class="form-control">
-                            <option value="ingen"><i>Ingen valgt</i></option>
-                            <option value="admin">Admin</option>
-                            <option value="lærer">L&aeligrer</option>
-                            <option value="studentassistent">Studentassistent</option>
-                            <option value="student">Student</option>
-                        </select>
+                        <label for="rettighet">Rettigheter</label>
+                            <form:select id="rettighet" class="form-control" path="rettighet">
+                                <form:option value="-1">Velg rettighet</form:option>
+                                <form:option value="3">Student</form:option>
+                                <form:option value="2">Lærer</form:option>
+                                <form:option value="1">Admin</form:option>
+                            </form:select>
                     </div>
 
                     <div class="form-group">
                         <label for="endrestatus">Status</label>
                         <select id="endrestatus" class="form-control">
-                            <option value="ingen"><i>Aktiv</i></option>
-                            <option value="admin">Inaktiv</option>
+                            <option value="1"><i>Aktiv</i></option>
+                            <option value="0">Inaktiv</option>
                         </select>
                     </div>
-                    <input type="hidden" name="tab" value="leggTilEnkelBruker">l
-                </form>
+                    <input type="hidden" name="tab" value="redigerBruker">
+
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                <button type="button" class="btn btn-primary">Lagre</button>
+                    <input type="submit" id="endreBruker" value="Endre bruker" class="btn btn-primary btn-block"/>
             </div>
+                    </form:form>
         </div>
     </div>
 </div>
