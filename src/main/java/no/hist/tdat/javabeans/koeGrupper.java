@@ -7,9 +7,10 @@ import java.util.Date;
  * Created by Thomas on 15.01.14.
  */
 public class KoeGrupper {
-    private Date klokkeslett; //TODO maybe date?
+    private Date klokkeslett;
+    private int gruppeID;
     private int koePlassering;
-    private Bruker gruppeLeder;
+    private Bruker gruppeLeder; // TODO fjernes
     private String sitteplass;
     private int bordnr;
     private String kommentar;
@@ -52,6 +53,14 @@ public class KoeGrupper {
 
     public void setGruppeLeder(Bruker gruppeLeder) {
         this.gruppeLeder = gruppeLeder;
+    }
+
+    public int getGruppeID() {
+        return gruppeID;
+    }
+
+    public void setGruppeID(int gruppeID) {
+        this.gruppeID = gruppeID;
     }
 
     public String getSitteplass() {

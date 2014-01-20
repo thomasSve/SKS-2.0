@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,10 +67,12 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
         innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+
         int koeId = delEmne.getKoe_id();
-        ArrayList<koeGrupper> koegrupper = koeservice.getKoe(koeId);
-        model.addAttribute(delEmne);
-        model.addAttribute(koegrupper);
+        System.out.println("koe_id: "+ koeId);
+        ArrayList<KoeGrupper> koegrupper = koeservice.getKoe(koeId);
+        //model.addAttribute(delEmne);
+        //model.addAttribute(koegrupper);
         return "koOversikt";
     }
 
@@ -82,7 +83,7 @@ public class NavigasjonsKontroller {
 
     @RequestMapping("/settIKo.htm")
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
-                                 @ModelAttribute("koegrupper") koeGrupper koegrupper,
+                                 @ModelAttribute("koegrupper") KoeGrupper koegrupper,
                                  Model model, HttpSession session){
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         System.out.println(innloggetBruker.getFornavn());
