@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author vimCnett
+ * @author Jørgen
  */
 @Transactional
 public class DatabaseConnectorTest {

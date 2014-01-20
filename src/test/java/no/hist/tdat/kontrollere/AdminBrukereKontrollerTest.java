@@ -22,7 +22,7 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
 
 /**
- * @author vimCnett
+ * @author Jørgen
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = WebContextLoader.class, locations = {"classpath:mvc-dispatcher-servlet.xml"})
