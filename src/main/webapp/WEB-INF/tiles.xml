@@ -34,6 +34,11 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
+    <definition name="adminBrukereEndre" extends="baseLayout">
+        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukereEndre.jsp"/>
+    </definition>
+
     <definition name="adminFag" extends="baseLayout">
         <put-attribute name="title"  value="Administrer Fag"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminFag.jsp"/>

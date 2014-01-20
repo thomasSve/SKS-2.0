@@ -46,6 +46,11 @@ public class NavigasjonsKontroller {
         return "adminBrukere";
     }
 
+    @RequestMapping("/adminBrukereEndre.htm")
+    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+        return "adminBrukereEndre";
+    }
+
     @RequestMapping("/godkjennOving.htm")
     public String omdirigerGodkjenn() {
         return "godkjennOving";

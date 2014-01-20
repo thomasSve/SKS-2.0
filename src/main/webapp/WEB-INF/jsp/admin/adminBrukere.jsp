@@ -53,8 +53,7 @@
                         <td>
                             <div class="input-group-btn">
                                 <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        id="${bruker.mail}" onclick="redigerBrukerFraKnapp(this.id)"
-                                        data-target="#endrebrukerModal" title="Endre">
+                                        id="${bruker.mail}" onclick="redigerBrukerFraKnapp(this.id)"title="Endre">
                                     <i class="glyphicon glyphicon-edit"></i></button>
                                 <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
                                         id="${bruker.mail}" onclick="slettBrukerFraKnapp(this.id)"
@@ -186,71 +185,6 @@
     </div>
 </div>
 
-
-<%--Rediger bruker--%>
-<div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <p style="color: red"><strong>${melding}</strong></p>
-                <h2 class="modal-title" id="velgøvingLabel">Endre Bruker</h2>
-            </div>
-            <div class="modal-body">
-                <form:form method="POST" modelAttribute="bruker" action="redigerBruker.htm">
-                    <div class="form-group">
-                        <label for="endrefornavn">Fornavn</label>
-                         <p>${redigerBrukere.fornavn}</p>
-                        <form:input value="${redigerBrukere.fornavn}" path="fornavn" id="endrefornavn" class="form-control" />
-
-                        <errors path="fornavn"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="endreetternavn">Etternavn:</label>
-
-                        <form:input value="${redigerBrukere.etternavn}" id="endreetternavn" path="etternavn" class="form-control"/>
-
-                        <errors path="etternavn"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="endreepost">Epost</label>
-
-                        <form:input value="${redigerBrukere.mail}" id="endreepost" path="mail" class="form-control"/>
-
-                        <errors path="mail"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rettighet">Rettigheter</label>
-                            <form:select id="rettighet" class="form-control" path="rettighet">
-                                <form:option value="-1">Velg rettighet</form:option>
-                                <form:option value="3">Student</form:option>
-                                <form:option value="2">Lærer</form:option>
-                                <form:option value="1">Admin</form:option>
-                            </form:select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="endrestatus">Status</label>
-                        <select id="endrestatus" class="form-control">
-                            <option value="1"><i>Aktiv</i></option>
-                            <option value="0">Inaktiv</option>
-                        </select>
-                    </div>
-                    <input type="hidden" name="tab" value="redigerBruker">
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
-                    <input type="submit" id="endreBruker" value="Endre bruker" class="btn btn-primary btn-block"/>
-            </div>
-                    </form:form>
-        </div>
-    </div>
-</div>
 </div>
 
 

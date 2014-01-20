@@ -148,7 +148,7 @@ public class AdminBrukereKontroller {
     }
 
 
-/*    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
+   @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST )
     public String redigerBruker(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
@@ -157,11 +157,26 @@ public class AdminBrukereKontroller {
         session.setAttribute("redigerBrukere", redigerBrukere);
         if(redigerBrukere==null){
             modell.addAttribute("melding", "Finner ikke bruker i databasen");
-            return "adminBrukere";
+            return "adminBrukereEndre";
         }else{
-            return "adminBrukere";
+            return "adminBrukereEndre";
         }
-    }*/
+    }
+
+    @RequestMapping(value = "/redigerBrukerLagre.htm", method = RequestMethod.POST )
+    public String redigerBrukerLagre(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
+        String tab = request.getParameter("tab");
+        String mail = request.getParameter("brukerIndex");
+        Bruker redigerBrukere = service.e(mail);
+        session.removeAttribute("redigerBrukere");
+        session.setAttribute("redigerBrukere", redigerBrukere);
+        if(redigerBrukere==null){
+            modell.addAttribute("melding", "Finner ikke bruker i databasen");
+            return "search.htm";
+        }else{
+            return "search.htm";
+        }
+    }
 
 
 }
