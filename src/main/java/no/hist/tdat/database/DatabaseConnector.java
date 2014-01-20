@@ -26,8 +26,8 @@ public class DatabaseConnector {
 
     private final String getKoeSQL = "";
     private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving JOIN oving ON gruppe_oving.oving_id = oving.oving_id WHERE gruppe_oving.gruppe_id=?";
-    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=1 ORDER BY gruppe.leder DESC;";
-    private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ?";
+    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=? ORDER BY gruppe.leder DESC;";
+    private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";

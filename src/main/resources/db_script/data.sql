@@ -140,18 +140,18 @@ INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (4,'hb@mail.com', 1);
 INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (5,'js@mail.com', 1);
 INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (6,'ts@mail.com', 1);
 
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, info, faar_hjelp)
-VALUES (1, 1, 'Labben 2.etg', 3, 1, '?!?!?!', 'anette@mail.com');
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp)
-VALUES (1, 2, 'Labben 2.etg', 2, 2, null );
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer,  koe_plass,info, faar_hjelp)
-VALUES (1, 3, 'Labben 2.etg', 3, 3, 'Hjelp!', null);
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp)
-VALUES (1, 4, 'Labben 2.etg', 9, 4,  null);
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer,  koe_plass, info, faar_hjelp)
-VALUES (1, 5, 'Labben 2.etg', 5, 7, 'Godkjenning!', 'grethe@mail.com');
-INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp)
-VALUES (1, 6, 'Labben 2.etg', 2, 6, null );
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, info, faar_hjelp, tidspunkt)
+VALUES (1, 1, 'Labben 2.etg', 3, 1, '?!?!?!', 'anette@mail.com', '2000-01-01 13:37:00');
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp, tidspunkt)
+VALUES (1, 2, 'Labben 2.etg', 2, 2, null ,'2000-01-01 13:47:00');
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer,  koe_plass,info, faar_hjelp, tidspunkt)
+VALUES (1, 3, 'Labben 2.etg', 3, 3, 'Hjelp!', null,'2000-01-01 14:37:00');
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp, tidspunkt)
+VALUES (1, 4, 'Labben 2.etg', 9, 4,  null,'2000-01-01 11:37:00');
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer,  koe_plass, info, faar_hjelp, tidspunkt)
+VALUES (1, 5, 'Labben 2.etg', 5, 7, 'Godkjenning!', 'grethe@mail.com','2000-01-01 13:37:00');
+INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp, tidspunkt)
+VALUES (1, 6, 'Labben 2.etg', 2, 6, null ,'2000-01-01 13:40:00');
 
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'ALM805F-A', 1);

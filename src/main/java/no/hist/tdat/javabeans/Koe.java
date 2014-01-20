@@ -33,4 +33,13 @@ public class Koe {
     public void setAapen(boolean aapen) {
         this.aapen = aapen;
     }
+
+    @Override
+    public String toString() {
+        return "Koe{" +
+                "grupper=" + grupper +
+                ", koeId=" + koeId +
+                ", aapen=" + aapen +
+                '}';
+    }
 }
