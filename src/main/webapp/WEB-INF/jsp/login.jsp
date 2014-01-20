@@ -19,7 +19,9 @@
 
     <form:form action="loggerinn.SSL" method="POST"  modelAttribute="bruker" class="form-signin">
         <h2 class="form-signin-heading" id="header">Logg inn</h2>
-        <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email"/>
+        <p style="color: green;"><strong>${nyPassord}</strong></p>
+
+        <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email" autofocus="true"/>
         <form:input type="password" class="form-control" path="passord" placeholder="Passord" id="passordInput"/>
         <!--<label class="checkbox">
             <input type="checkbox" value="husk"> Husk email

@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
  * Tar av seg kontrollerer adminoppgaver i fra viewene.
  *
- * @author  Eirik, Henriette, Geir Morten
+ * @author Eirik, Henriette, Geir Morten
  */
 @Controller
 public class AdminBrukereKontroller {
@@ -29,14 +30,13 @@ public class AdminBrukereKontroller {
      * Kontroller for å legge til bruker i databasen
      *
      * @param bruker et brukerobjekt //TODO ikke nødvendig her.
-     * @param req http-request form data. Inneholder fil-teksten
+     * @param req    http-request form data. Inneholder fil-teksten
      * @param modell modellen som data sendes tilbake til klienten med.
      * @return adminBrukere sin side, med feilmeldinger om
-     *
      * @author Henriette; Eirik
      */
     @RequestMapping(value = "leggTilFil.htm", method = RequestMethod.POST)
-    public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req,Model modell) {
+    public String leggTilFil(@ModelAttribute Bruker bruker, HttpServletRequest req, Model modell) {
         String tab = req.getParameter("tab");
         String text = req.getParameter("newText");
         String[] linje = text.split("\\r?\\n");
@@ -57,29 +57,37 @@ public class AdminBrukereKontroller {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             modell.addAttribute("tabForm", tab);
+            modell.addAttribute("filMelding", "Feil under registrering av brukere");
             return "adminBrukere";
         }
         modell.addAttribute("tabForm", tab);
+        modell.addAttribute("filMelding", "Brukere registrert");
         return "adminBrukere";
     }
 
     /**
-     * Sender en liste med brukere tilbake til viewet.
+     * Søkemetode i adminBrukere
      *
-     * @param personerBeans tar med beans
-     * @param bruker //TODO vet ikke om det er nødvendig her.
-     * @param modell objektet lista sendes til
-     * @param request forespørselobjektet.
-     * @return view-navn til det viewet som skal vises
-     *
-     * @author //TODO legg til hvem som er maintainer.
+     * @param personerBeans hjelpeklasse
+     * @param bruker        bruker objekt
+     * @param modell        sende objekt vidre
+     * @param request       henter objekt
+     * @param session       lagrer objekt i session
+     * @return wiew adminBrukere
      */
     @RequestMapping("/search.htm")
-    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request) {
+    public String finnBruker(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request,HttpSession session) {
         String tab = request.getParameter("tab");
         String brukere = request.getParameter("srch-term");
-        personerBeans.setValgt(service.finnBruker(brukere));
-        modell.addAttribute("sok", brukere);
+        if(brukere == null){
+            if(session.getAttribute("sok")!=null){
+                personerBeans.setValgt(service.finnBruker((String)session.getAttribute("sok")));
+                session.setAttribute("sok", (String)session.getAttribute("sok"));
+            }
+        }else{
+            personerBeans.setValgt(service.finnBruker(brukere));
+            session.setAttribute("sok", brukere);
+        }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
         return "adminBrukere";
@@ -96,26 +104,26 @@ public class AdminBrukereKontroller {
     public String leggTilBruker(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, Model modell, HttpServletRequest request) {
         String tab = request.getParameter("tab");
         if (result.hasErrors()) {
-            modell.addAttribute("melding","FEIL: Fyll inn alle feltene");
+            modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
             modell.addAttribute("tabForm", tab);
             return "adminBrukere";
-        }else if(bruker.getEtternavn().trim().length()<2 || bruker.getEtternavn().trim().length()<2){
-            modell.addAttribute("melding","FEIL: Fornavn og/eller etternavn er for kort");
+        } else if (bruker.getEtternavn().trim().length() < 2 || bruker.getEtternavn().trim().length() < 2) {
+            modell.addAttribute("melding", "FEIL: Fornavn og/eller etternavn er for kort");
             modell.addAttribute("tabForm", tab);
             return "adminBrukere";
-        }else{
+        } else {
             try {
                 if (service.leggTilBruker(bruker)) {
-                    modell.addAttribute("melding","REGISTRERT: Bruker " + bruker.getMail());
+                    modell.addAttribute("melding", "REGISTRERT: Bruker " + bruker.getMail());
                     modell.addAttribute("tabForm", tab);
                     return "adminBrukere";
                 } else {
-                    modell.addAttribute("melding","FEIL: Fyll inn alle feltene");
+                    modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
                     return "adminBrukere";
                 }
 
             } catch (org.springframework.dao.DuplicateKeyException e) {
-                modell.addAttribute("melding","FEIL: e-postadresse <" + bruker.getMail() + "> finnes fra før");
+                modell.addAttribute("melding", "FEIL: e-postadresse <" + bruker.getMail() + "> finnes fra før");
                 modell.addAttribute("tabForm", tab);
                 return "adminBrukere";
             }
@@ -130,14 +138,61 @@ public class AdminBrukereKontroller {
      * @param request
      * @return til siden search.htm
      */
-    @RequestMapping(value = "/listeBrukerRediger.htm", method = RequestMethod.POST)
-    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request) {
+    @RequestMapping(value = "/slettBruker.htm", method = RequestMethod.POST)
+    public String slettBruker(Model modell, @ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String mail = request.getParameter("brukerIndex");
         service.slettBruker(mail.trim());
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
-        return "/search.htm";
+        return "adminBrukere";
+    }
+
+
+    @RequestMapping(value = "/redigerBruker.htm", method = RequestMethod.POST)
+    public String redigerBruker(@ModelAttribute("bruker") Bruker bruker, Model modell, HttpServletRequest request, HttpSession session) {
+        String tab = request.getParameter("tab");
+        String mail = request.getParameter("brukerIndex");
+        Bruker redigerBrukere = service.hentBruker(mail);
+        session.setAttribute("redigerBrukere", redigerBrukere);
+        if (redigerBrukere == null) {
+            modell.addAttribute("melding", "Finner ikke bruker i databasen");
+            return "adminBrukereEndre";
+        } else {
+            return "adminBrukereEndre";
+        }
+
+    }
+
+    @RequestMapping(value = "/redigerBrukerLagre.htm")
+    public String redigerBrukerLagre(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, Model modell, HttpServletRequest request, HttpSession session) {
+        String mail = request.getParameter("redigerMail");
+        System.out.println(bruker.getAktiv());
+        if (result.hasErrors()) {
+            modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
+            return "adminBrukereEndre";
+        } else if (bruker.getEtternavn().trim().length() < 2 || bruker.getEtternavn().trim().length() < 2) {
+            modell.addAttribute("melding", "FEIL: Fornavn og/eller etternavn er for kort");
+            return "adminBrukereEndre";
+        } else if (bruker.getRettighet() == 0) {
+            modell.addAttribute("melding", "FEIL: Rettighet må settes");
+            return "adminBrukereEndre";
+        } else {
+            try {
+                if (service.oppdaterBruker(mail, bruker)) {
+                    modell.addAttribute("melding", "REGISTRERT Endringer for bruker: " + bruker.getMail());
+                    session.removeAttribute("redigerMail");
+                    return "adminBrukereEndre";
+                } else {
+                    modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
+                    return "adminBrukereEndre";
+                }
+
+            } catch (Exception e) {
+                modell.addAttribute("melding", "En uventet feil oppsto<br><br>" + e);
+                return "adminBrukereEndre";
+            }
+        }
     }
 }
 

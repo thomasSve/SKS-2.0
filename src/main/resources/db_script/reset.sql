@@ -7,6 +7,5 @@ DROP TABLE emner_brukere;
 DROP TABLE plassering;
 DROP TABLE brukere;
 DROP TABLE koe;
-DROP TABLE emne;
+DROP TABLE emner;
 DROP TABLE rettighet;
-#ufullstendig!

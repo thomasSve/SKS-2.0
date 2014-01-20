@@ -92,6 +92,8 @@ public class BrukerService {
 
     }
 
-
+    public boolean oppdaterBruker(String mail, Bruker bruker){
+        return databaseConnector.oppdaterBruker(bruker, mail);
+    }
 
 }

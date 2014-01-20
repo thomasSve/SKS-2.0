@@ -11,6 +11,7 @@
 <div class="tab-content">
     <p id="tabForms" hidden> ${tabForm} </p>
 
+
 <div class="tab-pane fade in active" id="endre">
     <h2>Administrer brukere</h2>
     <%--Søkefunksjon etter brukere--%>
@@ -52,7 +53,7 @@
                         <td>
                             <div class="input-group-btn">
                                 <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#endrebrukerModal" title="Endre">
+                                        id="${bruker.mail}" onclick="redigerBrukerFraKnapp(this.id)"title="Endre">
                                     <i class="glyphicon glyphicon-edit"></i></button>
                                 <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
                                         id="${bruker.mail}" onclick="slettBrukerFraKnapp(this.id)"
@@ -128,6 +129,7 @@
         <form method="POST" action="leggTilFil.htm" id="lesInnFil">
             <div id="leggTilFilText">
                 <h2> Legg til flere brukere via fil </h2>
+                <p style="color: red"><strong>${filMelding}</strong></p>
             </div>
 
             <label for="files">Velg en fil: </label>
@@ -182,8 +184,6 @@
         </form>
     </div>
 </div>
-
-
 <%--HVA er dette--%>
 <div class="modal fade" id="endrebrukerModal" tabindex="-1" role="dialog" aria-labelledby="endrebrukerLabel"
      aria-hidden="true">

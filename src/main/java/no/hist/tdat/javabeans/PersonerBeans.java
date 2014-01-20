@@ -13,12 +13,15 @@ import java.util.ArrayList;
  * Created by vimCnett
  * Brukes til å skille mellom ALLE brukere evt studenter, og VALGTE brukere
  */
-
 public class PersonerBeans {
     ArrayList<Bruker> valgt = new ArrayList<>();
     ArrayList<Emne> fellesEmne = null;
     Integer index = 0;
     String indexen = "";
+
+    ArrayList<Emne> fellesEmner = new ArrayList<>();
+    Bruker valgtBruker;
+    int valgtIndex = 0;
 
     public String getIndexen() {
         return indexen;
@@ -39,22 +42,6 @@ public class PersonerBeans {
     public ArrayList<Emne> getFellesEmne() {
         return fellesEmne;
     }
-
-    ArrayList<Emne> fellesEmner = new ArrayList<>();
-    Bruker valgtBruker;
-    int valgtIndex = 0;
-
-    /**
-     @Qualifier("databaseConnector")
-     @Autowired
-     DatabaseConnector databaseConnector;
-
-     public PersonerBeans() {
-     valgt = new ArrayList<Bruker>();
-     fellesEmner = new ArrayList<Emner>();
-     databaseConnector = new DatabaseConnector();
-     }
-     */
 
     public int getValgtIndex() {
         return valgtIndex;
@@ -98,21 +85,6 @@ public class PersonerBeans {
             }
         }
     }
-/**
- public Bruker finnStudent(String sok) {
- Bruker b = databaseConnector.finnStudent(sok);
- if (b != null) {
- valgt.add(b);
- }
- return b;
- }
-
- public void fjernStudent(int nr) {
- if (valgt.size() > 0 && nr != -1) {
- valgt.remove(nr);
- }
- }
->>>>>>> bcdc2a2eaef6581bbdf82572c9a1186b65762fde
 
     /**
      * Finner felles fag for alle valgte elever
