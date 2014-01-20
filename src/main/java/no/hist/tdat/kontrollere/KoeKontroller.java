@@ -2,6 +2,7 @@ package no.hist.tdat.kontrollere;
 
 
 
+import com.sun.xml.internal.bind.v2.TODO;
 import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.Plassering;
@@ -60,19 +61,20 @@ public class KoeKontroller {
         return "sittIKo.htm";
 
     }
-
-    @RequestMapping(value="/settIKo.htm")
-    public String settIKoe(@ModelAttribute("koeGruppe") koeGrupper koeGruppe, HttpServletRequest request) {
+    @RequestMapping(value="StillIKo")
+   public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
+                          @ModelAttribute("koegrupper") koeGrupper koegrupper){
         int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
-        DelEmne emne = emne_service.hentDelEmne(Emne_id);
-        System.out.println(Emne_id);
-        if(emne.isKoe_status()){
-            emne.setKoe_status(false);
-            emne_service.endreKoeStatus(emne.getKoe_id(), 0);
-            return "koOversikt";
-        }
+        DelEmne delEmne = emne_service.hentDelEmne(Emne_id);
 
+        if(error.hasErrors()){
+            return "sittIKo.htm";
+        }
+        try{
+
+        }catch(Exception e){
+
+        }
         return "koOversikt";
     }
-
 }

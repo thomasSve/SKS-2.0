@@ -31,4 +31,7 @@ public class KoeService {
     public ArrayList<koeGrupper> getKoe(int koeId) {
         return databaseConnector.getKoe(koeId);
     }
+    public boolean leggTilIKo(koeGrupper koeGruppe){
+        return databaseConnector.leggTilIKo(koeGruppe);
+    }
 }

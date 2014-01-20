@@ -365,5 +365,29 @@ public class DatabaseConnector {
         List<DelEmne> delEmne = con.query(finnDelEmneSQL, new DelEmneKoordinerer(), delEmneId);
         return delEmne.get(0);
     }
+
+    /**
+     *
+     * @param koeGruppe
+     * @param delEmne
+     * @param koe_plass
+     * @return true or false, om updaten gjekk gjennom eller ikke
+     * Author Thomas
+     */
+    public boolean leggTilIKo(koeGrupper koeGruppe, DelEmne delEmne, int koe_plass){
+        if(delEmne==null||koeGruppe==null){
+           return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(
+                leggTilIKoSQL,                                   //koe_id, mail, plassering, ovingsnummer, koe_plass
+                delEmne.getKoe_id(),
+                koeGruppe.getGruppeLeder().getMail(),
+                koeGruppe.getSitteplass(),
+                koeGruppe.getOvinger(),
+                koe_plass
+        );
+        return true;
+    }
 }
 
