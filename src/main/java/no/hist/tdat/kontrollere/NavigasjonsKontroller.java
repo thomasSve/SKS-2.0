@@ -77,7 +77,10 @@ public class NavigasjonsKontroller {
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
         koe.setKoeId(koeId);
+        DelEmne denne = koeservice.hentDelEmneStatus(koeId);
+        delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
+        model.addAttribute("koe", koe);
         model.addAttribute("grupper",grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
@@ -88,19 +91,20 @@ public class NavigasjonsKontroller {
         return "error";
     }
 
-    @RequestMapping("/settIKo.htm")
+    @RequestMapping(value = "/settIKo.htm", method=RequestMethod.POST)
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
                                  Model model, HttpSession session, HttpServletRequest request){
 
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
-        System.out.println(innloggetBruker.getFornavn());
-        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
-        delEmne = emneService.hentDelEmne(Emne_id);
+        int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
         personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
-        koeservice.getPlasseringer();
-        model.addAttribute("plassering", koeservice);
+        //koeservice.getPlasseringer();
+        DelEmne denne = koeservice.hentDelEmneStatus(koe_id);
+        delEmne.setKoe_status(denne.isKoe_status());
+        //model.addAttribute("plassering", koeservice);
+        model.addAttribute("delEmne", delEmne);
 
         return "settIKo";
     }

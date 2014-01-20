@@ -2,6 +2,7 @@ package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
 import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,8 @@ public class KoeService {
     }
     public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, int koe_id){
         return databaseConnector.leggTilIKo(koeGruppe, delEmne, koe_id);
+    }
+    public DelEmne hentDelEmneStatus(int koeId){
+        return databaseConnector.getKoeObjekt(koeId);
     }
 }

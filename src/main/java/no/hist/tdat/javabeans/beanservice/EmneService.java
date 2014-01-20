@@ -54,8 +54,8 @@ public class EmneService {
         return databaseConnector.hentEmnerForStud(mail);
     }
 
-    public DelEmne hentDelEmne (int delEmneId){
-        return databaseConnector.hentDelEmne(delEmneId);
+    public DelEmne hentDelEmne (int koe_id){
+        return databaseConnector.hentDelEmne(koe_id);
     }
 
 }
