@@ -44,36 +44,37 @@ public class DatabaseConnector {
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES (?,?,?)";
-    private final String finnEmnerUtenTilgangSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
+    private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
 
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
 
-    public ArrayList<DelEmne> hentDelemner(Bruker bruker,Emne emne){
-        if (bruker==null){
+    public ArrayList<DelEmne> hentDelemner(Bruker bruker, Emne emne) {
+        if (bruker == null) {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<DelEmne> delemneList = con.query(brukerDelemnerSQL, new DelEmneKoordinerer(), bruker.getMail(),emne.getEmneKode());
+        List<DelEmne> delemneList = con.query(brukerDelemnerSQL, new DelEmneKoordinerer(), bruker.getMail(), emne.getEmneKode());
         ArrayList<DelEmne> output = new ArrayList<>();
-        for(DelEmne denne : delemneList){
+        for (DelEmne denne : delemneList) {
             output.add(denne);
         }
         return output;
     }
-    public ArrayList<Oving> hentStudOvinger(Bruker bruker,Emne emne,DelEmne delemne){
-        if (bruker==null){
+
+    public ArrayList<Oving> hentStudOvinger(Bruker bruker, Emne emne, DelEmne delemne) {
+        if (bruker == null) {
             return null;
         }
 
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(),emne.getEmneKode(),delemne.getNr());
-       ArrayList<Oving> output = new ArrayList<>();//TODO Hent alle ovinger for alle fag!
-       for(Oving denne : ovingList){
-           output.add(denne);
-       }
+        List<Oving> ovingList = con.query(brukerOvingerSQL, new OvingKoordinerer(), bruker.getMail(), emne.getEmneKode(), delemne.getNr());
+        ArrayList<Oving> output = new ArrayList<>();//TODO Hent alle ovinger for alle fag!
+        for (Oving denne : ovingList) {
+            output.add(denne);
+        }
         return output;
     }
 
@@ -163,7 +164,7 @@ public class DatabaseConnector {
             return null;
         }
         String input = "%";
-        input += soeketekst+"%";
+        input += soeketekst + "%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnStudentSQL, new BrukerKoordinerer(), input, input, input);
         ArrayList<Bruker> res = new ArrayList<>();
@@ -200,13 +201,14 @@ public class DatabaseConnector {
 
         return null;
     }
+
     /**
      * Henter emnene en bruker har
      *
      * @param bruker
      * @return en ArrayList med emner.
      */
-    public ArrayList<Emne> hentMineEmner(Bruker bruker){
+    public ArrayList<Emne> hentMineEmner(Bruker bruker) {
         if (bruker == null) {
             return null;
         }
@@ -214,11 +216,11 @@ public class DatabaseConnector {
         List<Emne> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
         ArrayList<Emne> res = new ArrayList<>();
         for (Emne emne : emneList) {
-            res.add((Emne)emne);
+            res.add((Emne) emne);
         }
 
 
-        if(res.size() >0){
+        if (res.size() > 0) {
             return res;
         }
         return null;
@@ -270,13 +272,13 @@ public class DatabaseConnector {
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endrePassordSQL,
-                    passord,
-                    mail);
+                passord,
+                mail);
         return true;
     }
 
-    public boolean endreKoeStatus(int koe_id, int status){
-        if(koe_id==0||status>1){
+    public boolean endreKoeStatus(int koe_id, int status) {
+        if (koe_id == 0 || status > 1) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -285,6 +287,7 @@ public class DatabaseConnector {
                 koe_id);
         return true;
     }
+
     /**
      * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *
@@ -296,7 +299,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(),emnekode, mail);
+        List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(), emnekode, mail);
         ArrayList<Bruker> res = new ArrayList<Bruker>();
 
         for (Bruker bruker : brukerList) {

@@ -27,7 +27,6 @@
 <div class="text-success">
     <h3><c:out value="${forrigeOp}"/></h3>
 </div>
-<hr>
 
 <form:form action="utførOperasjon" method="post">
     <div class="form-group">
