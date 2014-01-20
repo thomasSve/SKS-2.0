@@ -24,54 +24,82 @@
 </table>
 
 <hr>
-<div class="text-success">
+
+<div class="text-info">
     <h3><c:out value="${forrigeOp}"/></h3>
 </div>
 
 <form:form action="utførOperasjon" method="post">
-    <div class="form-group">
-        <div class="form-group">
-            <label for="emner">Gjør til studentassistent i valgte fag:</label>
-            <select id="emner" name="emner" class="form-control">
-                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
-                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
-                </c:forEach>
-            </select>
-        </div>
-        <input type="submit" class="btn btn-success" value="Lagre" name="lagre"/>
-    </div>
+    <table class="table table-condensed">
+        <tbody>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="emner">Gjør til studentassistent i valgte fag:</label>
+                            <select id="emner" name="emner" class="form-control">
+                                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
+                                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <label for="delemne">Delemne nr:</label> <br>
+                        <input type="number" name="delemne" id="delemne" value="1" min="1"/>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Lagre" name="lagre"/>
+                </div>
+            </td>
 
+            <td>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="emner4">Fjern som studentassistent i valgte delemne:</label>
+                        <select id="emner4" name="emner4" class="form-control">
+                            <c:forEach var="emne" items="${sessionScope.studassFag}" varStatus="status">
+                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Lagre" name="lagre"/>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-    <hr>
+    <table class="table table-condensed">
+        <tbody>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="emner3">Gi tilgang til valgte fag:</label>
+                        <select id="emner3" name="emner3" class="form-control">
+                            <c:forEach var="emne" items="${sessionScope.emnerUtenTilgang}" varStatus="status">
+                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Legg til" name="leggTil"/>
+                </div>
+            </td>
 
-
-    <div class="form-group">
-        <div class="form-group">
-            <label for="emner2">Fjern tilgang til valgte fag:</label>
-            <select id="emner2" name="emner2" class="form-control">
-                <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
-                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
-                </c:forEach>
-            </select>
-        </div>
-        <input type="submit" class="btn btn-danger" value="Fjern" name="fjern"/>
-    </div>
-
-
-    <hr>
-
-
-    <div class="form-group">
-        <div class="form-group">
-            <label for="emner3">Gi tilgang til valgte fag:</label>
-            <select id="emner3" name="emner3" class="form-control">
-                <c:forEach var="emne" items="${sessionScope.emnerUtenTilgang}" varStatus="status">
-                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
-                </c:forEach>
-            </select>
-        </div>
-        <input type="submit" class="btn btn-success" value="Legg til" name="leggTil"/>
-    </div>
+            <td>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="emner2">Fjern tilgang til valgte emne:</label>
+                        <select id="emner2" name="emner2" class="form-control">
+                            <c:forEach var="emne" items="${sessionScope.valgtPerson.emne}" varStatus="status">
+                                <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-danger" value="Fjern" name="fjern"/>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </form:form>
-
 

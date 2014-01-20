@@ -46,6 +46,7 @@ public class EndreStudentKontroller {
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
         session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
+        session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
         session.setAttribute("valgtPerson", b);
         System.out.println("setter valgt som "+b.getFornavn()+" "+b.getEtternavn());
         return "videresend";
@@ -71,24 +72,35 @@ public class EndreStudentKontroller {
 
         if (lagre != null) {    //sett som studass
             String emnekode = request.getParameter("emner");
-            if (service.settStudass(emnekode,"DELEMNE",b.getMail())) {
-                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode+"<hr>");
+            int delemne = Integer.parseInt(request.getParameter("delemne"));
+            if (service.settStudass(emnekode,delemne,b.getMail())) {
+                System.out.println(emnekode +" "+delemne+" "+b.getMail());
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
             }
         }
         else if (fjern != null) {   //fjern fag
             String emnekode2 = request.getParameter("emner2");
             if (service.fjernEmne(emnekode2,b.getMail())) {
-                modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn()+"<hr>");
+                modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn());
                 b.setEmne(service2.hentEmnerForStud(b.getMail()));
                 session.setAttribute("valgtPerson",b);
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
             }
         }
         else {  //legg til fag
             String emnekode3 = request.getParameter("emner3");
             if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
-                modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn()+"<hr>");
+                modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
                 b.setEmne(service2.hentEmnerForStud(b.getMail()));
                 session.setAttribute("valgtPerson",b);
+            }
+            else {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);
             }
         }
         return "endreValgtStudent";

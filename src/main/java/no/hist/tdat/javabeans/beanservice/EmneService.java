@@ -57,4 +57,14 @@ public class EmneService {
         return databaseConnector.hentEmnerUtenTilgang(mail);
     }
 
+    /**
+     * Henter alle emner en student er studass i
+     *
+     * @param mail, unik identifikator
+     * @return liste over alle emner
+     */
+    public ArrayList<Emne> hentStudassFag(String mail) {
+        return databaseConnector.hentStudassFag(mail);
+    }
+
 }

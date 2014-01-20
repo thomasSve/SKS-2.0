@@ -45,6 +45,7 @@ public class DatabaseConnector {
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES (?,?,?)";
     private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
+    private final String hentStudassFagSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
 
 
     @Autowired
@@ -361,7 +362,11 @@ public class DatabaseConnector {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        con.update(leggTilEmneSQL, emnekode, mail, foreleser);
+        try {
+            con.update(leggTilEmneSQL, emnekode, mail, foreleser);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
@@ -376,7 +381,11 @@ public class DatabaseConnector {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        con.update(fjernEmneSQL, mail, emnekode);
+        try {
+            con.update(fjernEmneSQL, mail, emnekode);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
@@ -386,12 +395,16 @@ public class DatabaseConnector {
      * @param mail id-mail og emnekode og delemne
      * @return boolean
      */
-    public boolean settStudass(String emnekode, String delEmne, String mail) {
+    public boolean settStudass(String emnekode, int delEmne, String mail) {
         if (mail == null || emnekode == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        con.update(settStudassSQL, mail, emnekode, delEmne);
+        try {
+            con.update(settStudassSQL, mail, emnekode, delEmne);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
@@ -404,6 +417,23 @@ public class DatabaseConnector {
     public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Emne> alle = con.query(finnEmnerUtenTilgangSQL, new EmneKoordinerer(), mail);
+
+        ArrayList<Emne> res = new ArrayList<Emne>();
+        for (Emne emne : alle) {
+            res.add(emne);
+        }
+        return res;
+    }
+
+    /**
+     * Henter alle emner en bruker ikke har tilgang til
+     *
+     * @param mail id-mail
+     * @return boolean
+     */
+    public ArrayList<Emne> hentStudassFag(String mail) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> alle = con.query(hentStudassFagSQL, new EmneKoordinerer(), mail);
 
         ArrayList<Emne> res = new ArrayList<Emne>();
         for (Emne emne : alle) {

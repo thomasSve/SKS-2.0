@@ -115,7 +115,7 @@ public class BrukerService {
      * @param emnekode, delemne og mail
      * @return boolean
      */
-    public boolean settStudass(String emnekode, String delEmne, String mail){
+    public boolean settStudass(String emnekode, int delEmne, String mail){
         return databaseConnector.settStudass(emnekode, delEmne, mail);
     }
 }
