@@ -11,8 +11,8 @@
       <default-schemas>sks.*</default-schemas>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
-        <property name="tinyInt1isBit" value="false" />
         <property name="DBNAME" value="sks" />
+        <property name="tinyInt1isBit" value="false" />
       </driver-properties>
       <libraries>
         <library>
