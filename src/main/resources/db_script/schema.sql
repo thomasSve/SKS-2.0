@@ -1,3 +1,4 @@
+
 CREATE TABLE rettighet (
   rettighet_id INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
   navn         VARCHAR(255) NOT NULL
