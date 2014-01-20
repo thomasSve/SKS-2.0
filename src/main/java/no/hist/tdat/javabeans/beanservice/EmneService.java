@@ -33,6 +33,13 @@ public class EmneService {
         }
     }
 
+    /**
+     * Endrer på koe_statusen, fra åpen til lukket.
+     * @param koeId
+     * @param status
+     * @return boolean, vellykket eller ikke.
+     *
+     */
     public boolean endreKoeStatus(int koeId, int status){
         return databaseConnector.endreKoeStatus(koeId, status);
     }
@@ -45,6 +52,10 @@ public class EmneService {
      */
    public ArrayList<Emne> hentEmnerForStud(String mail) {
         return databaseConnector.hentEmnerForStud(mail);
+    }
+
+    public DelEmne hentDelEmne (int delEmneId){
+        return databaseConnector.hentDelEmne(delEmneId);
     }
 
 }

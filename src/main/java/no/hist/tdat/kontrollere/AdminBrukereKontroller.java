@@ -147,7 +147,7 @@ public class AdminBrukereKontroller {
         service.slettBruker(mail.trim());
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
-        return "/adminBrukere.htm";
+        return "adminBrukere";
     }
 
 

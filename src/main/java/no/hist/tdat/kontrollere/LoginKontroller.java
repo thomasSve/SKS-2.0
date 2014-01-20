@@ -38,12 +38,13 @@ public class LoginKontroller {
         }
         emneService.hentEmner(bruker);
         for (int i = 0; i < bruker.getEmne().size(); i++) {
-            System.out.println(bruker.getEmne().get(i).getEmneNavn());
+            //System.out.println(bruker.getEmne().get(i).getEmneNavn());
 /*            for (int j = 0; j < bruker.getEmne().get(i).getStudentovinger().size() ; j++) {
                 System.out.println("\tovingsnr: "+bruker.getEmner().get(i).getStudentovinger().get(j).getOvingnr());
                 System.out.println("\tgodkjent av: "+bruker.getEmner().get(i).getStudentovinger().get(j).getGodkjentAv());
                 System.out.println("\tgodkjent dato: "+bruker.getEmner().get(i).getStudentovinger().get(j).getGodkjentTid());
             }*/ //TODO TED
+            //TODO fiks nullpointer hvis bruker ikke er lagt til emne
 
         }
 

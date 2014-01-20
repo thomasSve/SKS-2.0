@@ -26,7 +26,7 @@ public class OvingKoordinerer implements RowMapper<Oving>{
         Oving oving = new Oving();
         oving.setOvingnr(resultSet.getInt("oving_nr"));
         if(resultSet.getInt("godkjent")>0) {
-            oving.setGodkjent( resultSet.getInt("godkjent")>0 ? true:false);
+            oving.setGodkjent( resultSet.getInt("godkjent")>0);
             oving.setGodkjentAv(resultSet.getString("godkjent_av"));
             oving.setGodkjentTid(resultSet.getDate("godkjent_tid"));
         }

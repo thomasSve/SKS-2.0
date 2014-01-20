@@ -32,7 +32,60 @@ function mysubmit() {
     emneNavnField.value=emnenr;
     }
 
+function startStoppKoe(emne_id){
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
 
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+
+    }
+    xmlhttp.open("POST", "/StartStoppKoe.htm", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("EmneIndex=" + emne_id);
+
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    }
+}
+function settIKo(emne_id){
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+
+    }
+    xmlhttp.open("POST", "/settIKo.htm", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("EmneIndex=" + emne_id);
+
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    }
+}
+function StillIKo(emne_id){
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+
+    }
+    xmlhttp.open("POST", "StillIKo", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("EmneIndex=" + emne_id);
+
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    }
+}
 
 //Fjernet visadmin, statuskoe og var statusknapp.
 

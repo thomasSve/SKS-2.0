@@ -1,8 +1,7 @@
 package no.hist.tdat.kontrollere;
 
-
-
 import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
@@ -27,15 +26,23 @@ public class KoeKontroller {
     @Autowired
     EmneService emne_service;
 
-    @RequestMapping(value="/startKoe.htm")
-    public String startKoen(@ModelAttribute DelEmne emne) {
+    @RequestMapping(value="/StartStoppKoe.htm")
+    public String startKoen(@ModelAttribute DelEmne emne, HttpServletRequest request) {
+        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
+        emne = emne_service.hentDelEmne(Emne_id);
+        System.out.println(Emne_id);
+        if(emne.isKoe_status()){
+            emne.setKoe_status(false);
+            emne_service.endreKoeStatus(emne.getKoe_id(), 0);
+            return "koOversikt";
+        }
         emne.setKoe_status(true);
         emne_service.endreKoeStatus(emne.getKoe_id(), 1);
         return "koOversikt";
     }
 
     @RequestMapping(value="velgPlass.htm")
-    public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error, Model modell, HttpServletRequest request){
+    public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request){
         if(error.hasErrors()){
             return "sittIKo.htm";
         }
@@ -52,10 +59,20 @@ public class KoeKontroller {
         return "sittIKo.htm";
 
     }
-    @RequestMapping(value="/stoppKoe.htm")
-    public String stoppKoen(@ModelAttribute DelEmne emne) {
-        emne.setKoe_status(false);
-        emne_service.endreKoeStatus(emne.getKoe_id(), 0);
+    @RequestMapping(value="StillIKo")
+   public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
+                          @ModelAttribute("koegrupper") KoeGrupper koegrupper){
+        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
+        DelEmne delEmne = emne_service.hentDelEmne(Emne_id);
+
+        if(error.hasErrors()){
+            return "sittIKo.htm";
+        }
+        try{
+
+        }catch(Exception e){
+
+        }
         return "koOversikt";
     }
 }
