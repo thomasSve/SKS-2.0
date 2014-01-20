@@ -1,3 +1,4 @@
+<%@ page import="no.hist.tdat.javabeans.DelEmne" %>
 <%--
   Created by IntelliJ IDEA.
   User: Thomas
@@ -18,16 +19,16 @@
     <a href="settIKo.htm">
         <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
     </a>
-    <c:if test="${delEmne.koe_status}">
-        <button class="btn btn-sm btn-primary">Still i k&oslash;</button>
-
-        <input type="button" onclick="location.href='/startKoe.htm'" class="btn btn-sm btn-success" id="startKoe" value="Start Køen">
-
-    </c:if>
-    <c:if test="${!delEmne.koe_status}">
-        <input type="button" onclick="location.href='/stoppKoe.htm'" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp Køen">
-    </c:if>
-
+    <%
+        DelEmne delEmne = (DelEmne)request.getAttribute("delEmne");
+        int koe_id = delEmne.getKoe_id();
+        if(delEmne.isKoe_status()){
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id +")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
+                    "<button class=\"btn btn-sm btn-primary\">Still i k&oslash;</button>\n");
+        }else{
+            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id +")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+        }
+    %>
     <table class="table table-hover" id="minTable">
         <thead>
         <tr>

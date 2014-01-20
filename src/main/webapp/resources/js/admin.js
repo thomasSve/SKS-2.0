@@ -71,6 +71,4 @@ xmlhttp.send("brukerIndex=" + mail);
 
 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
-
-
 }
