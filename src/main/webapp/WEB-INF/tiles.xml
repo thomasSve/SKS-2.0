@@ -30,7 +30,7 @@
     </definition>
 
     <definition name="adminBrukere" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
+        <put-attribute name="title"  value="Administrer brukere"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
@@ -40,7 +40,7 @@
     </definition>
 
     <definition name="settIKo" extends="baseLayout">
-        <put-attribute name="title"  value="Administrer Fag"/>
+        <put-attribute name="title"  value="Sett i Kø"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
     </definition>
 	
@@ -54,11 +54,11 @@
         <put-attribute name="body"   value="/WEB-INF/jsp/minSide.jsp"/>
     </definition>
     <definition name="ovingsOpplegg" extends="baseLayout">
-        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="title"  value="Øvingsopplett"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
     </definition>
     <definition name="godkjennOving" extends="baseLayout">
-        <put-attribute name="title"  value="Min Side"/>
+        <put-attribute name="title"  value="Godkjenn øving"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjennOving.jsp"/>
     </definition>
     <definition name="nyStudent" extends="baseLayout">

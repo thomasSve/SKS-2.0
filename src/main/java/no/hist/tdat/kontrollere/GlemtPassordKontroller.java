@@ -23,7 +23,7 @@ public class GlemtPassordKontroller {
     BrukerService service;
 
     @RequestMapping(value = "sendNyttPassord")
-    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request) {
+    private String endrePassordet(@Valid @ModelAttribute("bruker") Bruker bruker, BindingResult result, HttpServletRequest request, Model modell) {
         if (result.hasErrors()) {
             return "glemtPassord";
         }
@@ -36,9 +36,12 @@ public class GlemtPassordKontroller {
                 bruker.setPassord(nyttPassord);
                 //sendMail(bruker, nyttPassord);
                 service.endrePassord(mail, bruker.getPassord());
+                modell.addAttribute("nyPassord", "Vellykket! Det nye passordet er sendt på mail.");
                 System.out.println("Nytt Passord: " + nyttPassord + "\n");
+                return "loggInn";
             }
         } catch (IndexOutOfBoundsException e) {
+            modell.addAttribute("errorMail", "Feil email!");
             System.out.println("Mailen ble ikke funnet i databasen.");
         }
         return "glemtPassord";
