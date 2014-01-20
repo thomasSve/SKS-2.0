@@ -2,6 +2,7 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
+import no.hist.tdat.koe.Koe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,9 @@ public class DatabaseConnector {
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String hentEmnerForStudSQL = "SELECT * FROM emner_brukere WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
-    private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE romnr = ?";
+    private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
+    private final String leggTilIKoSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, ovingsnummer, info, koe_plass) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -321,6 +324,13 @@ public class DatabaseConnector {
         return res;
     }
 
+    /**
+     * @author henriette
+     * Henter ut alle mulige plasser man kan sitte for å få øving retta
+     *
+     *
+     * @return Liste over alle mulige plasseringer
+     */
     public ArrayList<Plassering> finnAllePlasseringer() {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Plassering> plassListe = con.query(finnAllePlasserSQL, new PlasseringKoordinerer());
@@ -332,9 +342,16 @@ public class DatabaseConnector {
         return res;
     }
 
-    public int getAntallBord(String romnr) {
+    /**
+     * @author henriette
+     * Henter ut alle mulige bord på en gitt plassering
+     *
+     * @param plasseringNavn plassen som har bordet man sitter på
+     * @return alle mulige bord på den valgte plassen
+     */
+    public int getAntallBord(String plasseringNavn) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Plassering> plassListe = con.query(finnAntBordSQL, new PlasseringKoordinerer(), romnr);
+        List<Plassering> plassListe = con.query(finnAntBordSQL, new PlasseringKoordinerer(), plasseringNavn);
         ArrayList<Plassering> res = new ArrayList<Plassering>();
         for (Plassering plass : plassListe) {
             res.add(plass);
@@ -343,7 +360,29 @@ public class DatabaseConnector {
     }
 
 
-    public ArrayList<koeGrupper> getKoe(int koeId) {
+
+    /**
+     * @author henriette
+     * Lager en plass i køen
+     *
+     *
+     * @param
+     * @return true om den blir lagt til, ellers false
+     */
+    public boolean lagKoeplass(Koe koe,  ){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(leggTilIKoSQL, koe.getKoe_id(),  );
+        return true;
+
+
+    }
+
+
+
+
+
+
+    public ArrayList<KoeGrupper> getKoe(int koeId) {
 
         //TODO FIKXS
         //Hent gruppe_id'er i køen

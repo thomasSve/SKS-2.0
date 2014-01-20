@@ -1,10 +1,9 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
-import no.hist.tdat.javabeans.koeGrupper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,13 +21,19 @@ public class KoeService {
         return databaseConnector.finnAllePlasseringer();
     }
 
-    public int getAntBord(String romnr){
-        return databaseConnector.getAntallBord(romnr);
+    public int getAntBord(String plasseringNavn){
+        return databaseConnector.getAntallBord(plasseringNavn);
 
     }
 
+    public int getKoeId(){
+        return databaseConnector.getKoeId();
+    }
 
-    public ArrayList<koeGrupper> getKoe(int koeId) {
+
+
+
+    public ArrayList<KoeGrupper> getKoe(int koeId) {
         return databaseConnector.getKoe(koeId);
     }
 }

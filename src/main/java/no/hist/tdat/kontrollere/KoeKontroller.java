@@ -43,6 +43,8 @@ public class KoeKontroller {
         try{
             String plass = request.getParameter("sitteplass");
             koe_service.getAntBord(plass);
+            int bordnret = request.getIntHeader("bordnr");
+
         }catch(NullPointerException e){
             System.out.println("Du må være logget inn før du kan sette  deg i kø!");
             return "koOversikt";
