@@ -23,7 +23,7 @@ public class DatabaseConnectorTest {
     private EmbeddedDatabase db;
     private Bruker bruker;
     private String email = "js@mail.com";
-    private String password = "12345";
+    private String password = "xxx";
 
     @Before
     public void foerHverTest() {
