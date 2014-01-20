@@ -1,12 +1,14 @@
 package no.hist.tdat.javabeans;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Thomas on 15.01.14.
  */
 public class KoeGrupper {
-    private String klokkeslett; //TODO maybe date?
+    private Date klokkeslett; //TODO maybe date?
+    private int koePlassering;
     private Bruker gruppeLeder;
     private String sitteplass;
     private int bordnr;
@@ -16,27 +18,31 @@ public class KoeGrupper {
 
 
     public KoeGrupper(){}
-    public KoeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger){
-        this.gruppeLeder = gruppeLeder;
+
+    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger) {
         this.klokkeslett = klokkeslett;
+        this.koePlassering = koePlassering;
+        this.gruppeLeder = gruppeLeder;
+        this.sitteplass = sitteplass;
+        this.bordnr = bordnr;
+        this.kommentar = kommentar;
         this.medlemmer = medlemmer;
-        this.sitteplass = sitteplass;
         this.ovinger = ovinger;
-        this.kommentar = kommentar;
-    }
-    public KoeGrupper(String sitteplass, String klokkeslett, String kommentar, Bruker gruppeLeder, ArrayList<Integer> ovinger){
-        this.gruppeLeder = gruppeLeder;
-        this.klokkeslett = klokkeslett;
-        this.sitteplass = sitteplass;
-        this.ovinger = ovinger;
-        this.kommentar = kommentar;
     }
 
-    public String getKlokkeslett() {
+    public int getKoePlassering() {
+        return koePlassering;
+    }
+
+    public void setKoePlassering(int koePlassering) {
+        this.koePlassering = koePlassering;
+    }
+
+    public Date getKlokkeslett() {
         return klokkeslett;
     }
 
-    public void setKlokkeslett(String klokkeslett) {
+    public void setKlokkeslett(Date klokkeslett) {
         this.klokkeslett = klokkeslett;
     }
 
