@@ -25,7 +25,8 @@ public class DatabaseConnector {
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
 
     private final String getKoeSQL = "";
-    private final String hentGruppeMedlemmerSQL = " ";
+    private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving JOIN oving ON gruppe_oving.oving_id = oving.oving_id WHERE gruppe_oving.gruppe_id=?";
+    private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe JOIN brukere ON gruppe.mail = brukere.mail WHERE gruppe_id=1 ORDER BY gruppe.leder DESC;";
     private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ?";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
@@ -354,21 +355,24 @@ public class DatabaseConnector {
             KoeGrupper koeGrupper =  grupperFromDb.get(i);
             List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), koeGrupper.getGruppeID());
             ArrayList<Bruker> brukere = new ArrayList<>();
+            List<Oving> ovingerFraDb = con.query(hentGruppeOvingerSQL, new OvingKoordinerer(), koeGrupper.getGruppeID());
+            ArrayList<Integer> ovinger = new ArrayList<>();
+            for (int k = 0; k < ovingerFraDb.size(); k++) {
+                Oving oving = ovingerFraDb.get(k);
+                ovinger.add(oving.getOvingnr());
+            }
             for (int j = 0; j < brukereFraDb.size(); j++) {
                 Bruker bruker = brukereFraDb.get(j);
                 brukere.add(bruker);
-                if(bruker.get)
             }
-
+            koeGrupper.setMedlemmer(brukere);
+            koeGrupper.setOvinger(ovinger);
             grupper.add(koeGrupper);
-
         }
-        //Hent gruppe_id'er i køen
-        //legg til tidspunkt, sitteplass, bordnr, info.
-        //legg til leder
-        //fyll gruppene med medlemmer
 
-        //fylle gruppe med øvinger
+        if(grupper.size()>0){
+            return grupper;
+        }
         return null;
     }
 }

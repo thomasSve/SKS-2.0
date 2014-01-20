@@ -75,7 +75,9 @@ public class NavigasjonsKontroller {
 
         int koeId = delEmne.getKoe_id();
         System.out.println("koe_id: "+ koeId);
-        ArrayList<KoeGrupper> koegrupper = koeservice.getKoe(koeId);
+        Koe koe = new Koe();
+        koe.setGrupper(koeservice.getKoe(koeId));
+        koe.setKoeId(koeId);
         //model.addAttribute(delEmne);
         //model.addAttribute(koegrupper);
         return "koOversikt";

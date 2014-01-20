@@ -56,7 +56,7 @@ CREATE TABLE koe_gruppe (
 CREATE TABLE gruppe (
   gruppe_id INT AUTO_INCREMENT,
   mail      VARCHAR(255) NOT NULL,
-  leder     VARCHAR(255) NOT NULL,
+  leder     INT NOT NULL DEFAULT 0,
   CONSTRAINT gruppe_pk PRIMARY KEY (gruppe_id,mail)
 )
   ENGINE =InnoDB;
@@ -119,17 +119,17 @@ ALTER TABLE gruppe_oving ADD CONSTRAINT gruppe_oving_fk2 FOREIGN KEY (oving_id) 
 
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk1 FOREIGN KEY (emnekode) REFERENCES emner (emnekode);
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk2 FOREIGN KEY (mail) REFERENCES brukere (mail)
-  ON DELETE CASCADEON UPDATE CASCADE;
+  ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk1 FOREIGN KEY (mail) REFERENCES brukere (mail)
-  ON DELETE CASCADEON UPDATE CASCADE;
+  ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk2 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode);
 
 ALTER TABLE brukere ADD CONSTRAINT brukere_fk1 FOREIGN KEY (rettighet_id) REFERENCES rettighet (rettighet_id);
 
 ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk1 FOREIGN KEY (oving_id) REFERENCES oving (oving_id);
 ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk2 FOREIGN KEY (mail) REFERENCES brukere (mail)
-  ON DELETE CASCADEON UPDATE CASCADE;
+  ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode);
 

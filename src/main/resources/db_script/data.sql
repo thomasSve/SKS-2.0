@@ -132,13 +132,13 @@ INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Sukkerhuset 4.etg', 
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Tihlde drift', 9);
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('P-Lab 1.etg', 19);
 
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'tk@mail.com', 'tk@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'gm@mail.com', 'tk@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (2,'eo@mail.com', 'eo@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (3,'km@mail.com', 'km@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (4,'hb@mail.com', 'hb@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (5,'js@mail.com', 'js@mail.com');
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (6,'ts@mail.com', 'ts@mail.com');
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'tk@mail.com', 1);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'gm@mail.com', 0);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (2,'eo@mail.com', 1);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (3,'km@mail.com', 1);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (4,'hb@mail.com', 1);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (5,'js@mail.com', 1);
+INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (6,'ts@mail.com', 1);
 
 INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, info, faar_hjelp)
 VALUES (1, 1, 'Labben 2.etg', 3, 1, '?!?!?!', 'anette@mail.com');
