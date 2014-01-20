@@ -5,10 +5,10 @@ package no.hist.tdat.kontrollere;
 import com.sun.xml.internal.bind.v2.TODO;
 import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Plassering;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
-import no.hist.tdat.javabeans.koeGrupper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +63,7 @@ public class KoeKontroller {
     }
     @RequestMapping(value="StillIKo")
    public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
-                          @ModelAttribute("koegrupper") koeGrupper koegrupper){
+                          @ModelAttribute("koegrupper") KoeGrupper koegrupper){
         int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
         DelEmne delEmne = emne_service.hentDelEmne(Emne_id);
 

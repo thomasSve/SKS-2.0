@@ -361,7 +361,7 @@ public class DatabaseConnector {
             for (int j = 0; j < brukereFraDb.size(); j++) {
                 Bruker bruker = brukereFraDb.get(j);
                 brukere.add(bruker);
-                if(bruker.get)
+               // if(bruker.get)
             }
 
             grupper.add(koeGrupper);
@@ -390,7 +390,7 @@ public class DatabaseConnector {
      * @return true or false, om updaten gjekk gjennom eller ikke
      * Author Thomas
      */
-    public boolean leggTilIKo(koeGrupper koeGruppe, DelEmne delEmne, int koe_plass){
+    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, int koe_plass){
         if(delEmne==null||koeGruppe==null){
            return false;
         }
