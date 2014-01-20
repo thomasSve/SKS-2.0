@@ -1,13 +1,16 @@
 package no.hist.tdat.javabeans;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Thomas on 15.01.14.
  */
-public class koeGrupper {
-    private String klokkeslett; //TODO maybe date?
-    private Bruker gruppeLeder;
+public class KoeGrupper {
+    private Date klokkeslett;
+    private int gruppeID;
+    private int koePlassering;
+    private Bruker gruppeLeder; // TODO fjernes
     private String sitteplass;
     private int bordnr;
     private String kommentar;
@@ -15,28 +18,32 @@ public class koeGrupper {
     private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
 
 
-    public koeGrupper(){}
-    public koeGrupper(String klokkeslett, Bruker gruppeLeder, String sitteplass, String kommentar, ArrayList<Bruker>medlemmer, ArrayList<Integer>ovinger){
-        this.gruppeLeder = gruppeLeder;
+    public KoeGrupper(){}
+
+    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger) {
         this.klokkeslett = klokkeslett;
+        this.koePlassering = koePlassering;
+        this.gruppeLeder = gruppeLeder;
+        this.sitteplass = sitteplass;
+        this.bordnr = bordnr;
+        this.kommentar = kommentar;
         this.medlemmer = medlemmer;
-        this.sitteplass = sitteplass;
         this.ovinger = ovinger;
-        this.kommentar = kommentar;
-    }
-    public koeGrupper(String sitteplass, String klokkeslett, String kommentar, Bruker gruppeLeder, ArrayList<Integer>ovinger){
-        this.gruppeLeder = gruppeLeder;
-        this.klokkeslett = klokkeslett;
-        this.sitteplass = sitteplass;
-        this.ovinger = ovinger;
-        this.kommentar = kommentar;
     }
 
-    public String getKlokkeslett() {
+    public int getKoePlassering() {
+        return koePlassering;
+    }
+
+    public void setKoePlassering(int koePlassering) {
+        this.koePlassering = koePlassering;
+    }
+
+    public Date getKlokkeslett() {
         return klokkeslett;
     }
 
-    public void setKlokkeslett(String klokkeslett) {
+    public void setKlokkeslett(Date klokkeslett) {
         this.klokkeslett = klokkeslett;
     }
 
@@ -46,6 +53,14 @@ public class koeGrupper {
 
     public void setGruppeLeder(Bruker gruppeLeder) {
         this.gruppeLeder = gruppeLeder;
+    }
+
+    public int getGruppeID() {
+        return gruppeID;
+    }
+
+    public void setGruppeID(int gruppeID) {
+        this.gruppeID = gruppeID;
     }
 
     public String getSitteplass() {

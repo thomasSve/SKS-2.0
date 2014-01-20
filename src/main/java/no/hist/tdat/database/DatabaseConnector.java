@@ -25,6 +25,8 @@ public class DatabaseConnector {
     // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
 
     private final String getKoeSQL = "";
+    private final String hentGruppeMedlemmerSQL = " ";
+    private final String hentkoeGrupperSQL ="Select * FROM koe_gruppe WHERE koe_id= ?";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere LEFT JOIN oving ON oving_brukere.oving_id=oving.oving_id WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT emner.emnekode, emner.emnenavn FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
@@ -347,14 +349,28 @@ public class DatabaseConnector {
     }
 
 
-    public ArrayList<koeGrupper> getKoe(int koeId) {
-
+    public ArrayList<KoeGrupper> getKoe(int koeId) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
         //TODO FIKXS
+       List<KoeGrupper> grupperFromDb = con.query(hentkoeGrupperSQL, new KoeGruppeKoordinerer(), koeId);
+        ArrayList<KoeGrupper> grupper = new ArrayList<>();
+        for (int i = 0;  i < grupperFromDb.size();  i++) {
+            KoeGrupper koeGrupper =  grupperFromDb.get(i);
+            List<Bruker> brukereFraDb = con.query(hentGruppeMedlemmerSQL, new BrukerKoordinerer(), koeGrupper.getGruppeID());
+            ArrayList<Bruker> brukere = new ArrayList<>();
+            for (int j = 0; j < brukereFraDb.size(); j++) {
+                Bruker bruker = brukereFraDb.get(j);
+                brukere.add(bruker);
+                if(bruker.get)
+            }
+
+            grupper.add(koeGrupper);
+
+        }
         //Hent gruppe_id'er i køen
         //legg til tidspunkt, sitteplass, bordnr, info.
         //legg til leder
         //fyll gruppene med medlemmer
-
 
         //fylle gruppe med øvinger
         return null;
