@@ -31,7 +31,12 @@ function mysubmit() {
     koeIdField.value=clicked;
     emneNavnField.value=emnenr;
     }
-
+function sjekkAktivKoe(status){
+    alert(status);
+    if(status){
+        document.getElementById("stillIKo").disabled = false;
+    }
+}
 function startStoppKoe(koe_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();

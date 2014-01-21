@@ -10,23 +10,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div class="pull-left col-md-8">
+<div class="pull-left col-md-8" onload="sjekkAktivKoe(${delEmne.koe_status});">
     <h3>
         <div id="operasjonstekst">
             K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
         </div>
     </h3>
-    <%
-        DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
-        int koe_id = delEmne.getKoe_id();
-        if (delEmne.isKoe_status()) {
+    <div class="list-inline">
+        <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
+            <input type="hidden" name="hiddenKoe" id="hiddenKoe"/>
+            <input type="hidden" name="hiddenEmneNavn" id="hiddenEmneNavn"/>
+            <button class="btn btn-sm btn-primary" id="stillIKo"
+                    onclick="clicked=${delEmne.koe_id}, emnenr=${delEmne.nr}" value="${delEmne.koe_id}">Still i
+                k&oslash;</button>
+        </form>
+        <%
+            DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
+            int koe_id = delEmne.getKoe_id();
+            if (delEmne.isKoe_status()) {
 
-            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n" +
-                    "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>");
-        } else {
-            out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
-        }
-    %>
+                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
+                        // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
+                );
+            } else {
+                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+            }
+        %>
+    </div>
     <table class="table table-hover" id="minTable">
         <thead>
         <tr>
