@@ -60,7 +60,6 @@ function settIKo(koe_id){
         xmlhttp = new XMLHttpRequest();
     }
     else {// code for IE6, IE5
-
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
@@ -115,10 +114,19 @@ function visBilde(sitteplass) {
     }
 
 }
-function hentBord(){
-    document.getElementById("bordnr").disabled = false;
+function hentBord(formSelectElement){
+    var value =formSelectElement.options[formSelectElement.selectedIndex].value;
+    var selectElement = document.getElementById("bordnr");
+    selectElement.options.length=0; // clearer forrige verdier.
+    selectElement.disabled = false;
+    var option = "";
+    for(var i = 1;i<=value;i++){
+        option = document.createElement('option');
+        option.appendChild(document.createTextNode(i));
+        option.value= i;
+        selectElement.appendChild(option);
+    }
 }
-
 //Fjernet visadmin, statuskoe og var statusknapp.
 
 
