@@ -581,5 +581,16 @@ public class DatabaseConnector {
         }
         return true;
     }
+
+    public boolean leggTilEmne(Emne emne){
+        if (emne == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(leggTilEmneSQL,
+                emne.getEmneKode(),
+                emne.getEmneNavn());
+        return true;
+    }
 }
 
