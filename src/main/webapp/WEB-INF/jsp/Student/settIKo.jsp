@@ -11,11 +11,11 @@
     <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="visBilde(), location.href='velgPlass.htm'">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass">
                 <option id="tom" value="tom">Velg Sitteplass</option>
                 <c:forEach items="${plassering}" var="plassering">
-                    <form:option onclick="visBilde(this)" id="${plassering.plassering_navn}"
-                                 value="${plassering.plassering_navn}">${plassering.plassering_navn}</form:option>
+                    <form:option onclick="visBilde(this.value)" id="plassering"
+                                 value="plassering">${plassering.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -26,18 +26,17 @@
             <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" disabled="true">
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
-
-                <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
+               <%-- <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
                     <form:option value="bordNr">bordNr</form:option>
-                </c:forEach>
+                </c:forEach>--%>
 
             </form:select>
         </div>
 
         <div class="form-group">
             <label for="oving">Oving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="ovinger" disabled="true">
-                <c:forEach items="delEmne.studentovinger" var="ovinger">
+            <form:select id="oving" multiple="true" class="form-control" path="ovinger">
+                <c:forEach items="${delEmne.studentovinger}" var="ovinger">
                     <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
                 </c:forEach>
             </form:select>
@@ -50,37 +49,38 @@
 
         <div class="form-group">
             <label for="gruppe">Gruppe?</label>
-            <form:select id="gruppe" path="medlemmer">
+            <form:select id="gruppe" path="medlemmer" class="form-control">
                 <c:forEach items="${personerBeans.valgt}" var="bruker">
-                    <form:option value="${bruker.fornavn}">${bruker.fornavn}</form:option>
+                    <form:option value="${bruker.mail}">${bruker.etternavn}, ${bruker.fornavn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
         <input type="submit" id="leggTil" class="btn btn-md btn-primary" onclick="StillIKo(${delEmne.nr})" value="Legg til i k&oslash;">
     </form:form>
 </div>
-<img src="<c:url value="/resources/img/lab.png"/>" style="padding:1px;border:thin solid black;" id="img"/>
+<div id="bilde">
+
+</div>
 <%-- Svart ramme rundt bildet --%>
 <%-- style="float:right"   align="right" --%>
 <script>
-    function visBilde() {
-        var valg = document.getElementById('sitteplass');
+    function visBilde(sitteplass) {
 
-        switch (valg.value) {
-            case ("labben"):
-                document.getElementById("img").src = "resources/img/lab.png";
+        switch (sitteplass.value) {
+            case ("Labben 2.etg"):
+                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/lab.png'/>' style='padding:1px;border:thin solid black;'/>";
                 break;
-            case "polet":
-                document.getElementById("img").src = "resources/img/pol.png";
+            case "Polareal 1.etg":
+                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/pol.png'/>' style='padding:1px;border:thin solid black;'/>";
                 break;
-            case  "nettlab":
-                document.getElementById("img").src = "resources/img/nettlab.png";
+            case  "Sukkerhuset 4.etg":
+                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/nettlab.png'/>' style='padding:1px;border:thin solid black;'/>";
                 break;
         }
-        if (document.getElementById("sitteplass").value != "tom") {
-            document.getElementById("bordnr").disabled = false;
-        } else {
+        if (document.getElementById("sitteplass").value === "tom") {
             document.getElementById("bordnr").disabled = true;
+        } else {
+            document.getElementById("bordnr").disabled = false;
         }
 
     }

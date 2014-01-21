@@ -331,9 +331,7 @@ public class DatabaseConnector {
      * @return ArrayList med alle studenter i samme emne
      */
     public ArrayList<Bruker> finnAlleDeltakere(String emnekode, String mail) {
-        if (emnekode == null) {
-            return null;
-        }
+
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(), emnekode, mail);
         ArrayList<Bruker> res = new ArrayList<Bruker>();

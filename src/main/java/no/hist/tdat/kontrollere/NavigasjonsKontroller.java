@@ -72,7 +72,6 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-        System.out.println("delemneNr: " + delemneNr + ", Emnenr: " + emnenr);
         int koeId = delEmne.getKoe_id();
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
@@ -98,17 +97,17 @@ public class NavigasjonsKontroller {
                                  Model model, HttpSession session, HttpServletRequest request){
 
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
-      //  int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
-        int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
-        int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
-        System.out.println("delemneNr: " + delemneNr + ", Emnenr: " + emnenr);
-        delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-        //personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
+        //int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
+        int koeId = Integer.parseInt(request.getParameter("hiddenKoe"));
+        System.out.println("koeID: " + koeId);
+        delEmne = innloggetBruker.getEmne().get()
+        personerBeans.setValgt(service.getMedstudenter(delEmne.getEmneKode(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
         //koeservice.getPlasseringer();
         DelEmne denne = koeservice.hentDelEmneStatus(delEmne.getKoe_id());
         delEmne.setKoe_status(denne.isKoe_status());
-        //model.addAttribute("plassering", koeservice);
+        //delEmne.setStudentovinger();
+        model.addAttribute("plassering", koeservice.getPlasseringer());
         model.addAttribute("delEmne", delEmne);
 
         return "settIKo";
