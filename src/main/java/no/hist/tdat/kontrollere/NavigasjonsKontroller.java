@@ -47,12 +47,12 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/adminBrukere.htm")
-    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker, @ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukere";
     }
 
     @RequestMapping("/adminBrukereEndre.htm")
-    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker, @ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukereEndre";
     }
 
@@ -66,14 +66,13 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping(value="/koOversikt.htm" ,method=RequestMethod.POST)
+    @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
         int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
         int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
-        innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
         System.out.println("delemneNr: " + delemneNr + ", Emnenr: " + emnenr);
-
         int koeId = delEmne.getKoe_id();
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
@@ -91,6 +90,7 @@ public class NavigasjonsKontroller {
     public String omdirigerError() {
         return "error";
     }
+
 
     @RequestMapping(value = "/settIKo.htm", method=RequestMethod.POST)
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
@@ -126,8 +126,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/emne.htm")
-    public String hentMittEmne(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
-        bruker = (Bruker)session.getAttribute("innloggetBruker");
+    public String hentMittEmne(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
+        bruker = (Bruker) session.getAttribute("innloggetBruker");
         bruker.getEmne().get(0);
         return "minside";
     }
@@ -152,5 +152,10 @@ public class NavigasjonsKontroller {
         session.invalidate();
         System.out.println("utlogget");
         return "loggInn";
+    }
+
+    @RequestMapping("/opprettEmne.htm")
+    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
+        return "opprettEmne";
     }
 }

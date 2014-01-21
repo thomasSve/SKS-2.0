@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Klassen tester klassen PassordService
  *
- * @author vimCnett
+ * @author Jørgen
  */
 public class PassordServiceTest {
     private final String[] hellos = {

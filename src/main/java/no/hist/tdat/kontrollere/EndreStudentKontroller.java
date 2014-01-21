@@ -2,7 +2,6 @@ package no.hist.tdat.kontrollere;
 
 
 import no.hist.tdat.javabeans.Bruker;
-import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.PersonerBeans;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -11,44 +10,110 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Roger Foss
  */
 @Controller
+
 public class EndreStudentKontroller {
     @Autowired
     BrukerService service;
     @Autowired
     EmneService service2;
 
+
     @RequestMapping(value = "leggTilStudentListe")
-    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, Model modell, HttpServletRequest request) {
+    public String leggTilListe(@ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request, HttpSession session) {
         String txt = request.getParameter("soketekst");
+        if (txt == null || txt.equals("")) {
+            return "endreStudent";
+        }
         personerBeans.setValgt(service.finnStudenter(txt));
-        modell.addAttribute("personerBeans", personerBeans);
+        session.setAttribute("personerBeans", personerBeans);
         return "endreStudent";
     }
 
 
-    @RequestMapping(value="endreValgtBruker", method = RequestMethod.POST)
-    public String ananasbiter(Model modell,@ModelAttribute("personerBeans") PersonerBeans personerBeans, HttpServletRequest request){
+    @RequestMapping(value = "endreValgtBruker", method = RequestMethod.POST)
+    public String endreValgtBruker(HttpServletRequest request, HttpSession session) {
         String mail = request.getParameter("brukerIndex");
-        Bruker bruker = service.hentBruker(mail);
-        System.out.println(bruker.getFornavn());
-        ArrayList<Emne> emner = service2.hentEmnerForStud(mail);
-        System.out.println(emner.size());
-        //service.slettBruker(mail.trim());
-        modell.addAttribute("personerBeans", personerBeans);
-        return "endreStudent";
+        Bruker b = service.hentBruker(mail);
+        b.setEmne(service2.hentEmnerForStud(b.getMail()));
+
+        session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
+        session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+        session.setAttribute("valgtPerson", b);
+        return "videresend";
+    }
+
+    @RequestMapping(value = "videresend")
+    public String videresend(HttpServletRequest request, HttpSession session) {
+        String tilb = request.getParameter("tilbake");
+        if (tilb != null) {
+            session.removeAttribute("valgtPerson");
+            session.removeAttribute("emnerUtenTilgang");
+            session.removeAttribute("studassFag");
+            return "endreStudent";
+        }
+        return "endreValgtStudent";
+    }
+
+    @RequestMapping(value = "utførOperasjon")
+    public String utførOperasjon(Model modell, HttpServletRequest request, HttpSession session) {
+        String lagre = request.getParameter("lagre");
+        String fjern = request.getParameter("fjern");
+        String leggTil = request.getParameter("leggTil");
+
+        Bruker b = (Bruker) session.getAttribute("valgtPerson");
+
+        if (lagre != null) {    //sett som studass
+            String emnekode = request.getParameter("emner");
+            int delemne = Integer.parseInt(request.getParameter("delemne"));
+            if (service.settStudass(emnekode,delemne,b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+            }
+        }
+        else if (fjern != null) {   //fjern fag
+            String emnekode2 = request.getParameter("emner2");
+            if (service.fjernEmne(emnekode2,b.getMail())) {
+                modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn());
+                b.setEmne(service2.hentEmnerForStud(b.getMail()));
+                session.setAttribute("valgtPerson",b);
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+            }
+        }
+        else if (leggTil != null) {  //legg til fag
+            String emnekode3 = request.getParameter("emner3");
+            if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
+                modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
+                b.setEmne(service2.hentEmnerForStud(b.getMail()));
+                session.setAttribute("valgtPerson",b);
+            }
+            else {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);
+            }
+        }
+        else {  //fjern som studass
+            String emne4 = request.getParameter("emner4");
+            if (service.fjernStudass(emne4,b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
+                session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+            }
+            else {
+                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+            }
+        }
+        return "endreValgtStudent";
     }
 }
 

@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1646993961">
-    <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="be718a76-a218-42e5-8a42-ea7f69e47964">
+  <component name="DataSourceManagerImpl" format="xml" hash="3644078300">
+    <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="a0f1bcb8-6bd4-4e61-bbbd-e6328bb3f794">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/sks</jdbc-url>
       <user-name>root</user-name>
-      <schema-pattern>*</schema-pattern>
-      <default-schemas>sks.*</default-schemas>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="DBNAME" value="sks" />
         <property name="tinyInt1isBit" value="false" />
       </driver-properties>
-      <libraries>
-        <library>
-          <url>file://$PROJECT_DIR$/../mysql-connector-java-5.1.28/mysql-connector-java-5.1.28-bin.jar</url>
-        </library>
-      </libraries>
+      <libraries />
     </data-source>
   </component>
 </project>

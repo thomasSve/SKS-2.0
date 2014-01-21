@@ -1,8 +1,10 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
-import no.hist.tdat.javabeans.*;
+import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.Oving;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -56,6 +58,30 @@ public class EmneService {
 
     public DelEmne hentDelEmne (int koe_id){
         return databaseConnector.hentDelEmne(koe_id);
+    }
+    /**
+     * Henter alle emner en bruker ikke har tilgang til
+     *
+     * @param mail, unik identifikator
+     * @return liste over alle emner
+     */
+    public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
+        return databaseConnector.hentEmnerUtenTilgang(mail);
+    }
+
+    /**
+     * Henter alle delemner en student er studass i
+     *
+     * @param mail, unik identifikator
+     * @return liste over alle emner
+     */
+    public ArrayList<DelEmne> hentStudassFag(String mail) {
+        return databaseConnector.hentStudassFag(mail);
+    }
+
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
+        return databaseConnector.opprettEmne(emne);
+
     }
 
 }

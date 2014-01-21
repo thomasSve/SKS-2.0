@@ -32,5 +32,9 @@ public class Koe {
     public void setAapen(int aapen) {
         this.aapen = aapen;
     }
+
+    public void sry(){
+        System.out.println("hello, world");
+    }
 }
 
