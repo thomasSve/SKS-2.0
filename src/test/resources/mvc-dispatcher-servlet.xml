@@ -33,4 +33,6 @@
     </bean>
 
     <bean id="innloggetBruker" class="no.hist.tdat.javabeans.Bruker"/>
+
+    <bean id="personerBeans" class="no.hist.tdat.javabeans.PersonerBeans"/>
 </beans>
