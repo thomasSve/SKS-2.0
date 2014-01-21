@@ -11,7 +11,7 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
-    <form:form class="sok" role="search" modelAttribute="godkjennBruker" action="sok.htm" method="POST">
+    <form:form class="sok" role="search" modelAttribute="godkjennOving" action="sok.htm" method="POST">
         <div class="form-group">
             <label for="mail">Mail</label>
 
@@ -26,16 +26,22 @@
 
             <form:errors path="koeID<"/>
         </div>
+        <div class="form-group">
+            <label for="koePlass">Koe Plass</label>
+
+            <form:input path="koePlass" id="koePlass" class="form-control"/>
+
+            <form:errors path="koePlass<"/>
+        </div>
 
         <table class="table table-condensed" id="godkjennGruppe">
             <tbody>
-            <c:forEach var="koeBruker" items="${godkjennBruker}">
                 <tr>
-                    <td><c:out value="${koeBruker.mail}"/></td>
-                    <td><c:out value="${koeBruker.ovingsnummer}"/>/td>
-                    <td><c:out value="${koeBruker.koe}"/>/td>
+                    <td><c:out value="${koegrupper}"/></td>
+                    <td><c:out value="${koeGrupper.ovingsnummer}"/>/td>
+                    <td><c:out value="${koeGrupper.mail}"/>/td>
+                    <td><c:out value="${koeGrupper.koePlass}"/></td>
                 </tr>
-            </c:forEach>
             </tbody>
         </table>
     </form:form>

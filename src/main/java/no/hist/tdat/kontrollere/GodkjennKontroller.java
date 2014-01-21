@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Oving;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
@@ -23,9 +24,9 @@ public class GodkjennKontroller {
     public String hentUtOving(@ModelAttribute("koPerson")
      */ /*
     @RequestMapping(value = "/godkjenn.htm")
-    public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeBruker koeBruker, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
+    public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
         String konummer = request.getParameter("koplass");
-        koeBruker.setKoe_plass(service.);
+        koeGrupper.setKoePlassering(service.getBrukerIKo());
         //service.oppdaterBruker(oving, mail, ov_id);
         return "koeBruker";
     }*/
