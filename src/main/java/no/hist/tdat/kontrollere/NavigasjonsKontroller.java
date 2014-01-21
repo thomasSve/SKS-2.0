@@ -148,4 +148,9 @@ public class NavigasjonsKontroller {
         System.out.println("utlogget");
         return "loggInn";
     }
+
+    @RequestMapping("/godkjenningsoversikt.htm")
+    public String godkjOversikt() {
+        return "godkjenningsoversikt";
+    }
 }
