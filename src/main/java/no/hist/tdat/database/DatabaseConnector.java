@@ -316,7 +316,7 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
-        System.out.println("Kø id: " + koe_id + ", Ny Status: " + status);
+        System.out.println("Koe id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
