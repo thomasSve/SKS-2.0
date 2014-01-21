@@ -25,6 +25,7 @@ public class KoeGruppeKoordinerer implements RowMapper<KoeGrupper>{
     @Override
     public KoeGrupper mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         KoeGrupper koeGrupper = new KoeGrupper();
+        koeGrupper.setKoe_id(resultSet.getInt("koe_id"));
         koeGrupper.setGruppeID(resultSet.getInt("gruppe_id"));
         koeGrupper.setSitteplass(resultSet.getString("plassering_navn"));
         koeGrupper.setBordnr(resultSet.getInt("bordnummer"));
