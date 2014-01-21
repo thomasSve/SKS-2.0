@@ -39,6 +39,5 @@
             <form:errors path="navn"/>
         </div>
         <input class="btn btn-md btn-primary" type="submit" value="Lag fag" id="LagFag">
-    </form>
+    </form:form>
 </div>
-<script src="<c:url value="/resources/js/admin.js"/>"></script>

@@ -47,12 +47,12 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/adminBrukere.htm")
-    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+    public String omdirigerAdminBrukere(@ModelAttribute Bruker bruker, @ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukere";
     }
 
     @RequestMapping("/adminBrukereEndre.htm")
-    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker,@ModelAttribute PersonerBeans personerBeans) {
+    public String omdirigerAdminBrukereEndre(@ModelAttribute Bruker bruker, @ModelAttribute PersonerBeans personerBeans) {
         return "adminBrukereEndre";
     }
 
@@ -66,18 +66,20 @@ public class NavigasjonsKontroller {
         return "adminFag";
     }
 
-    @RequestMapping(value="/koOversikt.htm" ,method=RequestMethod.POST)
+    @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
         int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
         int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
-        innloggetBruker = (Bruker)session.getAttribute("innloggetBruker");
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-
         int koeId = delEmne.getKoe_id();
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
         koe.setKoeId(koeId);
+        DelEmne denne = koeservice.hentDelEmneStatus(koeId);
+        delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
+        model.addAttribute("koe", koe);
         model.addAttribute("grupper",grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
@@ -88,18 +90,20 @@ public class NavigasjonsKontroller {
         return "error";
     }
 
-    @RequestMapping("/settIKo.htm")
+
+    @RequestMapping(value = "/settIKo.htm", method=RequestMethod.POST)
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
                                  Model model, HttpSession session, HttpServletRequest request){
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
-        System.out.println(innloggetBruker.getFornavn());
-        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
-        delEmne = emneService.hentDelEmne(Emne_id);
+        int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
         personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
-        koeservice.getPlasseringer();
-        model.addAttribute("plassering", koeservice);
+        //koeservice.getPlasseringer();
+        DelEmne denne = koeservice.hentDelEmneStatus(koe_id);
+        delEmne.setKoe_status(denne.isKoe_status());
+        //model.addAttribute("plassering", koeservice);
+        model.addAttribute("delEmne", delEmne);
 
         return "settIKo";
     }
@@ -116,8 +120,8 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/emne.htm")
-    public String hentMittEmne(@ModelAttribute("bruker")Bruker bruker,HttpSession session) {
-        bruker = (Bruker)session.getAttribute("innloggetBruker");
+    public String hentMittEmne(@ModelAttribute("bruker") Bruker bruker, HttpSession session) {
+        bruker = (Bruker) session.getAttribute("innloggetBruker");
         bruker.getEmne().get(0);
         return "minside";
     }
@@ -142,5 +146,10 @@ public class NavigasjonsKontroller {
         session.invalidate();
         System.out.println("utlogget");
         return "loggInn";
+    }
+
+    @RequestMapping("/opprettEmne.htm")
+    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
+        return "opprettEmne";
     }
 }

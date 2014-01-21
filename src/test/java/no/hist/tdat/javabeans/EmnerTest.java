@@ -6,9 +6,9 @@ import org.junit.Test;
 /**
  * Test for klassen Emner
  *
- * @author vimCnett
+ * @author Jørgen
  */
-public class EmnerTest {
+public class EmnerTest { //TODO Finnish test
     private Emne emne;
 
     @Before

@@ -4,29 +4,29 @@ INSERT INTO rettighet (navn) VALUES ('Foreleser');
 INSERT INTO rettighet (navn) VALUES ('Student');
 
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('gm@mail.com', 1, 'Geir Morten', 'Larsen', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('gm@mail.com', 1, 'Geir Morten', 'Larsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('tk@mail.com', 1, 'Ted Johan', 'Kristoffersen', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('tk@mail.com', 1, 'Ted Johan', 'Kristoffersen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('js@mail.com', 1, 'Jørgen Lien', 'Sellæg', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('js@mail.com', 1, 'Jørgen Lien', 'Sellæg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('ob@mail.com', 1, 'Olve Andre', 'Børmark', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('ob@mail.com', 1, 'Olve Andre', 'Børmark', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('ts@mail.com', 1, 'Thomas', 'Sve', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('ts@mail.com', 1, 'Thomas', 'Sve', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('hb@mail.com', 1, 'Henriette', 'Berg', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('hb@mail.com', 1, 'Henriette', 'Berg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('og@mail.com', 1, 'Øyvind', 'Grimstad', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('og@mail.com', 1, 'Øyvind', 'Grimstad', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('km@mail.com', 1, 'Ketta', 'Mykkelgjerd', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('km@mail.com', 1, 'Ketta', 'Mykkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('eo@mail.com', 1, 'Eirik', 'Øvstedal', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 0);
+VALUES ('eo@mail.com', 1, 'Eirik', 'Øvstedal', 'eaaseQasexaseaaseQasexaseaaseQas', 0);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('grethe@mail.com', 2, 'Grethe', 'Sandstrak', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('grethe@mail.com', 2, 'Grethe', 'Sandstrak', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('anette@mail.com', 3, 'Anette', 'Wrlsen', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('anette@mail.com', 3, 'Anette', 'Wrlsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('SuperAdmin@mail.com', 3, 'Admin', 'Super', 'Xaaz0QarVxaUoeaKKUamtBa0TiazwYav', 1);
+VALUES ('SuperAdmin@mail.com', 3, 'Admin', 'Super', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 
 
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
@@ -100,6 +100,7 @@ VALUES (1, 'TDAT2005-A', 5, 'Algoritmer og datastrukturer', 'H', '10', '1-6:6');
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler)
 VALUES (1, 'TDAT2003-A', 6, 'Systemutvikling 2 med web-applikasjoner', 'H', '10', '1-6:3');
 
+
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'gm@mail.com', 0);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('TDAT2002-A', 'gm@mail.com', 0);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('TDAT2003-A', 'gm@mail.com', 0);
@@ -132,14 +133,6 @@ INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Sukkerhuset 4.etg', 
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Tihlde drift', 9);
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('P-Lab 1.etg', 19);
 
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'tk@mail.com', 1);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (1,'gm@mail.com', 0);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (2,'eo@mail.com', 1);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (3,'km@mail.com', 1);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (4,'hb@mail.com', 1);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (5,'js@mail.com', 1);
-INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (6,'ts@mail.com', 1);
-
 INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, info, faar_hjelp, tidspunkt)
 VALUES (1, 1, 'Labben 2.etg', 3, 1, '?!?!?!', 'anette@mail.com', '2000-01-01 13:37:00');
 INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp, tidspunkt)
@@ -153,38 +146,64 @@ VALUES (1, 5, 'Labben 2.etg', 5, 7, 'Godkjenning!', 'grethe@mail.com','2000-01-0
 INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, koe_plass, faar_hjelp, tidspunkt)
 VALUES (1, 6, 'Labben 2.etg', 2, 6, null ,'2000-01-01 13:40:00');
 
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 1,'tk@mail.com', 1);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 1,'gm@mail.com', 0);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 2,'eo@mail.com', 1);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 3,'km@mail.com', 1);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 4,'hb@mail.com', 1);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 5,'js@mail.com', 1);
+INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (1, 6,'ts@mail.com', 1);
+
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (3, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (4, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (5, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (6, 'ALM805F-A', 1);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (7, 'ALM805F-A', 1);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (8, 'ALM805F-A', 1);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (9, 'ALM805F-A', 1);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (10, 'ALM805F-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'ALM805F-A', 2);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'ALM805F-A', 2);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (3, 'ALM805F-A', 2);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (4, 'ALM805F-A', 2);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (5, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (6, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (7, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (8, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (9, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (10, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (11, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (12, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (13, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (14, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (15, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (16, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (17, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (18, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (19, 'ALM805F-A', 2);
+INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (20, 'ALM805F-A', 2);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'ALM805F-A', 3);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'ALM805F-A', 3);
-INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (3, 'ALM805F-A', 3);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (1, 'TDAT2005-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (2, 'TDAT2005-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (3, 'TDAT2005-A', 1);
 INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (4, 'TDAT2005-A', 1);
 
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (1,1);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (1,2);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (1,4);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (2,1);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (3,2);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (3,6);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (4,1);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (5,3);
-INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (6,3);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (1,1,1);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (1,1,2);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (1,1,4);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (2,1,1);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (3,1,2);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (3,1,6);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (4,1,1);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (5,1,3);
+INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (6,1,3);
 
 
 
-INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES ('js@mail.com', 'ALM805F-A', 2);
+INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES ('js@mail.com', 'ALM805F-A', 1);
 
 INSERT INTO oving_brukere (oving_id, mail, godkjent, godkjent_av, godkjent_tid)
 VALUES (1, 'ob@mail.com', 0, null, null);

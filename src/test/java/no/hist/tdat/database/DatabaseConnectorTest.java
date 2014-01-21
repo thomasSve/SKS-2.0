@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author vimCnett
+ * @author Jørgen
  */
 @Transactional
 public class DatabaseConnectorTest {
@@ -23,7 +23,7 @@ public class DatabaseConnectorTest {
     private EmbeddedDatabase db;
     private Bruker bruker;
     private String email = "js@mail.com";
-    private String password = "12345";
+    private String password = "xxx";
 
     @Before
     public void foerHverTest() {

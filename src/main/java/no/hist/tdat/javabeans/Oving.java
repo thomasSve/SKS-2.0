@@ -23,6 +23,14 @@ public class Oving {
         return godkjent;
     }
 
+    public int denneErGodkjent() {
+        if (godkjent == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     public void setGodkjent(boolean godkjent) {
         this.godkjent = godkjent;
     }

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tester brukerklassen
  *
- *
+ * @author Jørgen
  */
 public class BrukerTest {
     Bruker bruker;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="be718a76-a218-42e5-8a42-ea7f69e47964">
+  <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="a0f1bcb8-6bd4-4e61-bbbd-e6328bb3f794">
     <database-info product="MySQL" version="5.5.32" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.28 ( Revision: alexander.soklakov@oracle.com-20131125092425-yvejy3xvci77ru3k )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
@@ -12,6 +12,8 @@
     <schema name="" catalog="performance_schema"/>
     <schema name="" catalog="phpmyadmin"/>
     <schema name="" catalog="sks"/>
+    <schema name="" catalog="spring13"/>
+    <schema name="" catalog="spring15"/>
     <schema name="" catalog="test"/>
     <schema name="" catalog="webauth"/>
     <table name="cds" schema="" catalog="cdcol" type="TABLE">
@@ -1243,6 +1245,24 @@
       <column name="navn" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="rettighet_id"/>
       <exported-key name="brukere_fk1" table="brukere" schema="" catalog="sks" columns="rettighet_id"/>
+    </table>
+    <table name="person" schema="" catalog="spring13" type="TABLE">
+      <column name="personnr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="fornavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="etternavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="personnr"/>
+    </table>
+    <table name="varer" schema="" catalog="spring13" type="TABLE">
+      <column name="varenr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="varenavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="pris" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="varenr"/>
+    </table>
+    <table name="person" schema="" catalog="spring15" type="TABLE">
+      <column name="personnr" sqlType="VARCHAR" length="12" precision="0" nullable="false" jdbcType="12"/>
+      <column name="fornavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <column name="etternavn" sqlType="VARCHAR" length="40" precision="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="personnr"/>
     </table>
     <table name="user_pwd" schema="" catalog="webauth" type="TABLE">
       <column name="name" sqlType="CHAR" length="30" precision="0" nullable="false" jdbcType="1" def="Jyc="/>

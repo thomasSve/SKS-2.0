@@ -1,22 +1,22 @@
 package no.hist.tdat.koe;
 
+import no.hist.tdat.database.verktoy.KoeBrukerKoordinerer;
+
 /**
  * Created by Henriette on 09/01/14.
  */
-public class KoeBruker {
+public class KoeBruker extends KoeBrukerKoordinerer {
     private int koe_id;
     private String mail;
-    private String plassering;
     private String bordnr;
 
     private String ovingsnr;
     private int koe_plass;
     private String beskrivelse;
 
-    public KoeBruker(int koe_id, String mail, String plassering, String ovingsnr, int koe_plass, String beskrivelse){
+    public KoeBruker(int koe_id, String mail, String ovingsnr, int koe_plass, String beskrivelse){
         this.koe_id = koe_id;
         this.mail = mail;
-        this.plassering = plassering;
         this.ovingsnr = ovingsnr;
         this.koe_plass = koe_plass;
         this.beskrivelse = beskrivelse;
@@ -42,14 +42,6 @@ public class KoeBruker {
         this.mail = mail;
     }
 
-    public String getPlassering() {
-        return plassering;
-    }
-
-    public void setPlassering(String plassering) {
-        this.plassering = plassering;
-    }
-
     public String getOvingsnr() {
         return ovingsnr;
     }
@@ -64,5 +56,9 @@ public class KoeBruker {
 
     public void setKoe_plass(int koe_plass) {
         this.koe_plass = koe_plass;
+    }
+
+    public void setBeskrivelse(String beskrivelse) {
+        this.beskrivelse = beskrivelse;
     }
 }
