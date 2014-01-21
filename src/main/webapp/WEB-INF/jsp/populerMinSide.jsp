@@ -6,7 +6,7 @@
 
         for (int j = 0; j < denne.getEmne().get(i).getDelemner().size(); j++) {
 
-            out.print("<tr><td></td><td></td><td><input type='submit' onclick='clicked="+j+";emnenr="+i+"' value ='"+denne.getEmne().get(i).getDelemner().get(j).getDelEmneNavn()+"' class='pull-right btn btn-md btn-info' style='width:50%;' /></td><td>");
+            out.print("<tr><td></td><td></td><td><input type='submit' onclick='delemnenr="+j+";emnenr="+i+"' value ='"+denne.getEmne().get(i).getDelemner().get(j).getDelEmneNavn()+"' class='pull-right btn btn-md btn-info' style='width:50%;' /></td><td>");
             for (int a = 0; a < denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().size(); a++) {
                 if (denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).isGodkjent()) {
                     String godkjentInfo = "Godkjent av:\t " + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getGodkjentAv() + "\ndato:\t\t" + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getGodkjentTid();

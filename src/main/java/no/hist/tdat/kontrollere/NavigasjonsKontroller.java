@@ -68,8 +68,9 @@ public class NavigasjonsKontroller {
 
     @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
-        int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
-        int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
+        System.out.println("delemnenr: "+request.getParameter("delemneNr")+"\nemnenr: "+request.getParameter("emneNr"));
+        int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index-nr i bruker-
+        int emnenr = Integer.parseInt(request.getParameter("emneNr"));
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
         int koeId = delEmne.getKoe_id();
@@ -95,7 +96,6 @@ public class NavigasjonsKontroller {
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
                                  Model model, HttpSession session, HttpServletRequest request){
-
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         //int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
         int koeId = Integer.parseInt(request.getParameter("hiddenKoe"));

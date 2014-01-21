@@ -23,13 +23,13 @@ function setKoeId(num){
     document.getElementById('hiddenKoe').value =num;
 }
 
-var clicked;
+var delemnenr;
 var emnenr;
 function mysubmit() {
-    var koeIdField = document.getElementById("hiddenKoe");
-    var emneNavnField = document.getElementById("hiddenEmneNavn");
-    koeIdField.value=clicked;
-    emneNavnField.value=emnenr;
+    var delemneNrField = document.getElementById("delemneNr");
+    var emneNrField = document.getElementById("emneNr");
+    delemneNrField.value=delemnenr;
+    emneNrField.value=emnenr;
     }
 function sjekkAktivKoe(status){
     alert(status);
@@ -66,6 +66,7 @@ function settIKo(koe_id){
     xmlhttp.onreadystatechange = function () {
 
     }
+    alert(emne_id);
     xmlhttp.open("POST", "/settIKo.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("KoeIndex=" + koe_id);
