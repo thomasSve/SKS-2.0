@@ -23,13 +23,13 @@ function setKoeId(num){
     document.getElementById('hiddenKoe').value =num;
 }
 
-var clicked;
-var emnenr;
+var delemnenr;      //Index i bruker-objektet, IKKE i DB
+var emnenr;         //Index i bruker-objektet, IKKE i DB
 function mysubmit() {
-    var koeIdField = document.getElementById("hiddenKoe");
-    var emneNavnField = document.getElementById("hiddenEmneNavn");
-    koeIdField.value=clicked;
-    emneNavnField.value=emnenr;
+    var delemneNrField = document.getElementById("delemneNr");  //Index i bruker-objektet, IKKE i DB
+    var emneNrField = document.getElementById("emneNr");        //Index i bruker-objektet, IKKE i DB
+    delemneNrField.value=delemnenr;
+    emneNrField.value=emnenr;
     }
 
 function startStoppKoe(koe_id){
@@ -61,6 +61,7 @@ function settIKo(koe_id){
     xmlhttp.onreadystatechange = function () {
 
     }
+    alert(emne_id);
     xmlhttp.open("POST", "/settIKo.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("KoeIndex=" + koe_id);
@@ -90,6 +91,11 @@ function StillIKo(emne_id){
 function oppdaterKoe(){
     //TODO TED
 }
+$(function (){
+    $(".faarHjelpKnapp").popover(
+        { title: 'Look! A bird!', content: "birdie", html:true }
+    );
+});
 //Fjernet visadmin, statuskoe og var statusknapp.
 
 

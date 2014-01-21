@@ -17,6 +17,7 @@ public class KoeGrupper {
     private String kommentar;
     private ArrayList<Bruker>medlemmer;
     private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
+    private String faarHjelp;
 
 
     public KoeGrupper(){}
@@ -47,6 +48,14 @@ public class KoeGrupper {
 
     public void setKoePlassering(int koePlassering) {
         this.koePlassering = koePlassering;
+    }
+
+    public String getFaarHjelp() {
+        return faarHjelp;
+    }
+
+    public void setFaarHjelp(String faarHjelp) {
+        this.faarHjelp = faarHjelp;
     }
 
     public Date getKlokkeslett() {
