@@ -45,7 +45,7 @@
             <tr
             <c:if test="${koegrupper.faarHjelp!=null}">
                 class="success">
-                <td><a class="faarHjelpKnapp btn btn-success btn-sm " data-placement="top" data-toggle="popover" title="" data-content="<c:out value="${koegrupper.faarHjelp}"/> navn" data-original-title="Får hjelp av"><i class="glyphicon glyphicon-eye-open"></i> </a></td>
+                <td><a class=" btn btn-success btn-sm " title="<c:out value="Godkjennes av:${koegrupper.faarHjelp}" />" ><i class="glyphicon glyphicon-eye-open"></i> </a></td>
             </c:if>
             <c:if test="${koegrupper.faarHjelp==null}">
                     >
