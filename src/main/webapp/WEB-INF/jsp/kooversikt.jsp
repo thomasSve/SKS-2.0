@@ -49,7 +49,7 @@
 
 
         <tbody>
-       <%-- <c:forEach var="koegrupper" items="${grupper}">
+       <c:forEach var="koegrupper" items="${grupper}">
             <tr<c:if test="${koegrupper.}">
                 <td><c:out value="${koegrupper.klokkeslett}"/></td>
                 <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
@@ -70,7 +70,7 @@
                     </div>
                 </td>
             </tr>
-        </c:forEach>--%>
+        </c:forEach>
         </tbody>
     </table>
 </div>
