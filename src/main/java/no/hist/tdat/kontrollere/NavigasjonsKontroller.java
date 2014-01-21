@@ -79,6 +79,8 @@ public class NavigasjonsKontroller {
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
+
+        model.addAttribute("emneIndex",emnenr);
         model.addAttribute("koe", koe);
         model.addAttribute("grupper",grupper);
         model.addAttribute("delEmne", delEmne);

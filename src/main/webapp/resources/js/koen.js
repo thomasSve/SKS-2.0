@@ -91,6 +91,11 @@ function StillIKo(emne_id){
 function oppdaterKoe(){
     //TODO TED
 }
+$(function (){
+    $(".faarHjelpKnapp").popover(
+        { title: 'Look! A bird!', content: "birdie", html:true }
+    );
+});
 //Fjernet visadmin, statuskoe og var statusknapp.
 
 
