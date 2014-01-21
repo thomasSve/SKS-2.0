@@ -9,7 +9,6 @@
       <user-name>root</user-name>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
-        <property name="DBNAME" value="sks" />
         <property name="tinyInt1isBit" value="false" />
         <property name="DBNAME" value="sks" />
       </driver-properties>

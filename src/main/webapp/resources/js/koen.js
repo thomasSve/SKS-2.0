@@ -118,6 +118,7 @@ function visBilde(sitteplass) {
 function hentBord(){
     document.getElementById("bordnr").disabled = false;
 }
+
 //Fjernet visadmin, statuskoe og var statusknapp.
 
 

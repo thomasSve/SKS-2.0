@@ -10,7 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<<<<<<< HEAD
 <div class="pull-left col-md-8" onload="sjekkAktivKoe(${delEmne.koe_status});">
+=======
+
+<div class="pull-left col-md-8">
+>>>>>>> 4934cbc1532948a4ab2cb96d0eda19c2225c7dbf
     <h3>
         <div id="operasjonstekst">
             K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
@@ -49,13 +54,21 @@
 
 
         <tbody>
-       <c:forEach var="koegrupper" items="${grupper}">
-            <tr<c:if test="${koegrupper.}">
-                <td><c:out value="${koegrupper.klokkeslett}"/></td>
+
+        <c:forEach var="koegrupper" items="${grupper}">
+            <tr
+            <c:if test="${koegrupper.faarHjelp!=null}">
+                class="success">
+                <td><a class=" btn btn-success btn-sm " title="<c:out value="Godkjennes av:${koegrupper.faarHjelp}" />" ><i class="glyphicon glyphicon-eye-open"></i> </a></td>
+            </c:if>
+            <c:if test="${koegrupper.faarHjelp==null}">
+                    >
+                    <td><c:out value="${koegrupper.klokkeslett}"/></td>
+            </c:if>
                 <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
                         value="${koegrupper.medlemmer[0].etternavn}"/></td>
                 <td><c:out value="${koegrupper.kommentar}"/></td>
-                <td><c:out value="${koegrupper.sitteplass}"/>,bord <c:out value="${koegrupper.bordnr}"/></td>
+                <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
                     <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
                         <button class="btn btn-primary" data-task="choose" title="Velg"

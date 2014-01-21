@@ -40,6 +40,14 @@ public class KoeGrupper {
         this.koePlassering = koePlassering;
     }
 
+    public String getFaarHjelp() {
+        return faarHjelp;
+    }
+
+    public void setFaarHjelp(String faarHjelp) {
+        this.faarHjelp = faarHjelp;
+    }
+
     public Date getKlokkeslett() {
         return klokkeslett;
     }
