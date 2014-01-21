@@ -11,7 +11,7 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
-    <form:form class="sok" role="search" modelAttribute="godkjennOving" action="sok.htm" method="POST">
+    <form:form class="sokettergruppeiko" role="search" modelAttribute="godkjennGruppe" action="bareEnTest.htm" method="POST">
         <div class="form-group">
             <label for="mail">Mail</label>
 
@@ -29,22 +29,25 @@
         <div class="form-group">
             <label for="koePlass">Koe Plass</label>
 
-            <form:input path="koePlass" id="koePlass" class="form-control"/>
+            <form:input path="koePlass" id="koePlass" name="koePlass" class="form-control"/>
 
             <form:errors path="koePlass<"/>
         </div>
 
+    </form:form>
+    <form:form>
         <table class="table table-condensed" id="godkjennGruppe">
             <tbody>
-                <tr>
-                    <td><c:out value="${koegrupper}"/></td>
-                    <td><c:out value="${koeGrupper.ovingsnummer}"/>/td>
-                    <td><c:out value="${koeGrupper.mail}"/>/td>
-                    <td><c:out value="${koeGrupper.koePlass}"/></td>
-                </tr>
+            <tr>
+                <td><c:out value="${koegrupper}"/></td>
+                <td><c:out value="${koeGrupper.ovingsnummer}"/>/td>
+                <td><c:out value="${koeGrupper.mail}"/>/td>
+                <td><c:out value="${koeGrupper.koePlass}"/></td>
+            </tr>
             </tbody>
         </table>
     </form:form>
+
 
 </div>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>

@@ -22,13 +22,13 @@ public class GodkjennKontroller {
     /*
     @RequestMapping(value = "/hentUtKoPerson.htm")
     public String hentUtOving(@ModelAttribute("koPerson")
-     */ /*
-    @RequestMapping(value = "/godkjenn.htm")
-    public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
-        String konummer = request.getParameter("koplass");
-        koeGrupper.setKoePlassering(service.getBrukerIKo());
+     */
+    @RequestMapping(value = "/godkjennGruppeOving.htm")
+    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
+        String konummer = request.getParameter("koePlass");
+       // koeGrupper.setKoePlassering(service.getBrukerIKo());
         //service.oppdaterBruker(oving, mail, ov_id);
         return "koeBruker";
-    }*/
+    }
 
 }
