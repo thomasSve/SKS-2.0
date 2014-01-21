@@ -48,6 +48,7 @@ function startStoppKoe(koe_id){
     xmlhttp.send("KoeIndex=" + koe_id);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
+    oppdaterKoe();
 }
 function settIKo(koe_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -84,8 +85,11 @@ function StillIKo(emne_id){
 
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
+    oppdaterKoe();
 }
-
+function oppdaterKoe(){
+    //TODO TED
+}
 //Fjernet visadmin, statuskoe og var statusknapp.
 
 
