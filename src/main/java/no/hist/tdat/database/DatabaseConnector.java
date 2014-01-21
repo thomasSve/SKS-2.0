@@ -343,7 +343,7 @@ public class DatabaseConnector {
         return plassListe.get(0).getAnt_bord();
     }
 
-    public boolean leggTilEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
         if (emne == null) {
             return false;
         }
@@ -354,4 +354,3 @@ public class DatabaseConnector {
         return true;
     }
 }
-

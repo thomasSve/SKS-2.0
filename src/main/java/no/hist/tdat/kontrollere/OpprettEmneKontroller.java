@@ -20,7 +20,7 @@ public class OpprettEmneKontroller {
     @RequestMapping("/lagEmne.htm")
     public String emne(@ModelAttribute(value = "emne") Emne emne, BindingResult result, Model model) {
         try{
-            service.leggTilEmne(emne);
+            service.opprettEmne(emne);
             model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
             return "opprettDelemne";
         }catch(org.springframework.dao.DuplicateKeyException e){
