@@ -17,8 +17,8 @@
             <tbody>
 
             <form onsubmit="mysubmit()" method="POST" action="koOversikt.htm">
-                <input type="hidden" name="hiddenKoe" id="hiddenKoe" />
-                <input type="hidden" name="hiddenEmneNavn" id="hiddenEmneNavn" />
+                <input type="hidden" name="delemneNr" id="delemneNr" />
+                <input type="hidden" name="emneNr" id="emneNr" />
                 <jsp:include page="populerMinSide.jsp" />
             </form>
             </tbody>

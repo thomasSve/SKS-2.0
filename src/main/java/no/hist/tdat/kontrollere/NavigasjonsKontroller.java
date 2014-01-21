@@ -68,8 +68,8 @@ public class NavigasjonsKontroller {
 
     @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
-        int delemneNr = Integer.parseInt(request.getParameter("hiddenKoe"));
-        int emnenr = Integer.parseInt(request.getParameter("hiddenEmneNavn"));
+        int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
+        int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
         int koeId = delEmne.getKoe_id();
@@ -79,12 +79,13 @@ public class NavigasjonsKontroller {
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
+
+        model.addAttribute("emneIndex",emnenr);
         model.addAttribute("koe", koe);
         model.addAttribute("grupper",grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
-
     @RequestMapping("/error.htm")
     public String omdirigerError() {
         return "error";
