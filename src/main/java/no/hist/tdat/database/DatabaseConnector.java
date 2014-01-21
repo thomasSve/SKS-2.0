@@ -538,10 +538,8 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         try {
             con.update(fjernStudassSQL, mail, navn, navn);
-            System.out.println("riktig");
         }
         catch (Exception e) {
-            System.out.println("feil");
             return false;
         }
         return true;
