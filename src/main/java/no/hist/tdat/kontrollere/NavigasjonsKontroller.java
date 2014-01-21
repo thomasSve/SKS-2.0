@@ -80,7 +80,7 @@ public class NavigasjonsKontroller {
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
         model.addAttribute("koe", koe);
-        model.addAttribute("grupper",grupper);
+        model.addAttribute("grupper", grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
@@ -91,12 +91,12 @@ public class NavigasjonsKontroller {
     }
 
 
-    @RequestMapping(value = "/settIKo.htm", method=RequestMethod.POST)
-    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
+    @RequestMapping(value = "/settIKo.htm", method = RequestMethod.POST)
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
-                                 Model model, HttpSession session, HttpServletRequest request){
+                                 Model model, HttpSession session, HttpServletRequest request) {
 
-        innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
         personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
@@ -149,8 +149,22 @@ public class NavigasjonsKontroller {
         return "loggInn";
     }
 
+        //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
-    public String godkjOversikt() {
+    public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
+
+        String emne = "ingen";//request.getParameter("emne");
+        if (emne.equals("ingen")) {
+            return "godkjenningsoversikt";
+        }
+
+        DelEmne valgtEmne = emneService.hentDelemne(emne);
+        session.setAttribute("valgteEmne", valgtEmne);
+
+
+
+        System.out.println(valgtEmne.getDelEmneNavn());
+
         return "godkjenningsoversikt";
     }
 }

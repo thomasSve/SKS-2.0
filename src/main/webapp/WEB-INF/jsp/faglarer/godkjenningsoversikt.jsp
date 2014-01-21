@@ -19,15 +19,19 @@
             //document.getElementById("calendar").innerHTML=xmlhttp.responseText;
             alert("jara");
         }
-        window.location = "videresend";
     }
 </script>
 
 <label for="emne">Velg emne:</label>
 <select id="emne" name="emne" class="form-control" onchange="hentRettEmne(this.value)">
+    <option value="ingen"><i>Ingen valgt</i></option>
     <c:forEach var="emne" items="${sessionScope.innloggetBruker.emne}">
         <c:forEach var="delemne" items="${emne.delemner}">
             <option value="${delemne.delEmneNavn}"><c:out value="${delemne.delEmneNavn}"/></option>
         </c:forEach>
     </c:forEach>
 </select>
+
+<div class="text-info">
+<h2><c:out value="${sessionScope.valgtEmne.delEmneNavn}"/></h2>
+</div>

@@ -13,18 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DatabaseConnector kobler til databasen og gjÃ¸r spÃ¸rring, for deretter Ã¥ stenge tilkoblingen.
+ * DatabaseConnector kobler til databasen og gjør spørring, for deretter å stenge tilkoblingen.
  *
  * @author VimCnett
  */
 
 @Service
 public class DatabaseConnector {
-    private static final String QUERY_ERROR = "FEIL I SPÃ˜RRING";
+    private static final String QUERY_ERROR = "FEIL I SPØRRING";
     private static final String CONNECTION_ERROR = "FEIL VED TILKOBLING TIL DATABASE";
     private static final Integer ACTIVE = 1;
 
-    // **** Legger alle Queryes her. Ikke fordi vi mÃ¥, men fordi Grethe liker det sÃ¥nn...*/ //TODO remove this
+    // **** Legger alle Queryes her. Ikke fordi vi må, men fordi Grethe liker det sånn...*/ //TODO remove this
     private final String getKoeSQL = "";
     private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
     private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe NATURAL JOIN brukere WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
@@ -53,9 +53,10 @@ public class DatabaseConnector {
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
+    private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
 
     @Autowired
-    private DataSource dataKilde; //Felles datakilde for alle spÃ¸rringer.
+    private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
     public ArrayList<KoeBruker> hentBrukerFraKo(String mail, int koe_id) {
         if (mail == null) {
@@ -102,7 +103,7 @@ public class DatabaseConnector {
      *
      * @param dataKilde testdatakilde
      */
-    public void setDataKilde(DataSource dataKilde) { //TODO (OR NOT TODO) IKKE LOV TIL Ã… BRUKE!!!!!!!!!!
+    public void setDataKilde(DataSource dataKilde) { //TODO (OR NOT TODO) IKKE LOV TIL Å BRUKE!!!!!!!!!!
         this.dataKilde = dataKilde;
     }
 
@@ -151,9 +152,9 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som sÃ¸keord, sÃ¸ker i databasen etter mail, fornavn, etternavn som ligner pÃ¥ sÃ¸keordet.
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *
-     * @param soeketekst SÃ¸keord etter bruker
+     * @param soeketekst Søkeord etter bruker
      * @return ArrayList med bruker objekter eller null om ingen finnes.
      */
     public ArrayList<Bruker> finnBruker(String soeketekst) {
@@ -187,9 +188,9 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som sÃ¸keord, sÃ¸ker i databasen etter mail, fornavn, etternavn som ligner pÃ¥ sÃ¸keordet.
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *
-     * @param soeketekst SÃ¸keord etter studentr
+     * @param soeketekst Søkeord etter studentr
      * @return ArrayList med bruker objekter eller null om ingen finnes.
      */
     public ArrayList<Bruker> finnStudenter(String soeketekst) {
@@ -275,9 +276,9 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som sÃ¸keord, sÃ¸ker i databasen etter mail, fornavn, etternavn som er lik sÃ¸keordet.
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som er lik søkeordet.
      *
-     * @param soeketekst SÃ¸keord etter studenter
+     * @param soeketekst Søkeord etter studenter
      * @return objekt av Bruker, eller null om den ikke finnes
      */
     public Bruker finnStudent(String soeketekst) {
@@ -314,7 +315,7 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
-        System.out.println("KÃ¸ id: " + koe_id + ", Ny Status: " + status);
+        System.out.println("Kø id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
@@ -323,9 +324,9 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som sÃ¸keord, sÃ¸ker i databasen etter mail, fornavn, etternavn som ligner pÃ¥ sÃ¸keordet.
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *
-     * @param emnekode Hvilket emne man vil sette seg i kÃ¸ i
+     * @param emnekode Hvilket emne man vil sette seg i kø i
      * @return ArrayList med alle studenter i samme emne
      */
     public ArrayList<Bruker> finnAlleDeltakere(String emnekode, String mail) {
@@ -344,7 +345,7 @@ public class DatabaseConnector {
     }
 
     /**
-     * Tar inn en string som sÃ¸keord, sÃ¸ker i databasen etter mail, fornavn, etternavn som ligner pÃ¥ sÃ¸keordet.
+     * Tar inn en string som søkeord, søker i databasen etter mail, fornavn, etternavn som ligner på søkeordet.
      *
      * @param mail id-mail
      * @return ArrayList med alle emner
@@ -365,7 +366,7 @@ public class DatabaseConnector {
     /**
      * @return Liste over alle mulige plasseringer
      * @author henriette
-     * Henter ut alle mulige plasser man kan sitte for Ã¥ fÃ¥ Ã¸ving retta
+     * Henter ut alle mulige plasser man kan sitte for å få øving retta
      */
     public ArrayList<Plassering> finnAllePlasseringer() {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -379,10 +380,10 @@ public class DatabaseConnector {
     }
 
     /**
-     * @param plasseringNavn plassen som har bordet man sitter pÃ¥
-     * @return alle mulige bord pÃ¥ den valgte plassen
+     * @param plasseringNavn plassen som har bordet man sitter på
+     * @return alle mulige bord på den valgte plassen
      * @author henriette
-     * Henter ut alle mulige bord pÃ¥ en gitt plassering
+     * Henter ut alle mulige bord på en gitt plassering
      */
     public int getAntallBord(String plasseringNavn) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
@@ -543,6 +544,18 @@ public class DatabaseConnector {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Henter delemne, gitt navn
+     *
+     * @param navn
+     * @return boolean
+     */
+    public DelEmne hentDelemne(String navn) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<DelEmne> emne = con.query(hentDelemneSQL, new DelEmneKoordinerer(), navn);
+        return emne.get(0);
     }
 }
 

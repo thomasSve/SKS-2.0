@@ -58,24 +58,15 @@ public class EmneService {
     public DelEmne hentDelEmne (int koe_id){
         return databaseConnector.hentDelEmne(koe_id);
     }
-    /**
-     * Henter alle emner en bruker ikke har tilgang til
+
+    /** NB! IKKE SAMME SOM DEN OVER!
+     * Henter delemne, gitt navn
      *
-     * @param mail, unik identifikator
-     * @return liste over alle emner
-
-    public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
-        return databaseConnector.hentEmnerUtenTilgang(mail);
-    }*/
-
-    /**
-     * Henter alle delemner en student er studass i
-     *
-     * @param mail, unik identifikator
-     * @return liste over alle emner
-
-    public ArrayList<DelEmne> hentStudassFag(String mail) {
-        return databaseConnector.hentStudassFag(mail);
+     * @param navn
+     * @return delemne
+     */
+    public DelEmne hentDelemne(String navn){
+        return databaseConnector.hentDelemne(navn);
     }
-    */
+
 }
