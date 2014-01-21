@@ -43,4 +43,7 @@ public class KoeService {
     public DelEmne hentDelEmneStatus(int koeId){
         return databaseConnector.getKoeObjekt(koeId);
     }
+    public Koe hentKoeId (){
+        return databaseConnector.delemneIKoe();
+    }
 }

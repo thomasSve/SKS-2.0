@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Eirik
@@ -9,7 +10,7 @@
 
 
 <div class="col-md-4">
-    <form:form method="POST" modelAttribute="delemne" action="setKrav.htm">
+    <form:form method="POST" modelAttribute="delemne" action="lagDelemne">
         <h2>Opprett delemne</h2>
 
         <p style="color: green"><strong>${emnerett}</strong></p>
