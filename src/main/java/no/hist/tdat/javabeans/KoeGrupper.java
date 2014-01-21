@@ -16,6 +16,7 @@ public class KoeGrupper {
     private String kommentar;
     private ArrayList<Bruker>medlemmer;
     private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
+    private String faarHjelp;
 
 
     public KoeGrupper(){}
