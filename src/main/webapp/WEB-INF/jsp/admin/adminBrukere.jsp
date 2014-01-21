@@ -40,7 +40,7 @@
 
                 <tbody>
 
-                <c:forEach var="random" items="${personerBeans.valgt}" varStatus="status">
+                <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
 
                     <tr>
                         <td><c:out value="${bruker.fornavn}"/></td>

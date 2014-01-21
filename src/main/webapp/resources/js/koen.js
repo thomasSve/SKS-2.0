@@ -61,6 +61,7 @@ function settIKo(koe_id){
     xmlhttp.onreadystatechange = function () {
 
     }
+    alert(emne_id);
     xmlhttp.open("POST", "/settIKo.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("KoeIndex=" + koe_id);

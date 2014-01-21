@@ -95,7 +95,6 @@ public class NavigasjonsKontroller {
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
                                  Model model, HttpSession session, HttpServletRequest request){
-
         innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
         int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
         personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
