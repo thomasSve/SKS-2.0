@@ -2,6 +2,7 @@ package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Oving;
 import no.hist.tdat.javabeans.beanservice.EmneService;
+import no.hist.tdat.javabeans.beanservice.KoeService;
 import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,17 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class GodkjennKontroller {
     @Autowired
-    EmneService service;
+    KoeService service;
     /*
     @RequestMapping(value = "/hentUtKoPerson.htm")
     public String hentUtOving(@ModelAttribute("koPerson")
-     */  /*
+     */ /*
     @RequestMapping(value = "/godkjenn.htm")
     public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeBruker koeBruker, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
         String konummer = request.getParameter("koplass");
-        koeBruker.setKoe_plass(service.HentForstIKoe());
+        koeBruker.setKoe_plass(service.);
         //service.oppdaterBruker(oving, mail, ov_id);
         return "koeBruker";
-    }                */
+    }*/
 
 }

@@ -174,6 +174,13 @@ public class DatabaseConnector {
         return res;
     }
 
+    /**
+     * Oppdatterer en spesifikk brukers oving
+     *
+     * @param oving     Den ovingen du vil endre på
+     * @param mail      Mailen til den brukeren du vil endre øvingen til
+     * @param oving_id  Hvilken øving det dreier seg om.
+     */
     public boolean oppdaterOving(Oving oving, String mail, int oving_id) {
         if (oving == null) {
             return false;

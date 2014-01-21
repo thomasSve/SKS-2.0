@@ -32,6 +32,12 @@ public class KoeService {
         return databaseConnector.getKoe(koeId);
     }
 
+    /**
+     *
+     * @param mail      Bruker mail for å finne spesifikk bruker i koe
+     * @param koe_Id    bruker koe_id for å finne spesikk koe
+     * @return          Returnerer en liste over brukere som står i kø.
+     */
     public ArrayList<KoeBruker> getBrukerIKo(String mail, int koe_Id) {
         return databaseConnector.hentBrukerFraKo(mail, koe_Id);
     }
