@@ -23,11 +23,11 @@ function setKoeId(num){
     document.getElementById('hiddenKoe').value =num;
 }
 
-var delemnenr;
-var emnenr;
+var delemnenr;      //Index i bruker-objektet, IKKE i DB
+var emnenr;         //Index i bruker-objektet, IKKE i DB
 function mysubmit() {
-    var delemneNrField = document.getElementById("delemneNr");
-    var emneNrField = document.getElementById("emneNr");
+    var delemneNrField = document.getElementById("delemneNr");  //Index i bruker-objektet, IKKE i DB
+    var emneNrField = document.getElementById("emneNr");        //Index i bruker-objektet, IKKE i DB
     delemneNrField.value=delemnenr;
     emneNrField.value=emnenr;
     }

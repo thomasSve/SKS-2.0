@@ -51,22 +51,22 @@
 
         <tbody>
         <c:forEach var="koegrupper" items="${grupper}">
-            <tr>
+            <tr<c:if test="${koegrupper.}">
                 <td><c:out value="${koegrupper.klokkeslett}"/></td>
                 <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
                         value="${koegrupper.medlemmer[0].etternavn}"/></td>
                 <td><c:out value="${koegrupper.kommentar}"/></td>
                 <td><c:out value="${koegrupper.sitteplass}"/>,bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
-                    <div class="btn-group">
+                    <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
                         <button class="btn btn-primary" data-task="choose" title="Velg"
                                 onclick="location.href='godkjennOving.htm'"><i class="glyphicon glyphicon-edit"></i>
                         </button>
                         <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
-                                onclick="endreBruker()"><i class="glyphicon glyphicon-edit"></i>
+                                onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
                         </button>
                         <button class="btn btn-danger" data-task="remove" title="Fjern"
-                                onclick="slettBruker()"><i class="glyphicon glyphicon-remove"></i>
+                                onclick="slettBruker(this.parentNode.id)"><i class="glyphicon glyphicon-remove"></i>
                         </button>
                     </div>
                 </td>

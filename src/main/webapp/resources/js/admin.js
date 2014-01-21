@@ -30,6 +30,7 @@ function handleFileSelect(hendelse) {
 
  */
 function endreBruker(valgt) {
+
     if (document.getElementsByTagName("edit").value !== "ingen") {
         document.getElementById("operasjonstekst").innerHTML = "Endre bruker";
         document.getElementById("leggtilknapp").innerHTML = "Lagre endring";
