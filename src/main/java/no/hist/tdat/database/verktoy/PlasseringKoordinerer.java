@@ -21,7 +21,6 @@ public class PlasseringKoordinerer implements RowMapper<Plassering> {
     @Override
     public Plassering mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Plassering plass = new Plassering();
-        plass.setRomnr(resultSet.getString("romnr"));
         plass.setPlassering_navn(resultSet.getString("plassering_navn"));
         plass.setAnt_bord(resultSet.getInt("ant_bord"));
         return plass;

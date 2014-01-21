@@ -10,6 +10,7 @@
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />
+        <property name="DBNAME" value="sks" />
       </driver-properties>
       <libraries />
     </data-source>
