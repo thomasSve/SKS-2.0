@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by Roger Foss
+ * Created by vimCnett
  */
 @Controller
 
@@ -45,8 +45,8 @@ public class EndreStudentKontroller {
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
-        session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
-        session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+        //session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
+        //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
         session.setAttribute("valgtPerson", b);
         return "videresend";
     }
@@ -56,10 +56,11 @@ public class EndreStudentKontroller {
         String tilb = request.getParameter("tilbake");
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
-            session.removeAttribute("emnerUtenTilgang");
-            session.removeAttribute("studassFag");
+            //session.removeAttribute("emnerUtenTilgang");
+            //session.removeAttribute("studassFag");
             return "endreStudent";
         }
+        //session
         return "endreValgtStudent";
     }
 
@@ -76,9 +77,10 @@ public class EndreStudentKontroller {
             int delemne = Integer.parseInt(request.getParameter("delemne"));
             if (service.settStudass(emnekode,delemne,b.getMail())) {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
+                //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", "Dette delemnenummer finnes ikke");
             }
         }
         else if (fjern != null) {   //fjern fag
@@ -89,7 +91,7 @@ public class EndreStudentKontroller {
                 session.setAttribute("valgtPerson",b);
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn()+" har ikke tilgang til "+emnekode2);
             }
         }
         else if (leggTil != null) {  //legg til fag
@@ -107,10 +109,10 @@ public class EndreStudentKontroller {
             String emne4 = request.getParameter("emner4");
             if (service.fjernStudass(emne4,b.getMail())) {
                 modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
-                session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+                //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er ikke studentassistent i "+emne4);
             }
         }
         return "endreValgtStudent";
