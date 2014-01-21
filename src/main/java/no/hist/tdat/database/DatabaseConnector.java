@@ -2,7 +2,6 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
-import no.hist.tdat.koe.Koe;
 import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,6 +49,7 @@ public class DatabaseConnector {
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
+    private final String opprettEmneSQL = "INSERT INTO emner (emnekode, emnenavn) VALUES (?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES(?,?,?)";
     private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
@@ -323,7 +323,7 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
-        System.out.println("Kø id: " + koe_id + ", Ny Status: " + status);
+        System.out.println("Koe id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
@@ -588,5 +588,21 @@ public class DatabaseConnector {
         }
         return true;
     }
-}
 
+    /**
+     *
+     * @param emne
+     * @return
+     * @throws org.springframework.dao.DuplicateKeyException
+     */
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
+        if (emne == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(opprettEmneSQL,
+                emne.getEmneKode(),
+                emne.getEmneNavn());
+        return true;
+    }
+}

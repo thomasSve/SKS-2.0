@@ -30,17 +30,17 @@
         <div class="form-group">
             <label for="rettighet">Rettigheter</label>
             <form:select id="rettighet" class="form-control" path="rettighet">
-                <form:option value="3">Student</form:option>
-                <form:option value="2">Lærer</form:option>
-                <form:option value="1">Admin</form:option>
+                <option selected="selected" value="3">Student</option>
+                <option value="2">Lærer</option>
+                <option value="1">Admin</option>
             </form:select>
         </div>
 
         <div class="form-group">
             <label for="endrestatus">Status</label>
             <form:select path="aktiv" id="endrestatus" class="form-control" >
-                <form:option value="1"><i>Aktiv</i></form:option>
-                <form:option value="0">Inaktiv</form:option>
+                <option value="1">Aktiv</option>
+                <option value="0">Inaktiv</option>
             </form:select>
         </div>
 

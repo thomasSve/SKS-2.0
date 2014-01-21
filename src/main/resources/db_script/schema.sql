@@ -42,33 +42,34 @@ CREATE TABLE plassering (
   ENGINE = InnoDB;
 
 CREATE TABLE koe_gruppe (
-  koe_id          INT          NOT NULL AUTO_INCREMENT,
+  koe_id          INT          NOT NULL,
   gruppe_id       INT          NOT NULL,
   plassering_navn VARCHAR(255) NOT NULL,
   bordnummer      INT          NOT NULL,
-  tidspunkt       TIMESTAMP,
-  ovingsnummer    VARCHAR(30),
-  info            VARCHAR(255),
   koe_plass       INT          NOT NULL,
+  info            VARCHAR(255),
   faar_hjelp      VARCHAR(255),
-  CONSTRAINT koe_brukere_pk PRIMARY KEY (koe_id, gruppe_id)
+  tidspunkt       TIMESTAMP,
+  CONSTRAINT koe_gruppe_pk PRIMARY KEY (koe_id, gruppe_id)
 )
   ENGINE = InnoDB;
 
 CREATE TABLE gruppe (
-  gruppe_id INT AUTO_INCREMENT,
+  koe_id INT             NOT NULL,
+  gruppe_id INT,
   mail      VARCHAR(255) NOT NULL,
   leder     INT          NOT NULL DEFAULT 0,
-  CONSTRAINT gruppe_pk PRIMARY KEY (gruppe_id, mail)
+  CONSTRAINT gruppe_pk PRIMARY KEY (koe_id, gruppe_id, mail)
 )
-  ENGINE =InnoDB;
+  ENGINE = InnoDB;
 
 CREATE TABLE gruppe_oving (
-  gruppe_id INT NOT NULL,
-  oving_id  INT NOT NULL,
-  CONSTRAINT gruppe_oving_pk PRIMARY KEY (gruppe_id, oving_id)
+  gruppe_id INT           NOT NULL,
+  koe_id    INT           NOT NULL,
+  oving_id  INT           NOT NULL,
+  CONSTRAINT gruppe_oving_pk PRIMARY KEY (gruppe_id, koe_id, oving_id)
 )
-  ENGINE =InnoDB;
+  ENGINE = InnoDB;
 
 CREATE TABLE delemne (
   delemne_nr   INT          NOT NULL,
@@ -103,41 +104,58 @@ CREATE TABLE oving_brukere (
   mail         VARCHAR(255) NOT NULL,
   godkjent     TINYINT      NOT NULL,
   godkjent_av  VARCHAR(255),
-  godkjent_tid TIMESTAMP
+  godkjent_tid TIMESTAMP,
+  CONSTRAINT pk_oving_brukere PRIMARY KEY (oving_id, mail)
 )
   ENGINE = InnoDB;
 
-ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk1 FOREIGN KEY (gruppe_id) REFERENCES gruppe (gruppe_id)
+
+
+
+ALTER TABLE brukere ADD CONSTRAINT brukere_fk1 FOREIGN KEY (rettighet_id) REFERENCES rettighet (rettighet_id);
+
+ALTER TABLE delemne ADD CONSTRAINT delemne_fk1 FOREIGN KEY (emnekode) REFERENCES emner (emnekode);
+ALTER TABLE delemne ADD CONSTRAINT delemne_fk2 FOREIGN KEY (koe_id) REFERENCES koe (koe_id);
+
+ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode);
+
+ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk1 FOREIGN KEY (emnekode) REFERENCES emner (emnekode)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk2 FOREIGN KEY (koe_id) REFERENCES koe (koe_id);
-ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk3 FOREIGN KEY (plassering_navn) REFERENCES plassering (plassering_navn);
-ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk4 FOREIGN KEY (faar_hjelp) REFERENCES brukere (mail);
-
-
-ALTER TABLE gruppe ADD CONSTRAINT gruppe_fk1 FOREIGN KEY (mail) REFERENCES brukere (mail);
-
-ALTER TABLE gruppe_oving ADD CONSTRAINT gruppe_oving_fk1 FOREIGN KEY (gruppe_id) REFERENCES gruppe (gruppe_id);
-ALTER TABLE gruppe_oving ADD CONSTRAINT gruppe_oving_fk2 FOREIGN KEY (oving_id) REFERENCES oving (oving_id);
-
-ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk1 FOREIGN KEY (emnekode) REFERENCES emner (emnekode);
 ALTER TABLE emner_brukere ADD CONSTRAINT emner_brukere_fk2 FOREIGN KEY (mail) REFERENCES brukere (mail)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
-ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk1 FOREIGN KEY (mail) REFERENCES brukere (mail)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
-ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk2 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode);
-
-ALTER TABLE brukere ADD CONSTRAINT brukere_fk1 FOREIGN KEY (rettighet_id) REFERENCES rettighet (rettighet_id);
 
 ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk1 FOREIGN KEY (oving_id) REFERENCES oving (oving_id);
 ALTER TABLE oving_brukere ADD CONSTRAINT oving_brukere_fk2 FOREIGN KEY (mail) REFERENCES brukere (mail)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
 
-ALTER TABLE oving ADD CONSTRAINT oving_fk1 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode);
+ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk1 FOREIGN KEY (mail) REFERENCES brukere (mail)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+ALTER TABLE delemne_brukere ADD CONSTRAINT delemne_brukere_fk2 FOREIGN KEY (delemne_nr, emnekode) REFERENCES delemne (delemne_nr, emnekode)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
 
-ALTER TABLE delemne ADD CONSTRAINT delemne_fk1 FOREIGN KEY (emnekode) REFERENCES emner (emnekode);
-ALTER TABLE delemne ADD CONSTRAINT delemne_fk2 FOREIGN KEY (koe_id) REFERENCES koe (koe_id);
+ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk1 FOREIGN KEY (koe_id) REFERENCES koe (koe_id);
+ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk2 FOREIGN KEY (plassering_navn) REFERENCES plassering (plassering_navn)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+ALTER TABLE koe_gruppe ADD CONSTRAINT koe_gruppe_fk3 FOREIGN KEY (faar_hjelp) REFERENCES brukere (mail)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE gruppe_oving ADD CONSTRAINT gruppe_oving_fk1 FOREIGN KEY (koe_id, gruppe_id) REFERENCES koe_gruppe (koe_id, gruppe_id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+ALTER TABLE gruppe_oving ADD CONSTRAINT gruppe_oving_fk2 FOREIGN KEY (oving_id) REFERENCES oving (oving_id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE gruppe ADD CONSTRAINT gruppe_fk1 FOREIGN KEY (koe_id, gruppe_id) REFERENCES koe_gruppe (koe_id, gruppe_id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+ALTER TABLE gruppe ADD CONSTRAINT gruppe_fk2 FOREIGN KEY (mail) REFERENCES brukere (mail)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

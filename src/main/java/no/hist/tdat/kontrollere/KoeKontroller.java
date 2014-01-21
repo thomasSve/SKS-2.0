@@ -36,7 +36,6 @@ public class KoeKontroller {
         if(delEmne.isKoe_status()){
             delEmne.setKoe_status(false);
             emne_service.endreKoeStatus(koe_id, 0);
-            System.out.println("Hei");
             return "koOversikt";
         }
         emne_service.endreKoeStatus(koe_id, 1);

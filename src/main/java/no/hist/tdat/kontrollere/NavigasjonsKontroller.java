@@ -148,4 +148,9 @@ public class NavigasjonsKontroller {
         System.out.println("utlogget");
         return "loggInn";
     }
+
+    @RequestMapping("/opprettEmne.htm")
+    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
+        return "opprettEmne";
+    }
 }
