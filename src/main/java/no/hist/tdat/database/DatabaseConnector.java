@@ -43,7 +43,7 @@ public class DatabaseConnector {
     private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
-    private final String finnOvingerSQL = "SELECT * FROM koe_brukere, brukere WHERE koe_brukere.mail = brukere.mail AND koe_brukere.mail = ? AND koe_brukere.koe_id = ?";
+    private final String finnOvingerSQL = "SELECT * FROM koe_gruppe, gruppe, gruppe_oving WHERE koe_gruppe.gruppe_id = gruppe.gruppe_id AND gruppe.gruppe_id = gruppe_oving.gruppe_id AND gruppe.mail = ? AND koe_gruppe.koe_id = ? AND koe_gruppe.koe_plass = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, ovingsnummer, info, koe_plass) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
@@ -59,12 +59,12 @@ public class DatabaseConnector {
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
-    public ArrayList<KoeBruker> hentBrukerFraKo(String mail, int koe_id) {
+    public ArrayList<KoeBruker> hentBrukerFraKo(String mail, int koe_id, int koe_plass) {
         if (mail == null) {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<KoeBruker> koBrukerList = con.query(finnOvingerSQL, new KoeBrukerKoordinerer(), mail, koe_id);
+        List<KoeBruker> koBrukerList = con.query(finnOvingerSQL, new KoeBrukerKoordinerer(), mail, koe_id, koe_plass);
         ArrayList<KoeBruker> output = new ArrayList<>();
         for (KoeBruker denne : koBrukerList) {
             output.add(denne);
