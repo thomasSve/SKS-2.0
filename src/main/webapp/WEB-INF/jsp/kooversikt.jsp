@@ -59,7 +59,7 @@
             <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
             <td>
                 <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
-                    <button class="btn btn-primary" data-task="choose" title="Velg" id="${ko}:${koegrupper.gruppeID}}"
+                    <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.gruppeID}}"
                             onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
                     </button>
                     <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"

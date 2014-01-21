@@ -1,5 +1,7 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.database.verktoy.KoeGruppeKoordinerer;
+import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.Oving;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.koe.KoeBruker;
@@ -17,10 +19,20 @@ import javax.servlet.http.HttpServletRequest;
 public class GodkjennKontroller {
     @Autowired
     EmneService service;
-    /*
-    @RequestMapping(value = "/hentUtKoPerson.htm")
-    public String hentUtOving(@ModelAttribute("koPerson")
-     */  /*
+
+    @RequestMapping(value = "/hentUtKoGruppe.htm")
+    public String hentUtKoGruppe(@ModelAttribute("koeGrupper") KoeGrupper koeGrupper, HttpServletRequest request){
+        String gruppeIndex = request.getParameter("brukerLederIndex");
+        return "godkjennOving";
+    }
+
+
+
+
+
+
+
+/*
     @RequestMapping(value = "/godkjenn.htm")
     public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeBruker koeBruker, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
         String konummer = request.getParameter("koplass");
