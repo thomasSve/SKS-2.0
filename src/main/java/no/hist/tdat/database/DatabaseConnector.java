@@ -51,7 +51,7 @@ public class DatabaseConnector {
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
-    private final String settStudassSQL = "INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES(?,?,?)";
+    private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
 
     @Autowired
@@ -515,13 +515,13 @@ public class DatabaseConnector {
      * @param mail id-mail og emnekode og delemne
      * @return boolean
      */
-    public boolean settStudass(String emnekode, int delEmne, String mail) {
-        if (mail == null || emnekode == null) {
+    public boolean settStudass(String emnenavn,String mail) {
+        if (mail == null || emnenavn == null) {
             return false;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         try {
-            con.update(settStudassSQL, mail, emnekode, delEmne);
+            con.update(settStudassSQL, mail, emnenavn, emnenavn);
         } catch (Exception e) {
             return false;
         }
@@ -538,8 +538,10 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         try {
             con.update(fjernStudassSQL, mail, navn, navn);
+            System.out.println("riktig");
         }
         catch (Exception e) {
+            System.out.println("feil");
             return false;
         }
         return true;

@@ -45,8 +45,6 @@ public class EndreStudentKontroller {
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
-        //session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
-        //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
         session.setAttribute("valgtPerson", b);
         return "videresend";
     }
@@ -56,8 +54,6 @@ public class EndreStudentKontroller {
         String tilb = request.getParameter("tilbake");
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
-            //session.removeAttribute("emnerUtenTilgang");
-            //session.removeAttribute("studassFag");
             return "endreStudent";
         }
         //session
@@ -73,14 +69,12 @@ public class EndreStudentKontroller {
         Bruker b = (Bruker) session.getAttribute("valgtPerson");
 
         if (lagre != null) {    //sett som studass
-            String emnekode = request.getParameter("emner");
-            int delemne = Integer.parseInt(request.getParameter("delemne"));
-            if (service.settStudass(emnekode,delemne,b.getMail())) {
-                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
-                //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+            String emnenavn = request.getParameter("emner");
+            if (service.settStudass(emnenavn,b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnenavn);
             }
             else {
-                modell.addAttribute("forrigeOp", "Dette delemnenummer finnes ikke");
+                modell.addAttribute("forrigeOp", "Dette delemnenummer finnes ikke, eller student er allerede studentassistent i faget");
             }
         }
         else if (fjern != null) {   //fjern fag
@@ -109,10 +103,11 @@ public class EndreStudentKontroller {
             String emne4 = request.getParameter("emner4");
             if (service.fjernStudass(emne4,b.getMail())) {
                 modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
-                //session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
+                System.out.println("kontroller rett");
             }
             else {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er ikke studentassistent i "+emne4);
+                System.out.println("kontroller feil");
             }
         }
         return "endreValgtStudent";

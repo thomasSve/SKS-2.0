@@ -35,18 +35,16 @@
         <tr>
             <td>
                 <div class="form-group">
-                    <div class="form-group">
                         <div class="form-group">
                             <label for="emner">Gjør til studentassistent i valgte fag:</label>
                             <select id="emner" name="emner" class="form-control">
-                                <c:forEach var="emne" items="${sessionScope.innloggetBruker.emne}" varStatus="status">
-                                    <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
+                                <c:forEach var="emne" items="${sessionScope.innloggetBruker.emne}">
+                                    <c:forEach var="delemne" items="${emne.delemner}">
+                                        <option value="${delemne.delEmneNavn}"><c:out value="${delemne.delEmneNavn}"/></option>
+                                    </c:forEach>
                                 </c:forEach>
                             </select>
                         </div>
-                        <label for="delemne">Delemne nr:</label> <br>
-                        <input type="number" name="delemne" id="delemne" value="1" min="1"/>
-                    </div>
                     <input type="submit" class="btn btn-success" value="Lagre" name="lagre"/>
                 </div>
             </td>
@@ -76,7 +74,7 @@
             <td>
                 <div class="form-group">
                     <div class="form-group">
-                        <label for="emner3">Gi tilgang til valgte fag:</label>
+                        <label for="emner3">Gi tilgang til valgte emne:</label>
                         <select id="emner3" name="emner3" class="form-control">
                             <c:forEach var="emne" items="${sessionScope.innloggetBruker.emne}" varStatus="status">
                                 <option value="${emne.emneKode}"><c:out value="${emne.emneKode}"/></option>
