@@ -153,4 +153,9 @@ public class NavigasjonsKontroller {
     public String opprettEmne(@ModelAttribute("emne") Emne emne) {
         return "opprettEmne";
     }
+
+    @RequestMapping("/opprettDelemne.htm")
+    public String opprettDelemne(@ModelAttribute("delemne") DelEmne delEmne) {
+        return "opprettDelemne";
+    }
 }

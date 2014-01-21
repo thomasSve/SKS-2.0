@@ -10,6 +10,14 @@ public class Koe {
     private int koeId;
     private boolean aapen;
 
+    public Koe (){
+
+    }
+
+    public Koe (int koeId){
+        this.koeId = koeId;
+    }
+
     public ArrayList<KoeGrupper> getGrupper() {
         return grupper;
     }
