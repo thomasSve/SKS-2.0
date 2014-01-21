@@ -66,7 +66,6 @@ function settIKo(koe_id){
     xmlhttp.onreadystatechange = function () {
 
     }
-    alert(emne_id);
     xmlhttp.open("POST", "/settIKo.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("KoeIndex=" + koe_id);
@@ -95,6 +94,29 @@ function StillIKo(emne_id){
 }
 function oppdaterKoe(){
     //TODO TED
+}
+function visBilde(sitteplass) {
+
+    switch (sitteplass.value) {
+        case ("Labben 2.etg"):
+            document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/lab.png'/>' style='padding:1px;border:thin solid black;'/>";
+            break;
+        case "Polareal 1.etg":
+            document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/pol.png'/>' style='padding:1px;border:thin solid black;'/>";
+            break;
+        case  "Sukkerhuset 4.etg":
+            document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/nettlab.png'/>' style='padding:1px;border:thin solid black;'/>";
+            break;
+    }
+    if (document.getElementById("sitteplass").value === "tom") {
+        document.getElementById("bordnr").disabled = true;
+    } else {
+        document.getElementById("bordnr").disabled = false;
+    }
+
+}
+function hentBord(){
+    document.getElementById("bordnr").disabled = false;
 }
 //Fjernet visadmin, statuskoe og var statusknapp.
 

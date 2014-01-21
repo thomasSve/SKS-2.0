@@ -11,11 +11,11 @@
     <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord()">
                 <option id="tom" value="tom">Velg Sitteplass</option>
-                <c:forEach items="${plassering}" var="plassering">
+                <c:forEach items="${plassering}" var="plass">
                     <form:option onclick="visBilde(this.value)" id="plassering"
-                                 value="plassering">${plassering.plassering_navn}</form:option>
+                                 value="${plass}">${plass.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -32,11 +32,10 @@
 
             </form:select>
         </div>
-
         <div class="form-group">
-            <label for="oving">Oving:</label>
+            <label for="oving">&Oslash;ving:</label>
             <form:select id="oving" multiple="true" class="form-control" path="ovinger">
-                <c:forEach items="${delEmne.studentovinger}" var="ovinger">
+                <c:forEach items="${oving}" var="ovinger">
                     <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
                 </c:forEach>
             </form:select>
@@ -61,29 +60,7 @@
 <div id="bilde">
 
 </div>
+<script src="<c:url value="/resources/js/koen.js"/>"></script>
 <%-- Svart ramme rundt bildet --%>
 <%-- style="float:right"   align="right" --%>
-<script>
-    function visBilde(sitteplass) {
-
-        switch (sitteplass.value) {
-            case ("Labben 2.etg"):
-                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/lab.png'/>' style='padding:1px;border:thin solid black;'/>";
-                break;
-            case "Polareal 1.etg":
-                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/pol.png'/>' style='padding:1px;border:thin solid black;'/>";
-                break;
-            case  "Sukkerhuset 4.etg":
-                document.getElementById("bilde").innerHTML = "<img src='<c:url value='/resources/img/nettlab.png'/>' style='padding:1px;border:thin solid black;'/>";
-                break;
-        }
-        if (document.getElementById("sitteplass").value === "tom") {
-            document.getElementById("bordnr").disabled = true;
-        } else {
-            document.getElementById("bordnr").disabled = false;
-        }
-
-    }
-</script>
-
 <%--  <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">  --%>

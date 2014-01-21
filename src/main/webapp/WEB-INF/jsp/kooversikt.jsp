@@ -18,11 +18,10 @@
     </h3>
     <div class="list-inline">
         <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
-            <input type="hidden" name="hiddenKoe" id="hiddenKoe"/>
-            <input type="hidden" name="hiddenEmneNavn" id="hiddenEmneNavn"/>
-            <button class="btn btn-sm btn-primary" id="stillIKo"
-                    onclick="clicked=${delEmne.koe_id}, emnenr=${delEmne.nr}" value="${delEmne.koe_id}">Still i
-                k&oslash;</button>
+            <input type="hidden" name="emneNr" id="emneNr"/>
+            <input type="hidden" name="delemneNr" id="delemneNr"/>
+            <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
+                    onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;">
         </form>
         <%
             DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
@@ -50,7 +49,7 @@
 
 
         <tbody>
-        <c:forEach var="koegrupper" items="${grupper}">
+       <%-- <c:forEach var="koegrupper" items="${grupper}">
             <tr<c:if test="${koegrupper.}">
                 <td><c:out value="${koegrupper.klokkeslett}"/></td>
                 <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
@@ -71,7 +70,7 @@
                     </div>
                 </td>
             </tr>
-        </c:forEach>
+        </c:forEach>--%>
         </tbody>
     </table>
 </div>
