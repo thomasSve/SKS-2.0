@@ -582,7 +582,13 @@ public class DatabaseConnector {
         return true;
     }
 
-    public boolean leggTilEmne(Emne emne){
+    /**
+     *
+     * @param emne
+     * @return
+     * @throws org.springframework.dao.DuplicateKeyException
+     */
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
         if (emne == null) {
             return false;
         }
@@ -593,4 +599,3 @@ public class DatabaseConnector {
         return true;
     }
 }
-

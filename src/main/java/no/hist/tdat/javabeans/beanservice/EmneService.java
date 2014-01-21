@@ -79,8 +79,8 @@ public class EmneService {
         return databaseConnector.hentStudassFag(mail);
     }
 
-    public boolean leggTilEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
-        return databaseConnector.leggTilEmne(emne);
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
+        return databaseConnector.opprettEmne(emne);
 
     }
 
