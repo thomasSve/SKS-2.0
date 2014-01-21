@@ -11,11 +11,11 @@
     <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord()">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord(this)">
                 <option id="tom" value="tom">Velg Sitteplass</option>
                 <c:forEach items="${plassering}" var="plass">
                     <form:option onclick="visBilde(this.value)" id="plassering"
-                                 value="${plass}">${plass.plassering_navn}</form:option>
+                                 value="${plass.ant_bord}">${plass.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -29,7 +29,6 @@
                <%-- <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
                     <form:option value="bordNr">bordNr</form:option>
                 </c:forEach>--%>
-
             </form:select>
         </div>
         <div class="form-group">

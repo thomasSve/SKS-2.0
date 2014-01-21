@@ -156,4 +156,6 @@ public class NavigasjonsKontroller {
     public String opprettEmne(@ModelAttribute("emne") Emne emne) {
         return "opprettEmne";
     }
+
+
 }
