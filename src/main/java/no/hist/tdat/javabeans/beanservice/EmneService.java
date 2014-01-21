@@ -83,5 +83,8 @@ public class EmneService {
         return databaseConnector.opprettEmne(emne);
 
     }
+    public ArrayList<Oving> hentDelEmneOving(int delemne_nr, String emnekode){
+        return databaseConnector.hentDelEmneOving(delemne_nr, emnekode);
+    }
 
 }

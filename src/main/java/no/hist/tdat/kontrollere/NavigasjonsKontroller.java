@@ -100,11 +100,12 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-        ArrayList<Oving> oving = delEmne.getStudentovinger();
+        ArrayList<Oving> oving = emneService.hentDelEmneOving(delemneNr, delEmne.getEmneKode());
         personerBeans.setValgt(service.getMedstudenter(delEmne.getEmneKode(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
         DelEmne denne = koeservice.hentDelEmneStatus(delEmne.getKoe_id());
         delEmne.setKoe_status(denne.isKoe_status());
+
         model.addAttribute("oving", oving);
         model.addAttribute("plassering", koeservice.getPlasseringer());
         model.addAttribute("delEmne", delEmne);
