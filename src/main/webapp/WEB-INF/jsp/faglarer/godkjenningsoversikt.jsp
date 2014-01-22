@@ -37,7 +37,7 @@
 
 <h2>
     <div class="text-info">
-        Delemne: <c:out value="${valgtFag.delEmneNavn}"/>
+        Delemne: <c:out value="${sessionScope.ovingsoversikt[0].emne[0].delemner[0].delEmneNavn}"/>
     </div>
 </h2>
 
@@ -50,10 +50,17 @@
     </thead>
 
     <tbody>
-    <c:forEach var="pers" items="${sessionScope.alle}">
+    <c:forEach var="pers" items="${sessionScope.ovingsoversikt}" varStatus="personTeller">
         <tr>
             <td><c:out value="${pers.fornavn}"/>&nbsp;<c:out value="${pers.etternavn}"/></td>
-            <td>hei</td>
+
+            <td>
+
+                <c:forEach var="ovng" items="${pers.emne[0].delemner[0].studentovinger}">
+                hei
+                </c:forEach>
+            </td>
+
         </tr>
     </c:forEach>
     </tbody>

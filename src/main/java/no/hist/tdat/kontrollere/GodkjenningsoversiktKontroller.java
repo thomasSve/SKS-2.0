@@ -30,29 +30,30 @@ public class GodkjenningsoversiktKontroller {
         String emne = request.getParameter("emne");
 
         ArrayList<Emne> em = new ArrayList<Emne>();
-        Emne emnet = new Emne();    //lager emnet
-        emnet.setEmneKode(emne);
+        Emne emnet = service2.hentEmne(emne);    //lager emnet
+        em.add(emnet);
 
         DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
         ArrayList<DelEmne> a = new ArrayList<DelEmne>();
         a.add(delEmne);
-        emnet.setDelemner(a);
 
         ArrayList<Bruker> alle = service.finnStudenterIDelemne(delEmne.getDelEmneNavn());   //alle med faget
 
-
-
         for (int i = 0; i < alle.size(); i++) {
             Bruker br = alle.get(i);
-
-
-            em.add(emnet);
+            ArrayList<Oving> ovinger = service.hentOvinger(emne,br.getMail());    //henter øvinger til delemnet
+                System.out.println(ovinger.size());
+            delEmne.setStudentovinger(ovinger);
+            emnet.setDelemner(a);
             br.setEmne(em);
-
-            ArrayList<Oving> ovinger = service.hentOvinger(emne);    //henter øvinger til delemnet
         }
 
+        System.out.println("Emne: "+emne);
 
-        emnet.setDelemner(a);   //setter delemnet inn i emnet
+        for (int i = 0; i < alle.size(); i++) {
+            System.out.println(alle.get(i).getEtternavn()+ " ant øvinger:  "+alle.get(i).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
+        }
+
+        session.setAttribute("ovingsoversikt", alle);
     }
 }

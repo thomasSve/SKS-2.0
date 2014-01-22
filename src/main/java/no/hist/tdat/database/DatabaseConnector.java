@@ -56,6 +56,7 @@ public class DatabaseConnector {
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
     private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
+    private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -622,5 +623,16 @@ public class DatabaseConnector {
             res.add(plass);
         }
         return res;
+    }
+
+    /**
+     * Henter emne, gitt navn på delemne
+     * @param navn
+     * @return emnet
+     */
+    public Emne hentEmne(String navn) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> emne = con.query(hentEmneSQL, new EmneKoordinerer(), navn);
+        return emne.get(0);
     }
 }

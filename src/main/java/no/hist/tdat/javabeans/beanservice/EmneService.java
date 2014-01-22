@@ -74,5 +74,14 @@ public class EmneService {
         return databaseConnector.opprettEmne(emne);
     }
 
+    /**
+     * Henter emne, gitt navn på delemne
+     *
+     * @param navn
+     * @return emne
+     */
+    public Emne hentEmne(String navn){
+        return databaseConnector.hentEmne(navn);
+    }
 
-}
+    }
