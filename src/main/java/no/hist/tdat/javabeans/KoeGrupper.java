@@ -1,5 +1,9 @@
 package no.hist.tdat.javabeans;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,17 +15,20 @@ public class KoeGrupper {
     private int gruppeID;
     private int koePlassering;
     private Bruker gruppeLeder; // TODO fjernes
+    @NotBlank
     private String sitteplass;
+    @NotNull
     private int bordnr;
+    private int koe_id;
     private String kommentar;
     private ArrayList<Bruker>medlemmer;
-    private ArrayList<Integer>ovinger;  // hvilke øvinger som ønskes godkjent
+    private ArrayList<Oving>ovinger;  // hvilke øvinger som ønskes godkjent
     private String faarHjelp;
 
 
     public KoeGrupper(){}
 
-    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger) {
+    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Oving> ovinger) {
         this.klokkeslett = klokkeslett;
         this.koePlassering = koePlassering;
         this.gruppeLeder = gruppeLeder;
@@ -96,11 +103,11 @@ public class KoeGrupper {
         this.medlemmer = medlemmer;
     }
 
-    public ArrayList<Integer> getOvinger() {
+    public ArrayList<Oving> getOvinger() {
         return ovinger;
     }
 
-    public void setOvinger(ArrayList<Integer> ovinger) {
+    public void setOvinger(ArrayList<Oving> ovinger) {
         this.ovinger = ovinger;
     }
 
@@ -111,6 +118,14 @@ public class KoeGrupper {
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
+    }
+
+    public int getKoe_id() {
+        return koe_id;
+    }
+
+    public void setKoe_id(int koe_id) {
+        this.koe_id = koe_id;
     }
 
     @Override

@@ -99,15 +99,25 @@ public class NavigasjonsKontroller {
         int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
-        delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+        Emne emne = innloggetBruker.getEmne().get(emnenr);
+        delEmne = emne.getDelemner().get(delemneNr);
+        ArrayList<Oving> oving = delEmne.getStudentovinger();
+        ArrayList<Oving> ikkeGodkjent = new ArrayList<Oving>();
+        for(int i = 0; i<oving.size(); i++){
+            if(!oving.get(i).isGodkjent()){
+                ikkeGodkjent.add(oving.get(i));
+            }
+        }
         personerBeans.setValgt(service.getMedstudenter(delEmne.getEmneKode(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
         DelEmne denne = koeservice.hentDelEmneStatus(delEmne.getKoe_id());
         delEmne.setKoe_status(denne.isKoe_status());
-
-        model.addAttribute("oving", emneService.hentDelEmneOving(delemneNr, delEmne.getEmneKode()));
+        System.out.println("Bruker: " + innloggetBruker.getFornavn() + ", Emne: " + emne.getEmneKode() + ", DelEmne: " + delEmne.getNr() + ", AntOving: " + delEmne.getStudentovinger().size());
+        model.addAttribute("oving", ikkeGodkjent);
         model.addAttribute("plassering", koeservice.getPlasseringer());
         model.addAttribute("delEmne", delEmne);
+        model.addAttribute("emneIndex",emnenr);
+        model.addAttribute("delEmneIndex", delemneNr);
 
         return "settIKo";
     }

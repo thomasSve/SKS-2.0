@@ -42,9 +42,21 @@ public class KoeService {
         return databaseConnector.hentBrukerFraKo(mail, koe_Id, koe_plass);
     }
 
-    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, int koe_id) {
-        return databaseConnector.leggTilIKo(koeGruppe, delEmne, koe_id);
-
+    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne) {
+       if(databaseConnector.leggTilKoGruppe(koeGruppe)){
+           int leder = 0;
+           for(int i = 0; i<koeGruppe.getMedlemmer().size(); i++){
+               if(i==0){
+                   leder = 1;
+               }
+               databaseConnector.leggTilGruppeMedlem(delEmne.getKoe_id(), koeGruppe.getGruppeID(),koeGruppe.getMedlemmer().get(i).getMail(), leder);
+           }
+           for(int i = 0; i<koeGruppe.getOvinger().size(); i++){
+               databaseConnector.leggTilGruppeOving(koeGruppe.getGruppeID(), delEmne.getKoe_id() ,koeGruppe.getOvinger().get(i).getOving_id());
+           }
+           return true;
+        }
+        return false;
     }
     public DelEmne hentDelEmneStatus(int koeId){
         return databaseConnector.getKoeObjekt(koeId);
