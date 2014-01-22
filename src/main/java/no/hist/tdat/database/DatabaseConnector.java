@@ -2,7 +2,6 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
-import no.hist.tdat.koe.Koe;
 import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,12 +43,13 @@ public class DatabaseConnector {
     private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
-    private final String finnOvingerSQL = "SELECT * FROM koe_brukere, brukere WHERE koe_brukere.mail = brukere.mail AND koe_brukere.mail = ? AND koe_brukere.koe_id = ?";
+    private final String finnOvingerSQL = "SELECT * FROM koe_gruppe, gruppe, gruppe_oving WHERE koe_gruppe.gruppe_id = gruppe.gruppe_id AND gruppe.gruppe_id = gruppe_oving.gruppe_id AND gruppe.mail = ? AND koe_gruppe.koe_id = ? AND koe_gruppe.koe_plass = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
     private final String leggTilIKoSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, ovingsnummer, info, koe_plass) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
+    private final String opprettEmneSQL = "INSERT INTO emner (emnekode, emnenavn) VALUES (?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
@@ -58,14 +58,21 @@ public class DatabaseConnector {
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
 
-    public ArrayList<KoeBruker> hentBrukerFraKo(String mail, int koe_id) {
+    /**
+     *
+     * @param mail
+     * @param koe_id
+     * @param koe_plass
+     * @return
+     */
+    public ArrayList<KoeGrupper> hentBrukerFraKo(String mail, int koe_id, int koe_plass) {
         if (mail == null) {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<KoeBruker> koBrukerList = con.query(finnOvingerSQL, new KoeBrukerKoordinerer(), mail, koe_id);
-        ArrayList<KoeBruker> output = new ArrayList<>();
-        for (KoeBruker denne : koBrukerList) {
+        List<KoeGrupper> koeGrupperList = con.query(finnOvingerSQL, new KoeGruppeKoordinerer(), mail, koe_id, koe_plass);
+        ArrayList<KoeGrupper> output = new ArrayList<>();
+        for (KoeGrupper denne : koeGrupperList) {
             output.add(denne);
         }
         return output;
@@ -173,6 +180,13 @@ public class DatabaseConnector {
         return res;
     }
 
+    /**
+     * Oppdatterer en spesifikk brukers oving
+     *
+     * @param oving     Den ovingen du vil endre pÃ¥
+     * @param mail      Mailen til den brukeren du vil endre Ã¸vingen til
+     * @param oving_id  Hvilken Ã¸ving det dreier seg om.
+     */
     public boolean oppdaterOving(Oving oving, String mail, int oving_id) {
         if (oving == null) {
             return false;
@@ -315,7 +329,6 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
-        System.out.println("Kø id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
@@ -546,6 +559,7 @@ public class DatabaseConnector {
         return true;
     }
 
+
     /**
      * Henter delemne, gitt navn
      *
@@ -557,5 +571,23 @@ public class DatabaseConnector {
         List<DelEmne> emne = con.query(hentDelemneSQL, new DelEmneKoordinerer(), navn);
         return emne.get(0);
     }
-}
 
+
+
+    /**
+     *
+     * @param emne
+     * @return
+     * @throws org.springframework.dao.DuplicateKeyException
+     */
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
+        if (emne == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(opprettEmneSQL,
+                emne.getEmneKode(),
+                emne.getEmneNavn());
+        return true;
+    }
+}

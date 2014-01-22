@@ -45,6 +45,7 @@
 
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
+            <li><a href="opprettEmne.htm" >Opprett emne</a></li>
             <li><a href="adminFag.htm">Administrer fag</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>

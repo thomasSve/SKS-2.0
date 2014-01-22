@@ -1,8 +1,10 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
-import no.hist.tdat.javabeans.*;
+import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.Oving;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -54,7 +56,6 @@ public class EmneService {
         return databaseConnector.hentEmnerForStud(mail);
     }
 
-
     public DelEmne hentDelEmne (int koe_id){
         return databaseConnector.hentDelEmne(koe_id);
     }
@@ -67,6 +68,11 @@ public class EmneService {
      */
     public DelEmne hentDelemne(String navn){
         return databaseConnector.hentDelemne(navn);
+    }
+
+    public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
+        return databaseConnector.opprettEmne(emne);
+
     }
 
 }

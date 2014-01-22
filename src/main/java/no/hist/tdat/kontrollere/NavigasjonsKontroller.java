@@ -166,5 +166,11 @@ public class NavigasjonsKontroller {
         System.out.println(valgtEmne.getDelEmneNavn());
 
         return "godkjenningsoversikt";
+
+    }
+
+    @RequestMapping("/opprettEmne.htm")
+    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
+        return "opprettEmne";
     }
 }
