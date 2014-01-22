@@ -50,14 +50,14 @@ public class DatabaseConnector {
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String opprettEmneSQL = "INSERT INTO emner (emnekode, emnenavn) VALUES (?,?)";
-    private final String opprettDelemneSQL = "INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES (?,?,?,?,?,?,?)";
+    private final String opprettDelemneSQL = "INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester) VALUES (?,?,?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail, emnekode, delemne_nr) VALUES(?,?,?)";
     private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
     private final String hentStudassFagSQL = "SELECT * FROM delemne_brukere JOIN delemne ON delemne_brukere.emnekode LIKE delemne.emnekode AND delemne.delemne_nr LIKE delemne_brukere.delemne_nr WHERE delemne_brukere.mail LIKE ?";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
     private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
-    private final String hentSisteKoeSQL = "SELECT MAX(koe_id) FROM koe";
+    private final String hentSisteKoeSQL = "SELECT koe_id FROM koe ORDER BY koe_id DESC";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -603,11 +603,10 @@ public class DatabaseConnector {
     }
 
     public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException {
-        System.out.println("3");
         if (delEmne == null) {
             return false;
         }
-        System.out.println(delemneIKoe().getKoeId());
+        delEmne.setKoe_id(delemneIKoe().getKoeId());
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(opprettDelemneSQL,
                 delEmne.getNr(),
@@ -621,13 +620,11 @@ public class DatabaseConnector {
     public Koe delemneIKoe(){
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(delemneIKoeSQL,0);
-        System.out.println("1");
         List <Koe> alle = con.query(hentSisteKoeSQL, new KoeKoordinator());
         ArrayList<Koe> res = new ArrayList<Koe>();
         for (Koe koe : alle) {
             res.add(koe);
         }
-        System.out.println("2");
         return res.get(0);
     }
 

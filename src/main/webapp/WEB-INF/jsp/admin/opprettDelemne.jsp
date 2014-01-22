@@ -31,8 +31,8 @@
             <form:input path="semester" id="semester" class="form-control" required="true"/>
         </div>
         <div class="btn-input-group">
-        <input type="submit" class="btn btn-primary col-md-6" value="+delemne"/>
-        <input type="submit" class="btn btn-primary col-md-6" value="Legg til"/>
+            <input type="submit" class="btn btn-primary col-md-6" value="+delemne"/>
+            <input type="submit" class="btn btn-primary col-md-6" value="Legg til"/>
         </div>
     </form:form>
 </div>
