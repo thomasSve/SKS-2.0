@@ -55,6 +55,7 @@ public class DatabaseConnector {
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
+    private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -602,6 +603,22 @@ public class DatabaseConnector {
         ArrayList<Bruker> res = new ArrayList<Bruker>();
 
         for (Bruker plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
+    }
+
+    /**
+     * Henter alle øvinger til en student i et delemne
+     * @param navn, epost
+     * @return tab over alle treff
+     */
+    public ArrayList<Oving> hentOvinger(String navn, String epost) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> plassListe = con.query(hentOvingerSQL, new OvingKoordinerer(), epost, navn, navn);
+        ArrayList<Oving> res = new ArrayList<Oving>();
+
+        for (Oving plass : plassListe) {
             res.add(plass);
         }
         return res;

@@ -29,27 +29,30 @@ public class GodkjenningsoversiktKontroller {
     public void hentRiktigEmne(HttpServletRequest request, HttpSession session) {
         String emne = request.getParameter("emne");
 
+        ArrayList<Emne> em = new ArrayList<Emne>();
         Emne emnet = new Emne();    //lager emnet
         emnet.setEmneKode(emne);
 
         DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
         ArrayList<DelEmne> a = new ArrayList<DelEmne>();
         a.add(delEmne);
+        emnet.setDelemner(a);
 
-        ArrayList<Oving> ovinger = service.hentOvinger(String emne);    //henter øvinger til delemnet
+        ArrayList<Bruker> alle = service.finnStudenterIDelemne(delEmne.getDelEmneNavn());   //alle med faget
 
+
+
+        for (int i = 0; i < alle.size(); i++) {
+            Bruker br = alle.get(i);
+
+
+            em.add(emnet);
+            br.setEmne(em);
+
+            ArrayList<Oving> ovinger = service.hentOvinger(emne);    //henter øvinger til delemnet
+        }
 
 
         emnet.setDelemner(a);   //setter delemnet inn i emnet
-
-        session.setAttribute("valgtFag",delEmne);
-
-        ArrayList<Bruker> alle = service.finnStudenterIDelemne(delEmne.getDelEmneNavn());
-
-
-
-        session.setAttribute("alle",alle);
-
-
     }
 }

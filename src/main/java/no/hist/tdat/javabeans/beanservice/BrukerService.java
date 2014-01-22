@@ -2,6 +2,7 @@ package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.Oving;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -145,12 +146,12 @@ public class BrukerService {
     }
 
     /**
-     * Slett studass
+     * henter øvinger til bruker
      *
      * @param delEmne og mail
-     * @return boolean
+     * @return Arraylist med øvinger
      */
-    public boolean fjernStudass(String delEmne, String mail) {
-        return databaseConnector.fjernStudass(delEmne, mail);
+    public ArrayList<Oving> hentOvinger(String delEmne, String mail) {
+        return databaseConnector.hentOvinger(delEmne, mail);
     }
 }
