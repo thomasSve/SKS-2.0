@@ -75,6 +75,12 @@ public class KoeKontroller {
         Emne emne = innloggetBruker.getEmne().get(emnenr);
         DelEmne delEmne = emne.getDelemner().get(delemneNr);
         koegrupper.setKoe_id(delEmne.getKoe_id());
+        ArrayList<Bruker> medlemmer = new ArrayList<>();
+        medlemmer.add(innloggetBruker);
+        for(int i = 0; i<koegrupper.getMedlemmer().size(); i++){
+            medlemmer.add(koegrupper.getMedlemmer().get(i));
+        }
+        koegrupper.setMedlemmer(medlemmer);
         String oving = "";
         for(int i = 0; i<koegrupper.getOvingnr().size(); i++){
             oving = "Øving " + koegrupper.getOvingnr().get(i) + ", ";

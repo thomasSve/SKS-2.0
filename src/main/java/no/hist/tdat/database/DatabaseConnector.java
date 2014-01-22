@@ -49,8 +49,8 @@ public class DatabaseConnector {
     private final String leggTilKoGruppeSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, info, koe_plass, tidspunkt) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
     private final String maxKoe_PlassSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY koe_plass DESC";
     private final String maxGruppeIdSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY gruppe_id DESC";
-    private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (?, ?) ";
-    private final String leggTilGruppeMedlemSQL = "INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (?, ?, ?)";
+    private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, koe_id ,oving_id) VALUES (?, ?, ?) ";
+    private final String leggTilGruppeMedlemSQL = "INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (?, ?, ?, ?)";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -511,7 +511,7 @@ public class DatabaseConnector {
      * @return true or false, om updaten gjekk gjennom eller ikke
      * Author Thomas
      */
-    public boolean leggTilKoGruppe(KoeGrupper koeGruppe, String oving) {
+    public boolean leggTilKoGruppe(KoeGrupper koeGruppe, String oving, int gruppeID) {
         if (koeGruppe == null) {
             return false;
         }
@@ -526,7 +526,7 @@ public class DatabaseConnector {
         con.update(
                 leggTilKoGruppeSQL,                                   //koe_id, gruppe_id, plassering_navn, bordnummer, info, koe_plass, tidspunkt
                 koeGruppe.getKoe_id(),
-                finnMaxGruppeId(koeGruppe.getKoe_id()),
+                gruppeID,
                 koeGruppe.getSitteplass(),
                 koeGruppe.getBordnr(),
                 koeGruppe.getKommentar(),
@@ -560,9 +560,15 @@ public class DatabaseConnector {
      * @param leder
      * @return
      */
-    public boolean leggTilGruppeMedlem(int gruppe_id, String mail, int leder){           //gruppe_id, mail, leder(0 elr 1)
+    public boolean leggTilGruppeMedlem(int koe_id,int gruppe_id, String mail, int leder){           //koe_id,  gruppe_id, mail, leder(0 elr 1)
+        System.out.println(
+                "Ko_id: " +  koe_id + ", " +
+                        "GruppeID: " + gruppe_id + ", "  +
+                        "Mail: " + mail + ", " +
+                        "Leder: " + leder + "");
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggTilGruppeMedlemSQL,
+                    koe_id,
                     gruppe_id,
                     mail,
                     leder);
@@ -576,10 +582,15 @@ public class DatabaseConnector {
      * @param oving_id
      * @return
      */
-    public boolean leggTilGruppeOving(int gruppe_id, int koe_id, int oving_id){      //gruppe_id, oving_id
+    public boolean leggTilGruppeOving(int gruppe_id, int koe_id, int oving_id){      //gruppe_id, koe_id ,oving_id
+        System.out.println(
+                "Ko_id: " +  koe_id + ", " +
+                        "GruppeID: " + gruppe_id + ", "  +
+                        "ØvingID: " + oving_id);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggtilGruppeOvingSQL,
                 gruppe_id,
+                koe_id,
                 oving_id);
         return true;
     }
