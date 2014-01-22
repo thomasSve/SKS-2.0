@@ -161,10 +161,6 @@ public class NavigasjonsKontroller {
         DelEmne valgtEmne = emneService.hentDelemne(emne);
         session.setAttribute("valgteEmne", valgtEmne);
 
-
-
-        System.out.println(valgtEmne.getDelEmneNavn());
-
         return "godkjenningsoversikt";
 
     }

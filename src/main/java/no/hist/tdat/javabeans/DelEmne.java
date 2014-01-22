@@ -3,7 +3,7 @@ package no.hist.tdat.javabeans;
 import java.util.ArrayList;
 
 /**
- * Created by Thomas on 15.01.14.
+ * Created by vimCnett
  */
 public class DelEmne {
     private int nr;

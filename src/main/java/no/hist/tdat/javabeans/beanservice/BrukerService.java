@@ -139,4 +139,18 @@ public class BrukerService {
     public boolean fjernStudass(String delEmne, String mail) {
         return databaseConnector.fjernStudass(delEmne, mail);
     }
+
+    public ArrayList<Bruker> finnStudenterIDelemne(String emne) {
+        return databaseConnector.finnStudenterIDelemne(emne);
+    }
+
+    /**
+     * Slett studass
+     *
+     * @param delEmne og mail
+     * @return boolean
+     */
+    public boolean fjernStudass(String delEmne, String mail) {
+        return databaseConnector.fjernStudass(delEmne, mail);
+    }
 }

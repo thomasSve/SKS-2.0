@@ -41,7 +41,7 @@
             <h4>Sett opp reglement for &oslash;vingssystemet.</h4>
 
             <form>
-                <h3>&oslash;vinger</h3>
+                <h3>&Oslash;vinger</h3>
 
 
                 <div class="form-group">

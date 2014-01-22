@@ -54,6 +54,7 @@ public class DatabaseConnector {
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
+    private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -589,5 +590,20 @@ public class DatabaseConnector {
                 emne.getEmneKode(),
                 emne.getEmneNavn());
         return true;
+    }
+
+    /**
+     * @param navn
+     * @return tab over alle treff
+     */
+    public ArrayList<Bruker> finnStudenterIDelemne(String navn) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> plassListe = con.query(finnStudenterIDelemneSQL, new BrukerKoordinerer(), navn);
+        ArrayList<Bruker> res = new ArrayList<Bruker>();
+
+        for (Bruker plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
     }
 }

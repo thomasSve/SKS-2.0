@@ -72,7 +72,7 @@ public class EmneService {
 
     public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.opprettEmne(emne);
-
     }
+
 
 }
