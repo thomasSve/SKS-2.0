@@ -60,6 +60,7 @@ public class DatabaseConnector {
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
 
 
+
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle sp�rringer.
 
