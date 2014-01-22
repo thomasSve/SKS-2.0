@@ -57,7 +57,7 @@ public class DatabaseConnector {
     private final String hentStudassFagSQL = "SELECT * FROM delemne_brukere JOIN delemne ON delemne_brukere.emnekode LIKE delemne.emnekode AND delemne.delemne_nr LIKE delemne_brukere.delemne_nr WHERE delemne_brukere.mail LIKE ?";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
     private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
-    private final String hentSisteKoeSQL = "SELECT MAX(koe_id) FROM koe";
+    private final String hentSisteKoeSQL = "SELECT MAX(koe.koe_id) AS DIN_TABELL FROM koe";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -622,6 +622,7 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(delemneIKoeSQL,0);
         System.out.println("1");
+
         List <Koe> alle = con.query(hentSisteKoeSQL, new KoeKoordinator());
         ArrayList<Koe> res = new ArrayList<Koe>();
         for (Koe koe : alle) {

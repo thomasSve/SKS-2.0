@@ -103,7 +103,7 @@ $(function (){
 
 
 //Velg gruppe fra kø
-function velgGruppeFraKoe(gruppeID) {
+function velgGruppeFraKoe(gruppe) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -116,7 +116,7 @@ function velgGruppeFraKoe(gruppeID) {
     }
     xmlhttp.open("POST", "/hentUtKoGruppe.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("brukerLederIndex=" + gruppeID);
+    xmlhttp.send("gruppeIndexFraKoe=" + gruppe);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
     window.location = "godkjennOving.htm"

@@ -118,6 +118,13 @@ public class KoeGrupper {
         return kommentar;
     }
 
+    public String getOvingerIString(){
+        String output="";
+        for (int i = 0; i <ovinger.size() ; i++) {
+            output += ovinger.get(i);
+        }
+        return output;
+    }
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;

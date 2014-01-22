@@ -76,6 +76,7 @@ public class NavigasjonsKontroller {
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
         koe.setKoeId(koeId);
+        session.setAttribute("koe", koe);
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
