@@ -13,6 +13,7 @@ public class DelEmne {
     private boolean koe_status;
     private ArrayList<Oving> studentovinger;
     private String delEmneNavn;
+    private String emneKode;
 
     public String getDelEmneNavn() {
         return delEmneNavn;
@@ -72,4 +73,11 @@ public class DelEmne {
         this.studentovinger = studentovinger;
     }
 
+    public String getEmneKode() {
+        return emneKode;
+    }
+
+    public void setEmneKode(String emneKode) {
+        this.emneKode = emneKode;
+    }
 }

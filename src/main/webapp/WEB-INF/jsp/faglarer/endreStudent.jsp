@@ -1,5 +1,3 @@
-<%@ page import="no.hist.tdat.javabeans.PersonerBeans" %>
-<%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -38,8 +36,8 @@
             <input type="text" class="form-control" placeholder="Søk" name="soketekst" id="srch-term">
 
             <div class="input-group-btn">
-                <input class="btn btn-success" value="Søk" type="submit"><i class="glyphicon glyphicon-search"></i>
-                </input>
+                <button class="btn btn-success" value="Søk" type="submit"><i class="glyphicon glyphicon-search"></i>
+                </button>
             </div>
 
         </div>
@@ -64,10 +62,10 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <div class="input-group-btn">
-                            <input type="submit" class="btn btn-warning btn-sm" id="${bruker.mail}"
-                                    data-toggle="modal" onclick="finnRettBruker(this.id)"
-                                    data-target="#endrebrukerModal" value="Endre" title="Endre">
-                                <i class="glyphicon glyphicon-edit"></i></input>
+                            <button type="submit" class="btn btn-warning btn-sm" id="${bruker.mail}"
+                                   data-toggle="modal" onclick="finnRettBruker(this.id)"
+                                   data-target="#endrebrukerModal" value="Endre" title="Endre">
+                            <i class="glyphicon glyphicon-edit"></i></button>
                         </div>
                     </td>
                 </tr>

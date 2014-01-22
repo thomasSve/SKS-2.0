@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/src/main/java/no/hist/tdat/database/DatabaseConnector.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/java/no/hist/tdat/kontrollere/EndreStudentKontroller.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/java/no/hist/tdat/kontrollere/NavigasjonsKontroller.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/faglarer/endreStudent.jsp" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/faglarer/endreValgtStudent.jsp" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/faglarer/godkjenningsoversikt.jsp" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/baseLayout.jsp" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tiles/menu.jsp" charset="ISO-8859-1" />
   </component>
 </project>
 
