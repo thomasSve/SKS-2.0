@@ -15,8 +15,8 @@
             <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord(this)">
                 <option id="tom" value="tom">Velg Sitteplass</option>
                 <c:forEach items="${plassering}" var="plass">
-                    <form:option onclick="visBilde(this.value)" id="plassering"
-                                 value="${plass.ant_bord}">${plass.plassering_navn}</form:option>
+                    <form:option onclick='visBilde(this.value)' id="${plass.ant_bord}"
+                                 value="${plass.plassering_navn}">${plass.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -34,9 +34,9 @@
         </div>
         <div class="form-group">
             <label for="oving">&Oslash;ving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="ovinger">
+            <form:select id="oving" multiple="true" class="form-control" path="ovingnr">
                 <c:forEach items="${oving}" var="ovinger">
-                    <form:option id="${ovinger.ovingnr}" value="${ovinger}">&Oslash;ving ${ovinger.ovingnr}</form:option>
+                    <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">&Oslash;ving ${ovinger.ovingnr}</form:option>
                 </c:forEach>
             </form:select>
         </div>

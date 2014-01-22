@@ -46,9 +46,10 @@ public class DatabaseConnector {
     private final String finnOvingerSQL = "SELECT * FROM koe_gruppe, gruppe, gruppe_oving WHERE koe_gruppe.gruppe_id = gruppe.gruppe_id AND gruppe.gruppe_id = gruppe_oving.gruppe_id AND gruppe.mail = ? AND koe_gruppe.koe_id = ? AND koe_gruppe.koe_plass = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
         //Legg til Kø
-    private final String leggTilKoGruppeSQL = "INSERT INTO koe_gruppe (koe_id, plassering_navn, bordnummer, koe_plass, info, tidspunkt) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
-    private final String maxKoe_PlassSQL = "SELECT MAX(koe_plass) FROM koe_gruppe WHERE koe_id = ?";
-    private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (?, ?, ?) ";
+    private final String leggTilKoGruppeSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, info, koe_plass, tidspunkt) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+    private final String maxKoe_PlassSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY koe_plass DESC";
+    private final String maxGruppeIdSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY gruppe_id DESC";
+    private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, oving_id) VALUES (?, ?) ";
     private final String leggTilGruppeMedlemSQL = "INSERT INTO gruppe (gruppe_id, mail, leder) VALUES (?, ?, ?)";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
@@ -510,43 +511,58 @@ public class DatabaseConnector {
      * @return true or false, om updaten gjekk gjennom eller ikke
      * Author Thomas
      */
-    public boolean leggTilKoGruppe(KoeGrupper koeGruppe) {
+    public boolean leggTilKoGruppe(KoeGrupper koeGruppe, String oving) {
         if (koeGruppe == null) {
             return false;
         }
+        System.out.println(
+                "Ko_id: " +  koeGruppe.getKoe_id() + ", " +
+                "Max_gruppe: " + finnMaxGruppeId(koeGruppe.getKoe_id()) + ", " +
+                "Sitteplass: " + koeGruppe.getSitteplass() + ", " +
+                "Bordnr: " + koeGruppe.getBordnr() +", " +
+                "Kommentar: " + koeGruppe.getKommentar() + ", " +
+                "Max_plass: " + finnMaxKoe_plass(koeGruppe.getKoe_id()));
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(
-                leggTilKoGruppeSQL,                                   //koe_id, plassering_navn, bordnummer, koe_plass, info, tidspunkt
-             //  koeGruppe.getKoe_id(),
+                leggTilKoGruppeSQL,                                   //koe_id, gruppe_id, plassering_navn, bordnummer, info, koe_plass, tidspunkt
+                koeGruppe.getKoe_id(),
+                finnMaxGruppeId(koeGruppe.getKoe_id()),
                 koeGruppe.getSitteplass(),
                 koeGruppe.getBordnr(),
-                koeGruppe.getOvinger(),
                 koeGruppe.getKommentar(),
-                finnMaxKoe_plass()
+                finnMaxKoe_plass(koeGruppe.getKoe_id())
         );
         return true;
     }
-    public int finnMaxKoe_plass(){
+    public int finnMaxKoe_plass(int koe_id){
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<KoeGrupper> list = con.query(
                 maxKoe_PlassSQL,
-                new KoeGruppeKoordinerer()
+                new KoeGruppeKoordinerer(),
+                koe_id
         );
-        return list.get(0).getKoePlassering();
+        return (list.get(0).getKoePlassering()+1);
+    }
+    public int finnMaxGruppeId(int koe_id){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<KoeGrupper> list = con.query(
+                maxGruppeIdSQL,
+                new KoeGruppeKoordinerer(),
+                koe_id
+        );
+        return (list.get(0).getKoePlassering()+1);
     }
 
     /**
      *
-     * @param koe_id
      * @param gruppe_id
      * @param mail
      * @param leder
      * @return
      */
-    public boolean leggTilGruppeMedlem(int koe_id, int gruppe_id, String mail, int leder){           //koe_id, gruppe_id, mail, leder(0 elr 1)
+    public boolean leggTilGruppeMedlem(int gruppe_id, String mail, int leder){           //gruppe_id, mail, leder(0 elr 1)
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggTilGruppeMedlemSQL,
-                    koe_id,
                     gruppe_id,
                     mail,
                     leder);
@@ -560,11 +576,10 @@ public class DatabaseConnector {
      * @param oving_id
      * @return
      */
-    public boolean leggTilGruppeOving(int gruppe_id, int koe_id, int oving_id){      //gruppe_id, koe_id, oving_id
+    public boolean leggTilGruppeOving(int gruppe_id, int koe_id, int oving_id){      //gruppe_id, oving_id
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(leggtilGruppeOvingSQL,
                 gruppe_id,
-                koe_id,
                 oving_id);
         return true;
     }

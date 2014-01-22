@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * Created by Henriette on 09/01/14.
@@ -73,9 +74,12 @@ public class KoeKontroller {
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         Emne emne = innloggetBruker.getEmne().get(emnenr);
         DelEmne delEmne = emne.getDelemner().get(delemneNr);
-
-
-        koe_service.leggTilIKo(koegrupper, delEmne);
+        koegrupper.setKoe_id(delEmne.getKoe_id());
+        String oving = "";
+        for(int i = 0; i<koegrupper.getOvingnr().size(); i++){
+            oving = "Øving " + koegrupper.getOvingnr().get(i) + ", ";
+        }
+        koe_service.leggTilIKo(koegrupper, delEmne, oving);
         //return "settIKo";
 
         model.addAttribute("emneIndex", emnenr);

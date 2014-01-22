@@ -31,6 +31,7 @@ function mysubmit() {
     delemneNrField.value=delemnenr;
     emneNrField.value=emnenr;
     }
+
 function sjekkAktivKoe(status){
     alert(status);
     if(status){
@@ -115,7 +116,7 @@ function visBilde(sitteplass) {
 
 }
 function hentBord(formSelectElement){
-    var value =formSelectElement.options[formSelectElement.selectedIndex].value;
+    var value =formSelectElement.options[formSelectElement.selectedIndex].id;
     var selectElement = document.getElementById("bordnr");
     selectElement.options.length=0; // clearer forrige verdier.
     selectElement.disabled = false;

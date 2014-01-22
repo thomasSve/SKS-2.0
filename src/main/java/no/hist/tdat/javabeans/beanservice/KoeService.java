@@ -42,8 +42,8 @@ public class KoeService {
         return databaseConnector.hentBrukerFraKo(mail, koe_Id, koe_plass);
     }
 
-    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne) {
-       if(databaseConnector.leggTilKoGruppe(koeGruppe)){
+    public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, String oving) {
+       if(databaseConnector.leggTilKoGruppe(koeGruppe, oving)){
            int leder = 0;
            for(int i = 0; i<koeGruppe.getMedlemmer().size(); i++){
                if(i==0){

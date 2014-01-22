@@ -22,6 +22,7 @@ public class KoeGrupper {
     private int koe_id;
     private String kommentar;
     private ArrayList<Bruker>medlemmer;
+    private ArrayList<Integer>ovingnr;
     private ArrayList<Oving>ovinger;  // hvilke øvinger som ønskes godkjent
     private String faarHjelp;
 
@@ -136,6 +137,14 @@ public class KoeGrupper {
 
     public void setKoe_id(int koe_id) {
         this.koe_id = koe_id;
+    }
+
+    public ArrayList<Integer> getOvingnr() {
+        return ovingnr;
+    }
+
+    public void setOvingnr(ArrayList<Integer> ovingnr) {
+        this.ovingnr = ovingnr;
     }
 
     @Override
