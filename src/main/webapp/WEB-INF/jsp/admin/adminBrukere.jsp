@@ -41,7 +41,6 @@
                 <tbody>
 
                 <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
-
                     <tr>
                         <td><c:out value="${bruker.fornavn}"/></td>
                         <td><c:out value="${bruker.etternavn}"/></td>
