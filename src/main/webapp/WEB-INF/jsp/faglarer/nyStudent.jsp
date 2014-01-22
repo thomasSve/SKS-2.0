@@ -32,11 +32,10 @@
         <form:input path="passord" class="form-control" id="passordfelt"/>
     </div>
 
-
     <div class="form-group">
         <label for="emne">Emner</label>
         <form:select id="emne" path="" class="form-control">
-            <form:option value="hei">hent fra beansa da vettz</form:option>
+            <form:option value="hei"></form:option>
         </form:select>
     </div>
     <jsp:setProperty name="nyStudent" property="rettighet" value="3"></jsp:setProperty>

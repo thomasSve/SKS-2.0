@@ -59,24 +59,15 @@ public class EmneService {
     public DelEmne hentDelEmne (int koe_id){
         return databaseConnector.hentDelEmne(koe_id);
     }
-    /**
-     * Henter alle emner en bruker ikke har tilgang til
-     *
-     * @param mail, unik identifikator
-     * @return liste over alle emner
-     */
-    public ArrayList<Emne> hentEmnerUtenTilgang(String mail) {
-        return databaseConnector.hentEmnerUtenTilgang(mail);
-    }
 
-    /**
-     * Henter alle delemner en student er studass i
+    /** NB! IKKE SAMME SOM DEN OVER!
+     * Henter delemne, gitt navn
      *
-     * @param mail, unik identifikator
-     * @return liste over alle emner
+     * @param navn
+     * @return delemne
      */
-    public ArrayList<DelEmne> hentStudassFag(String mail) {
-        return databaseConnector.hentStudassFag(mail);
+    public DelEmne hentDelemne(String navn){
+        return databaseConnector.hentDelemne(navn);
     }
 
     public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
