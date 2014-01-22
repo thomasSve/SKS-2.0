@@ -4,21 +4,14 @@ package no.hist.tdat.javabeans;
  * Created by Henriette on 15/01/14.
  */
 public class Plassering {
-    private String romnr;
     private String plassering_navn;
     private int ant_bord;
-
+    //romNr fjernet av ted
     public Plassering(){
 
     }
 
-    public String getRomnr() {
-        return romnr;
-    }
 
-    public void setRomnr(String romnr) {
-        this.romnr = romnr;
-    }
 
     public String getPlassering_navn() {
         return plassering_navn;

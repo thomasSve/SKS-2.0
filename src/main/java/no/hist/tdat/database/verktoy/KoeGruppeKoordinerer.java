@@ -31,6 +31,7 @@ public class KoeGruppeKoordinerer implements RowMapper<KoeGrupper>{
         koeGrupper.setKommentar(resultSet.getString("info"));
         koeGrupper.setKlokkeslett(resultSet.getDate("tidspunkt"));
         koeGrupper.setKoePlassering(resultSet.getInt("koe_plass"));
+        koeGrupper.setFaarHjelp(resultSet.getString("faar_hjelp"));
         //TODO legg til lederobjekt, medlemmer og øvinger i databaseconnectorMetode.
         return koeGrupper;
     }

@@ -55,6 +55,7 @@ public class DatabaseConnector {
     private final String finnEmnerUtenTilgangSQL = "SELECT DISTINCT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail NOT LIKE ?";
     private final String hentStudassFagSQL = "SELECT * FROM delemne_brukere JOIN delemne ON delemne_brukere.emnekode LIKE delemne.emnekode AND delemne.delemne_nr LIKE delemne_brukere.delemne_nr WHERE delemne_brukere.mail LIKE ?";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
+    private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle spørringer.
@@ -345,9 +346,7 @@ public class DatabaseConnector {
      * @return ArrayList med alle studenter i samme emne
      */
     public ArrayList<Bruker> finnAlleDeltakere(String emnekode, String mail) {
-        if (emnekode == null) {
-            return null;
-        }
+
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnAlleDeltakereSQL, new BrukerKoordinerer(), emnekode, mail);
         ArrayList<Bruker> res = new ArrayList<Bruker>();
@@ -611,5 +610,21 @@ public class DatabaseConnector {
                 emne.getEmneKode(),
                 emne.getEmneNavn());
         return true;
+    }
+
+    /**
+     * Author Thomas
+     * @param delemne_nr
+     * @param emnekode
+     * @return
+     */
+    public ArrayList<Oving> hentDelEmneOving(int delemne_nr, String emnekode){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> alle = con.query(hentDelEmneOvingSQL, new OvingKoordinerer(),emnekode ,delemne_nr);
+        ArrayList<Oving> res = new ArrayList<Oving>();
+        for (Oving oving : alle) {
+            res.add(oving);
+        }
+        return res;
     }
 }
