@@ -1,11 +1,9 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.database.verktoy.KoeGruppeKoordinerer;
+
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
-import no.hist.tdat.javabeans.Oving;
 import no.hist.tdat.javabeans.beanservice.EmneService;
-import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class GodkjennKontroller {
     @Autowired
+
     EmneService service;
 
 
@@ -44,20 +43,4 @@ public class GodkjennKontroller {
         return "godkjennOving";
 
     }
-
-
-
-
-
-
-
-/*
-    @RequestMapping(value = "/godkjenn.htm")
-    public String hentForstIKoe(@ModelAttribute("godkjennOving") KoeBruker koeBruker, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
-        String konummer = request.getParameter("koplass");
-        koeBruker.setKoe_plass(service.HentForstIKoe());
-        //service.oppdaterBruker(oving, mail, ov_id);
-        return "koeBruker";
-    }                */
-
 }

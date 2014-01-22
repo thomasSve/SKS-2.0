@@ -30,6 +30,7 @@ public class DelEmneKoordinerer implements RowMapper<DelEmne>{
         delEmne.setSemester((char)resultSet.getString("semester").charAt(0));
         delEmne.setKoe_id(resultSet.getInt("koe_id"));
         delEmne.setOvingsRegler(resultSet.getString("ovingsregler"));
+        delEmne.setEmneKode(resultSet.getString("emnekode"));
         return delEmne;
     }
 }

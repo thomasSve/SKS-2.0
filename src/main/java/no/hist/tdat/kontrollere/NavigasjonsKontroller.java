@@ -80,10 +80,10 @@ public class NavigasjonsKontroller {
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
-
         model.addAttribute("emneIndex",emnenr);
+        model.addAttribute("delEmneIndex", delemneNr);
         model.addAttribute("koe", koe);
-        model.addAttribute("grupper",grupper);
+        model.addAttribute("grupper", grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
@@ -93,18 +93,21 @@ public class NavigasjonsKontroller {
     }
 
 
-    @RequestMapping(value = "/settIKo.htm", method=RequestMethod.POST)
-    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("bruker")Bruker bruker,
+    @RequestMapping(value = "/settIKo.htm", method = RequestMethod.POST)
+    public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
                                  Model model, HttpSession session, HttpServletRequest request){
-        innloggetBruker= (Bruker)session.getAttribute("innloggetBruker");
-        int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
-        personerBeans.setValgt(service.getMedstudenter(delEmne.getDelEmneNavn(), innloggetBruker.getMail()));
+        int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
+        int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
+        delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+        personerBeans.setValgt(service.getMedstudenter(delEmne.getEmneKode(), innloggetBruker.getMail()));
         model.addAttribute("personerBeans", personerBeans);
-        //koeservice.getPlasseringer();
-        DelEmne denne = koeservice.hentDelEmneStatus(koe_id);
+        DelEmne denne = koeservice.hentDelEmneStatus(delEmne.getKoe_id());
         delEmne.setKoe_status(denne.isKoe_status());
-        //model.addAttribute("plassering", koeservice);
+
+        model.addAttribute("oving", emneService.hentDelEmneOving(delemneNr, delEmne.getEmneKode()));
+        model.addAttribute("plassering", koeservice.getPlasseringer());
         model.addAttribute("delEmne", delEmne);
 
         return "settIKo";
@@ -149,14 +152,34 @@ public class NavigasjonsKontroller {
         System.out.println("utlogget");
         return "loggInn";
     }
-
     @RequestMapping("/opprettEmne.htm")
     public String opprettEmne(@ModelAttribute("emne") Emne emne) {
         return "opprettEmne";
     }
 
+
     @RequestMapping("/opprettDelemne.htm")
     public String opprettDelemne(@ModelAttribute("delemne") DelEmne delEmne) {
         return "opprettDelemne";
+    }
+
+        //HENTER FOR ETIKK
+    @RequestMapping("/godkjenningsoversikt.htm")
+    public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
+
+        String emne = "ingen";//request.getParameter("emne");
+        if (emne.equals("ingen")) {
+            return "godkjenningsoversikt";
+        }
+
+        DelEmne valgtEmne = emneService.hentDelemne(emne);
+        session.setAttribute("valgteEmne", valgtEmne);
+
+
+
+        System.out.println(valgtEmne.getDelEmneNavn());
+
+        return "godkjenningsoversikt";
+
     }
 }

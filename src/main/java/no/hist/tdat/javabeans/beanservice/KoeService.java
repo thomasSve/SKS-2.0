@@ -32,8 +32,14 @@ public class KoeService {
         return databaseConnector.getKoe(koeId);
     }
 
-    public ArrayList<KoeBruker> getBrukerIKo(String mail, int koe_Id) {
-        return databaseConnector.hentBrukerFraKo(mail, koe_Id);
+    /**
+     *
+     * @param mail      Bruker mail for å finne spesifikk bruker i koe
+     * @param koe_Id    bruker koe_id for å finne spesikk koe
+     * @return          Returnerer en liste over brukere som står i kø.
+     */
+    public ArrayList<KoeGrupper> getBrukerIKo(String mail, int koe_Id, int koe_plass) {
+        return databaseConnector.hentBrukerFraKo(mail, koe_Id, koe_plass);
     }
 
     public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, int koe_id) {

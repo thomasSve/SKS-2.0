@@ -11,6 +11,7 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
+
     <form:form>
         <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
         <table class="table table-condensed" id="godkjennGruppe">
@@ -26,6 +27,7 @@
         </table>
     </form:form>
 
+
     <div class="btn-group">
         <button type="godkjenn" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
 
@@ -35,6 +37,7 @@
                 class="glyphicon glyphicon-plus"></i> Endre øvinger
         </button>
     </div>
+
 
 
 </div>
