@@ -43,6 +43,7 @@ public class KoeService {
     }
 
     public boolean leggTilIKo(KoeGrupper koeGruppe, DelEmne delEmne, String oving) {
+        System.out.println("DelEmne: " + delEmne.getEmneKode());
         int gruppeID = databaseConnector.finnMaxGruppeId(koeGruppe.getKoe_id());
         if(databaseConnector.leggTilKoGruppe(koeGruppe, oving, gruppeID)){
            int leder = 0;
@@ -53,8 +54,9 @@ public class KoeService {
                }
                databaseConnector.leggTilGruppeMedlem(koeGruppe.getKoe_id(),gruppeID,koeGruppe.getMedlemmer().get(i).getMail(), leder);
            }
-           for(int i = 0; i<koeGruppe.getOvinger().size(); i++){
-               databaseConnector.leggTilGruppeOving(gruppeID, delEmne.getKoe_id() ,koeGruppe.getOvinger().get(i).getOving_id());
+           for(int i = 0; i<koeGruppe.getOvingnr().size(); i++){
+               int ovingID = databaseConnector.finnOving_id(koeGruppe.getOvingnr().get(i), delEmne.getEmneKode(), delEmne.getNr());             //oving_nr, emnekode, delemne_nr
+               databaseConnector.leggTilGruppeOving(gruppeID, delEmne.getKoe_id(), ovingID);
            }
            return true;
         }

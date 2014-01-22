@@ -25,7 +25,7 @@ public class DatabaseConnector {
 
     // **** Legger alle Queryes her. Ikke fordi vi m�, men fordi Grethe liker det s�nn...*/ //TODO remove this
     private final String getKoeSQL = "";
-    private final String hentGruppeOvingerSQL = "SELECT oving_nr FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
+    private final String hentGruppeOvingerSQL = "SELECT oving_nr, oving_id FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
     private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe NATURAL JOIN brukere WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
     private final String hentkoeGrupperSQL = "Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
     private final String brukerOvingerSQL = "SELECT * FROM oving_brukere NATURAL JOIN oving WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
@@ -51,6 +51,7 @@ public class DatabaseConnector {
     private final String maxGruppeIdSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY gruppe_id DESC";
     private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, koe_id ,oving_id) VALUES (?, ?, ?) ";
     private final String leggTilGruppeMedlemSQL = "INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (?, ?, ?, ?)";
+    private final String finnOvingIDSQL = "SELECT * FROM oving WHERE oving_nr = ? AND emnekode = ? AND delemne_nr = ?";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -552,7 +553,17 @@ public class DatabaseConnector {
         );
         return (list.get(0).getKoePlassering()+1);
     }
-
+    public int finnOving_id(int oving_nr, String emnekode, int delemne_nr){    //oving_nr, emnekode, delemne_nr
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> list = con.query(
+                finnOvingIDSQL,
+                new KoeOvingKoordinerer(),
+                oving_nr,
+                emnekode,
+                delemne_nr
+        );
+        return (list.get(0).getOving_id());
+    }
     /**
      *
      * @param gruppe_id

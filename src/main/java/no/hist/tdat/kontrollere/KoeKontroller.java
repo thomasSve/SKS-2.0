@@ -87,9 +87,19 @@ public class KoeKontroller {
         }
         koe_service.leggTilIKo(koegrupper, delEmne, oving);
         //return "settIKo";
-
-        model.addAttribute("emneIndex", emnenr);
+        int koeId = delEmne.getKoe_id();
+        Koe koe = new Koe();
+        koe.setGrupper(koe_service.getKoe(koeId));
+        koe.setKoeId(koeId);
+        session.setAttribute("koe", koe);
+        DelEmne denne = koe_service.hentDelEmneStatus(koeId);
+        delEmne.setKoe_status(denne.isKoe_status());
+        ArrayList<KoeGrupper> grupper = koe.getGrupper();
+        model.addAttribute("emneIndex",emnenr);
         model.addAttribute("delEmneIndex", delemneNr);
+        model.addAttribute("koe", koe);
+        model.addAttribute("grupper", grupper);
+        model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
 }
