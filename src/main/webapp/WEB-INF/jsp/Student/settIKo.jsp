@@ -11,11 +11,11 @@
     <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
-            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="visBilde(), location.href='velgPlass.htm'">
+            <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord(this)">
                 <option id="tom" value="tom">Velg Sitteplass</option>
-                <c:forEach items="${plassering}" var="plassering">
-                    <form:option onclick="visBilde(this)" id="${plassering.plassering_navn}"
-                                 value="${plassering.plassering_navn}">${plassering.plassering_navn}</form:option>
+                <c:forEach items="${plassering}" var="plass">
+                    <form:option onclick="visBilde(this.value)" id="plassering"
+                                 value="${plass.ant_bord}">${plass.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -26,18 +26,15 @@
             <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" disabled="true">
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
-
-                <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
+               <%-- <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
                     <form:option value="bordNr">bordNr</form:option>
-                </c:forEach>
-
+                </c:forEach>--%>
             </form:select>
         </div>
-
         <div class="form-group">
-            <label for="oving">Oving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="ovinger" disabled="true">
-                <c:forEach items="delEmne.studentovinger" var="ovinger">
+            <label for="oving">&Oslash;ving:</label>
+            <form:select id="oving" multiple="true" class="form-control" path="ovinger">
+                <c:forEach items="${oving}" var="ovinger">
                     <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
                 </c:forEach>
             </form:select>
@@ -50,40 +47,19 @@
 
         <div class="form-group">
             <label for="gruppe">Gruppe?</label>
-            <form:select id="gruppe" path="medlemmer">
+            <form:select id="gruppe" path="medlemmer" class="form-control">
                 <c:forEach items="${personerBeans.valgt}" var="bruker">
-                    <form:option value="${bruker.fornavn}">${bruker.fornavn}</form:option>
+                    <form:option value="${bruker.mail}">${bruker.etternavn}, ${bruker.fornavn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
         <input type="submit" id="leggTil" class="btn btn-md btn-primary" onclick="StillIKo(${delEmne.nr})" value="Legg til i k&oslash;">
     </form:form>
 </div>
-<img src="<c:url value="/resources/img/lab.png"/>" style="padding:1px;border:thin solid black;" id="img"/>
+<div id="bilde">
+
+</div>
+<script src="<c:url value="/resources/js/koen.js"/>"></script>
 <%-- Svart ramme rundt bildet --%>
 <%-- style="float:right"   align="right" --%>
-<script>
-    function visBilde() {
-        var valg = document.getElementById('sitteplass');
-
-        switch (valg.value) {
-            case ("labben"):
-                document.getElementById("img").src = "resources/img/lab.png";
-                break;
-            case "polet":
-                document.getElementById("img").src = "resources/img/pol.png";
-                break;
-            case  "nettlab":
-                document.getElementById("img").src = "resources/img/nettlab.png";
-                break;
-        }
-        if (document.getElementById("sitteplass").value != "tom") {
-            document.getElementById("bordnr").disabled = false;
-        } else {
-            document.getElementById("bordnr").disabled = true;
-        }
-
-    }
-</script>
-
 <%--  <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">  --%>

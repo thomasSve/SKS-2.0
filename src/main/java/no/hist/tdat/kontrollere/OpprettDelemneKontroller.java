@@ -24,11 +24,11 @@ public class OpprettDelemneKontroller {
         try{
             Emne emne = (Emne)session.getAttribute("emne");
             service.opprettDelemne(delEmne, emne);
-            //model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
-            return "opprettDelemne";
+            model.addAttribute("delemnerett", "Delemne \""+delEmne.getDelEmneNavn()+"\" med delemnekode \""+delEmne.getNr()+"\" er opprettet");
+            return "ovingsopplegget";
         }catch(org.springframework.dao.DuplicateKeyException e){
-            model.addAttribute("emneSQLfeil", "Emnenavn eller emnekode er opprettet fra f&oslash;r");
-            return "opprettEmne";
+            model.addAttribute("delemneSQLfeil", "Delemnenavn eller delemnekode er opprettet fra f&oslash;r");
+            return "opprettDelemne";
         }
     }
 }

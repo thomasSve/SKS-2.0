@@ -27,7 +27,7 @@ function leggTilRegel() {
     if (plass.innerHTML === "<i>ingen</i>") {
         plass.innerHTML = "";
     }
-    plass.innerHTML += "Blant &oslash;ving <i>bruk beans til � finne?</i> m� X v�re best�tt<br>";
+    plass.innerHTML += "Blant &oslash;ving <i>bruk beans til &aring; finne?</i> m&aring; X v&aelig;re best&aring;tt<br>";
 }
 
 function settAntOvingerAvansert() {
@@ -39,7 +39,7 @@ function settAntOvingerAvansert() {
     for (var i = 1; i < ((ant + 1)/10); i++) {
         var opt = document.createElement('option');
         opt.value = "oving"+i;
-        opt.text = "�ving "+i;
+        opt.text = "oving "+i;
         if (i === 1) {
             opt.selected="selected";
         }

@@ -1,11 +1,10 @@
 package no.hist.tdat.koe;
 
-import no.hist.tdat.database.verktoy.KoeBrukerKoordinerer;
 
 /**
  * Created by Henriette on 09/01/14.
  */
-public class KoeBruker extends KoeBrukerKoordinerer {
+public class KoeBruker {
     private int koe_id;
     private String mail;
     private String bordnr;

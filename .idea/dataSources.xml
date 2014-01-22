@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2194305648">
+  <component name="DataSourceManagerImpl" format="xml" hash="1719258142">
     <data-source source="LOCAL" name="MySQL - sks@localhost" uuid="a0f1bcb8-6bd4-4e61-bbbd-e6328bb3f794">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -10,6 +10,7 @@
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />
+        <property name="DBNAME" value="sks" />
       </driver-properties>
       <libraries />
     </data-source>

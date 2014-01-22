@@ -58,8 +58,8 @@
         <put-attribute name="title"  value="Min Side"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/minSide.jsp"/>
     </definition>
-    <definition name="ovingsOpplegg" extends="baseLayout">
-        <put-attribute name="title"  value="Øvingsopplett"/>
+    <definition name="ovingsopplegget" extends="baseLayout">
+        <put-attribute name="title"  value="Øvingsopplegg"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
     </definition>
     <definition name="godkjennOving" extends="baseLayout">
@@ -79,6 +79,7 @@
         <put-attribute name="title"  value="Endre student"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/endreValgtStudent.jsp"/>
     </definition>
+
     <definition name="opprettEmne" extends="baseLayout">
         <put-attribute name="title"  value="Opprett emne"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettEmne.jsp"/>
@@ -86,5 +87,9 @@
     <definition name="opprettDelemne" extends="baseLayout">
         <put-attribute name="title"  value="Opprett delemne"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettDelemne.jsp"/>
+    </definition>
+    <definition name="godkjenningsoversikt" extends="baseLayout">
+        <put-attribute name="title"  value="Godkjenningsoversikt"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjenningsoversikt.jsp"/>
     </definition>
 </tiles-definitions>

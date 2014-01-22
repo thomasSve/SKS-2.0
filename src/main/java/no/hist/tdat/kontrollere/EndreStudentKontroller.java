@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by Roger Foss
+ * Created by vimCnett
  */
 @Controller
 
@@ -45,8 +45,6 @@ public class EndreStudentKontroller {
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
 
-        session.setAttribute("emnerUtenTilgang", service2.hentEmnerUtenTilgang(b.getMail()));
-        session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
         session.setAttribute("valgtPerson", b);
         return "videresend";
     }
@@ -56,8 +54,6 @@ public class EndreStudentKontroller {
         String tilb = request.getParameter("tilbake");
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
-            session.removeAttribute("emnerUtenTilgang");
-            session.removeAttribute("studassFag");
             return "endreStudent";
         }
         return "endreValgtStudent";
@@ -72,32 +68,31 @@ public class EndreStudentKontroller {
         Bruker b = (Bruker) session.getAttribute("valgtPerson");
 
         if (lagre != null) {    //sett som studass
-            String emnekode = request.getParameter("emner");
-            int delemne = Integer.parseInt(request.getParameter("delemne"));
-            if (service.settStudass(emnekode,delemne,b.getMail())) {
-                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnekode);
+            String emnenavn = request.getParameter("emner");
+            if (service.settStudass(emnenavn,b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnenavn);
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", "Dette delemnenummer finnes ikke, eller student er allerede studentassistent i faget");
             }
         }
         else if (fjern != null) {   //fjern fag
             String emnekode2 = request.getParameter("emner2");
             if (service.fjernEmne(emnekode2,b.getMail())) {
                 modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn());
-                b.setEmne(service2.hentEmnerForStud(b.getMail()));
-                session.setAttribute("valgtPerson",b);
+              //  b.setEmne(service2.hentEmnerForStud(b.getMail()));
+              //  session.setAttribute("valgtPerson",b);
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn()+" har ikke tilgang til "+emnekode2);
             }
         }
         else if (leggTil != null) {  //legg til fag
             String emnekode3 = request.getParameter("emner3");
             if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
                 modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
-                b.setEmne(service2.hentEmnerForStud(b.getMail()));
-                session.setAttribute("valgtPerson",b);
+               // b.setEmne(service2.hentEmnerForStud(b.getMail()));
+               // session.setAttribute("valgtPerson",b);
             }
             else {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);
@@ -107,10 +102,9 @@ public class EndreStudentKontroller {
             String emne4 = request.getParameter("emner4");
             if (service.fjernStudass(emne4,b.getMail())) {
                 modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
-                session.setAttribute("studassFag", service2.hentStudassFag(b.getMail()));
             }
             else {
-                modell.addAttribute("forrigeOp", "En feil oppsto, endring ikke lagret :(");
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er ikke studentassistent i "+emne4);
             }
         }
         return "endreValgtStudent";

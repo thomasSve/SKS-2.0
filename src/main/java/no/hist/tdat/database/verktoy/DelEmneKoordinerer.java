@@ -2,7 +2,6 @@ package no.hist.tdat.database.verktoy;
 
 
 import no.hist.tdat.javabeans.DelEmne;
-import no.hist.tdat.javabeans.Emne;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -27,9 +26,10 @@ public class DelEmneKoordinerer implements RowMapper<DelEmne>{
         DelEmne delEmne = new DelEmne();
         delEmne.setNr(resultSet.getInt("delemne_nr"));
         delEmne.setDelEmneNavn(resultSet.getString("delemnenavn"));
-        delEmne.setSemester((char)resultSet.getString("semester").charAt(0));
+        delEmne.setSemester(resultSet.getString("semester"));
         delEmne.setKoe_id(resultSet.getInt("koe_id"));
         delEmne.setOvingsRegler(resultSet.getString("ovingsregler"));
+        delEmne.setEmneKode(resultSet.getString("emnekode"));
         return delEmne;
     }
 }

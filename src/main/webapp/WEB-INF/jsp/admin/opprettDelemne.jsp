@@ -28,11 +28,13 @@
         </div>
         <div class="form-group">
             <label for="semester">Semester:</label>
-            <form:input path="semester" id="semester" class="form-control" required="true"/>
+
+            <form:radiobutton path="semester" id="semester" class="btn-primary btn" value="h"/>Høst&nbsp;&nbsp;
+            <form:radiobutton path="semester" id="semester" class="btn-primary btn" value="v"/>Vår
+
         </div>
         <div class="btn-input-group">
-            <input type="submit" class="btn btn-primary col-md-6" value="+delemne"/>
-            <input type="submit" class="btn btn-primary col-md-6" value="Legg til"/>
+            <input type="submit" class="btn btn-primary btn-block" value="Legg til"/>
         </div>
     </form:form>
 </div>

@@ -7,12 +7,13 @@ import java.util.ArrayList;
  */
 public class DelEmne {
     private int nr;
-    private char semester;
+    private String semester = "h";
     private int koe_id;
     private String ovingsRegler;
     private boolean koe_status;
     private ArrayList<Oving> studentovinger;
     private String delEmneNavn;
+    private String emneKode;
 
     public String getDelEmneNavn() {
         return delEmneNavn;
@@ -36,11 +37,11 @@ public class DelEmne {
         this.nr = nr;
     }
 
-    public char getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(char semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
@@ -72,4 +73,11 @@ public class DelEmne {
         this.studentovinger = studentovinger;
     }
 
+    public String getEmneKode() {
+        return emneKode;
+    }
+
+    public void setEmneKode(String emneKode) {
+        this.emneKode = emneKode;
+    }
 }

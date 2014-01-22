@@ -1,9 +1,6 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.javabeans.DelEmne;
-import no.hist.tdat.javabeans.Koe;
-import no.hist.tdat.javabeans.KoeGrupper;
-import no.hist.tdat.javabeans.Plassering;
+import no.hist.tdat.javabeans.*;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +33,6 @@ public class KoeKontroller {
         if(delEmne.isKoe_status()){
             delEmne.setKoe_status(false);
             emne_service.endreKoeStatus(koe_id, 0);
-            System.out.println("Hei");
             return "koOversikt";
         }
         emne_service.endreKoeStatus(koe_id, 1);
@@ -63,7 +59,7 @@ public class KoeKontroller {
     }
     @RequestMapping(value="StillIKo", method = RequestMethod.POST)
    public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
-                          @ModelAttribute("koegrupper") KoeGrupper koegrupper){
+                          @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("oving") Oving oving){
         int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
         DelEmne delEmne = emne_service.hentDelEmne(Emne_id);
 
