@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Thomas
+  User: olve og gm, ass
   Date: 13.01.14
   Time: 15:23
   To change this template use File | Settings | File Templates.
@@ -11,42 +11,33 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
-    <form:form class="sokettergruppeiko" role="search" modelAttribute="godkjennGruppe" action="bareEnTest.htm" method="POST">
-        <div class="form-group">
-            <label for="mail">Mail</label>
 
-            <form:input path="mail" id="mail" class="form-control"/>
-
-            <form:errors path="mail"/>
-        </div>
-        <div class="form-group">
-            <label for="koeID">koe_id</label>
-
-            <form:input path="koeID" id="koeID" class="form-control"/>
-
-            <form:errors path="koeID<"/>
-        </div>
-        <div class="form-group">
-            <label for="koePlass">Koe Plass</label>
-
-            <form:input path="koePlass" id="koePlass" name="koePlass" class="form-control"/>
-
-            <form:errors path="koePlass<"/>
-        </div>
-
-    </form:form>
     <form:form>
+        <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
         <table class="table table-condensed" id="godkjennGruppe">
             <tbody>
-            <tr>
-                <td><c:out value="${koegrupper}"/></td>
-                <td><c:out value="${koeGrupper.ovingsnummer}"/>/td>
-                <td><c:out value="${koeGrupper.mail}"/>/td>
-                <td><c:out value="${koeGrupper.koePlass}"/></td>
-            </tr>
+            <c:forEach var="bruker" items="${gruppeFraKoe.getMedlemmer()}" varStatus="status">
+                <tr>
+                    <td><c:out value="${bruker.fornavn}"></c:out> </td>
+                    <td><c:out value="${bruker.etternavn}"></c:out> </td>
+                    <td><c:out value="${gruppeFraKoe.getOvingerIString()}"></c:out> </td>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </form:form>
+
+
+    <div class="btn-group">
+        <button type="godkjenn" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
+
+        <button type="leggtil" class="btn btn-primary" name="leggTilStundeterKnapp"><i class="glyphicon glyphicon-user"></i> Legg til studenter
+        </button>
+        <button type="endreØvinger" class="btn btn-info" name="endreOvingerKnapp"data-toggle="modal" data-target="#velgøvingFellesModal"><i
+                class="glyphicon glyphicon-plus"></i> Endre øvinger
+        </button>
+    </div>
+
 
 
 </div>

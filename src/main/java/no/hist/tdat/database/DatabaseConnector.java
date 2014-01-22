@@ -55,10 +55,15 @@ public class DatabaseConnector {
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
     private final String leggTilEmneSQL = "INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES (?,?,?)";
     private final String opprettEmneSQL = "INSERT INTO emner (emnekode, emnenavn) VALUES (?,?)";
+    private final String opprettDelemneSQL = "INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler) VALUES (?,?,?,?,?,?,?)";
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
+    private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
+    private final String hentSisteKoeSQL = "SELECT MAX(koe.koe_id) AS DIN_TABELL FROM koe";
+    private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
+
 
 
     @Autowired
@@ -512,7 +517,7 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(
                 leggTilKoGruppeSQL,                                   //koe_id, plassering_navn, bordnummer, koe_plass, info, tidspunkt
-                koeGruppe.getKoe_id(),
+             //  koeGruppe.getKoe_id(),
                 koeGruppe.getSitteplass(),
                 koeGruppe.getBordnr(),
                 koeGruppe.getOvinger(),
@@ -627,7 +632,7 @@ public class DatabaseConnector {
     /**
      *
      * @param emne
-     * @return
+     * @return boolean
      * @throws org.springframework.dao.DuplicateKeyException
      */
     public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException {
@@ -640,4 +645,53 @@ public class DatabaseConnector {
                 emne.getEmneNavn());
         return true;
     }
+
+
+    public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException {
+        System.out.println("3");
+        if (delEmne == null) {
+            return false;
+        }
+        System.out.println(delemneIKoe().getKoeId());
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(opprettDelemneSQL,
+                delEmne.getNr(),
+                emne.getEmneKode(),
+                delEmne.getKoe_id(),
+                delEmne.getDelEmneNavn(),
+                delEmne.getSemester());
+        return true;
+    }
+
+    public Koe delemneIKoe(){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(delemneIKoeSQL,0);
+        System.out.println("1");
+
+        List <Koe> alle = con.query(hentSisteKoeSQL, new KoeKoordinator());
+        ArrayList<Koe> res = new ArrayList<Koe>();
+        for (Koe koe : alle) {
+            res.add(koe);
+        }
+        System.out.println("2");
+        return res.get(0);
+    }
+
+
+    /**
+     * Author Thomas
+     * @param delemne_nr
+     * @param emnekode
+     * @return
+     */
+    public ArrayList<Oving> hentDelEmneOving(int delemne_nr, String emnekode){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> alle = con.query(hentDelEmneOvingSQL, new OvingKoordinerer(),emnekode ,delemne_nr);
+        ArrayList<Oving> res = new ArrayList<Oving>();
+        for (Oving oving : alle) {
+            res.add(oving);
+        }
+        return res;
+    }
+
 }

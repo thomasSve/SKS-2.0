@@ -76,6 +76,7 @@ public class NavigasjonsKontroller {
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
         koe.setKoeId(koeId);
+        session.setAttribute("koe", koe);
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
@@ -166,6 +167,12 @@ public class NavigasjonsKontroller {
         return "opprettEmne";
     }
 
+
+    @RequestMapping("/opprettDelemne.htm")
+    public String opprettDelemne(@ModelAttribute("delemne") DelEmne delEmne) {
+        return "opprettDelemne";
+    }
+
         //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
     public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
@@ -183,5 +190,6 @@ public class NavigasjonsKontroller {
         System.out.println(valgtEmne.getDelEmneNavn());
 
         return "godkjenningsoversikt";
+
     }
 }

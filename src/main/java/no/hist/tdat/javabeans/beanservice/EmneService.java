@@ -70,6 +70,12 @@ public class EmneService {
         return databaseConnector.hentDelemne(navn);
     }
 
+    /**
+     * Oppretter et emne
+     *
+     * @param emne
+     * @return boolean
+     */
     public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.opprettEmne(emne);
 
@@ -78,4 +84,7 @@ public class EmneService {
         return databaseConnector.hentStudOvinger(bruker,emne,delEmne);
     }
 
+    public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException{
+        return databaseConnector.opprettDelemne(delEmne, emne);
+    }
 }

@@ -28,7 +28,9 @@ public class KoeGrupper {
 
     public KoeGrupper(){}
 
-    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Oving> ovinger) {
+
+    public KoeGrupper(int koe_id, Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Oving> ovinger) {
+        this.koe_id=koe_id;
         this.klokkeslett = klokkeslett;
         this.koePlassering = koePlassering;
         this.gruppeLeder = gruppeLeder;
@@ -38,6 +40,7 @@ public class KoeGrupper {
         this.medlemmer = medlemmer;
         this.ovinger = ovinger;
     }
+
 
     public int getKoePlassering() {
         return koePlassering;
@@ -115,6 +118,13 @@ public class KoeGrupper {
         return kommentar;
     }
 
+    public String getOvingerIString(){
+        String output="";
+        for (int i = 0; i <ovinger.size() ; i++) {
+            output += ovinger.get(i);
+        }
+        return output;
+    }
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
