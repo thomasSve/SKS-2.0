@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by Olve André on 20.01.14.
  */
@@ -19,15 +21,14 @@ import javax.servlet.http.HttpServletRequest;
 public class GodkjennKontroller {
     @Autowired
     KoeService service;
-    /*
-    @RequestMapping(value = "/hentUtKoPerson.htm")
-    public String hentUtOving(@ModelAttribute("koPerson")
-     */
+
     @RequestMapping(value = "/godkjennGruppeOving.htm")
-    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model model,@ModelAttribute("oving") Oving oving, HttpServletRequest request) {
-        String konummer = request.getParameter("koePlass");
-       // koeGrupper.setKoePlassering(service.getBrukerIKo());
-        //service.oppdaterBruker(oving, mail, ov_id);
+    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session) {
+        String godkjenn = request.getParameter("godkjennKnapp");
+        String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
+        String leggTilOving = request.getParameter("endreOvingerKnapp");
+        String
+
         return "koeBruker";
     }
 

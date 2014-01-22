@@ -11,42 +11,30 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
-    <form:form class="sokettergruppeiko" role="search" modelAttribute="godkjennGruppe" action="bareEnTest.htm" method="POST">
-        <div class="form-group">
-            <label for="mail">Mail</label>
-
-            <form:input path="mail" id="mail" class="form-control"/>
-
-            <form:errors path="mail"/>
-        </div>
-        <div class="form-group">
-            <label for="koeID">koe_id</label>
-
-            <form:input path="koeID" id="koeID" class="form-control"/>
-
-            <form:errors path="koeID<"/>
-        </div>
-        <div class="form-group">
-            <label for="koePlass">Koe Plass</label>
-
-            <form:input path="koePlass" id="koePlass" name="koePlass" class="form-control"/>
-
-            <form:errors path="koePlass<"/>
-        </div>
-
-    </form:form>
     <form:form>
         <table class="table table-condensed" id="godkjennGruppe">
             <tbody>
+            <c:forEach var="" items="${}" varStatus="status">
             <tr>
-                <td><c:out value="${koegrupper}"/></td>
-                <td><c:out value="${koeGrupper.ovingsnummer}"/>/td>
-                <td><c:out value="${koeGrupper.mail}"/>/td>
-                <td><c:out value="${koeGrupper.koePlass}"/></td>
+                <td><c:out value="${}"/></td>
+                <td><c:out value="${}"/>/td>
+                <td><c:out value="${}"/>/td>
+                <td><c:out value="${}"/></td>
             </tr>
+            </c:forEach>
             </tbody>
         </table>
     </form:form>
+
+    <div class="btn-group">
+        <button type="godkjenn" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
+
+        <button type="leggtil" class="btn btn-primary" name="leggTilStundeterKnapp"><i class="glyphicon glyphicon-user"></i> Legg til studenter
+        </button>
+        <button type="endreØvinger" class="btn btn-info" name="endreOvingerKnapp"data-toggle="modal" data-target="#velgøvingFellesModal"><i
+                class="glyphicon glyphicon-plus"></i> Endre øvinger
+        </button>
+    </div>
 
 
 </div>
