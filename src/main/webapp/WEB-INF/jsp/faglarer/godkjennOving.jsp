@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Thomas
+  User: olve og gm, ass
   Date: 13.01.14
   Time: 15:23
   To change this template use File | Settings | File Templates.
@@ -12,15 +12,15 @@
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
     <form:form>
+        <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
         <table class="table table-condensed" id="godkjennGruppe">
             <tbody>
-            <c:forEach var="" items="${}" varStatus="status">
-            <tr>
-                <td><c:out value="${}"/></td>
-                <td><c:out value="${}"/>/td>
-                <td><c:out value="${}"/>/td>
-                <td><c:out value="${}"/></td>
-            </tr>
+            <c:forEach var="bruker" items="${gruppeFraKoe.getMedlemmer()}" varStatus="status">
+                <tr>
+                    <td><c:out value="${bruker.fornavn}"></c:out> </td>
+                    <td><c:out value="${bruker.etternavn}"></c:out> </td>
+                    <td><c:out value="${gruppeFraKoe.getOvingerIString()}"></c:out> </td>
+                </tr>
             </c:forEach>
             </tbody>
         </table>

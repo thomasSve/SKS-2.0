@@ -10,7 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="col-md-4">
-<form:form method="POST" modelAttribute="emne" action="lagEmne.htm">
+<form:form method="POST" modelAttribute="emne" action="lagEmne">
     <h2>Opprett emne</h2>
 
     <p style="color: red"><strong>${emnefeil}</strong></p>

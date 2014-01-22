@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by Thomas on 15.01.14.
  */
 public class KoeGrupper {
+    private int koe_id;
     private Date klokkeslett;
     private int gruppeID;
     private int koePlassering;
@@ -21,7 +22,8 @@ public class KoeGrupper {
 
     public KoeGrupper(){}
 
-    public KoeGrupper(Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger) {
+    public KoeGrupper(int koe_id, Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Integer> ovinger) {
+        this.koe_id=koe_id;
         this.klokkeslett = klokkeslett;
         this.koePlassering = koePlassering;
         this.gruppeLeder = gruppeLeder;
@@ -30,6 +32,14 @@ public class KoeGrupper {
         this.kommentar = kommentar;
         this.medlemmer = medlemmer;
         this.ovinger = ovinger;
+    }
+
+    public int getKoe_id() {
+        return koe_id;
+    }
+
+    public void setKoe_id(int koe_id) {
+        this.koe_id = koe_id;
     }
 
     public int getKoePlassering() {
@@ -108,6 +118,13 @@ public class KoeGrupper {
         return kommentar;
     }
 
+    public String getOvingerIString(){
+        String output="";
+        for (int i = 0; i <ovinger.size() ; i++) {
+            output += ovinger.get(i);
+        }
+        return output;
+    }
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;

@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OpprettEmneKontroller {
     @Autowired
     EmneService service;
-    @RequestMapping("/lagEmne.htm")
-    public String emne(@ModelAttribute(value = "emne") Emne emne, BindingResult result, Model model) {
+    @RequestMapping("lagEmne")
+    public String emne(@ModelAttribute(value = "emne") Emne emne, @ModelAttribute("delemne")DelEmne delEmne, BindingResult result, Model model) {
         try{
             service.opprettEmne(emne);
             model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
