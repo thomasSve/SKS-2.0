@@ -160,7 +160,8 @@ public class NavigasjonsKontroller {
         return "opprettDelemne";
     }
 
-    //HENTER FOR ETIKK
+
+        //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
     public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
 

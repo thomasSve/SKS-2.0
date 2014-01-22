@@ -11,6 +11,7 @@
 
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
+
     <form:form>
         <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
         <table class="table table-condensed" id="godkjennGruppe">

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class GodkjennKontroller {
     @Autowired
+
     EmneService service;
 
 
@@ -41,12 +42,13 @@ public class GodkjennKontroller {
         return "godkjennOving";
 
     }
-    /*
+
     @RequestMapping(value = "/godkjennGruppeOving.htm")
     public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session) {
         String godkjenn = request.getParameter("godkjennKnapp");
         String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
         String leggTilOving = request.getParameter("endreOvingerKnapp");
         return "koeoversikt";
-    } */
+    }
 }
+

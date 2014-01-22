@@ -68,8 +68,9 @@
             <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
             <td>
                 <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
-                    <button class="btn btn-primary" data-task="choose" title="Velg"
-                            onclick="location.href='godkjennOving.htm'"><i class="glyphicon glyphicon-edit"></i>
+
+                    <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
+                            onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
                     </button>
                     <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
                             onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
