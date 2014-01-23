@@ -52,28 +52,25 @@ public class GodkjennKontroller {
 
         KoeGrupper koeGrupper = (KoeGrupper)session.getAttribute("gruppeFraKoe");
         Bruker personenSomGodkjenner = (Bruker)session.getAttribute("innloggetBruker");
-        System.out.println("dette er rart");
 
         if (godkjenn != null) {
-            System.out.println("dette er feil lol ");
-
             for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
-                System.out.println("Skjer'a?");
+
                 if (koeGrupper.getOvinger().size() == 0) {
-                    System.out.println("hei");
-
                 }
+
                 if (koeGrupper.getOvinger().size() == 1) {
-                    System.out.println("hei");
                 }
-                if (koeGrupper.getOvinger().size() <= 2) {
-                    String[] ovingerSomSkalGodkjennes = koeGrupper.getOvingerIString().split(",");
-                    System.out.println("slask");
-                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) {
-                        String randomNummerLol = ovingerSomSkalGodkjennes[j];
-                        randomNummerLol.trim();
-                        int ovingsnummer = Integer.parseInt(randomNummerLol);
 
+                if (koeGrupper.getOvinger().size() >= 2) {
+                    String[] ovingerSomSkalGodkjennes = koeGrupper.getOvingerIString().split(",");
+                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) {
+                        String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
+                        if (!randomNummerLol.equals("") && randomNummerLol != null) {
+                            System.out.println("." + randomNummerLol + ".");
+                            int ovingsnummer = Integer.parseInt(randomNummerLol);
+
+                        }
                     }
                 }
             }
