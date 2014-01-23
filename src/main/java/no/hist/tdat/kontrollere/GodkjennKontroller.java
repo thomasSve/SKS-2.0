@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -43,12 +44,42 @@ public class GodkjennKontroller {
 
     }
 
-    @RequestMapping(value = "/godkjennGruppeOving.htm")
-    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session) {
+    @RequestMapping(value = "/godkjennGruppeOving.htm", method = RequestMethod.POST)
+    public String godkjennGruppeOving(Model modell, HttpServletRequest request, HttpSession session) {
         String godkjenn = request.getParameter("godkjennKnapp");
         String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
         String leggTilOving = request.getParameter("endreOvingerKnapp");
-        return "koeoversikt";
+
+        KoeGrupper koeGrupper = (KoeGrupper)session.getAttribute("gruppeFraKoe");
+        Bruker personenSomGodkjenner = (Bruker)session.getAttribute("innloggetBruker");
+        System.out.println("dette er rart");
+
+        if (godkjenn != null) {
+            System.out.println("dette er feil lol ");
+
+            for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
+                System.out.println("Skjer'a?");
+                if (koeGrupper.getOvinger().size() == 0) {
+                    System.out.println("hei");
+
+                }
+                if (koeGrupper.getOvinger().size() == 1) {
+                    System.out.println("hei");
+                }
+                if (koeGrupper.getOvinger().size() <= 2) {
+                    String[] ovingerSomSkalGodkjennes = koeGrupper.getOvingerIString().split(",");
+                    System.out.println("slask");
+                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) {
+                        String randomNummerLol = ovingerSomSkalGodkjennes[j];
+                        randomNummerLol.trim();
+                        int ovingsnummer = Integer.parseInt(randomNummerLol);
+
+                    }
+                }
+            }
+        }
+
+        return "godkjennOving";
     }
 }
 
