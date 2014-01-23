@@ -102,7 +102,7 @@ public class NavigasjonsKontroller {
         Koe koe = (Koe)session.getAttribute("koe");
        // System.out.println("wtf");
         //int koeId = (int)request.getAttribute("koe_id");
-        koe.setGrupper(koeservice.getKoe(1));
+        koe.setGrupper(koeservice.getKoe(koe.getKoeId()));
         //System.out.println("koe elements grupper size:"+koe.getGrupper().size());
         return koeservice.genererKoeOversikt(koe);
     }

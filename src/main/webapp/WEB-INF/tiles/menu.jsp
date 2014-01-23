@@ -34,7 +34,7 @@
 
         <ul class="nav navbar-nav side-nav">
             <c:if test="${sessionScope.innloggetBruker ==null}">
-            <li><a href="login.htm">Logg inn</a></li>
+            <li><a href="/login.htm">Logg inn</a></li>
             </c:if>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
@@ -45,18 +45,23 @@
                     </c:forEach>
                 </ul>
             </li>
-            <li><a href="adminBrukere.htm">Administrer brukere</a></li>
-            <li><a href="opprettEmne.htm" >Opprett emne</a></li>
-            <li><a href="adminFag.htm">Administrer fag</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
-                    Administrer studenter <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="nyStudent.htm">Ny student</a></li>
-                    <li><a href="endreStudent.htm">Endre student</a></li>
-                </ul>
-            </li>
-            <li><a href="godkjenningsoversikt.htm">Godkjenningsoversikt</a></li>
+            <c:if test="${sessionScope.innloggetBruker.rettighet<2}" >
+                <li><a href="/adminBrukere.htm">Administrer brukere</a></li>
+                <li><a href="/adminFag.htm">Administrer emner</a></li>
+            </c:if>
+            <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
+                <li><a href="/opprettEmne.htm" >Opprett emne</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
+                        Administrer studenter <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/nyStudent.htm">Ny student</a></li>
+                        <li><a href="/endreStudent.htm">Endre student</a></li>
+                    </ul>
+                </li>
+            </c:if>
+
+           <!-- <li><a href="godkjenningsoversikt.htm">Godkjenningsoversikt</a></li> -->
 
         </ul>
     </div>
