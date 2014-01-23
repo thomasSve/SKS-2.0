@@ -183,4 +183,15 @@ public class NavigasjonsKontroller {
     public String opprettEmne(@ModelAttribute("emne") Emne emne) {
         return "opprettEmne";
     }
+
+    @RequestMapping(value = "/emneOversikt.htm", method = RequestMethod.POST)
+    public void omdirEmneOversikt(@ModelAttribute("koegrupper") KoeGrupper koegrupper,@ModelAttribute("bruker") Bruker bruker,@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("delEmne") DelEmne delEmne, @ModelAttribute("emne")Emne emne,HttpServletRequest request, HttpSession session) {
+        String emnekode = request.getParameter("emnekodeFraNav");
+        session.setAttribute("emnekodeFraMeny",emnekode);
+    }
+
+    @RequestMapping("/emneOversikt.htm")
+    public String omdirEmneOversiktKlone(@ModelAttribute("koegrupper") KoeGrupper koegrupper,@ModelAttribute("bruker") Bruker bruker,@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("delEmne") DelEmne delEmne,@ModelAttribute("emne")Emne emne, HttpServletRequest request, HttpSession session) {
+        return "emneOversikt";
+    }
 }

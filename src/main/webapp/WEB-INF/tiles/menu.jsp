@@ -36,12 +36,12 @@
                     Emner <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
-                        <li><a href="">${emne.emneNavn}</a></li>
+                        <li><a onclick="emnekodeFraMenu(this.id)" id = "${emne.emneKode}">${emne.emneNavn}</a></li>
                     </c:forEach>
                 </ul>
             </li>
-            <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
 
+            <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
 
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
             <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
@@ -61,3 +61,5 @@
     </div>
     <!-- /.navbar-collapse -->
 </nav>
+
+<script src="<c:url value="/resources/js/menyScript.js"/>"></script>
