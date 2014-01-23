@@ -102,7 +102,6 @@ CREATE TABLE oving (
 CREATE TABLE oving_brukere (
   oving_id     INT          NOT NULL,
   mail         VARCHAR(255) NOT NULL,
-  godkjent     TINYINT      NOT NULL,
   godkjent_av  VARCHAR(255),
   godkjent_tid TIMESTAMP,
   CONSTRAINT pk_oving_brukere PRIMARY KEY (oving_id, mail)

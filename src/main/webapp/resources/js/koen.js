@@ -33,27 +33,40 @@ function mysubmit() {
 
 function sjekkAktivKoe(status){
     alert(status);
+
     if(status){
         document.getElementById("stillIKo").disabled = false;
     }
 }
 function startStoppKoe(koe_id){
+    var counter=0;
+    var knapp = document.getElementById("startStoppKnapp");
+    var statusDiv = document.getElementById("koeStatus");
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
     else {// code for IE6, IE5
-
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
 
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+            if(knapp.value=="Stopp sks" && counter ==0){
+                statusDiv.innerHTML="Deaktivert";
+                knapp.value="Start sks";
+                knapp.className = "btn btn-sm btn-success";
+            }else{
+                statusDiv.innerHTML="Aktivert";
+                knapp.value="Stopp sks";
+                knapp.className = "btn btn-sm btn-danger";
+            }
+            counter++;
+        }
     }
     xmlhttp.open("POST", "/StartStoppKoe.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("KoeIndex=" + koe_id);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-    //oppdaterKoe();
 }
 function settIKo(koe_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari

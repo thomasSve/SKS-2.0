@@ -13,7 +13,15 @@
 
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
+            K&oslash; for <c:out value="${delEmne.delEmneNavn}"/>
+        </div>
+        <div id="koeStatus">
+            <c:if test="${delEmne.koe_status}">
+                Aktivert
+            </c:if>
+            <c:if test="${!delEmne.koe_status}">
+                Deaktivert
+            </c:if>
         </div>
     </h3>
 
@@ -31,18 +39,13 @@
         </c:if>
         <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].foreleser==1}">
             <div id="startStoppKoe">
-                <%
-                    DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
-                    int koe_id = delEmne.getKoe_id();
-                    if (delEmne.isKoe_status()) {
+                <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].delemner[delEmneIndex].koe_status}">
+                    <input type="button" id="startStoppKnapp" onclick="startStoppKoe(${delEmne.koe_id})" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp sks">
+                </c:if>
+                <c:if test="${!sessionScope.innloggetBruker.emne[emneIndex].delemner[delEmneIndex].koe_status}">
+                    <input type="button" id="startStoppKnapp" onclick="startStoppKoe(${delEmne.koe_id})" class="btn btn-sm btn-success" id="startKoe" value="Start sks">
+                </c:if>
 
-                        out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
-                                // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
-                        );
-                    } else {
-                        out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
-                    }
-                %>
             </div>
         </c:if>
         </div>

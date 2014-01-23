@@ -76,11 +76,11 @@ public class KoeService {
         System.out.println(delEmne.getDelEmneNavn()+", "+delEmne.isKoe_status());
         if (!delEmne.isKoe_status()) {
             delEmne.setKoe_status(true);
-            output+="<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n";
+            output+="Stopp køen";
                     // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
         } else {
             delEmne.setKoe_status(false);
-            output+="<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n";
+            output+="Start køen";
         }
         return output;
     }
