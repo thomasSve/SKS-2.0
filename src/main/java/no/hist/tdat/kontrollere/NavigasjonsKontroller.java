@@ -64,6 +64,10 @@ public class NavigasjonsKontroller {
     public String omdirigerAdminFag(@ModelAttribute("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session, Model model) {
         return "adminFag";
     }
+    @RequestMapping("/adminEmneEndre.htm")
+    public String omdirigerAdminEmneEndre(@ModelAttribute ("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans) {
+        return "adminEmneEndre";
+    }
 
     @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {

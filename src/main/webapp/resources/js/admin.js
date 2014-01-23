@@ -10,7 +10,7 @@ function adminFagOperasjon(valgt) {
         document.getElementById("operasjonstekst").innerHTML = "Lag nytt fag";
     }
 }
-function endreBruker(valgt) {
+function endreEmne(valgt) {
 
     if (document.getElementsByTagName("edit").value !== "ingen") {
         document.getElementById("operasjonstekst").innerHTML = "Endre bruker";
@@ -36,27 +36,27 @@ function slettEmne(valgt)
 
 
 function slettEmneFraKnapp(emnekode) {
+    var svar = confirm("Slette emnet " + emnekode + "?");
+    if(svar){
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
 
-    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+
+        }
+        xmlhttp.open("POST", "/slettEmne.htm", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("emneIndex=" + emnekode);
+
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        }
+
+        window.location = "searchFag.htm"
     }
-    else {// code for IE6, IE5
-
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function () {
-
-    }
-    xmlhttp.open("POST", "/slettEmne.htm", true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("emneIndex=" + emnekode);
-
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-
-    window.location = "searchFag.htm"
-
-
 }
 
 function redigerEmneFraKnapp(emnekode) {
@@ -81,7 +81,7 @@ function redigerEmneFraKnapp(emnekode) {
 
 }
 
-function adminEmneTilbake(mail) {
+function adminEmneTilbake(emnekode) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -94,11 +94,12 @@ function adminEmneTilbake(mail) {
     }
     xmlhttp.open("POST", "/searchFag.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("brukerIndex=" + mail);
+    xmlhttp.send("emneIndex=" + emnekode);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
     window.location = "searchFag.htm"
 }
+
 
 /*
     AdminBrukere

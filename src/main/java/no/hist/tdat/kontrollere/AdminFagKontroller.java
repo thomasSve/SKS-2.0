@@ -28,15 +28,15 @@ public class AdminFagKontroller {
     private EmneService EmneService;
 
     @RequestMapping("/searchFag.htm")
-    public String finnBruker(@ModelAttribute("emnerBeans") EmnerBeans emnerBeans, @ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
+    public String finnEmne(@ModelAttribute("emnerBeans") EmnerBeans emnerBeans, @ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String emner = request.getParameter("srch-term");
-        if(emner == null){
-            if(session.getAttribute("soek")!=null){
-                emnerBeans.setValgt(EmneService.finnEmne((String)session.getAttribute("sok")));
-                session.setAttribute("soek", (String)session.getAttribute("sok"));
+        if (emner == null) {
+            if (session.getAttribute("soek") != null) {
+                emnerBeans.setValgt(EmneService.finnEmne((String) session.getAttribute("sok")));
+                session.setAttribute("soek", (String) session.getAttribute("sok"));
             }
-        }else{
+        } else {
             emnerBeans.setValgt(EmneService.finnEmne(emner));
             session.setAttribute("soek", emner);
         }
@@ -44,10 +44,11 @@ public class AdminFagKontroller {
         modell.addAttribute("emnerBeans", emnerBeans);
         return "adminFag";
     }
+
     @RequestMapping(value = "/slettEmne.htm", method = RequestMethod.POST)
-    public String slettBruker(Model modell,@ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session) {
+    public String slettEmne(Model modell, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
-        String emnekode = request.getParameter("brukerIndex");
+        String emnekode = request.getParameter("emneIndex");
         EmneService.slettEmne(emnekode);
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("emnerBeans", emnerBeans);
@@ -57,40 +58,40 @@ public class AdminFagKontroller {
 
     @RequestMapping(value = "/redigerEmne.htm", method = RequestMethod.POST)
     public String redigerEmne(@ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
-        String tab = request.getParameter("tab");
         String emnenavn = request.getParameter("emneIndex");
         Emne redigerEmne = EmneService.hentEmne(emnenavn);
-        session.setAttribute("redigerBrukere", redigerEmne);
+        session.setAttribute("redigerEmne", redigerEmne);
         if (redigerEmne == null) {
             modell.addAttribute("melding", "Finner ikke emne i databasen");
-            return "adminBrukereEndre";
+            return "adminEmneEndre";
         } else {
-            return "adminBrukereEndre";
+            return "adminEmneEndre";
         }
 
     }
 
-   /* @RequestMapping(value = "/redigerEmneLagre.htm")
+    @RequestMapping(value = "/redigerEmneLagre.htm")
     public String redigerEmneLagre(@Valid @ModelAttribute("emne") Emne emne, BindingResult result, Model modell, HttpServletRequest request, HttpSession session) {
-        String emnekode = request.getParameter("redigerEmne");
+        Emne redigerEmne =(Emne) session.getAttribute("redigerEmne");
+        System.out.println(redigerEmne.getEmneKode() +", "+ emne);
         if (result.hasErrors()) {
             modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
             return "adminEmneEndre";
         }
-            try {
-                if (EmneService.oppdaterEmne(mail, bruker)) {
-                    modell.addAttribute("melding", "REGISTRERT Endringer for bruker: " + bruker.getMail());
-                    session.removeAttribute("redigerMail");
-                    return "adminBrukereEndre";
-                } else {
-                    modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
-                    return "adminBrukereEndre";
-                }
-
-            } catch (Exception e) {
-                modell.addAttribute("melding", "En uventet feil oppsto<br><br>" + e);
-                return "adminBrukereEndre";
+        try {
+            if (EmneService.oppdaterEmne(redigerEmne.getEmneKode(), emne)) {
+                modell.addAttribute("Vellykket", "REGISTRERT Endringer for emne: " + emne.getEmneKode());
+                session.removeAttribute("redigerEmneKode");
+                return "adminEmneEndre";
+            } else {
+                modell.addAttribute("melding", "FEIL: Greide ikke å endre databasen");
+                return "adminEmneEndre";
             }
+
+        } catch (Exception e) {
+            modell.addAttribute("melding", "En uventet feil oppsto<br><br>" + e);
+            return "adminEmneEndre";
         }
-    }*/
+    }
+
 }

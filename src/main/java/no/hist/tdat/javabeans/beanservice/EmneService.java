@@ -109,7 +109,7 @@ public class EmneService {
     public boolean slettEmne(String emnekode){
         return databaseConnector.slettEmne(emnekode);
     }
-    public boolean oppdaterBruker(String emnekode, Emne emne) {
+    public boolean oppdaterEmne(String emnekode, Emne emne) {
         return databaseConnector.oppdaterEmne(emne, emnekode);
     }
 

@@ -9,19 +9,23 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-md-6">
+    <h3>Endre Emne (${redigerEmne.emneNavn})</h3>
     <form:form method="POST" modelAttribute="emne" action="redigerEmneLagre.htm">
-        <p style="color: red"><strong>${FeilMelding}</strong></p>
+        <p style="color: red"><strong>${melding}</strong></p>
+        <p style="color: green"><strong>${Vellykket}</strong></p>
 
         <div class="form-group">
             <label for="endrekode">Emnekode</label>
-            <form:input value="${redigerEmne.emneKode}" path="fornavn" id="endrekode" class="form-control"/>
+            <form:input value="${redigerEmne.emneKode}" path="emneKode" id="endrekode" class="form-control"/>
             <errors path="emneKode"/>
         </div>
         <div class="form-group">
             <label for="endrefornavn">Emnenavn</label>
-            <form:input value="${redigerEmne.emneNavn}" path="fornavn" id="endrefornavn" class="form-control"/>
+            <form:input value="${redigerEmne.emneNavn}" path="emneNavn" id="endrefornavn" class="form-control"/>
             <errors path="emneNavn"/>
         </div>
+        <input type="hidden" name="redigerEmneKode" value="${redigerEmne.emneKode}">
+
         <div class="modal-footer">
             <button type="button" id="${redigerEmne.emneKode}" onclick="adminEmneTilbake(this.id)" class="btn btn-danger col-md-5" data-dismiss="modal">Tilbake</button>
             <input type="submit" id="endreEmne" value="Endre emne" style="float: right" class="btn btn-primary col-md-5"/>
