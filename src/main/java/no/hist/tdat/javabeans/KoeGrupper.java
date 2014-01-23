@@ -122,7 +122,7 @@ public class KoeGrupper {
     public String getOvingerIString(){
         String output="";
         for (int i = 0; i <ovinger.size() ; i++) {
-            output += ovinger.get(i) + ", ";
+            output += ovinger.get(i).getOvingnr() + ", ";
         }
         return output;
     }

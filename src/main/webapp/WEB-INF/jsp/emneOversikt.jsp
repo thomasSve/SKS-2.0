@@ -57,9 +57,9 @@
                                         for (int a = 0; a < emne.getDelemner().get(j).getStudentovinger().size(); a++) {
                                             if (emne.getDelemner().get(j).getStudentovinger().get(a).isGodkjent()) {
                                                 String godkjentInfo = "Godkjent av:\t " + emne.getDelemner().get(j).getStudentovinger().get(a).getGodkjentAv() + "\ndato:\t\t" + emne.getDelemner().get(j).getStudentovinger().get(a).getGodkjentTid();
-                                                out.println("<button class ='btn btn-success btn-sm active' title='" + godkjentInfo + "'>" + emne.getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</button>");
+                                                out.println("<li class ='btn btn-success btn-sm active' title='" + godkjentInfo + "'>" + emne.getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</li>");
                                             } else {
-                                                out.println("<button class ='btn btn-default btn-sm disabled' >" + emne.getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</button>");
+                                                out.println("<li class ='btn btn-default btn-sm disabled' >" + emne.getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</li>");
                                             }
                                         }
                                         out.println("</td></tr>");
