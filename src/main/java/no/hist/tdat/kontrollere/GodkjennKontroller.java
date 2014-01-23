@@ -3,6 +3,7 @@ package no.hist.tdat.kontrollere;
 import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Olve André on 20.01.14.
@@ -21,8 +24,10 @@ import javax.servlet.http.HttpSession;
 public class GodkjennKontroller {
     @Autowired
 
-    EmneService service;
+    EmneService emneService;
 
+    @Autowired
+    BrukerService brukerService;
 
     @RequestMapping(value = "/hentUtKoGruppe.htm", method = RequestMethod.POST)
     public String hentUtKoGruppe(@ModelAttribute("koeGrupper") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session){
@@ -51,10 +56,18 @@ public class GodkjennKontroller {
         String leggTilOving = request.getParameter("endreOvingerKnapp");
 
         KoeGrupper koeGrupper = (KoeGrupper)session.getAttribute("gruppeFraKoe");
-        Bruker personenSomGodkjenner = (Bruker)session.getAttribute("innloggetBruker");
+        Bruker bruker = (Bruker)session.getAttribute("innloggetBruker");
+
+        String personenSomGodkjenner = bruker.getMail();
 
         if (godkjenn != null) {
+            Date date = new Date(); //2000-01-01 13:37:00
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+            System.out.println(ft.format(date));
+            String naaTid = ft.format(date);
+
             for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
+                String brukerMail = koeGrupper.getMedlemmer().get(i).getMail();
 
                 if (koeGrupper.getOvinger().size() == 0) {
                 }
@@ -64,18 +77,19 @@ public class GodkjennKontroller {
 
                 if (koeGrupper.getOvinger().size() >= 2) {
                     String[] ovingerSomSkalGodkjennes = koeGrupper.getOvingerIString().split(",");
-                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) {
+                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) { //Går igjennom hver oving
                         String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
                         if (!randomNummerLol.equals("") && randomNummerLol != null) {
-                            System.out.println("." + randomNummerLol + ".");
-                            int ovingsnummer = Integer.parseInt(randomNummerLol);
+                            System.out.println("." + koeGrupper.getOvinger().get(j).getOving_id() + ".");
+                            int ovingsID = koeGrupper.getOvinger().get(j).getOving_id();
+
+                            brukerService.leggTilGodkjentOving(ovingsID, brukerMail, personenSomGodkjenner, naaTid);
 
                         }
                     }
                 }
             }
         }
-
         return "godkjennOving";
     }
 }

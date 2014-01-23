@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class BrukerService {
@@ -153,5 +154,9 @@ public class BrukerService {
      */
     public ArrayList<Oving> hentOvinger(String delEmne, String mail) {
         return databaseConnector.hentOvinger(delEmne, mail);
+    }
+
+    public boolean leggTilGodkjentOving (int ovings_id, String mail, String godkjennersMail, String datoGodkjent) {
+        return databaseConnector.opprettGodkjentOving(ovings_id, mail, godkjennersMail, datoGodkjent);
     }
 }

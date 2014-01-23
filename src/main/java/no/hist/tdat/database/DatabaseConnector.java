@@ -3,12 +3,14 @@ package no.hist.tdat.database;
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
 import no.hist.tdat.koe.KoeBruker;
+import no.hist.tdat.kontrollere.GodkjennKontroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +44,7 @@ public class DatabaseConnector {
     private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail = ? OR fornavn = ? OR etternavn = ?";
     private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
-    private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
+    private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
     private final String finnOvingerSQL = "SELECT * FROM koe_gruppe, gruppe, gruppe_oving WHERE koe_gruppe.gruppe_id = gruppe.gruppe_id AND gruppe.gruppe_id = gruppe_oving.gruppe_id AND gruppe.mail = ? AND koe_gruppe.koe_id = ? AND koe_gruppe.koe_plass = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
         //Legg til I Kø
@@ -73,11 +75,22 @@ public class DatabaseConnector {
     private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
     private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
 
+    private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUE (?,?,1,?,?)";
 
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle sp�rringer.
 
+
+
+    public boolean opprettGodkjentOving(int oving_id, String mail, String godkjentAvMail, String datoGodkjent) {
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(opprettGodkjentOvingSQL,
+                oving_id, mail,
+                godkjentAvMail, datoGodkjent);
+        return true;
+    }
     /**
      *
      * @param mail
@@ -201,24 +214,21 @@ public class DatabaseConnector {
     }
 
     /**
-     * Oppdatterer en spesifikk brukers oving
      *
-     * @param oving     Den ovingen du vil endre på
-     * @param mail      Mailen til den brukeren du vil endre øvingen til
-     * @param oving_id  Hvilken øving det dreier seg om.
+     * @param mail
+     * @param oving_id
+     * @param godkjentAvMail
+     * @param datoGodkjent
+     * @return
      */
-    public boolean oppdaterOving(Oving oving, String mail, int oving_id) {
-        if (oving == null) {
-            return false;
-        } else {
-            JdbcTemplate con = new JdbcTemplate(dataKilde);
-            con.update(oppdaterOvingSQL,
-                    mail, oving_id,
-                    oving.denneErGodkjent(),
-                    oving.getGodkjentAv(),
-                    oving.getGodkjentTid());
-            return true;
-        }
+    public boolean oppdaterOving(String mail, int oving_id, String godkjentAvMail, Date datoGodkjent) {
+
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(oppdaterOvingSQL,
+                mail, oving_id,
+                godkjentAvMail, datoGodkjent);
+        return true;
+
     }
 
     /**
