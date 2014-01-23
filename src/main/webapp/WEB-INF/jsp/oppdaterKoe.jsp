@@ -32,16 +32,19 @@
                 <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
                     <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
-                        
-                        <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
-                                onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
-                        </button>
-                        <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
-                                onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
-                        </button>
-                        <button class="btn btn-danger" data-task="remove" title="Fjern"
-                                onclick="slettBruker(this.parentNode.id)"><i class="glyphicon glyphicon-remove"></i>
-                        </button>
+                        <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
+                            <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
+                                    onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
+                            </button>
+                        </c:if>
+                        <c:if test="${sessionScope.innloggetBruker.rettighet==3}">
+                            <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
+                                    onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
+                            </button>
+                            <button class="btn btn-danger" data-task="remove" title="Fjern"
+                                    onclick="slettBruker(this.parentNode.id)"><i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                        </c:if>
                     </div>
                 </td>
                 </tr>

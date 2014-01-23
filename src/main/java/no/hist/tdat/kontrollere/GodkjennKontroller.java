@@ -40,7 +40,6 @@ public class GodkjennKontroller {
     public String hentUtKoGruppe(@ModelAttribute("koeGrupper") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session){
 
         Koe koe = (Koe)session.getAttribute("koe");
-
         String gruppeNokkler = request.getParameter("gruppeIndexFraKoe");
         String[] nokler = gruppeNokkler.split(":");
         KoeGrupper gruppe = null;
@@ -70,7 +69,6 @@ public class GodkjennKontroller {
         if (godkjenn != null) {
             Date date = new Date(); //2000-01-01 13:37:00
             SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
-            System.out.println(ft.format(date));
             String naaTid = ft.format(date);
             int gruppeID = koeGrupper.getGruppeID();
             int koeID = koeGrupper.getKoe_id();
@@ -92,11 +90,8 @@ public class GodkjennKontroller {
                     for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) { //Går igjennom hver oving
                         String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
                         if (!randomNummerLol.equals("") && randomNummerLol != null) {
-                            System.out.println("." + koeGrupper.getOvinger().get(j).getOving_id() + ".");
                             int ovingsID = koeGrupper.getOvinger().get(j).getOving_id();
-
                             brukerService.leggTilGodkjentOving(ovingsID, brukerMail, personenSomGodkjenner, naaTid);
-
                         }
                     }
                 }
