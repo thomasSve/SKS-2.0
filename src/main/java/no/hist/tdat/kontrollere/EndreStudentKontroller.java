@@ -80,8 +80,6 @@ public class EndreStudentKontroller {
             String emnekode2 = request.getParameter("emner2");
             if (service.fjernEmne(emnekode2,b.getMail())) {
                 modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn());
-              //  b.setEmne(service2.hentEmnerForStud(b.getMail()));
-              //  session.setAttribute("valgtPerson",b);
             }
             else {
                 modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn()+" har ikke tilgang til "+emnekode2);
@@ -91,8 +89,6 @@ public class EndreStudentKontroller {
             String emnekode3 = request.getParameter("emner3");
             if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
                 modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
-               // b.setEmne(service2.hentEmnerForStud(b.getMail()));
-               // session.setAttribute("valgtPerson",b);
             }
             else {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);

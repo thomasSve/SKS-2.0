@@ -66,6 +66,9 @@ public class DatabaseConnector {
     private final String hentSisteKoeSQL = "SELECT MAX(koe.koe_id) AS DIN_TABELL FROM koe";
     private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
+    private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
+    private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
+    private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
 
 
 
@@ -343,7 +346,6 @@ public class DatabaseConnector {
         if (koe_id == 0 || status > 1) {
             return false;
         }
-        System.out.println("Koe id: " + koe_id + ", Ny Status: " + status);
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(endreKoeStatusSQL,
                 status,
@@ -655,10 +657,6 @@ public class DatabaseConnector {
     }
 
     /**
-<<<<<<< HEAD
-     * Oppretter et emne
-=======
->>>>>>> 89af8b80304f6fcfd3a15bba5936fc1e0a0e22b2
      * Henter delemne, gitt navn
      *
      * @param navn
@@ -670,8 +668,8 @@ public class DatabaseConnector {
         return emne.get(0);
     }
 
-
-    /**
+     /**
+     * Oppretter et emne
      *
      * @param emne
      * @return boolean
@@ -687,6 +685,7 @@ public class DatabaseConnector {
                 emne.getEmneNavn());
         return true;
     }
+
 
     public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException {
         System.out.println("3");
@@ -732,5 +731,47 @@ public class DatabaseConnector {
             res.add(oving);
         }
         return res;
+    }
+
+    /**
+     * @param navn
+     * @return tab over alle treff
+     */
+    public ArrayList<Bruker> finnStudenterIDelemne(String navn) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> plassListe = con.query(finnStudenterIDelemneSQL, new BrukerKoordinerer(), navn);
+        ArrayList<Bruker> res = new ArrayList<Bruker>();
+
+        for (Bruker plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
+    }
+
+    /**
+     * Henter alle �vinger til en student i et delemne
+     * @param navn, epost
+     * @return tab over alle treff
+     */
+    public ArrayList<Oving> hentOvinger(String navn, String epost) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> plassListe = con.query(hentOvingerSQL, new OvingKoordinerer(), epost, navn, navn);
+        ArrayList<Oving> res = new ArrayList<Oving>();
+
+        for (Oving plass : plassListe) {
+            res.add(plass);
+        }
+        return res;
+    }
+
+    /**
+     * Henter emne, gitt navn p� delemne
+     * @param navn
+     * @return emnet
+     */
+    public Emne hentEmne(String navn) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> emne = con.query(hentEmneSQL, new EmneKoordinerer(), navn);
+        return emne.get(0);
     }
 }

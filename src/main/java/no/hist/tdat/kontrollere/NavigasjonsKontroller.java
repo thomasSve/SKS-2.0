@@ -160,18 +160,11 @@ public class NavigasjonsKontroller {
         return "loggInn";
     }
 
-    @RequestMapping("/opprettEmne.htm")
-    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
-        return "opprettEmne";
-    }
-
     @RequestMapping("/opprettDelemne.htm")
     public String opprettDelemne(@ModelAttribute("delemne") DelEmne delEmne) {
         return "opprettDelemne";
     }
 
-
-        //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
     public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
 
@@ -183,9 +176,11 @@ public class NavigasjonsKontroller {
         DelEmne valgtEmne = emneService.hentDelemne(emne);
         session.setAttribute("valgteEmne", valgtEmne);
 
-
-        System.out.println(valgtEmne.getDelEmneNavn());
-
         return "godkjenningsoversikt";
+    }
+
+    @RequestMapping("/opprettEmne.htm")
+    public String opprettEmne(@ModelAttribute("emne") Emne emne) {
+        return "opprettEmne";
     }
 }
