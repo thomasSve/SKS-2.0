@@ -83,5 +83,4 @@ public class EmneService {
     public Emne hentEmne(String navn){
         return databaseConnector.hentEmne(navn);
     }
-
-    }
+}
