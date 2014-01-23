@@ -92,4 +92,9 @@
         <put-attribute name="title"  value="Godkjenningsoversikt"/>
         <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjenningsoversikt.jsp"/>
     </definition>
+
+    <definition name="emneOversikt" extends="baseLayout">
+        <put-attribute name="title"  value="Emneoversikt"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/emneOversikt.jsp"/>
+    </definition>
 </tiles-definitions>
