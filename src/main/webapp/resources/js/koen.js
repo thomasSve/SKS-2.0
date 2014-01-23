@@ -158,6 +158,13 @@ function hentBord(formSelectElement) {
         }
     }
 }
+function tilKoe(){
+    var form =document.getElementById("formStillIKo");
+    form.action = "/koOversikt.htm";
+    document.getElementById("emneNr").value=emnenr;
+    document.getElementById("delemneNr").value=delemnenr;
+    form.submit();
+}
 //Fjernet visadmin, statuskoe og var statusknapp.
 function oppdaterkoen() {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
