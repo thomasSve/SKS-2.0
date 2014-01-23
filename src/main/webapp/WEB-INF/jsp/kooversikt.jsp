@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div class="pull-left col-md-8" onload="sjekkAktivKoe(${delEmne.koe_status});">
+<div class="pull-left col-lg-10" onload="sjekkAktivKoe(${delEmne.koe_status});">
 
     <h3>
         <div id="operasjonstekst">

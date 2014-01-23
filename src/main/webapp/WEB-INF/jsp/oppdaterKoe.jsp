@@ -6,6 +6,7 @@
             <tr>
                 <th>Tid</th>
                 <th>Navn</th>
+                <th>&Oslash;ving</th>
                 <th>Kommentar</th>
                 <th>Sitteplass</th>
                 <th></th>
@@ -26,6 +27,7 @@
                         </c:if>
                 <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
                         value="${koegrupper.medlemmer[0].etternavn}"/></td>
+                <td><c:out value="${koegrupper.getOvingerIString()}"/></td>
                 <td><c:out value="${koegrupper.kommentar}"/></td>
                 <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
                 <td>
