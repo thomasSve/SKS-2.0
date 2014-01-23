@@ -61,7 +61,7 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/adminFag.htm")
-    public String omdirigerAdminFag() {
+    public String omdirigerAdminFag(@ModelAttribute("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session, Model model) {
         return "adminFag";
     }
 

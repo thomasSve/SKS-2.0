@@ -47,4 +47,16 @@ public class Emne {
         System.out.println();
     }
 
+    public String delEmnetilString(){
+        String delEmner = "";
+        for(int i = 0; i<delemner.size(); i++){
+            if(i==0){
+                delEmner += delemner.get(i).getDelEmneNavn();
+            }else{
+                delEmner += ", " + delemner.get(i).getDelEmneNavn();
+            }
+        }
+        return delEmner;
+    }
+
 }
