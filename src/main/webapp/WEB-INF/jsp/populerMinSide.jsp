@@ -12,7 +12,7 @@
                     String godkjentInfo = "Godkjent av:\t " + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getGodkjentAv() + "\ndato:\t\t" + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getGodkjentTid();
                     out.println("<li class ='btn btn-success btn-sm active' title='" + godkjentInfo + "'>" + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</li>");
                 } else {
-                    out.println("<li class ='btn btn-default btn-sm disabled' >" + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</li>");
+                    out.println("<li class ='btn btn-default btn-sm active'  title=\"Ikke godkjent\"  >" + denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().get(a).getOvingnr() + "</li>");
                 }
             }
             out.println("</td></tr>");
