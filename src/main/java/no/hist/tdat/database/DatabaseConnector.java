@@ -281,7 +281,7 @@ public class DatabaseConnector {
             return null;
         }
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Emne> emneList = con.query(brukerEmnerSQL, new EmneKoordinerer(), bruker.getMail());
+        List<Emne> emneList = con.query(brukerEmnerSQL, new EmneBrukerKoordinerer(), bruker.getMail());
         ArrayList<Emne> res = new ArrayList<>();
         for (Emne emne : emneList) {
             res.add((Emne) emne);
