@@ -64,6 +64,10 @@ public class NavigasjonsKontroller {
     public String omdirigerAdminFag(@ModelAttribute("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session, Model model) {
         return "adminFag";
     }
+    @RequestMapping("/adminEmneEndre.htm")
+    public String omdirigerAdminEmneEndre(@ModelAttribute ("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans) {
+        return "adminEmneEndre";
+    }
 
     @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
     public String koOversikt(@ModelAttribute("delEmne") DelEmne delEmne, HttpServletRequest request, HttpSession session, Model model) {
@@ -160,9 +164,9 @@ public class NavigasjonsKontroller {
         return "minside";
     }
 
-    @RequestMapping("/ovingsOpplegg.htm")
+    @RequestMapping("/ovingsopplegget.htm")
     public String ovingsOpplegg() {
-        return "ovingsOpplegg";
+        return "ovingsopplegget";
     }
 
     @RequestMapping("/*")
@@ -189,6 +193,8 @@ public class NavigasjonsKontroller {
         return "opprettDelemne";
     }
 
+
+        //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
     public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
 
@@ -217,5 +223,6 @@ public class NavigasjonsKontroller {
     @RequestMapping("/emneOversikt.htm")
     public String omdirEmneOversiktKlone(@ModelAttribute("koegrupper") KoeGrupper koegrupper,@ModelAttribute("bruker") Bruker bruker,@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("delEmne") DelEmne delEmne,@ModelAttribute("emne")Emne emne, HttpServletRequest request, HttpSession session) {
         return "emneOversikt";
+
     }
 }

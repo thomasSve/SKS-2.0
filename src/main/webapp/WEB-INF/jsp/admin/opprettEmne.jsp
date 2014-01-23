@@ -8,8 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-<div class="col-md-4">
 <form:form method="POST" modelAttribute="emne" action="lagEmne">
     <h2>Opprett emne</h2>
 
@@ -27,4 +25,3 @@
 
     <input type="submit" class="btn btn-primary btn-block" value="Legg til"/>
 </form:form>
-</div>

@@ -12,7 +12,7 @@
 <div class="col-md-8">
     <ul class="nav nav-tabs nav-justified">
         <li id="lenkeEndre" class="active"><a href="#endre" data-toggle="tab">Adm. Emne</a></li>
-        <li id="lenkeleggTilEnkelBruker"><a href="#leggTilEmne" data-toggle="tab">Legg til Emne</a></li>
+        <li id="lenkeleggTilEnkelEmne"><a href="#leggTilEmne" data-toggle="tab">Legg til Emne</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="endre">
@@ -46,11 +46,11 @@
                             <td>
                                 <div class="input-group-btn">
                                     <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
-                                            id="${emne.emneKode}" onclick="redigerBrukerFraKnapp(this.id)"
+                                            id="${emne.emneKode}" onclick="redigerEmneFraKnapp(this.id)"
                                             title="Endre">
                                         <i class="glyphicon glyphicon-edit"></i></button>
                                     <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
-                                            id="${emne.emneKode}" onclick="slettBrukerFraKnapp(this.id)"
+                                            id="${emne.emneKode}" onclick="slettEmneFraKnapp(this.id)"
                                             title="Slett"><i class="glyphicon glyphicon-remove"></i>
                                     </button>
 
@@ -72,3 +72,4 @@
 
     </div>
 </div>
+<script src="<c:url value="/resources/js/admin.js"/>"></script>
