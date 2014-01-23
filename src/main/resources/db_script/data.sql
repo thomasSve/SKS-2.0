@@ -4,29 +4,29 @@ INSERT INTO rettighet (navn) VALUES ('Foreleser');
 INSERT INTO rettighet (navn) VALUES ('Student');
 
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('gm@mail.com', 1, 'Geir Morten', 'Larsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('gm@mail.com', 3, 'Geir Morten', 'Larsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('tk@mail.com', 1, 'Ted Johan', 'Kristoffersen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('tk@mail.com', 3, 'Ted Johan', 'Kristoffersen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('js@mail.com', 1, 'Jørgen Lien', 'Sellæg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('js@mail.com', 3, 'Jørgen Lien', 'Sellæg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('ob@mail.com', 1, 'Olve Andre', 'Børmark', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('ob@mail.com', 3, 'Olve Andre', 'Børmark', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('ts@mail.com', 1, 'Thomas', 'Sve', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('ts@mail.com', 3, 'Thomas', 'Sve', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('hb@mail.com', 1, 'Henriette', 'Berg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('hb@mail.com', 3, 'Henriette', 'Berg', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('og@mail.com', 1, 'Øyvind', 'Grimstad', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('og@mail.com', 3, 'Øyvind', 'Grimstad', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('km@mail.com', 1, 'Kjetil', 'Møkkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('km@mail.com', 3, 'Kjetil', 'Møkkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('eo@mail.com', 1, 'Eirik', 'Øvstedal', 'eaaseQasexaseaaseQasexaseaaseQas', 0);
+VALUES ('eo@mail.com', 3, 'Eirik', 'Øvstedal', 'eaaseQasexaseaaseQasexaseaaseQas', 0);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
 VALUES ('grethe@mail.com', 2, 'Grethe', 'Sandstrak', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('anette@mail.com', 3, 'Anette', 'Wrlsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('anette@mail.com', 1, 'Anette', 'Wrlsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('SuperAdmin@mail.com', 3, 'Admin', 'Super', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('SuperAdmin@mail.com', 1, 'Admin', 'Super', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 
 
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');

@@ -93,6 +93,7 @@ public class KoeService {
             +"<tr>"
                 +"<th>Tid</th>"
                 +"<th>Navn</th>"
+                +"<th>&Oslash;ving</th>"
                 +"<th>Kommentar</th>"
                 +"<th>Sitteplass</th>"
                 +"<th></th>"
@@ -112,6 +113,7 @@ public class KoeService {
             }
 
         output+="<td>"+gruppe.getMedlemmer().get(0).getFornavn()+" "+gruppe.getMedlemmer().get(0).getEtternavn()+"</td>"
+        +"<td>"+gruppe.getOvingerIString()+"</td>"
         +"<td>"+gruppe.getKommentar()+"</td>"
         +"<td>"+gruppe.getSitteplass()+", bord "+gruppe.getBordnr()+"</td>"
         +"<td>"

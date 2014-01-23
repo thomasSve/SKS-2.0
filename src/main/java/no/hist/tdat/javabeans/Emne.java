@@ -9,6 +9,7 @@ public class Emne {
     private String emneKode;
     private String emneNavn;
     private ArrayList<DelEmne> delemner;
+    private int foreleser;
 
     public Emne(String kode, String navn) {
         this.emneKode = kode;
@@ -24,6 +25,14 @@ public class Emne {
 
     public void setEmneKode(String emneKode) {
         this.emneKode = emneKode;
+    }
+
+    public int getForeleser() {
+        return foreleser;
+    }
+
+    public void setForeleser(int foreleser) {
+        this.foreleser = foreleser;
     }
 
     public String getEmneNavn() {
