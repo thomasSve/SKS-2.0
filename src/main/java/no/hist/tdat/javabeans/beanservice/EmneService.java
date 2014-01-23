@@ -112,4 +112,12 @@ public class EmneService {
     public boolean oppdaterBruker(String emnekode, Emne emne) {
         return databaseConnector.oppdaterEmne(emne, emnekode);
     }
+
+    public boolean opprettOving(int i, DelEmne delemne) {
+        return databaseConnector.opprettOving(i, delemne);
+    }
+
+    public boolean lagRegler(String regler, int ant, DelEmne delemne) {
+        return databaseConnector.legRegler(regler, ant, delemne);
+    }
 }

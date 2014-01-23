@@ -61,9 +61,10 @@
         <put-attribute name="title" value="Min Side"/>
         <put-attribute name="body" value="/WEB-INF/jsp/minSide.jsp"/>
     </definition>
-    <definition name="ovingsOpplegg" extends="baseLayout">
-        <put-attribute name="title" value="Øvingsopplett"/>
-        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
+
+    <definition name="ovingsopplegget" extends="baseLayout">
+        <put-attribute name="title"  value="Øvingsopplegg"/>
+        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
     </definition>
     <definition name="godkjennOving" extends="baseLayout">
         <put-attribute name="title" value="Godkjenn øving"/>
