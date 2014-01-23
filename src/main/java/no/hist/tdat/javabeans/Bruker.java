@@ -25,7 +25,6 @@ public class Bruker {
     private int aktiv;
     private ArrayList<Emne> emne;
 
-
     public Bruker(String mail, Integer rettighet, String fornavn, String etternavn, int aktiv) {
         this.mail = mail;
         this.rettighet = rettighet;

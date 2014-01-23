@@ -22,12 +22,31 @@ function utvid() {
         document.getElementById("visMer").style.display = 'none';
     }
 }
-function leggTilRegel() {
+function leggTilRegelen() {
+    var min = document.getElementById("antGodkjente").value;
     var plass = document.getElementById("regler");
     if (plass.innerHTML === "<i>ingen</i>") {
         plass.innerHTML = "";
     }
-    plass.innerHTML += "Blant &oslash;ving <i>bruk beans til � finne?</i> m� X v�re best�tt<br>";
+    var regler = "";
+    var ut = "";
+    var x=document.getElementById("ovingValg");
+    for (var i = 0; i < x.options.length; i++) {
+        if(x.options[i].selected ==true){
+            ut += i+1;
+            if(i< x.options.length-2){
+                ut += ", ";
+            }
+            if(i == x.options.length-2){
+                ut += " og ";
+            }
+            regler += i+1+" ";
+        }
+    }
+    regler+= "; "+min;
+    plass.innerHTML += "Blant &oslash;ving "+ut+" m&aring; "+ min +" v&aelig;re best&aring;tt<br>";
+    var div = document.getElementById("newText");
+    div.value += regler+" | ";
 }
 
 function settAntOvingerAvansert() {
@@ -39,7 +58,7 @@ function settAntOvingerAvansert() {
     for (var i = 1; i < ((ant + 1)/10); i++) {
         var opt = document.createElement('option');
         opt.value = "oving"+i;
-        opt.text = "�ving "+i;
+        opt.text = "oving "+i;
         if (i === 1) {
             opt.selected="selected";
         }

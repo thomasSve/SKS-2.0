@@ -6,9 +6,10 @@ import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Eirik on 20.01.14.
@@ -19,14 +20,16 @@ public class OpprettDelemneKontroller {
     @Autowired
     EmneService service;
     @RequestMapping("lagDelemne")
-    public String delemne(@ModelAttribute(value = "delemne")DelEmne delEmne, @ModelAttribute(value = "emne")Emne emne, BindingResult result, Model model) {
+    public String delemne(@ModelAttribute(value = "delemne")DelEmne delEmne, Model model, HttpSession session) {
         try{
+            Emne emne = (Emne)session.getAttribute("emne");
             service.opprettDelemne(delEmne, emne);
-            //model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
-            return "opprettDelemne";
+            model.addAttribute("delemnerett", "Delemne \""+delEmne.getDelEmneNavn()+"\" med delemnekode \""+delEmne.getNr()+"\" er opprettet");
+            session.setAttribute("delemne", delEmne);
+            return "ovingsopplegget";
         }catch(org.springframework.dao.DuplicateKeyException e){
-            model.addAttribute("emneSQLfeil", "Emnenavn eller emnekode er opprettet fra f&oslash;r");
-            return "opprettEmne";
+            model.addAttribute("delemneSQLfeil", "Delemnenavn eller delemnekode er opprettet fra f&oslash;r");
+            return "opprettDelemne";
         }
     }
 }

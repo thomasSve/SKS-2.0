@@ -1,7 +1,7 @@
 package no.hist.tdat.database.verktoy;
 
 
-import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Emne;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author vimCnett
  */
-public class DelEmneKoordinerer implements RowMapper<DelEmne>{
+public class EmneBrukerKoordinerer implements RowMapper<Emne>{
     /**
      * Denne metoden er en mal på hvordan Bruker objekter skal opprettes ved henting fra database.
      * @param resultSet settes av Spring, og er resultatet fra database-spørringen
@@ -22,15 +22,13 @@ public class DelEmneKoordinerer implements RowMapper<DelEmne>{
      * @throws java.sql.SQLException exception blir tatt hånd om av rammeverket.
      */
     @Override
-    public DelEmne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-        DelEmne delEmne = new DelEmne();
-        delEmne.setNr(resultSet.getInt("delemne_nr"));
-        delEmne.setDelEmneNavn(resultSet.getString("delemnenavn"));
-        delEmne.setSemester(resultSet.getString("semester"));
-        delEmne.setKoe_id(resultSet.getInt("koe_id"));
-        delEmne.setOvingsRegler(resultSet.getString("ovingsregler"));
-        delEmne.setEmneKode(resultSet.getString("emnekode"));
-        return delEmne;
+    public Emne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        Emne emne = new Emne();
+        if((Integer)resultSet.getInt("foreleser")!=null){
+            emne.setForeleser(resultSet.getInt("foreleser"));
+        }
+        emne.setEmneKode(resultSet.getString("emnekode"));
+        emne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
+        return emne;
     }
 }
-

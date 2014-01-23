@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class EmnerBeans {
     Emne valgtEmne;
     ArrayList<Emne> valgt = new ArrayList<>();    //alle
-    String delEmne;
 
     public EmnerBeans() {
     }

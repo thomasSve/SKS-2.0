@@ -24,7 +24,6 @@ public class EmneKoordinerer implements RowMapper<Emne>{
     @Override
     public Emne mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Emne emne = new Emne();
-        emne.setForeleser(resultSet.getInt("foreleser"));
         emne.setEmneKode(resultSet.getString("emnekode"));
         emne.setEmneNavn(resultSet.getString("emnenavn"));//TODO legg til øvinger
         return emne;

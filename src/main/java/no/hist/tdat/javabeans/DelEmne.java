@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class DelEmne {
     private int nr;
-    private char semester;
+    private String semester = "h";
     private int koe_id;
     private String ovingsRegler;
     private boolean koe_status;
@@ -37,11 +37,11 @@ public class DelEmne {
         this.nr = nr;
     }
 
-    public char getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(char semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
