@@ -10,6 +10,7 @@
     <h1>Sett deg i k&oslash; (${delEmne.delEmneNavn})</h1>
 
     <form:form action="StillIKo.htm" onsubmit='mysubmit()' modelAttribute="koegrupper" method="post">
+        <p style="color: red"><strong>${melding}</strong></p>
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
             <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord(this)">
@@ -56,6 +57,7 @@
         </div>
         <input type="hidden" name="delemneNr" id="delemneNr" />
         <input type="hidden" name="emneNr" id="emneNr" />
+        <input type="submit" onclick='delemnenr="${delEmneIndex}"; emnenr="${emneIndex}"' value="Tilbake" class="btn btn-md btn-danger">
         <input type="submit" id="leggTil" onclick='delemnenr="${delEmneIndex}"; emnenr="${emneIndex}"' class="btn btn-md btn-primary" value="Legg til i k&oslash;">
     </form:form>
 </div>
