@@ -25,6 +25,7 @@ public class DatabaseConnector {
 
     // **** Legger alle Queryes her. Ikke fordi vi m�, men fordi Grethe liker det s�nn...*/ //TODO remove this
     private final String getKoeSQL = "";
+    private final String hentBrukerSQL = "SELECT * FROM brukere WHERE mail = ?";
     private final String hentGruppeOvingerSQL = "SELECT oving_nr, oving_id FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
     private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe NATURAL JOIN brukere WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
     private final String hentkoeGrupperSQL = "Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
@@ -189,6 +190,20 @@ public class DatabaseConnector {
         input += soeketekst + "%";
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Bruker> brukerList = con.query(finnBrukerSQL, new BrukerKoordinerer(), input, input, input);
+        ArrayList<Bruker> res = new ArrayList<>();
+
+        for (Bruker bruker : brukerList) {
+            res.add(bruker);
+        }
+        return res;
+    }
+
+    public ArrayList<Bruker> hentBruker(String mail) {
+        if (mail == null) {
+            return null;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(hentBrukerSQL, new BrukerKoordinerer(), mail);
         ArrayList<Bruker> res = new ArrayList<>();
 
         for (Bruker bruker : brukerList) {

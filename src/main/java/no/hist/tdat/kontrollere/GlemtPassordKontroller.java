@@ -29,6 +29,10 @@ public class GlemtPassordKontroller {
         }
 
         String mail = request.getParameter("mail");
+        if(service.hentBruker(mail)==null){
+            modell.addAttribute("errorMail", "Feil email!");
+            return "glemtPassord";
+        }
         try {
             if (service.hentBruker(mail) != null) {
                 bruker = service.hentBruker(mail);

@@ -42,7 +42,10 @@ public class BrukerService {
      * @return et brukerobjekt basert på databasedata funnet i databasen. Returnerer null hvis ingenting blir funnet.
      */
     public Bruker hentBruker(String email) {
-        ArrayList<Bruker> brukere = databaseConnector.finnBruker(email);
+        ArrayList<Bruker> brukere = databaseConnector.hentBruker(email);
+        if(brukere.size()==0){
+            return null;
+        }
         return brukere.get(0);
     }
 
