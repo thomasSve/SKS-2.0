@@ -43,7 +43,10 @@
         <put-attribute name="title" value="Administrer Fag"/>
         <put-attribute name="body" value="/WEB-INF/jsp/admin/adminFag.jsp"/>
     </definition>
-
+    <definition name="adminEmneEndre" extends="baseLayout">
+        <put-attribute name="title" value="Index"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/adminEmneEndre.jsp"/>
+    </definition>
     <definition name="settIKo" extends="baseLayout">
         <put-attribute name="title" value="Sett i Kø"/>
         <put-attribute name="body" value="/WEB-INF/jsp/Student/settIKo.jsp"/>

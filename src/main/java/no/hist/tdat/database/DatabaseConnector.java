@@ -54,7 +54,8 @@ public class DatabaseConnector {
     private final String finnOvingIDSQL = "SELECT * FROM oving WHERE oving_nr = ? AND emnekode = ? AND delemne_nr = ?";
         //Admin Emne
     private final String finnEmneSQL = "SELECT * FROM emner WHERE emnekode LIKE ? OR emnenavn LIKE ?";
-
+    private final String slettEmneSQL = "DELETE FROM emner WHERE emnekode = ?";
+    private final String oppdaterEmneSQL = "UPDATE emner SET emnekode = ?, emnenavn = ? WHERE emnekode = ?";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -794,5 +795,24 @@ public class DatabaseConnector {
             res.add(emner);
         }
         return res;
+    }
+    public boolean slettEmne(String emnekode){
+        if(emnekode==null){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(slettEmneSQL, emnekode);
+        return true;
+    }
+    public boolean oppdaterEmne(Emne emne, String emnekode){
+        if(emne==null || emnekode==null){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(oppdaterEmneSQL,
+                emne.getEmneKode(),
+                emne.getEmneNavn(),
+                emnekode);
+        return true;
     }
 }
