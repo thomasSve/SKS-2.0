@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -69,6 +71,7 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
+        System.out.println("kooversikt.htm");
         int koeId = delEmne.getKoe_id();
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));
@@ -83,6 +86,25 @@ public class NavigasjonsKontroller {
         model.addAttribute("grupper", grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
+    }
+
+    @RequestMapping(value = "/startStoppKoe.htm", method = RequestMethod.POST)
+    @ResponseBody
+    public String koOversikt(HttpServletRequest request, HttpSession session) {
+
+        return koeservice.genererStartStopKnapp((DelEmne)session.getAttribute("delEmne"));
+    }
+
+    @RequestMapping(value="/oppdaterKoe.htm", method = RequestMethod.POST)
+    @ResponseBody
+    public String oppdaterKoe(@ModelAttribute("delEmne") DelEmne delEmne,HttpServletRequest request,HttpSession session, Model model) {
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
+        Koe koe = (Koe)session.getAttribute("koe");
+       // System.out.println("wtf");
+        //int koeId = (int)request.getAttribute("koe_id");
+        koe.setGrupper(koeservice.getKoe(1));
+        //System.out.println("koe elements grupper size:"+koe.getGrupper().size());
+        return koeservice.genererKoeOversikt(koe);
     }
 
     @RequestMapping("/error.htm")
@@ -147,6 +169,8 @@ public class NavigasjonsKontroller {
     public String direct404() {
         return "error";
     }
+
+
 
     @RequestMapping("/nyStudent.htm")
     public String nyStudent(@ModelAttribute("nyStudent") Bruker stud) {

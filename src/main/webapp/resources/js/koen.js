@@ -12,7 +12,6 @@ function hentKoeStudent(koe_id){
             if (xmlhttp.readyState==4 && xmlhttp.status==200){
                 document.getElementById("page-wrapper").innerHTML=xmlhttp.responseText;
             }
-
         }
         xmlhttp.open("POST","/koOversikt.htm",true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -54,7 +53,7 @@ function startStoppKoe(koe_id){
     xmlhttp.send("KoeIndex=" + koe_id);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
-    oppdaterKoe();
+    //oppdaterKoe();
 }
 function settIKo(koe_id){
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -90,11 +89,27 @@ function StillIKo(emne_id){
 
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
-    oppdaterKoe();
+   // oppdaterKoe();
 }
-function oppdaterKoe(){
-    //TODO TED
-}
+
+
+   /* function oppdaterKoe() {
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        alert("READYSTATE: "+xmlhttp.readyState+"\nSTATUS: "+xmlhttp.status);
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            document.getElementById("koeTabell").innerHTML=xmlhttp.responseText;
+        }
+    }
+        xmlhttp.open("POST", "/oppdaterKoe.htm", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("koelol=1");
+}*/
 function visBilde(sitteplass) {
 
     switch (sitteplass.value) {
@@ -129,6 +144,40 @@ function hentBord(formSelectElement){
     }
 }
 //Fjernet visadmin, statuskoe og var statusknapp.
+function oppdaterkoen(){
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+
+            document.getElementById("koetabell").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("POST","/oppdaterKoe.htm",true);
+    //xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("koe_id=" + "1");
+}
+
+function startStoppKoeKnapp(){
+    if (window.XMLHttpRequest)
+    {// code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("startStoppKoe").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("POST","/startStoppKoe.htm",true);
+    //xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("koe_id=" + "1");
+}
 
 
 
