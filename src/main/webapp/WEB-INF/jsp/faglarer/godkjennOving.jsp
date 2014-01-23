@@ -12,23 +12,44 @@
 <div class="col-md-6">
     <h2>Godkjenn øvinger</h2>
 
-    <form:form>
+    <form:form action="godkjennGruppeOving.htm">
         <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
-        <table class="table table-condensed" id="godkjennGruppe">
+        <table class="table table-condensed table-bordered" id="godkjennGruppe">
+            <thead>
+            <tr>
+                <th class="header">Fornavn</th>
+                <th class="header">Etternavn</th>
+                <th class="header">&Oslash;vinger</th>
+                <th class="header"></th>
+
+            </tr>
+            </thead>
             <tbody>
             <c:forEach var="bruker" items="${gruppeFraKoe.getMedlemmer()}" varStatus="status">
                 <tr>
                     <td><c:out value="${bruker.fornavn}"></c:out> </td>
                     <td><c:out value="${bruker.etternavn}"></c:out> </td>
                     <td><c:out value="${gruppeFraKoe.getOvingerIString()}"></c:out> </td>
+                    <td>
+                        <div class="input-group-btn">
+                            <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                    id="${bruker.mail}" onclick="redigerBrukerFraKnapp(this.id)"title="Endre">
+                                <i class="glyphicon glyphicon-edit"></i></button>
+                            <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
+                                    id="${bruker.mail}" onclick="slettBrukerFraKnapp(this.id)"
+                                    title="Slett"><i class="glyphicon glyphicon-remove"></i>
+                            </button>
+
+                        </div>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-    </form:form>
+
 
     <div class="btn-group">
-        <button type="godkjenn" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
+        <button type="submit" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
 
         <button type="leggtil" class="btn btn-primary" name="leggTilStundeterKnapp"><i class="glyphicon glyphicon-user"></i> Legg til studenter
         </button>
@@ -36,6 +57,7 @@
                 class="glyphicon glyphicon-plus"></i> Endre øvinger
         </button>
     </div>
+    </form:form>
 
 
 </div>
