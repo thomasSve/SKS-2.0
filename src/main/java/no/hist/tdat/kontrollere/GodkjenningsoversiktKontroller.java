@@ -29,31 +29,26 @@ public class GodkjenningsoversiktKontroller {
     public void hentRiktigEmne(HttpServletRequest request, HttpSession session) {
         String emne = request.getParameter("emne");
 
-        ArrayList<Emne> em = new ArrayList<Emne>();
-        Emne emnet = service2.hentEmne(emne);    //lager emnet
-        em.add(emnet);
-
-        DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
-        ArrayList<DelEmne> a = new ArrayList<DelEmne>();
-        a.add(delEmne);
-
-        ArrayList<Bruker> alle = service.finnStudenterIDelemne(delEmne.getDelEmneNavn());   //alle med faget
+        ArrayList<Bruker> alle = service.finnStudenterIDelemne(emne);   //alle med faget
 
         for (int i = 0; i < alle.size(); i++) {
+            ArrayList<Emne> em = new ArrayList<Emne>();
+            ArrayList<DelEmne> a = new ArrayList<DelEmne>();
+
             Bruker br = alle.get(i);
-            ArrayList<Oving> ovinger = service.hentOvinger(emne,br.getMail());    //henter øvinger til delemnet
-                System.out.println(ovinger.size());
+
+            ArrayList<Oving> ovinger = service.hentOvinger(emne,br.getMail()); //henter øvinger til delemnet
+
+            DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
             delEmne.setStudentovinger(ovinger);
+            a.add(delEmne);
+
+            Emne emnet = service2.hentEmne(emne);    //lager emnet
             emnet.setDelemner(a);
+            em.add(emnet);
+
             br.setEmne(em);
         }
-
-        System.out.println("Emne: "+emne);
-
-        for (int i = 0; i < alle.size(); i++) {
-            System.out.println(alle.get(i).getEtternavn()+ " ant øvinger:  "+alle.get(i).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
-        }
-
         session.setAttribute("ovingsoversikt", alle);
     }
 }
