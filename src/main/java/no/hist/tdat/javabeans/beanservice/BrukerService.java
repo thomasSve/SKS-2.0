@@ -151,7 +151,17 @@ public class BrukerService {
      * @param delEmne og mail
      * @return Arraylist med øvinger
      */
-    public ArrayList<Oving> hentOvinger(String delEmne, String mail) {
-        return databaseConnector.hentOvinger(delEmne, mail);
+    public ArrayList<Oving> hentOvinger(String delEmne, String epost) {
+        return databaseConnector.hentOvinger(delEmne, epost);
+    }
+
+    /**
+     * finner om øving er godkjent
+     *
+     * @param delEmne og mail
+     * @return boolean
+     */
+    public ArrayList<Oving> hentGodkjentOvinger(String delEmne, String epost) {
+        return databaseConnector.hentOvinger(delEmne, epost);
     }
 }

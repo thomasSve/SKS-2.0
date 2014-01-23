@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by ted on 1/15/14.
  */
 public class Oving {
+    private int ovingid;
     private int ovingnr;
     private boolean godkjent;
     private String godkjentAv;
@@ -13,6 +14,14 @@ public class Oving {
 
     public int getOvingnr() {
         return ovingnr;
+    }
+
+    public int getOvingid() {
+        return ovingid;
+    }
+
+    public void setOvingid(int id) {
+        this.ovingid = id;
     }
 
     public void setOvingnr(int ovingnr) {

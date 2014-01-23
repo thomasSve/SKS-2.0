@@ -37,8 +37,15 @@ public class GodkjenningsoversiktKontroller {
 
             Bruker br = alle.get(i);
 
-            ArrayList<Oving> ovinger = service.hentOvinger(emne,br.getMail()); //henter øvinger til delemnet
+            ArrayList<Oving> ovinger = service.hentOvinger(emne, br.getMail()); //henter øvinger til delemnet
+/*
+            for (int j = 0; j < ovinger.size(); j++) {
+                Oving denne = ovinger.get(j);
+                if (service.hentOvingGodkjent(br.getMail(), denne.getOvingid())) {
 
+                }
+            }
+*/
             DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
             delEmne.setStudentovinger(ovinger);
             a.add(delEmne);
@@ -49,6 +56,8 @@ public class GodkjenningsoversiktKontroller {
 
             br.setEmne(em);
         }
+        System.out.println(alle.get(0).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
+        System.out.println(alle.get(3).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
         session.setAttribute("ovingsoversikt", alle);
     }
 }

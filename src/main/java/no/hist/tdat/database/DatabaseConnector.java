@@ -55,7 +55,7 @@ public class DatabaseConnector {
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
-    private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?) AND oving_brukere.mail = ?";
+    private final String hentOvingerSQL = "SELECT * FROM oving NATURAL JOIN oving_brukere WHERE oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?) AND oving_brukere.mail = ?";
     private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
 
     @Autowired
