@@ -61,6 +61,7 @@ public class DatabaseConnector {
     private final String fjernEmneSQL = "DELETE FROM emner_brukere WHERE mail = ? AND emnekode = ?";
     private final String settStudassSQL = "INSERT INTO delemne_brukere(mail,emnekode,delemne_nr) VALUES (?, (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?), (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?))";
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
+
     private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
     private final String hentSisteKoeSQL = "SELECT MAX(koe.koe_id) AS DIN_TABELL FROM koe";
     private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
@@ -654,6 +655,10 @@ public class DatabaseConnector {
     }
 
     /**
+<<<<<<< HEAD
+     * Oppretter et emne
+=======
+>>>>>>> 89af8b80304f6fcfd3a15bba5936fc1e0a0e22b2
      * Henter delemne, gitt navn
      *
      * @param navn
@@ -682,7 +687,6 @@ public class DatabaseConnector {
                 emne.getEmneNavn());
         return true;
     }
-
 
     public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException {
         System.out.println("3");
@@ -714,7 +718,6 @@ public class DatabaseConnector {
         return res.get(0);
     }
 
-
     /**
      * Author Thomas
      * @param delemne_nr
@@ -730,5 +733,4 @@ public class DatabaseConnector {
         }
         return res;
     }
-
 }

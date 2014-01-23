@@ -1,6 +1,5 @@
 package no.hist.tdat.kontrollere;
 
-
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -43,4 +42,13 @@ public class GodkjennKontroller {
         return "godkjennOving";
 
     }
+
+    @RequestMapping(value = "/godkjennGruppeOving.htm")
+    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session) {
+        String godkjenn = request.getParameter("godkjennKnapp");
+        String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
+        String leggTilOving = request.getParameter("endreOvingerKnapp");
+        return "koeoversikt";
+    }
 }
+

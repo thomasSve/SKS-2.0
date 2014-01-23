@@ -27,7 +27,6 @@
         </table>
     </form:form>
 
-
     <div class="btn-group">
         <button type="godkjenn" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
 
@@ -37,7 +36,6 @@
                 class="glyphicon glyphicon-plus"></i> Endre øvinger
         </button>
     </div>
-
 
 
 </div>

@@ -21,13 +21,10 @@ public class NavigasjonsKontroller {
 
     @Autowired
     Bruker innloggetBruker;
-
     @Autowired
     BrukerService service;
-
     @Autowired
     KoeService koeservice;
-
     @Autowired
     EmneService emneService;
 
@@ -80,23 +77,23 @@ public class NavigasjonsKontroller {
         DelEmne denne = koeservice.hentDelEmneStatus(koeId);
         delEmne.setKoe_status(denne.isKoe_status());
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
-        model.addAttribute("emneIndex",emnenr);
+        model.addAttribute("emneIndex", emnenr);
         model.addAttribute("delEmneIndex", delemneNr);
         model.addAttribute("koe", koe);
         model.addAttribute("grupper", grupper);
         model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
+
     @RequestMapping("/error.htm")
     public String omdirigerError() {
         return "error";
     }
 
-
     @RequestMapping(value = "/settIKo.htm", method = RequestMethod.POST)
     public String omdirigerTilKo(@ModelAttribute("personerBeans") PersonerBeans personerBeans, @ModelAttribute("bruker") Bruker bruker,
                                  @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("delEmne") DelEmne delEmne,
-                                 Model model, HttpSession session, HttpServletRequest request){
+                                 Model model, HttpSession session, HttpServletRequest request) {
         int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
@@ -162,16 +159,17 @@ public class NavigasjonsKontroller {
         System.out.println("utlogget");
         return "loggInn";
     }
+
     @RequestMapping("/opprettEmne.htm")
     public String opprettEmne(@ModelAttribute("emne") Emne emne) {
         return "opprettEmne";
     }
 
-
     @RequestMapping("/opprettDelemne.htm")
     public String opprettDelemne(@ModelAttribute("delemne") DelEmne delEmne) {
         return "opprettDelemne";
     }
+
 
         //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
@@ -186,10 +184,8 @@ public class NavigasjonsKontroller {
         session.setAttribute("valgteEmne", valgtEmne);
 
 
-
         System.out.println(valgtEmne.getDelEmneNavn());
 
         return "godkjenningsoversikt";
-
     }
 }

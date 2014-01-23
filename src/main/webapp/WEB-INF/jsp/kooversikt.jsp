@@ -17,25 +17,31 @@
             K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
         </div>
     </h3>
-    <div class="list-inline">
+    <div class="input-group">
         <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
-            <input type="hidden" name="emneNr" id="emneNr"/>
-            <input type="hidden" name="delemneNr" id="delemneNr"/>
-            <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
-                   onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;">
+
+                <input type="hidden" name="emneNr" id="emneNr"/>
+                <input type="hidden" name="delemneNr" id="delemneNr"/>
+                <%--<div class="btn-group">--%>
+                <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
+                       onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;">
+                <%--</div>--%>
         </form>
+
+
         <%
             DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
             int koe_id = delEmne.getKoe_id();
             if (delEmne.isKoe_status()) {
 
-                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
+                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger input-grp-btn\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
                         // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
                 );
             } else {
-                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success input-grp-btn\" id=\"startKoe\" value=\"Start Køen\">\n");
             }
         %>
+
     </div>
     <table class="table table-hover" id="minTable">
         <thead>
@@ -69,7 +75,8 @@
             <td>
                 <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
 
-                    <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
+                    <button class="btn btn-primary" data-task="choose" title="Velg"
+                            id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
                             onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
                     </button>
                     <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
