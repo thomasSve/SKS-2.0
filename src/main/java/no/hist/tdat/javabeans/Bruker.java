@@ -44,7 +44,6 @@ public class Bruker {
         this.passord = PassordService.krypterPassord(PassordService.genererPassord());
         this.aktiv = 1;
         emne = new ArrayList<Emne>();
-
     }
 
     public Bruker() {
