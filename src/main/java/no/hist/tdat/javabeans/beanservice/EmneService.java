@@ -97,4 +97,14 @@ public class EmneService {
     public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.opprettDelemne(delEmne, emne);
     }
+    /**
+     * Henter en liste med mulige bruker
+     *
+     * @param input søkeordet
+     * @return ArrayList med bruker objecter, eller null om ingen treffer med søkeordet
+     */
+    public ArrayList<Emne> finnEmne(String input) {
+        return databaseConnector.finnEmne(input);
+    }
+
 }
