@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -43,12 +44,39 @@ public class GodkjennKontroller {
 
     }
 
-    @RequestMapping(value = "/godkjennGruppeOving.htm")
-    public String godkjennGruppeOving(@ModelAttribute("godkjennOving") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session) {
+    @RequestMapping(value = "/godkjennGruppeOving.htm", method = RequestMethod.POST)
+    public String godkjennGruppeOving(Model modell, HttpServletRequest request, HttpSession session) {
         String godkjenn = request.getParameter("godkjennKnapp");
         String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
         String leggTilOving = request.getParameter("endreOvingerKnapp");
-        return "koeoversikt";
+
+        KoeGrupper koeGrupper = (KoeGrupper)session.getAttribute("gruppeFraKoe");
+        Bruker personenSomGodkjenner = (Bruker)session.getAttribute("innloggetBruker");
+
+        if (godkjenn != null) {
+            for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
+
+                if (koeGrupper.getOvinger().size() == 0) {
+                }
+
+                if (koeGrupper.getOvinger().size() == 1) {
+                }
+
+                if (koeGrupper.getOvinger().size() >= 2) {
+                    String[] ovingerSomSkalGodkjennes = koeGrupper.getOvingerIString().split(",");
+                    for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) {
+                        String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
+                        if (!randomNummerLol.equals("") && randomNummerLol != null) {
+                            System.out.println("." + randomNummerLol + ".");
+                            int ovingsnummer = Integer.parseInt(randomNummerLol);
+
+                        }
+                    }
+                }
+            }
+        }
+
+        return "godkjennOving";
     }
 }
 
