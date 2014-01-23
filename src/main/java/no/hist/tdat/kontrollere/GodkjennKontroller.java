@@ -81,7 +81,7 @@ public class GodkjennKontroller {
                 }
 
                 if (koeGrupper.getOvinger().size() == 1) {
-                    int enkelOving = koeGrupper.getOvinger().get(1).getOving_id();
+                    int enkelOving = koeGrupper.getOvinger().get(0).getOving_id();
                     brukerService.leggTilGodkjentOving(enkelOving, brukerMail, personenSomGodkjenner, naaTid);
                 }
 
