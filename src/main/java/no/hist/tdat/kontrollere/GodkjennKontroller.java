@@ -92,7 +92,6 @@ public class GodkjennKontroller {
                     for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) { //Går igjennom hver oving
                         String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
                         if (!randomNummerLol.equals("") && randomNummerLol != null) {
-                            System.out.println("." + koeGrupper.getOvinger().get(j).getOving_id() + ".");
                             int ovingsID = koeGrupper.getOvinger().get(j).getOving_id();
 
                             brukerService.leggTilGodkjentOving(ovingsID, brukerMail, personenSomGodkjenner, naaTid);
@@ -106,6 +105,7 @@ public class GodkjennKontroller {
         }
 
         if (leggTilStudenter != null) {
+
         }
 
         if (leggTilOving != null){
