@@ -45,13 +45,16 @@ public class DatabaseConnector {
     private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent = ?, godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
     private final String finnOvingerSQL = "SELECT * FROM koe_gruppe, gruppe, gruppe_oving WHERE koe_gruppe.gruppe_id = gruppe.gruppe_id AND gruppe.gruppe_id = gruppe_oving.gruppe_id AND gruppe.mail = ? AND koe_gruppe.koe_id = ? AND koe_gruppe.koe_plass = ?";
     private final String finnAntBordSQL = "SELECT ant_bord FROM plassering WHERE plassering_navn = ?";
-        //Legg til Kø
+        //Legg til I Kø
     private final String leggTilKoGruppeSQL = "INSERT INTO koe_gruppe (koe_id, gruppe_id, plassering_navn, bordnummer, info, koe_plass, tidspunkt) VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
     private final String maxKoe_PlassSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY koe_plass DESC";
     private final String maxGruppeIdSQL = "SELECT * FROM koe_gruppe WHERE koe_id = ? ORDER BY gruppe_id DESC";
     private final String leggtilGruppeOvingSQL = "INSERT INTO gruppe_oving (gruppe_id, koe_id ,oving_id) VALUES (?, ?, ?) ";
     private final String leggTilGruppeMedlemSQL = "INSERT INTO gruppe (koe_id, gruppe_id, mail, leder) VALUES (?, ?, ?, ?)";
     private final String finnOvingIDSQL = "SELECT * FROM oving WHERE oving_nr = ? AND emnekode = ? AND delemne_nr = ?";
+        //Admin Emne
+    private final String finnEmneSQL = "SELECT * FROM emner WHERE emnekode LIKE ? OR emnenavn LIKE ?";
+
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -773,5 +776,23 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Emne> emne = con.query(hentEmneSQL, new EmneKoordinerer(), navn);
         return emne.get(0);
+    }
+    /**
+     * Tar inn en string som s�keord, s�ker i databasen etter emnekode, emnenavn som ligner p� s�keordet.
+     */
+    public ArrayList<Emne> finnEmne(String soeketekst) {
+        if (soeketekst == null) {
+            return null;
+        }
+        String input = "%";
+        input += soeketekst + "%";
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> emnerList = con.query(finnEmneSQL, new EmneKoordinerer(), input, input);
+        ArrayList<Emne> res = new ArrayList<>();
+
+        for (Emne emner : emnerList) {
+            res.add(emner);
+        }
+        return res;
     }
 }
