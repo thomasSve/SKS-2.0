@@ -13,7 +13,7 @@
 
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>
+            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
         </div>
     </h3>
     <div class="input-group">

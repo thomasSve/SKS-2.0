@@ -31,8 +31,8 @@ public class NavigasjonsKontroller {
     EmneService emneService;
 
     @RequestMapping("/")
-    public String omdirigerHjem() {
-        return "index";
+    public String omdirigerHjem(@ModelAttribute("bruker") Bruker bruker) {
+        return "loggInn";
     }
 
     @RequestMapping("/endrePassord.htm")
