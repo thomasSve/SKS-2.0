@@ -1,10 +1,12 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Koe;
 import no.hist.tdat.javabeans.KoeGrupper;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.beanservice.EmneService;
+import no.hist.tdat.javabeans.beanservice.KoeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +25,16 @@ import java.util.Date;
 @Controller
 public class GodkjennKontroller {
     @Autowired
-
     EmneService emneService;
 
     @Autowired
+    Bruker innloggetBruker;
+
+    @Autowired
     BrukerService brukerService;
+
+    @Autowired
+    KoeService koeservice;
 
     @RequestMapping(value = "/hentUtKoGruppe.htm", method = RequestMethod.POST)
     public String hentUtKoGruppe(@ModelAttribute("koeGrupper") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session){
@@ -50,7 +57,7 @@ public class GodkjennKontroller {
     }
 
     @RequestMapping(value = "/godkjennGruppeOving.htm", method = RequestMethod.POST)
-    public String godkjennGruppeOving(Model modell, HttpServletRequest request, HttpSession session) {
+    public String godkjennGruppeOving(HttpServletRequest request, HttpSession session) {
         String godkjenn = request.getParameter("godkjennKnapp");
         String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
         String leggTilOving = request.getParameter("endreOvingerKnapp");
@@ -65,14 +72,19 @@ public class GodkjennKontroller {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
             System.out.println(ft.format(date));
             String naaTid = ft.format(date);
+            int gruppeID = koeGrupper.getGruppeID();
+            int koeID = koeGrupper.getKoe_id();
 
             for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
                 String brukerMail = koeGrupper.getMedlemmer().get(i).getMail();
 
                 if (koeGrupper.getOvinger().size() == 0) {
+                    System.out.println("dette må være en dust..");
                 }
 
                 if (koeGrupper.getOvinger().size() == 1) {
+                    int enkelOving = koeGrupper.getOvinger().get(1).getOving_id();
+                    brukerService.leggTilGodkjentOving(enkelOving, brukerMail, personenSomGodkjenner, naaTid);
                 }
 
                 if (koeGrupper.getOvinger().size() >= 2) {
@@ -89,8 +101,16 @@ public class GodkjennKontroller {
                     }
                 }
             }
+            brukerService.slettKoeGruppe(koeID, gruppeID);
+            return "koOversikt";
         }
-        return "godkjennOving";
+
+        if (leggTilStudenter != null) {
+        }
+
+        if (leggTilOving != null){
+        }
+        return "godkjentOving";
     }
 }
 

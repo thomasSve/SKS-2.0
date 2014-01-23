@@ -159,4 +159,8 @@ public class BrukerService {
     public boolean leggTilGodkjentOving (int ovings_id, String mail, String godkjennersMail, String datoGodkjent) {
         return databaseConnector.opprettGodkjentOving(ovings_id, mail, godkjennersMail, datoGodkjent);
     }
+
+    public boolean slettKoeGruppe(int koeId, int gruppeId) {
+        return databaseConnector.slettKoeGruppe(koeId, gruppeId);
+    }
 }

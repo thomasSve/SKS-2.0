@@ -76,7 +76,7 @@ public class DatabaseConnector {
     private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
 
     private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUE (?,?,1,?,?)";
-
+    private final String fjernKoeGruppeFraKoeSQL = "DELETE FROM koe_gruppe WHERE gruppe_id = ? AND koe_id = ?";
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle sp�rringer.
@@ -317,6 +317,12 @@ public class DatabaseConnector {
         int num = con.update(slettBrukerSQL, epost);
         return num > 0;
 
+    }
+
+    public boolean slettKoeGruppe(int koeId, int gruppeId)  {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        int num = con.update(fjernKoeGruppeFraKoeSQL, koeId, gruppeId);
+        return num > 0;
     }
 
     /**
