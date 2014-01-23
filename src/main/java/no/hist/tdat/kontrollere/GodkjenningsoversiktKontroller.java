@@ -37,16 +37,19 @@ public class GodkjenningsoversiktKontroller {
             ArrayList<DelEmne> a = new ArrayList<DelEmne>();
 
             Bruker br = alle.get(i);
-            ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter Ã¸vinger til delemnet
+            ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter øvinger til delemnet
 
-            ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj Ã¸vinger til delemnet
+            ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj øvinger til delemnet
 
-            if (godkj != null) {
+            System.out.println("Emne: " + emne + ", ant god for " + br.getFornavn() + ": " + godkj.size());
+
+            if (godkj.size() != 0) {
                 for (int j = 0; j < godkj.size(); j++) {
                     Oving o = godkj.get(j);
                     ovinger.set(o.getOvingnr() - 1, o);
                 }
             }
+
             DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
             delEmne.setStudentovinger(ovinger);
             a.add(delEmne);
