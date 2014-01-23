@@ -29,22 +29,23 @@
                 </ul>
             </li>
         </ul>
+
+
+
         <ul class="nav navbar-nav side-nav">
+            <c:if test="${sessionScope.innloggetBruker ==null}">
             <li><a href="login.htm">Logg inn</a></li>
+            </c:if>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                     Emner <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
-                        <li><a onclick="emnekodeFraMenu(this.id)" id = "${emne.emneKode}">${emne.emneNavn}</a></li>
+                        <li><a title="${emne.emneNavn}" onclick="emnekodeFraMenu(this.id)" id = "${emne.emneKode}">${emne.emneKode}</a></li>
                     </c:forEach>
                 </ul>
             </li>
-
-            <li><a href="koOversikt.htm">K&oslash; oversikt</a></li>
-
             <li><a href="adminBrukere.htm">Administrer brukere</a></li>
-            <li><a href="ovingsOpplegg.htm">&Oslash;vingsopplegget</a></li>
             <li><a href="opprettEmne.htm" >Opprett emne</a></li>
             <li><a href="adminFag.htm">Administrer fag</a></li>
             <li class="dropdown">

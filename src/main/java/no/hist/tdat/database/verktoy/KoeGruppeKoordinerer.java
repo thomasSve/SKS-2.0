@@ -14,11 +14,12 @@ import java.sql.SQLException;
  *
  * @author vimCnett
  */
-public class KoeGruppeKoordinerer implements RowMapper<KoeGrupper>{
+public class KoeGruppeKoordinerer implements RowMapper<KoeGrupper> {
     /**
      * Denne metoden er en mal på hvordan Bruker objekter skal opprettes ved henting fra database.
+     *
      * @param resultSet settes av Spring, og er resultatet fra database-spørringen
-     * @param rowNum sier hvor langt i resultsettet vi har kommet
+     * @param rowNum    sier hvor langt i resultsettet vi har kommet
      * @return et Bruker-objekt ut i fra datane i databasen.
      * @throws SQLException exception blir tatt hånd om av rammeverket.
      */
@@ -29,7 +30,9 @@ public class KoeGruppeKoordinerer implements RowMapper<KoeGrupper>{
         koeGrupper.setGruppeID(resultSet.getInt("gruppe_id"));
         koeGrupper.setSitteplass(resultSet.getString("plassering_navn"));
         koeGrupper.setBordnr(resultSet.getInt("bordnummer"));
-        koeGrupper.setKommentar(resultSet.getString("info"));
+        if (resultSet.getString("info") != null) {
+            koeGrupper.setKommentar(resultSet.getString("info"));
+        }
         koeGrupper.setKlokkeslett(resultSet.getDate("tidspunkt"));
         koeGrupper.setKoePlassering(resultSet.getInt("koe_plass"));
         koeGrupper.setFaarHjelp(resultSet.getString("faar_hjelp"));

@@ -53,7 +53,10 @@ public class LoginKontroller {
     }
 
     @RequestMapping("/login.htm")
-    public String loggInn(@ModelAttribute("bruker") Bruker bruker){
+    public String loggInn(@ModelAttribute("bruker") Bruker bruker, Model model, HttpSession session){
+        if(session.getAttribute("innloggetBruker")!=null ){
+            return "minside";
+        }
         return "loggInn";
     }
 }
