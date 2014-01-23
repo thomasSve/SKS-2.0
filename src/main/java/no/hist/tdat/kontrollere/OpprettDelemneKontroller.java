@@ -25,6 +25,7 @@ public class OpprettDelemneKontroller {
             Emne emne = (Emne)session.getAttribute("emne");
             service.opprettDelemne(delEmne, emne);
             model.addAttribute("delemnerett", "Delemne \""+delEmne.getDelEmneNavn()+"\" med delemnekode \""+delEmne.getNr()+"\" er opprettet");
+            session.setAttribute("delemne", delEmne);
             return "ovingsopplegget";
         }catch(org.springframework.dao.DuplicateKeyException e){
             model.addAttribute("delemneSQLfeil", "Delemnenavn eller delemnekode er opprettet fra f&oslash;r");

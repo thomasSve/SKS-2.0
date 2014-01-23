@@ -2,7 +2,6 @@ package no.hist.tdat.database;
 
 import no.hist.tdat.database.verktoy.*;
 import no.hist.tdat.javabeans.*;
-import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -59,6 +58,7 @@ public class DatabaseConnector {
     private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String opprettOvingSQL = "INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (?,?,?)";
+    private final String lagReglerSQL = "UPDATE delemne SET ovingsregler = ?, ant_ovinger = ? WHERE delemne_nr = ?";
 
 
 
@@ -601,6 +601,7 @@ public class DatabaseConnector {
             return false;
         }
         delEmne.setKoe_id(delemneIKoe().getKoeId());
+        delEmne.setEmneKode(emne.getEmneKode());
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(opprettDelemneSQL,
                 delEmne.getNr(),
@@ -641,8 +642,17 @@ public class DatabaseConnector {
     public boolean opprettOving(int i, DelEmne delemne) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         con.update(opprettOvingSQL,
-                i,
+                i+1,
                 delemne.getEmneKode(),
+                delemne.getNr());
+        return true;
+    }
+
+    public boolean legRegler(String regler, int ant, DelEmne delemne) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        con.update(lagReglerSQL,
+                regler,
+                ant,
                 delemne.getNr());
         return true;
     }

@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<script src="<c:url value="/resources/js/ovingsopplegg.js"/>"></script>
+
 <div class="col-md-4">
     <h1>Sett regler for &oslash;vingsopplegget</h1>
 
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="ant">Minimum godkjente:</label>
-            <input type="number" id="ant" value="1" min="0" max="1" class="form-control">
+            <input type="number" name="min" id="ant" value="1" min="0" max="1" class="form-control">
         </div>
 
 
@@ -54,7 +54,7 @@
                     <h3>Minst godkjente</h3>
 
                     <input class="form-control" type="number" id="antGodkjente" value="1" min="1">
-                    <input class="btn" type="button" value="Legg til regel" onclick="leggTilRegel()">
+                    <input class="btn" type="button" value="Legg til regel" onclick="leggTilRegelen()">
                 </div>
 
 
@@ -69,6 +69,7 @@
             <h3>Innlagte spesialregler</h3>
 
             <div id="regler"><i>ingen</i></div>
+            <input type="hidden" name="newText" id="newText"/>
         </div>
         <div id="test"></div>
 
@@ -77,5 +78,5 @@
         </div>
     </form:form>
 </div>
-
+<script src="<c:url value="/resources/js/ovingsopplegg.js"/>"></script>
 

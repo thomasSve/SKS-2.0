@@ -21,17 +21,24 @@ public class OvingsoppleggetKontroller {
     EmneService service;
     @RequestMapping(value="ovingsopplegget")
     public String oving(@ModelAttribute(value="delemne")DelEmne delEmne, Model model, HttpSession session, HttpServletRequest req) {
-        System.out.println("luls");
-        int antall = (Integer)req.getAttribute("antall");
+        int antall = Integer.parseInt(req.getParameter("antall"));
         DelEmne delemne = (DelEmne)session.getAttribute("delemne");
+        int ant = 0;
+        String tot = req.getParameter("antall");
+        String min = req.getParameter("min");
+        String text = req.getParameter("newText");
+        String regler = tot+" "+min+" / "+text;
         try{
             for (int i = 0; i < antall; i++) {
                 service.opprettOving(i, delemne);
+                ant++;
             }
-            return "ovingsopplegget";
+            service.lagRegler(regler, ant, delemne);
+            model.addAttribute("ovingsregel", "Øvingsregel opprettet");
+            return "index";
         }catch(org.springframework.dao.DuplicateKeyException e){
             model.addAttribute("delemneSQLfeil", "Delemnenavn eller delemnekode er opprettet fra f&oslash;r");
-            return "opprettDelemne";
+            return "ovingsopplegget";
         }
     }
 }

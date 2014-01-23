@@ -91,4 +91,8 @@ public class EmneService {
     public boolean opprettOving(int i, DelEmne delemne) {
         return databaseConnector.opprettOving(i, delemne);
     }
+
+    public boolean lagRegler(String regler, int ant, DelEmne delemne) {
+        return databaseConnector.legRegler(regler, ant, delemne);
+    }
 }
