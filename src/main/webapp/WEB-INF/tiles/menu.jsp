@@ -36,16 +36,21 @@
             <c:if test="${sessionScope.innloggetBruker ==null}">
             <li><a href="/login.htm">Logg inn</a></li>
             </c:if>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
-                    Emner <b class="caret"></b></a>
-                <ul class="dropdown-menu">
+            <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
+                        Emner <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+            </c:if>
                     <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
-                        <li><a title="${emne.emneNavn}" onclick="emnekodeFraMenu(this.id)" id = "${emne.emneKode}">${emne.emneKode}</a></li>
+                        <li><a href="#" title="${emne.emneNavn}" onclick="emnekodeFraMenu(this.id)" id = "${emne.emneKode}">${emne.emneKode}</a></li>
                     </c:forEach>
-                </ul>
-            </li>
-            <c:if test="${sessionScope.innloggetBruker.rettighet<2}" >
+
+            <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
+                    </ul>
+                </li>
+            </c:if>
+            <c:if test="${sessionScope.innloggetBruker.rettighet<2}">
                 <li><a href="/adminBrukere.htm">Administrer brukere</a></li>
                 <li><a href="/adminFag.htm">Administrer emner</a></li>
             </c:if>
