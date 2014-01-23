@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * Created by Henriette on 09/01/14.
@@ -25,12 +28,15 @@ public class KoeKontroller {
     @Autowired
     EmneService emne_service;
 
-    @RequestMapping(value="/StartStoppKoe.htm", method = RequestMethod.POST)
+    @Autowired
+    Bruker innloggetBruker;
+
+    @RequestMapping(value = "/StartStoppKoe.htm", method = RequestMethod.POST)
     public String startKoen(@ModelAttribute DelEmne delEmne, HttpServletRequest request) {
         int koe_id = Integer.parseInt(request.getParameter("KoeIndex"));
 
         delEmne = koe_service.hentDelEmneStatus(koe_id);
-        if(delEmne.isKoe_status()){
+        if (delEmne.isKoe_status()) {
             delEmne.setKoe_status(false);
             emne_service.endreKoeStatus(koe_id, 0);
             return "koOversikt";
@@ -39,38 +45,61 @@ public class KoeKontroller {
         return "koOversikt";
     }
 
-    @RequestMapping(value="velgPlass.htm")
-    public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request){
-        if(error.hasErrors()){
+    @RequestMapping(value = "velgPlass.htm")
+    public String Koe(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error, HttpServletRequest request) {
+        if (error.hasErrors()) {
             return "sittIKo.htm";
         }
 
-        try{
+        try {
             String plass = request.getParameter("sitteplass");
             koe_service.getAntBord(plass);
             int bordnret = request.getIntHeader("bordnr");
 
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Du må være logget inn før du kan sette  deg i kø!");
             return "koOversikt";
         }
         return "sittIKo.htm";
 
     }
-    @RequestMapping(value="StillIKo", method = RequestMethod.POST)
-   public String StillIKo(@Validated @ModelAttribute("plassering") Plassering plassering, BindingResult error,  HttpServletRequest request,
-                          @ModelAttribute("koegrupper") KoeGrupper koegrupper, @ModelAttribute("oving") Oving oving){
-        int Emne_id = Integer.parseInt(request.getParameter("EmneIndex"));
-        DelEmne delEmne = emne_service.hentDelEmne(Emne_id);
 
-        if(error.hasErrors()){
-            return "sittIKo.htm";
+    @RequestMapping(value = "StillIKo.htm", method = RequestMethod.POST)
+    public String StillIKo(HttpServletRequest request, @Valid @ModelAttribute("koegrupper") KoeGrupper koegrupper, Model model, BindingResult error, HttpSession session) {
+        if (error.hasErrors()) {
+            return "settIKo";
         }
-        try{
-
-        }catch(Exception e){
-
+        int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
+        int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
+        innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
+        Emne emne = innloggetBruker.getEmne().get(emnenr);
+        DelEmne delEmne = emne.getDelemner().get(delemneNr);
+        koegrupper.setKoe_id(delEmne.getKoe_id());
+        ArrayList<Bruker> medlemmer = new ArrayList<>();
+        medlemmer.add(innloggetBruker);
+        for(int i = 0; i<koegrupper.getMedlemmer().size(); i++){
+            medlemmer.add(koegrupper.getMedlemmer().get(i));
         }
+        koegrupper.setMedlemmer(medlemmer);
+        String oving = "";
+        for(int i = 0; i<koegrupper.getOvingnr().size(); i++){
+            oving = "Øving " + koegrupper.getOvingnr().get(i) + ", ";
+        }
+        koe_service.leggTilIKo(koegrupper, delEmne, oving);
+        //return "settIKo";
+        int koeId = delEmne.getKoe_id();
+        Koe koe = new Koe();
+        koe.setGrupper(koe_service.getKoe(koeId));
+        koe.setKoeId(koeId);
+        session.setAttribute("koe", koe);
+        DelEmne denne = koe_service.hentDelEmneStatus(koeId);
+        delEmne.setKoe_status(denne.isKoe_status());
+        ArrayList<KoeGrupper> grupper = koe.getGrupper();
+        model.addAttribute("emneIndex",emnenr);
+        model.addAttribute("delEmneIndex", delemneNr);
+        model.addAttribute("koe", koe);
+        model.addAttribute("grupper", grupper);
+        model.addAttribute("delEmne", delEmne);
         return "koOversikt";
     }
 }

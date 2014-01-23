@@ -1,5 +1,4 @@
 <%@ page import="no.hist.tdat.javabeans.DelEmne" %>
-<%@ page import="no.hist.tdat.javabeans.Koe" %>
 <%--
   Created by IntelliJ IDEA.
   User: Thomas
@@ -14,75 +13,38 @@
 
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>)
+            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>
         </div>
     </h3>
-    <div class="list-inline">
+    <div class="input-group">
         <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
+
             <input type="hidden" name="emneNr" id="emneNr"/>
             <input type="hidden" name="delemneNr" id="delemneNr"/>
+            <%--<div class="btn-group">--%>
             <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
                    onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;">
+            <%--</div>--%>
         </form>
-        <%
-            DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
-            int koe_id = delEmne.getKoe_id();
-            if (delEmne.isKoe_status()) {
+        <div id="startStoppKoe">
+            <%
+                DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
+                int koe_id = delEmne.getKoe_id();
+                if (delEmne.isKoe_status()) {
 
-                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
-                        // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
-                );
-            } else {
-                out.println("<input type=\"button\" onclick=\"startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
-            }
-        %>
+                    out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
+                            // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
+                    );
+                } else {
+                    out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
+                }
+            %>
+        </div>
     </div>
-    <table class="table table-hover" id="minTable">
-        <thead>
-        <tr>
-            <th>Tid</th>
-            <th>Navn</th>
-            <th>Kommentar</th>
-            <th>Sitteplass</th>
-            <th></th>
-        </tr>
-        </thead>
-
-
+    <div id="koetabell">
         <tbody>
-        <c:forEach var="koegrupper" items="${grupper}" varStatus="status">
-            <tr
-                    <c:if test="${koegrupper.faarHjelp!=null}">
-                        class="success">
-                        <td><a class="faarHjelpKnapp btn btn-success btn-sm " data-placement="top" data-toggle="popover"
-                               title="" data-content="<c:out value="${status}"/> navn"
-                               data-original-title="Får hjelp av"><i class="glyphicon glyphicon-eye-open"></i> </a></td>
-                    </c:if>
-                    <c:if test="${koegrupper.faarHjelp==null}">
-                        >
-                        <td><c:out value="${koegrupper.klokkeslett}"/></td>
-                    </c:if>
-            <td><c:out value="${koegrupper.medlemmer[0].fornavn}"/> <c:out
-                    value="${koegrupper.medlemmer[0].etternavn}"/></td>
-            <td><c:out value="${koegrupper.kommentar}"/></td>
-            <td><c:out value="${koegrupper.sitteplass}"/>, bord <c:out value="${koegrupper.bordnr}"/></td>
-            <td>
-                <div class="btn-group" id="<c:out value="${koegrupper.gruppeID}"/>">
-
-                    <button class="btn btn-primary" data-task="choose" title="Velg" id="${koegrupper.koe_id}:${koegrupper.gruppeID}"
-                            onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
-                    </button>
-                    <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
-                            onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
-                    </button>
-                    <button class="btn btn-danger" data-task="remove" title="Fjern"
-                            onclick="slettBruker(this.parentNode.id)"><i class="glyphicon glyphicon-remove"></i>
-                    </button>
-                </div>
-            </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+        <jsp:include page="oppdaterKoe.jsp"/>
+    </div>
 </div>
 <script src="<c:url value="/resources/js/koen.js"/>"></script>
+<script src="<c:url value="/resources/js/oppdaterKoe.js"/>"></script>

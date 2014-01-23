@@ -78,10 +78,20 @@ public class EmneService {
      */
     public boolean opprettEmne(Emne emne) throws org.springframework.dao.DuplicateKeyException{
         return databaseConnector.opprettEmne(emne);
-
     }
-    public ArrayList<Oving> hentDelEmneOving(int delemne_nr, String emnekode){
-        return databaseConnector.hentDelEmneOving(delemne_nr, emnekode);
+
+    /**
+     * Henter emne, gitt navn på delemne
+     *
+     * @param navn
+     * @return emne
+     */
+    public Emne hentEmne(String navn){
+        return databaseConnector.hentEmne(navn);
+    }
+
+    public ArrayList<Oving> hentDelEmneOving(Bruker bruker, Emne emne, DelEmne delEmne){
+        return databaseConnector.hentStudOvinger(bruker,emne,delEmne);
     }
 
     public boolean opprettDelemne(DelEmne delEmne, Emne emne) throws org.springframework.dao.DuplicateKeyException{

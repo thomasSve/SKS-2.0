@@ -43,7 +43,7 @@ public class EndrePassordKontroller {
                 if (PassordService.sammenliknPassord(gammeltP, bruker)) {
                     bruker.setPassord(nyttPassord);
                     if(service.endrePassord(bruker.getMail(), bruker.getPassord())){
-                        modell.addAttribute("melding", "Vellykket");
+                        modell.addAttribute("vellykket", "Vellykket");
                         return "endrePassord";
                     }
                     modell.addAttribute("melding", "Feil ved Database");

@@ -1,21 +1,22 @@
 <%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="no.hist.tdat.javabeans.beanservice.BrukerService" %>
+<%@ page import="no.hist.tdat.javabeans.Oving" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<div class="col-md-4">
-    <h1>Sett deg i k&oslash; </h1>
+<div class="col-md-6">
+    <h1>Sett deg i k&oslash; (${delEmne.delEmneNavn})</h1>
 
-    <form:form action="StillIKo" modelAttribute="koegrupper" method="post">
+    <form:form action="StillIKo.htm" onsubmit='mysubmit()' modelAttribute="koegrupper" method="post">
         <div class="form-group">
             <label for="sitteplass">Sitteplass:</label>
             <form:select class="form-control" name="Sitteplass" id="sitteplass" path="sitteplass" onchange="hentBord(this)">
                 <option id="tom" value="tom">Velg Sitteplass</option>
                 <c:forEach items="${plassering}" var="plass">
-                    <form:option onclick="visBilde(this.value)" id="plassering"
-                                 value="${plass.ant_bord}">${plass.plassering_navn}</form:option>
+                    <form:option onclick='visBilde(this.value)' id="${plass.ant_bord}"
+                                 value="${plass.plassering_navn}">${plass.plassering_navn}</form:option>
                 </c:forEach>
             </form:select>
         </div>
@@ -33,16 +34,16 @@
         </div>
         <div class="form-group">
             <label for="oving">&Oslash;ving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="ovinger">
+            <form:select id="oving" multiple="true" class="form-control" path="ovingnr">
                 <c:forEach items="${oving}" var="ovinger">
-                    <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">${ovinger.ovingnr}</form:option>
+                    <form:option id="${ovinger.ovingnr}" value="${ovinger.ovingnr}">&Oslash;ving ${ovinger.ovingnr}</form:option>
                 </c:forEach>
             </form:select>
         </div>
 
         <div class="form-group">
             <label for="kommentar">Kommentar:</label>
-            <form:textarea class="form-control" type="text" id="kommentar" path="kommentar"/>
+            <form:textarea class="form-control" type="text" id="kommentar" path="kommentar" maxlength="20"/>
         </div>
 
         <div class="form-group">
@@ -53,7 +54,9 @@
                 </c:forEach>
             </form:select>
         </div>
-        <input type="submit" id="leggTil" class="btn btn-md btn-primary" onclick="StillIKo(${delEmne.nr})" value="Legg til i k&oslash;">
+        <input type="hidden" name="delemneNr" id="delemneNr" />
+        <input type="hidden" name="emneNr" id="emneNr" />
+        <input type="submit" id="leggTil" onclick='delemnenr="${delEmneIndex}"; emnenr="${emneIndex}"' class="btn btn-md btn-primary" value="Legg til i k&oslash;">
     </form:form>
 </div>
 <div id="bilde">

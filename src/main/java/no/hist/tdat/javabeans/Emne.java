@@ -44,6 +44,7 @@ public class Emne {
 
     public void leggTilDelEmne(DelEmne delEmne){
         delemner.add(delEmne);
+        System.out.println();
     }
 
 }

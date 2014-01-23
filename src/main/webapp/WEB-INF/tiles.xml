@@ -7,89 +7,97 @@
 <tiles-definitions>
 
     <definition name="baseLayout" template="/WEB-INF/tiles/baseLayout.jsp">
-        <put-attribute name="title"  value="BaseLayout"/>
-        <put-attribute name="menu"   value="/WEB-INF/tiles/menu.jsp"/>
+        <put-attribute name="title" value="BaseLayout"/>
+        <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp"/>
     </definition>
     <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
-        <put-attribute name="title"  value="Logg inn"/>
+        <put-attribute name="title" value="Logg inn"/>
     </definition>
     <definition name="glemtPassord" template="/WEB-INF/jsp/glemtPassord.jsp">
-        <put-attribute name="title"  value="Glemt Passord"/>
+        <put-attribute name="title" value="Glemt Passord"/>
     </definition>
     <definition name="error" template="/WEB-INF/jsp/error.jsp">
-        <put-attribute name="title"  value="404 Error"/>
+        <put-attribute name="title" value="404 Error"/>
     </definition>
     <definition name="index" extends="baseLayout">
-        <put-attribute name="title"  value="Min side"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/index.jsp"/>
+        <put-attribute name="title" value="Min side"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/index.jsp"/>
     </definition>
 
     <definition name="endrePassord" extends="baseLayout">
-        <put-attribute name="title"  value="Endre Passord"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/endrePassord.jsp"/>
+        <put-attribute name="title" value="Endre Passord"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/endrePassord.jsp"/>
     </definition>
 
     <definition name="adminBrukere" extends="baseLayout">
-        <put-attribute name="title"  value="Administrer brukere"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
+        <put-attribute name="title" value="Administrer brukere"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/adminBrukere.jsp"/>
     </definition>
 
     <definition name="adminBrukereEndre" extends="baseLayout">
-        <put-attribute name="title"  value="Index"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminBrukereEndre.jsp"/>
+        <put-attribute name="title" value="Index"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/adminBrukereEndre.jsp"/>
     </definition>
 
     <definition name="adminFag" extends="baseLayout">
-        <put-attribute name="title"  value="Administrer Fag"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/adminFag.jsp"/>
+        <put-attribute name="title" value="Administrer Fag"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/adminFag.jsp"/>
     </definition>
 
     <definition name="settIKo" extends="baseLayout">
-        <put-attribute name="title"  value="Sett i Kø"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/Student/settIKo.jsp"/>
+        <put-attribute name="title" value="Sett i Kø"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/Student/settIKo.jsp"/>
     </definition>
-	
+
     <definition name="endreStudent" extends="baseLayout">
-        <put-attribute name="title"  value="Administrer student"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/endreStudent.jsp"/>
+        <put-attribute name="title" value="Administrer student"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/endreStudent.jsp"/>
     </definition>
-    
-	<definition name="minside" extends="baseLayout">
-        <put-attribute name="title"  value="Min Side"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/minSide.jsp"/>
+
+    <definition name="minside" extends="baseLayout">
+        <put-attribute name="title" value="Min Side"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/minSide.jsp"/>
     </definition>
     <definition name="ovingsOpplegg" extends="baseLayout">
-        <put-attribute name="title"  value="Øvingsopplett"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
+        <put-attribute name="title" value="Øvingsopplett"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/ovingsopplegget.jsp"/>
     </definition>
     <definition name="godkjennOving" extends="baseLayout">
-        <put-attribute name="title"  value="Godkjenn øving"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjennOving.jsp"/>
+        <put-attribute name="title" value="Godkjenn øving"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/godkjennOving.jsp"/>
     </definition>
     <definition name="nyStudent" extends="baseLayout">
-        <put-attribute name="title"  value="Registrer ny student"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/nyStudent.jsp"/>
+        <put-attribute name="title" value="Registrer ny student"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/nyStudent.jsp"/>
     </definition>
     <definition name="koOversikt" extends="baseLayout">
-        <put-attribute name="title"  value="Kø oversikt"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/kooversikt.jsp"/>
+        <put-attribute name="title" value="Kø oversikt"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/kooversikt.jsp"/>
     </definition>
 
     <definition name="endreValgtStudent" extends="baseLayout">
-        <put-attribute name="title"  value="Endre student"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/endreValgtStudent.jsp"/>
+        <put-attribute name="title" value="Endre student"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/endreValgtStudent.jsp"/>
     </definition>
-
     <definition name="opprettEmne" extends="baseLayout">
-        <put-attribute name="title"  value="Opprett emne"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettEmne.jsp"/>
+        <put-attribute name="title" value="Opprett emne"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/opprettEmne.jsp"/>
     </definition>
     <definition name="opprettDelemne" extends="baseLayout">
-        <put-attribute name="title"  value="Opprett delemne"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/admin/opprettDelemne.jsp"/>
+        <put-attribute name="title" value="Opprett delemne"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/opprettDelemne.jsp"/>
     </definition>
     <definition name="godkjenningsoversikt" extends="baseLayout">
-        <put-attribute name="title"  value="Godkjenningsoversikt"/>
-        <put-attribute name="body"   value="/WEB-INF/jsp/faglarer/godkjenningsoversikt.jsp"/>
+        <put-attribute name="title" value="Godkjenningsoversikt"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/godkjenningsoversikt.jsp"/>
+    </definition>
+
+    <definition name="emneOversikt" extends="baseLayout">
+        <put-attribute name="title" value="Emneoversikt"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/emneOversikt.jsp"/>
+    </definition>
+    <definition name="mineFag" extends="baseLayout">
+        <put-attribute name="title" value="Mine Emner"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/mineFag.jsp"/>
     </definition>
 </tiles-definitions>

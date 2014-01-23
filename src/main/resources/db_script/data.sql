@@ -18,7 +18,7 @@ VALUES ('hb@mail.com', 1, 'Henriette', 'Berg', 'eaaseQasexaseaaseQasexaseaaseQas
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
 VALUES ('og@mail.com', 1, 'Øyvind', 'Grimstad', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
-VALUES ('km@mail.com', 1, 'Ketta', 'Mykkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+VALUES ('km@mail.com', 1, 'Kjetil', 'Møkkelgjerd', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
 VALUES ('eo@mail.com', 1, 'Eirik', 'Øvstedal', 'eaaseQasexaseaaseQasexaseaaseQas', 0);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
