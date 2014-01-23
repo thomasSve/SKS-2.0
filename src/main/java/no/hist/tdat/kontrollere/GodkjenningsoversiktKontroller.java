@@ -1,12 +1,13 @@
 package no.hist.tdat.kontrollere;
 
-import no.hist.tdat.javabeans.*;
+import no.hist.tdat.javabeans.Bruker;
+import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Emne;
+import no.hist.tdat.javabeans.Oving;
 import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,16 +37,16 @@ public class GodkjenningsoversiktKontroller {
             ArrayList<DelEmne> a = new ArrayList<DelEmne>();
 
             Bruker br = alle.get(i);
+            ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter øvinger til delemnet
 
-            ArrayList<Oving> ovinger = service.hentOvinger(emne, br.getMail()); //henter øvinger til delemnet
-/*
-            for (int j = 0; j < ovinger.size(); j++) {
-                Oving denne = ovinger.get(j);
-                if (service.hentOvingGodkjent(br.getMail(), denne.getOvingid())) {
+            ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj øvinger til delemnet
 
+            if (godkj != null) {
+                for (int j = 0; j < godkj.size(); j++) {
+                    Oving o = godkj.get(j);
+                    ovinger.set(o.getOvingnr() - 1, o);
                 }
             }
-*/
             DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
             delEmne.setStudentovinger(ovinger);
             a.add(delEmne);
@@ -56,8 +57,6 @@ public class GodkjenningsoversiktKontroller {
 
             br.setEmne(em);
         }
-        System.out.println(alle.get(0).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
-        System.out.println(alle.get(3).getEmne().get(0).getDelemner().get(0).getStudentovinger().size());
         session.setAttribute("ovingsoversikt", alle);
     }
 }
