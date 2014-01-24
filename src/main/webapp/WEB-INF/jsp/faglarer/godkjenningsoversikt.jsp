@@ -10,17 +10,16 @@
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location = "godkjenningsoversikt.htm";
+            }
 
         }
         xmlhttp.open("POST", "hentRiktigEmne", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("emne=" + emnekode);
 
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            //document.getElementById("calendar").innerHTML=xmlhttp.responseText;
-            alert("jara");
-        }
-        window.location = "godkjenningsoversikt.htm";
+
     }
 </script>
 

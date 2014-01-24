@@ -97,7 +97,6 @@ public class NavigasjonsKontroller {
 
         return koeservice.genererStartStopKnapp((DelEmne)session.getAttribute("delEmne"));
     }
-
     @RequestMapping(value="/oppdaterKoe.htm", method = RequestMethod.POST)
     @ResponseBody
     public String oppdaterKoe(@ModelAttribute("delEmne") DelEmne delEmne,HttpServletRequest request,HttpSession session, Model model) {
