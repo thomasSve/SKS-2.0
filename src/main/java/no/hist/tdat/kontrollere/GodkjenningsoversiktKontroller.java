@@ -25,13 +25,10 @@ public class GodkjenningsoversiktKontroller {
     BrukerService service;
     @Autowired
     EmneService service2;
-    int p = 0;
 
     @RequestMapping(value = "hentRiktigEmne", method = RequestMethod.POST)  //kalles av ajax
-    public void hentRiktigEmne(HttpServletRequest request, HttpSession session) {
+    public String hentRiktigEmne(HttpServletRequest request, HttpSession session) {
         String emne = request.getParameter("emne");
-        System.out.println("her"+p);
-        p++;
         ArrayList<Bruker> alle = service.finnStudenterIDelemne(emne);   //alle med faget
         for (int i = 0; i < alle.size(); i++) {
             ArrayList<Emne> em = new ArrayList<Emne>();
@@ -59,6 +56,7 @@ public class GodkjenningsoversiktKontroller {
             br.setEmne(em);
         }
         session.setAttribute("ovingsoversikt", alle);
+        return "error";
     }
 
     @RequestMapping(value = "visAlleMedBestatt")
