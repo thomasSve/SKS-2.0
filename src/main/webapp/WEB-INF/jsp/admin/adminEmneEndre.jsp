@@ -9,7 +9,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-md-6">
-    <h3>Endre Emne (${redigerEmne.emneNavn})</h3>
+    <h3>Administrer <strong>${redigerEmne.emneNavn}</strong></h3>
     <form:form method="POST" modelAttribute="emne" action="redigerEmneLagre.htm">
         <p style="color: red"><strong>${melding}</strong></p>
 
@@ -27,7 +27,9 @@
         </div>
         <input type="hidden" name="redigerEmneKode" value="${redigerEmne.emneKode}">
         <input type="submit" id="endreEmne" value="Endre emneinfo" class="btn btn-primary"/>
+        <input type="hidden" name="tab" value="endre">
     </form:form>
+    <hr>
     <div class="form-group">
         <table class="table table-condensed table-hover">
             <thead>
@@ -52,42 +54,44 @@
             </tbody>
             </c:forEach>
         </table>
-        <button onclick="leggTilEmneansvarlig(${redigerEmne.emneKode})" class="btn btn-primary">Legg til emneansvalig
-        </button>
     </div>
-<%--    <% if () { %>
+    <hr>
+    <button onclick="visLeggTilEmneansv(this.id)" id="${emne.emneKode}" value="leggtilEmneansvarlig" class="btn btn-primary btn-sm">Legg til emneansvarlig</button>
 
-    <div class="form-group">
-        <table>
-            <thead>
-            <tr>
-                <th class="">Delemner</th>
-                <th class="header col-sm-1"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${redigerEmne.delemner}" var="delemner">
-            <tr>
-                <td><p>${delemner.delEmneNavn}, ${delemner.delEmneNavn}</p>
-                </td>
-                <td>
-                    <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
-                            id="${delemner.emneKode}" onclick="slettDelEmne(this.id)"
-                            title="Slett"><i class="glyphicon glyphicon-remove"></i>
-                    </button>
+    <%--    <% if () { %>
 
-                </td>
-            </tr>
-            </tbody>
-            </c:forEach>
-        </table>
-        <button onclick="leggTilDelEmne(${redigerEmne.emneKode})" class="btn btn-primary">Legg til Delemne</button>
-    </div>
-    <% } %>--%>
+        <div class="form-group">
+            <table>
+                <thead>
+                <tr>
+                    <th class="">Delemner</th>
+                    <th class="header col-sm-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${redigerEmne.delemner}" var="delemner">
+                <tr>
+                    <td><p>${delemner.delEmneNavn}, ${delemner.delEmneNavn}</p>
+                    </td>
+                    <td>
+                        <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
+                                id="${delemner.emneKode}" onclick="slettDelEmne(this.id)"
+                                title="Slett"><i class="glyphicon glyphicon-remove"></i>
+                        </button>
 
+                    </td>
+                </tr>
+                </tbody>
+                </c:forEach>
+            </table>
+            <button onclick="leggTilDelEmne(${redigerEmne.emneKode})" class="btn btn-primary">Legg til Delemne</button>
+        </div>
+        <% } %>--%>
+    <button class="btn btn-primary btn-sm" id="${redigerEmne.emneKode}" onclick="leggtilDelEmne(this.id)">Legg til delemne</button>
+    <hr>
     <div class="modal-footer">
         <button type="button" id="${redigerEmne.emneKode}" onclick="adminEmneTilbake(this.id)"
-                class="btn btn-danger col-md-5">Tilbake
+                class="btn btn-danger btn-block">Tilbake
         </button>
     </div>
 

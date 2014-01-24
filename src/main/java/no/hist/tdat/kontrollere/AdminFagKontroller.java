@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.EmnerBeans;
 import no.hist.tdat.javabeans.beanservice.EmneService;
@@ -49,7 +50,7 @@ public class AdminFagKontroller {
     public String slettEmne(Model modell, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String emnekode = request.getParameter("emneIndex");
-        if(EmneService.slettEmne(emnekode)){
+        if (EmneService.slettEmne(emnekode)) {
             modell.addAttribute("message", "Du har vellykket fjernet emnet: " + emnekode + ".");
         }
         modell.addAttribute("tabForm", tab);
@@ -59,7 +60,7 @@ public class AdminFagKontroller {
 
 
     @RequestMapping(value = "/redigerEmne.htm", method = RequestMethod.POST)
-    public String redigerEmne(@ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
+    public String redigerEmne(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
         String emnekode = request.getParameter("emneIndex");
         Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
         session.setAttribute("redigerEmne", redigerEmne);
@@ -73,9 +74,9 @@ public class AdminFagKontroller {
     }
 
     @RequestMapping(value = "/redigerEmneLagre.htm")
-    public String redigerEmneLagre(@Valid @ModelAttribute("emne") Emne emne, BindingResult result, Model modell, HttpServletRequest request, HttpSession session) {
-        Emne redigerEmne =(Emne) session.getAttribute("redigerEmne");
-        System.out.println(redigerEmne.getEmneKode() +", "+ emne);
+    public String redigerEmneLagre(@Valid @ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, BindingResult result, Model modell, HttpServletRequest request, HttpSession session) {
+        Emne redigerEmne = (Emne) session.getAttribute("redigerEmne");
+        System.out.println(redigerEmne.getEmneKode() + ", " + emne);
         if (result.hasErrors()) {
             modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
             return "adminEmneEndre";
@@ -94,6 +95,40 @@ public class AdminFagKontroller {
             modell.addAttribute("melding", "En uventet feil oppsto<br><br>" + e);
             return "adminEmneEndre";
         }
+    }
+
+    @RequestMapping(value = "/visLeggTilEmneansv.htm")
+    public String visLeggTilEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne,
+                                          Model modell, HttpServletRequest request, HttpSession session) {
+        return "leggTilEmneAnsView";
+    }
+
+    @RequestMapping(value = "visLeggTilEmneansv", method = RequestMethod.POST)
+    public String visleggTilEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne,
+                                          Model modell, HttpServletRequest request, HttpSession session) {
+        String emnekode = request.getParameter("emneIndex");
+        Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
+        session.setAttribute("emne", redigerEmne);
+        return "/visLeggTilEmneansv.htm";
+    }
+
+    @RequestMapping(value = "/leggTilEmneansvarlig.htm", method = RequestMethod.POST)
+    public String leggTilEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
+        String emnekode = request.getParameter("emneIndex");
+        Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
+        session.setAttribute("redigerEmne", redigerEmne);
+        if (redigerEmne == null) {
+            modell.addAttribute("melding", "Finner ikke emne i databasen");
+            return "adminEmneEndre";
+        } else {
+            return "adminEmneEndre";
+        }
+
+    }
+
+    @RequestMapping("delEmne.htm")
+    public String emne(@ModelAttribute(value = "emne") Emne emne, @ModelAttribute("delemne") DelEmne delEmne, Model model, HttpSession session) {
+        return "opprettDelemne";
     }
 
 }

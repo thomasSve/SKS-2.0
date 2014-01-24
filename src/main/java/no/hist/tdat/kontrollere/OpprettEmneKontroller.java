@@ -28,12 +28,12 @@ public class OpprettEmneKontroller {
     BrukerService bservice;
     @RequestMapping("lagEmne")
     public String emne(@ModelAttribute(value = "emne") Emne emne, @ModelAttribute("delemne")DelEmne delEmne, Model model, HttpSession session) {
-        System.out.println("inne i lag emne");
         try{
             eservice.opprettEmne(emne);
             model.addAttribute("emnerett", "Emne \""+emne.getEmneNavn()+"\" med emnekode \""+emne.getEmneKode()+"\" er opprettet");
-            session.setAttribute("emne", emne);
-            return "opprettDelemne";
+            Emne redigerEmne = emne;
+            session.setAttribute("redigerEmne", redigerEmne);
+            return "adminEmneEndre";
         }catch(org.springframework.dao.DuplicateKeyException e){
             model.addAttribute("emneSQLfeil", "Emnenavn eller emnekode er opprettet fra f&oslash;r");
             return "opprettEmne";
@@ -54,7 +54,7 @@ public class OpprettEmneKontroller {
         }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("personerBeans", personerBeans);
-        return "opprettEmne";
+        return "leggTilEmneAnsView";
     }
 
     @RequestMapping(value = "/velgBruker.htm", method = RequestMethod.POST)
@@ -65,9 +65,9 @@ public class OpprettEmneKontroller {
         session.setAttribute("redigerBrukere", redigerBrukere);
         if (redigerBrukere == null) {
             modell.addAttribute("melding", "Finner ikke bruker i databasen");
-            return "adminBrukereEndre";
+            return "leggTilEmneAnsView";
         } else {
-            return "adminBrukereEndre";
+            return "leggTilEmneAnsView";
         }
 
     }
