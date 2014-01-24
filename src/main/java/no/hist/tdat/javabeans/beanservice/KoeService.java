@@ -67,6 +67,8 @@ public class KoeService {
         return databaseConnector.delemneIKoe();
     }
 
+
+
     public String genererStartStopKnapp(DelEmne delEmne){
         int koe_id = delEmne.getKoe_id();
         String output ="";
@@ -119,7 +121,7 @@ public class KoeService {
                 +"onclick=\"velgGruppeFraKoe(this.id)\"><i class=\"glyphicon glyphicon-edit\"></i>"
                 +"</button>";
         }
-            if(innloggetBruker.getRettighet()==3){
+            if(innloggetBruker.getRettighet()==3 && koe.getGrupper().get(i).getMedlemmer().get(0).equals(innloggetBruker)){
         output+=" <button class='btn btn-warning' data-task='edit' title='Endre &oslash;vinger'"
             +"onclick='endreBruker(this.parentNode.id)'><i class='glyphicon glyphicon-edit'></i>"
             +"</button>"
