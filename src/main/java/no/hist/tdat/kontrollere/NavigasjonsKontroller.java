@@ -104,6 +104,7 @@ public class NavigasjonsKontroller {
     public String oppdaterKoe(@ModelAttribute("delEmne") DelEmne delEmne,HttpServletRequest request,HttpSession session, Model model) {
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         Koe koe = (Koe)session.getAttribute("koe");
+
        // System.out.println("wtf");
         //int koeId = (int)request.getAttribute("koe_id");
         koe.setGrupper(koeservice.getKoe(koe.getKoeId()));

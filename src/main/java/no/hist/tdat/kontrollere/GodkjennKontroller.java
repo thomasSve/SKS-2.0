@@ -42,6 +42,7 @@ public class GodkjennKontroller {
 
         Koe koe = (Koe)session.getAttribute("koe");
         String gruppeNokkler = request.getParameter("gruppeIndexFraKoe");
+        System.out.println(gruppeNokkler);
         String[] nokler = gruppeNokkler.split(":");
         KoeGrupper gruppe = null;
         for (int i = 0; i <koe.getGrupper().size() ; i++) {
