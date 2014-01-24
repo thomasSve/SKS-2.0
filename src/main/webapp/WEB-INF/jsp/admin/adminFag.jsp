@@ -33,7 +33,7 @@
                     <tr>
                         <th class="header col-sm-2">Emnekode</th>
                         <th class="header col-sm-4">Emnenavn</th>
-                        <th class="header">Forelesere</th>
+                        <th class="header">Emneansvarlig</th>
                         <th class="header col-sm-1"></th>
                     </tr>
                     </thead>
