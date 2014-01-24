@@ -123,7 +123,6 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
 
-
         Emne emne = innloggetBruker.getEmne().get(emnenr);
         delEmne = emne.getDelemner().get(delemneNr);
         ArrayList<Oving> oving = delEmne.getStudentovinger();

@@ -41,12 +41,16 @@ public class GodkjennKontroller {
     public String hentUtKoGruppe(@ModelAttribute("koeGrupper") KoeGrupper koeGrupper, Model modell, HttpServletRequest request, HttpSession session){
 
         Koe koe = (Koe)session.getAttribute("koe");
-        String gruppeNokkler = request.getParameter("gruppeIndexFraKoe");
-        String[] nokler = gruppeNokkler.split(":");
+        String gruppeId = request.getParameter("gruppeid");
+        String koeId= request.getParameter("koeid");
+        //String[] nokler = gruppeNokkler.split(":");
         KoeGrupper gruppe = null;
         for (int i = 0; i <koe.getGrupper().size() ; i++) {
-            if(koe.getGrupper().get(i).getGruppeID()==Integer.parseInt(nokler[1]) && koe.getGrupper().get(i).getKoe_id()==Integer.parseInt(nokler[0])){
+            if(koe.getGrupper().get(i).getGruppeID()==Integer.parseInt(gruppeId) && koe.getGrupper().get(i).getKoe_id()==Integer.parseInt(koeId)){
                 gruppe = koe.getGrupper().get(i);
+                session.removeAttribute("gruppeFraKoe");
+                session.setAttribute("gruppeFraKoe", gruppe);
+                return "godkjennOving";
             }
         }
         session.removeAttribute("gruppeFraKoe");

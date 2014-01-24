@@ -27,4 +27,5 @@
 </div>
 </div>
 <script src="<c:url value="/resources/js/koen.js"/>"></script>
+<script src="<c:url value="/resources/js/menyScript.js"/>"></script>
 
