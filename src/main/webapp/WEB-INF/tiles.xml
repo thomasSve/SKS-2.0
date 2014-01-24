@@ -109,4 +109,8 @@
         <put-attribute name="title" value="Mine Emner"/>
         <put-attribute name="body" value="/WEB-INF/jsp/faglarer/mineFag.jsp"/>
     </definition>
+    <definition name="visAlleMedBestatt" extends="baseLayout">
+        <put-attribute name="title" value="Studenter med nok øvinger"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/faglarer/visAlleMedBestatt.jsp"/>
+    </definition>
 </tiles-definitions>
