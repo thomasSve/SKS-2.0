@@ -33,6 +33,7 @@
                     <tr>
                         <th class="header">Emnekode</th>
                         <th class="header">Emnenavn</th>
+                        <th class="header">Faglesere</th>
                         <th class="header col-sm-1"></th>
                     </tr>
                     </thead>
@@ -43,6 +44,7 @@
                         <tr>
                             <td><c:out value="${emne.emneKode}"/></td>
                             <td><c:out value="${emne.emneNavn}"/></td>
+                            <td><c:out value="${emne.}"/></td>
                             <td>
                                 <div class="input-group-btn">
                                     <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
