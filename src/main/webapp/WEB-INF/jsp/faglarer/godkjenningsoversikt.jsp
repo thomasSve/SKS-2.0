@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <script>
     function hentRettEmne(emnekode) {
@@ -40,6 +41,10 @@
         Delemne: <c:out value="${sessionScope.ovingsoversikt[0].emne[0].delemner[0].delEmneNavn}"/>
     </div>
 </h2>
+
+<form:form action="visAlleMedBestatt" method="post">
+    <input class="btn btn-info" type="submit" value="Vis liste med alle eksamensklare">
+</form:form>
 
 <table class="col-lg-10 table table-striped">
     <thead>

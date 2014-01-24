@@ -59,5 +59,10 @@ public class GodkjenningsoversiktKontroller {
         session.setAttribute("ovingsoversikt", alle);
     }
 
+    @RequestMapping(value = "visAlleMedBestatt")
+    public String visAlleMedBestatt() {
+        return "visAlleMedBestatt";
+    }
+
 
 }
