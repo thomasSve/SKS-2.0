@@ -44,6 +44,7 @@ public class GodkjennKontroller {
         String gruppeId = request.getParameter("gruppeid");
         String koeId= request.getParameter("koeid");
         //String[] nokler = gruppeNokkler.split(":");
+
         KoeGrupper gruppe = null;
         for (int i = 0; i <koe.getGrupper().size() ; i++) {
             if(koe.getGrupper().get(i).getGruppeID()==Integer.parseInt(gruppeId) && koe.getGrupper().get(i).getKoe_id()==Integer.parseInt(koeId)){
