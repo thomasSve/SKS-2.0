@@ -38,3 +38,15 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.iconContainer{
+    position: relative;
+    float: left;
+    width:40px;
+    height: 40px;
+
+    background-image: url('/resources/img/users_multiple.png');
+    background-repeat:no-repeat;
+
+}
+
