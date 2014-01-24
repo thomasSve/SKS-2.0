@@ -206,15 +206,9 @@ INSERT INTO gruppe_oving (gruppe_id, koe_id, oving_id) VALUES (6,1,3);
 INSERT INTO delemne_brukere (mail, emnekode, delemne_nr) VALUES ('js@mail.com', 'ALM805F-A', 1);
 
 INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
-VALUES (1, 'ob@mail.com', null, null);
-INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
-VALUES (2, 'ob@mail.com', null, null);
-INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
 VALUES (3, 'ob@mail.com', 'Grethe', '2000-01-01 13:37:00');
 INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
 VALUES (4, 'ob@mail.com', 'Anette', '1989-06-30 10:20:21');
 INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
 VALUES (6, 'ob@mail.com', 'Jørgen', '2000-12-03 09:40:11');
-INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid)
-VALUES (7, 'ob@mail.com', null, null);
 

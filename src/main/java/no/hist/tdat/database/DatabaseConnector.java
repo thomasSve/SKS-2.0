@@ -78,13 +78,30 @@ public class DatabaseConnector {
     private final String opprettOvingSQL = "INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (?,?,?)";
     private final String lagReglerSQL = "UPDATE delemne SET ovingsregler = ?, ant_ovinger = ? WHERE delemne_nr = ?";
 
-    private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUE (?,?,1,?,?)";
+    //Brukes til å godkjenn gruppe hent bruker shiiet
+    private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid) VALUE (?,?,?,?)";
     private final String fjernKoeGruppeFraKoeSQL = "DELETE FROM koe_gruppe WHERE gruppe_id = ? AND koe_id = ?";
+    //SQL SETNING som henter ALLE studenter med et gitt emne. sortert etter etternavn!
+    private final String hentStudentMedEmneSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail  AND emner_brukere.emnekode = ? AND brukere.aktiv = 1 AND brukere.rettighet_id = 3 ORDER BY brukere.etternavn";
+
 
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle sp�rringer.
 
-
+    /**
+     *
+     * @param emneKodeLol   Alle studenter (rettighet = 3) for denne emnekoden trololo
+     * @return              Liste med brukere
+     */
+    public ArrayList<Bruker> hentStudenterMedGittEmne(String emneKodeLol) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> studentList = con.query(hentStudentMedEmneSQL, new BrukerKoordinerer(), emneKodeLol);
+        ArrayList<Bruker> output = new ArrayList<>();
+        for (Bruker denne : studentList) {
+            output.add(denne);
+        }
+        return output;
+    }
 
     public boolean opprettGodkjentOving(int oving_id, String mail, String godkjentAvMail, String datoGodkjent) {
 

@@ -20,7 +20,7 @@
                 <th class="header">Fornavn</th>
                 <th class="header">Etternavn</th>
                 <th class="header">&Oslash;vinger</th>
-                <th class="header"></th>
+                <th class="header col-sm-1"></th>
 
             </tr>
             </thead>
@@ -39,7 +39,6 @@
                                     id="${bruker.mail}" onclick="slettBrukerFraKnapp(this.id)"
                                     title="Slett"><i class="glyphicon glyphicon-remove"></i>
                             </button>
-
                         </div>
                     </td>
                 </tr>
@@ -51,12 +50,66 @@
     <div class="btn-group">
         <button type="submit" class="btn btn-success" name="godkjennKnapp"><i class="glyphicon glyphicon-ok"></i> Godkjenn</button>
 
-        <button type="leggtil" class="btn btn-primary" name="leggTilStundeterKnapp"><i class="glyphicon glyphicon-user"></i> Legg til studenter
+        <button type="leggtil" class="btn btn-primary" name="" data-toggle="modal" data-target="#leggTilStudentModal"><i class="glyphicon glyphicon-user"></i> Legg til studenter
         </button>
-        <button type="endreØvinger" class="btn btn-info" name="endreOvingerKnapp"data-toggle="modal" data-target="#velgøvingFellesModal"><i
+        <button type="submit" class="btn btn-info" name="endreOvingerKnapp"><i
                 class="glyphicon glyphicon-plus"></i> Endre øvinger
         </button>
+        <button type="tilbake" class="btn btn-danger" name="tilbakeKnapp">Lukk</button>
     </div>
+        <div class="modal fade" id="leggTilStudentModal" tabindex="-1" role="dialog" aria-labelledby="leggTilStudent"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 class="modal-title" id="leggTilStudentHeader">Legg til student</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="btn-group">
+                            <select class="form-control" name="dropdown" id="leggTilStudentIGruppe">
+
+                                <option value="ingenValgte">Ingen valgte</option>
+                                <c:forEach var="brukerValgt" items="${studenter}" varStatus="status">
+                                <option value="${brukerValgt.mail}">${brukerValgt.etternavn}, ${brukerValgt.fornavn}</option>
+                                </c:forEach>
+
+                            </select>
+                            <br/>
+                            <table class="table table-condensed">
+                                <thead>
+                                <tr>
+                                    <th class="header">Fornavn</th>
+                                    <th class="header">Etternavn</th>
+                                    <th class="header col-sm-1"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="leggTilBrukere" items="" varStatus="status">
+                                <tr>
+                                    <td><c:out value="${leggTilBrukere.fornavn}"></c:out> </td>
+                                    <td><c:out value="${leggTilBrukere.etternavn}"></c:out> </td>
+                                    <td>
+                                        <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
+                                                id="${leggTilBrukere.mail}"
+                                                title="Slett"><i class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Lukk</button>
+                        <button type="button" class="btn btn-primary">Lagre</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form:form>
 
 
