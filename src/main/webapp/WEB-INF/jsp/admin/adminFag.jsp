@@ -44,7 +44,7 @@
                         <tr>
                             <td><c:out value="${emne.emneKode}"/></td>
                             <td><c:out value="${emne.emneNavn}"/></td>
-                            <td><c:out value="${emne.}"/></td>
+                            <td><c:out value="${emne.forelesereTilString()}"/></td>
                             <td>
                                 <div class="input-group-btn">
                                     <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"

@@ -58,6 +58,7 @@ public class DatabaseConnector {
     private final String finnEmneSQL = "SELECT * FROM emner WHERE emnekode LIKE ? OR emnenavn LIKE ?";
     private final String slettEmneSQL = "DELETE FROM emner WHERE emnekode = ?";
     private final String oppdaterEmneSQL = "UPDATE emner SET emnekode = ?, emnenavn = ? WHERE emnekode = ?";
+    private final String hentForelesereSQL = "SELECT * FROM emner_brukere WHERE emnekode = ? AND foreleser = 1";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -832,6 +833,17 @@ public class DatabaseConnector {
 
         for (Emne emner : emnerList) {
             res.add(emner);
+            List<Bruker> forelesereList = con.query(hentForelesereSQL, new MailBrukerKoordinerer(), emner.getEmneKode());
+            System.out.println(emner.getEmneNavn());
+            ArrayList<Bruker> forelesere = new ArrayList<>();
+            if(forelesereList!=null){
+                for(int i = 0; forelesereList.size()<i; i++){
+                    forelesere.add(hentBruker(forelesereList.get(i).getMail()).get(0));
+                    System.out.println(hentBruker(forelesereList.get(i).getMail()).get(0));
+                    System.out.println("hei");
+                }
+                emner.setForeleserListe(forelesere);
+            }
         }
         return res;
     }
