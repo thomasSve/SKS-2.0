@@ -30,7 +30,6 @@ public class EmneService {
             tempEmne.setDelemner(delEmneList);
             for (int b = 0; b <delEmneList.size(); b++) {   //for hvert delemne pr emne
                 DelEmne tempDelEmne = delEmneList.get(b);
-                System.out.println(tempDelEmne.toString());
                 ovingList=databaseConnector.hentDelEmneOving(tempDelEmne.getNr(), tempEmne.getEmneKode());
                 godkjentList = databaseConnector.hentStudOvinger(bruker,tempEmne,tempDelEmne);
                 Oving tempOving;
@@ -38,7 +37,6 @@ public class EmneService {
                     tempOving = godkjentList.get(c);
                     tempOving.setGodkjent(true);
                     ovingList.set(tempOving.getOvingnr()-1,tempOving);
-                    //System.out.println("ovingsnr: "+tempOving.getOvingnr()+"\nindex: "+c);
                 }
                 tempDelEmne.setStudentovinger(ovingList);
             }
