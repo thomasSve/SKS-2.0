@@ -67,6 +67,8 @@ public class KoeService {
         return databaseConnector.delemneIKoe();
     }
 
+
+
     public String genererStartStopKnapp(DelEmne delEmne){
         int koe_id = delEmne.getKoe_id();
         String output ="";
