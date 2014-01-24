@@ -52,7 +52,13 @@
     <tbody>
     <c:forEach var="pers" items="${sessionScope.ovingsoversikt}" varStatus="personTeller">
         <tr>
-            <td><c:out value="${pers.fornavn}"/>&nbsp;<c:out value="${pers.etternavn}"/></td>
+            <td><c:out value="${pers.fornavn}"/>&nbsp;<c:out value="${pers.etternavn}"/>&nbsp;
+                <c:if test="${pers.emne[0].delemner[0].ovingerBestatt}">
+                    <button class="btn btn-success btn-sm active" title="Kandidat er klar til eksamen">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </c:if>
+            </td>
 
             <td>
                 <c:forEach var="ovng" items="${pers.emne[0].delemner[0].studentovinger}" varStatus="nr">
