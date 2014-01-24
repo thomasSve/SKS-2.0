@@ -9,7 +9,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<div class="col-md-8">
+<div class="col-lg-10">
     <ul class="nav nav-tabs nav-justified">
         <li id="lenkeEndre" class="active"><a href="#endre" data-toggle="tab">Adm. Emne</a></li>
         <li id="lenkeleggTilEnkelEmne"><a href="#leggTilEmne" data-toggle="tab">Legg til Emne</a></li>
@@ -31,9 +31,9 @@
                 <table class="table table-condensed table-hover" id="minTable">
                     <thead>
                     <tr>
-                        <th class="header">Emnekode</th>
-                        <th class="header">Emnenavn</th>
-                        <th class="header">Faglesere</th>
+                        <th class="header col-sm-2">Emnekode</th>
+                        <th class="header col-sm-4">Emnenavn</th>
+                        <th class="header">Forelesere</th>
                         <th class="header col-sm-1"></th>
                     </tr>
                     </thead>

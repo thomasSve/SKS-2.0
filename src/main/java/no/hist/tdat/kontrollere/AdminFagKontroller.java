@@ -58,8 +58,8 @@ public class AdminFagKontroller {
 
     @RequestMapping(value = "/redigerEmne.htm", method = RequestMethod.POST)
     public String redigerEmne(@ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
-        String emnenavn = request.getParameter("emneIndex");
-        Emne redigerEmne = EmneService.hentEmne(emnenavn);
+        String emnekode = request.getParameter("emneIndex");
+        Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
         session.setAttribute("redigerEmne", redigerEmne);
         if (redigerEmne == null) {
             modell.addAttribute("melding", "Finner ikke emne i databasen");
