@@ -1,10 +1,7 @@
 package no.hist.tdat.javabeans.beanservice;
 
 import no.hist.tdat.database.DatabaseConnector;
-import no.hist.tdat.javabeans.DelEmne;
-import no.hist.tdat.javabeans.Koe;
-import no.hist.tdat.javabeans.KoeGrupper;
-import no.hist.tdat.javabeans.Plassering;
+import no.hist.tdat.javabeans.*;
 import no.hist.tdat.koe.KoeBruker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,16 +73,16 @@ public class KoeService {
         System.out.println(delEmne.getDelEmneNavn()+", "+delEmne.isKoe_status());
         if (!delEmne.isKoe_status()) {
             delEmne.setKoe_status(true);
-            output+="<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n";
+            output+="Stopp køen";
                     // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
         } else {
             delEmne.setKoe_status(false);
-            output+="<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n";
+            output+="Start køen";
         }
         return output;
     }
 
-    public String genererKoeOversikt(Koe koe){
+    public String genererKoeOversikt(Koe koe, Bruker innloggetBruker){
         ArrayList<KoeGrupper> grupper = koe.getGrupper();
         String output = "";
         output+="<table class='table table-hover'>";
@@ -93,6 +90,7 @@ public class KoeService {
             +"<tr>"
                 +"<th>Tid</th>"
                 +"<th>Navn</th>"
+                +"<th>&Oslash;ving</th>"
                 +"<th>Kommentar</th>"
                 +"<th>Sitteplass</th>"
                 +"<th></th>"
@@ -110,19 +108,26 @@ public class KoeService {
                 output+="<tr>"
                 +"<td>"+gruppe.getKlokkeslett()+"</td>";
             }
-
         output+="<td>"+gruppe.getMedlemmer().get(0).getFornavn()+" "+gruppe.getMedlemmer().get(0).getEtternavn()+"</td>"
+        +"<td>"+gruppe.getOvingerIString()+"</td>"
         +"<td>"+gruppe.getKommentar()+"</td>"
         +"<td>"+gruppe.getSitteplass()+", bord "+gruppe.getBordnr()+"</td>"
         +"<td>"
-        +"<div class='btn-group' id='"+gruppe.getGruppeID()+"'>"
-        +"<button class='btn btn-primary' data-task='choose' title='Velg' onclick='location.href='godkjennOving.htm''><i class='glyphicon glyphicon-edit'></i>"
-        +"</button>"
-        +"<button class='btn btn-warning' data-task='edit' title='Endre &oslash;vinger' onclick='endreBruker(this.parentNode.id)'><i class='glyphicon glyphicon-edit'></i>"
-        +"</button>"
-        +"<button class='btn btn-danger' data-task='remove' title='Fjern' onclick='slettBruker(this.parentNode.id)'><i class='glyphicon glyphicon-remove'></i>"
-        +"</button>"
-        +"</div>"
+        +"<div class='btn-group' id='"+gruppe.getGruppeID()+"'>";
+        if(innloggetBruker.getRettighet()<3){
+        output+="<button class=\"btn btn-primary\" data-task=\"choose\" title=\"Velg\" id=\"${koegrupper.koe_id}:${koegrupper.gruppeID}\""
+                +"onclick=\"velgGruppeFraKoe(this.id)\"><i class=\"glyphicon glyphicon-edit\"></i>"
+                +"</button>";
+        }
+            if(innloggetBruker.getRettighet()==3){
+        output+=" <button class='btn btn-warning' data-task='edit' title='Endre &oslash;vinger'"
+            +"onclick='endreBruker(this.parentNode.id)'><i class='glyphicon glyphicon-edit'></i>"
+            +"</button>"
+            +"<button class='btn btn-danger' data-task='remove' title='Fjern'"
+            +"onclick='slettBruker(this.parentNode.id)'><i class='glyphicon glyphicon-remove'></i>"
+            +"</button>";
+        }
+        output+="</div>"
         +"</td>"
         +"</tr>";
         }

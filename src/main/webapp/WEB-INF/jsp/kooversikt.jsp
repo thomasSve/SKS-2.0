@@ -9,38 +9,46 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div class="pull-left col-md-8" onload="sjekkAktivKoe(${delEmne.koe_status});">
+<div class="pull-left col-lg-10" onload="sjekkAktivKoe(${delEmne.koe_status});">
 
     <h3>
         <div id="operasjonstekst">
-            K&oslash; for (<c:out value="${delEmne.delEmneNavn}"/>
+            K&oslash; for <c:out value="${delEmne.delEmneNavn}"/>
+        </div>
+        <div id="koeStatus">
+            <c:if test="${delEmne.koe_status}">
+                Aktivert
+            </c:if>
+            <c:if test="${!delEmne.koe_status}">
+                Deaktivert
+            </c:if>
         </div>
     </h3>
+
     <div class="input-group">
-        <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
+        <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].foreleser==0 && delEmne.koe_status}">
+            <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
+                <input type="hidden" name="emneNr" id="emneNr"/>
+                <input type="hidden" name="delemneNr" id="delemneNr"/>
 
-            <input type="hidden" name="emneNr" id="emneNr"/>
-            <input type="hidden" name="delemneNr" id="delemneNr"/>
-            <%--<div class="btn-group">--%>
-            <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
-                   onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;">
-            <%--</div>--%>
-        </form>
-        <div id="startStoppKoe">
-            <%
-                DelEmne delEmne = (DelEmne) request.getAttribute("delEmne");
-                int koe_id = delEmne.getKoe_id();
-                if (delEmne.isKoe_status()) {
+                <%--<div class="btn-group">--%>
+                <input type="submit" class="btn btn-sm btn-primary" id="stillIKo"
+                       onclick="delemnenr=${delEmneIndex};emnenr=${emneIndex}" value="Still i k&oslash;"/>
+                <%--</div>--%>
+            </form>
+        </c:if>
+        <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].foreleser==1}">
+            <div id="startStoppKoe">
+                <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].delemner[delEmneIndex].koe_status}">
+                    <input type="button" id="startStoppKnapp" onclick="startStoppKoe(${delEmne.koe_id})" class="btn btn-sm btn-danger" id="stoppKoe" value="Stopp sks">
+                </c:if>
+                <c:if test="${!sessionScope.innloggetBruker.emne[emneIndex].delemner[delEmneIndex].koe_status}">
+                    <input type="button" id="startStoppKnapp" onclick="startStoppKoe(${delEmne.koe_id})" class="btn btn-sm btn-success" id="startKoe" value="Start sks">
+                </c:if>
 
-                    out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-danger\" id=\"stoppKoe\" value=\"Stopp Køen\">\n"
-                            // + "<button class=\"btn btn-sm btn-primary\"  onclick=\"settIKo(" + koe_id + ")\">Still i k&oslash;</button>"
-                    );
-                } else {
-                    out.println("<input type=\"button\" onclick=\"startStoppKoeKnapp();startStoppKoe(" + koe_id + ")\" class=\"btn btn-sm btn-success\" id=\"startKoe\" value=\"Start Køen\">\n");
-                }
-            %>
+            </div>
+        </c:if>
         </div>
-    </div>
     <div id="koetabell">
         <tbody>
         <jsp:include page="oppdaterKoe.jsp"/>

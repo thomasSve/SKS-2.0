@@ -6,38 +6,70 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<div class="col-md-8">
+    <ul class="nav nav-tabs nav-justified">
+        <li id="lenkeEndre" class="active"><a href="#endre" data-toggle="tab">Adm. Emne</a></li>
+        <li id="lenkeleggTilEnkelEmne"><a href="#leggTilEmne" data-toggle="tab">Legg til Emne</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="endre">
+            <h2>Administrer Emne</h2>
+            <form:form class="søkbar" role="search" modelAttribute="emnerBeans" action="searchFag.htm" method="POST">
+            <div class="input-group">
 
-<div class="col-md-4">
+                <input type="text" class="form-control" placeholder="S&oslash;k" name="srch-term" id="srch-term">
 
-    <h1>Administrer emne</h1>
-
-    <h3>Endre emne</h3>
-    <select  class="form-control" id="emnevalg" onchange="adminFagOperasjon(this.value)">
-        <option value="ingen"><i>Ingen valgt</i></option>
-        <option value="emne2">Fag 2</option>
-        <option value="emne3">Fag 3</option>
-        <option value="emne4">Fag 4</option>
-    </select>
-
-    <form:form method="post" modelAttribute="emne">
-        <h3>
-            <div id="operasjonstekst">
-                Lag nytt fag
+                <div class="input-group-btn">
+                    <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
             </div>
-        </h3>
-        <div class="form-group">
-            <label for="emnekode">Emnekode:</label>
-            <form:input  class="form-control" path="kode" id="emnekode" placeholder="Emnekode"/>
-            <form:errors path="kode"/>
+            <div class="span5">
+                <table class="table table-condensed table-hover" id="minTable">
+                    <thead>
+                    <tr>
+                        <th class="header">Emnekode</th>
+                        <th class="header">Emnenavn</th>
+                        <th class="header col-sm-1"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <c:forEach var="emne" items="${emnerBeans.valgt}" varStatus="status">
+                        <tr>
+                            <td><c:out value="${emne.emneKode}"/></td>
+                            <td><c:out value="${emne.emneNavn}"/></td>
+                            <td>
+                                <div class="input-group-btn">
+                                    <button type="edit" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            id="${emne.emneKode}" onclick="redigerEmneFraKnapp(this.id)"
+                                            title="Endre">
+                                        <i class="glyphicon glyphicon-edit"></i></button>
+                                    <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
+                                            id="${emne.emneKode}" onclick="slettEmneFraKnapp(this.id)"
+                                            title="Slett"><i class="glyphicon glyphicon-remove"></i>
+                                    </button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+
+                    </tbody>
+                </table>
+                <input type="hidden" name="tab" value="endre">
+
+                </form:form>
+            </div>
         </div>
-        <div class="form-group">
-            <form:label for="emnenamn" path="navn">Emnenamn:</form:label>
-            <form:input  class="form-control" id="emnenamn" placeholder="Emnenamn" path="navn"/>
-            <form:errors path="navn"/>
+        <div class="tab-pane fade in" id="leggTilEmne">
+            <jsp:include page="opprettEmne.jsp"/>
         </div>
-        <input class="btn btn-md btn-primary" type="submit" value="Lag fag" id="LagFag">
-    </form:form>
+
+    </div>
 </div>
+<script src="<c:url value="/resources/js/admin.js"/>"></script>

@@ -27,10 +27,13 @@ public class KoeGrupper {
     private String faarHjelp;
 
 
-    public KoeGrupper(){}
+    public KoeGrupper(){
+        kommentar="";
+    }
 
 
     public KoeGrupper(int koe_id, Date klokkeslett, int koePlassering, Bruker gruppeLeder, String sitteplass, int bordnr, String kommentar, ArrayList<Bruker> medlemmer, ArrayList<Oving> ovinger) {
+
         this.koe_id=koe_id;
         this.klokkeslett = klokkeslett;
         this.koePlassering = koePlassering;
@@ -122,7 +125,12 @@ public class KoeGrupper {
     public String getOvingerIString(){
         String output="";
         for (int i = 0; i <ovinger.size() ; i++) {
-            output += ovinger.get(i).getOvingnr() + ", ";
+            if(i==0){
+                output += ovinger.get(i).getOvingnr();
+
+            }else{
+                output += ", " + ovinger.get(i).getOvingnr();
+            }
         }
         return output;
     }

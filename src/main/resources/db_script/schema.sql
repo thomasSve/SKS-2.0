@@ -43,7 +43,7 @@ CREATE TABLE plassering (
 
 CREATE TABLE koe_gruppe (
   koe_id          INT          NOT NULL,
-  gruppe_id       INT          NOT NULL AUTO_INCREMENT,
+  gruppe_id       INT          NOT NULL,
   plassering_navn VARCHAR(255) NOT NULL,
   bordnummer      INT          NOT NULL,
   koe_plass       INT          NOT NULL,
@@ -102,7 +102,6 @@ CREATE TABLE oving (
 CREATE TABLE oving_brukere (
   oving_id     INT          NOT NULL,
   mail         VARCHAR(255) NOT NULL,
-  godkjent     TINYINT      NOT NULL,
   godkjent_av  VARCHAR(255),
   godkjent_tid TIMESTAMP,
   CONSTRAINT pk_oving_brukere PRIMARY KEY (oving_id, mail)

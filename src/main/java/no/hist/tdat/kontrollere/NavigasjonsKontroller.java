@@ -31,8 +31,8 @@ public class NavigasjonsKontroller {
     EmneService emneService;
 
     @RequestMapping("/")
-    public String omdirigerHjem() {
-        return "index";
+    public String omdirigerHjem(@ModelAttribute("bruker") Bruker bruker) {
+        return "loggInn";
     }
 
     @RequestMapping("/endrePassord.htm")
@@ -61,8 +61,12 @@ public class NavigasjonsKontroller {
     }
 
     @RequestMapping("/adminFag.htm")
-    public String omdirigerAdminFag() {
+    public String omdirigerAdminFag(@ModelAttribute("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session, Model model) {
         return "adminFag";
+    }
+    @RequestMapping("/adminEmneEndre.htm")
+    public String omdirigerAdminEmneEndre(@ModelAttribute ("emne") Emne emne, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans) {
+        return "adminEmneEndre";
     }
 
     @RequestMapping(value = "/koOversikt.htm", method = RequestMethod.POST)
@@ -102,9 +106,9 @@ public class NavigasjonsKontroller {
         Koe koe = (Koe)session.getAttribute("koe");
        // System.out.println("wtf");
         //int koeId = (int)request.getAttribute("koe_id");
-        koe.setGrupper(koeservice.getKoe(1));
+        koe.setGrupper(koeservice.getKoe(koe.getKoeId()));
         //System.out.println("koe elements grupper size:"+koe.getGrupper().size());
-        return koeservice.genererKoeOversikt(koe);
+        return koeservice.genererKoeOversikt(koe,innloggetBruker);
     }
 
     @RequestMapping("/error.htm")
@@ -160,9 +164,9 @@ public class NavigasjonsKontroller {
         return "minside";
     }
 
-    @RequestMapping("/ovingsOpplegg.htm")
+    @RequestMapping("/ovingsopplegget.htm")
     public String ovingsOpplegg() {
-        return "ovingsOpplegg";
+        return "ovingsopplegget";
     }
 
     @RequestMapping("/*")
@@ -189,6 +193,8 @@ public class NavigasjonsKontroller {
         return "opprettDelemne";
     }
 
+
+        //HENTER FOR ETIKK
     @RequestMapping("/godkjenningsoversikt.htm")
     public String godkjOversikt(HttpServletRequest request, Model modell, HttpSession session) {
 
@@ -217,5 +223,6 @@ public class NavigasjonsKontroller {
     @RequestMapping("/emneOversikt.htm")
     public String omdirEmneOversiktKlone(@ModelAttribute("koegrupper") KoeGrupper koegrupper,@ModelAttribute("bruker") Bruker bruker,@ModelAttribute("personerBeans") PersonerBeans personerBeans,@ModelAttribute("delEmne") DelEmne delEmne,@ModelAttribute("emne")Emne emne, HttpServletRequest request, HttpSession session) {
         return "emneOversikt";
+
     }
 }
