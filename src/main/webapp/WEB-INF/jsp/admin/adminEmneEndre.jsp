@@ -29,7 +29,7 @@
         <div class="form-group">
             <label>Emneansvarlige</label>
             <c:forEach items="${redigerEmne.foreleserListe}" var="foreleser">
-                <form:input value="${foreleser.etternavn}, ${foreleser.fornavn}" path="f" id="endreNavn" class="form-control"/>
+                <input value="${foreleser.etternavn}, ${foreleser.fornavn}" id="endreNavn" class="form-control"/>
             </c:forEach>
         </div>
         <div class="modal-footer">
