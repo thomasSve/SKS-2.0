@@ -826,6 +826,14 @@ public class DatabaseConnector {
     public Emne hentEmneNavn(String emnekode) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Emne> emne = con.query(hentEmneNavnSQL, new EmneKoordinerer(), emnekode);
+        List<Bruker> forelesereList = con.query(hentForelesereSQL, new MailBrukerKoordinerer(), emne.get(0).getEmneKode());
+        ArrayList<Bruker> forelesere = new ArrayList<>();
+        if (forelesereList != null) {
+            for (int j = 0; forelesereList.size() > j; j++) {
+                forelesere.add(hentBruker(forelesereList.get(j).getMail()).get(0));
+            }
+            emne.get(0).setForeleserListe(forelesere);
+        }
         return emne.get(0);
     }
 
