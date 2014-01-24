@@ -19,13 +19,13 @@
 
         <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown user-dropdown">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.innloggetBruker.fornavn}
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">${sessionScope.innloggetBruker.fornavn}&nbsp;${sessionScope.innloggetBruker.etternavn}
                     <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="minside.htm">Minside</a></li>
                     <li><a href="endrePassord.htm"><i class="fa fa-power-off"></i>Endre Passord</a></li>
-                    <li><a href="loggUt.htm"><i class="fa fa-power-off"></i> Logg ut</a></li>
                     <li class="divider"></li>
+                    <li><a href="loggUt.htm"><i class="fa fa-power-off"></i> Logg ut</a></li>
                 </ul>
             </li>
         </ul>
