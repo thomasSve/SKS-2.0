@@ -96,7 +96,7 @@ VALUES (2, 'ALM805F-A', 2, 'Kjemi', 'H', '20', '20 1 | 5 ; 1 |');
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler)
 VALUES (3, 'ALM805F-A', 3, 'Økonomi', 'V', '2', '2 1 |');
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler)
-VALUES (4, 'ALM805F-A', 4, 'Etikk', 'V', '0', '0 |');
+VALUES (4, 'ALM805F-A', 4, 'Etikk', 'V', '0', '0 0 |');
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler)
 VALUES (1, 'TDAT2005-A', 5, 'Algoritmer og datastrukturer', 'H', '4', '4 2 | 3 4 ; 2 |');
 INSERT INTO delemne (delemne_nr, emnekode, koe_id, delemnenavn, semester, ant_ovinger, ovingsregler)
