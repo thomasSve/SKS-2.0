@@ -14,7 +14,7 @@
 
     <form:form action="godkjennGruppeOving.htm">
         <p>Kommentar: ${gruppeFraKoe.getKommentar()}</p>
-        <table class="table table-condensed table-bordered" id="godkjennGruppe">
+        <table class="table table-condensed" id="godkjennGruppe">
             <thead>
             <tr>
                 <th class="header">Fornavn</th>
