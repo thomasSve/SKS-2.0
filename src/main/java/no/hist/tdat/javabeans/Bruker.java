@@ -142,8 +142,11 @@ public class Bruker {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object input) {
+        if(((Bruker) input).getMail().equals(this.mail)){
+            return true;
+        }
+        return false;
     }
 
     @Override
