@@ -51,11 +51,13 @@ function startStoppKoe(koe_id) {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
             if (knapp.value == "Stopp sks" && counter == 0) {
-                statusDiv.innerHTML = "Deaktivert";
+                statusDiv.innerHTML = "(Deaktivert)";
+                statusDiv.style.color = "red";
                 knapp.value = "Start sks";
                 knapp.className = "btn btn-sm btn-success";
             } else {
-                statusDiv.innerHTML = "Aktivert";
+                statusDiv.innerHTML = "(Aktivert)";
+                statusDiv.style.color = "green";
                 knapp.value = "Stopp sks";
                 knapp.className = "btn btn-sm btn-danger";
             }

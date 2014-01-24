@@ -36,7 +36,7 @@ public class EmneService {
                 Oving tempOving;
                 for (int c = 0; c < godkjentList.size(); c++) {
                     tempOving = godkjentList.get(c);
-                    System.out.println("size: "+(ggodkjentList.size()+1)+"\nflytter øving nr "+tempOving.getOvingnr());
+                    System.out.println("size: "+(godkjentList.size()+1)+"\nflytter øving nr "+tempOving.getOvingnr());
 
                     tempOving.setGodkjent(true);
                     ovingList.set(tempOving.getOvingnr()-1,tempOving);
@@ -106,7 +106,9 @@ public class EmneService {
     public Emne hentEmne(String navn){
         return databaseConnector.hentEmne(navn);
     }
-
+    public Emne hentEmneNavn(String emnekode){
+        return databaseConnector.hentEmneNavn(emnekode);
+    }
     public ArrayList<Oving> hentDelEmneOving(Bruker bruker, Emne emne, DelEmne delEmne){
         return databaseConnector.hentStudOvinger(bruker,emne,delEmne);
     }
