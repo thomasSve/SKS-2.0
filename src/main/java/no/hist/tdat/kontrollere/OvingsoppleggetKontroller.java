@@ -27,7 +27,7 @@ public class OvingsoppleggetKontroller {
         String tot = req.getParameter("antall");
         String min = req.getParameter("min");
         String text = req.getParameter("newText");
-        String regler = tot+" "+min+" / "+text;
+        String regler = tot+" "+min+" | "+text;
         try{
             for (int i = 0; i < antall; i++) {
                 service.opprettOving(i, delemne);

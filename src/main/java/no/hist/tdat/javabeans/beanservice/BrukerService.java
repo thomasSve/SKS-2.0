@@ -154,4 +154,8 @@ public class BrukerService {
     public ArrayList<Oving> hentOvinger(String delEmne, String mail) {
         return databaseConnector.hentOvinger(delEmne, mail);
     }
+
+    public ArrayList<Bruker> finnL(String sok) {
+        return databaseConnector.finnL(sok);
+    }
 }

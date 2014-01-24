@@ -43,7 +43,7 @@ CREATE TABLE plassering (
 
 CREATE TABLE koe_gruppe (
   koe_id          INT          NOT NULL,
-  gruppe_id       INT          NOT NULL AUTO_INCREMENT,
+  gruppe_id       INT          NOT NULL,
   plassering_navn VARCHAR(255) NOT NULL,
   bordnummer      INT          NOT NULL,
   koe_plass       INT          NOT NULL,

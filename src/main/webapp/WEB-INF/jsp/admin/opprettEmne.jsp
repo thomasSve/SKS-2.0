@@ -26,5 +26,52 @@
     </div>
 
     <input type="submit" class="btn btn-primary btn-block" value="Legg til"/>
+    <br>
 </form:form>
-</div>
+
+<form:form class="søkbar" role="search" modelAttribute="personerBeans" action="sokBoks" method="POST">
+    <h3>Legg til lærer</h3>
+    <div class="input-group">
+
+        <input type="text" class="form-control" placeholder="S&oslash;k" name="srch-term" id="srch-term"/>
+
+        <div class="input-group-btn">
+            <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i>
+            </button>
+        </div>
+
+    </div>
+    <div class="span5">
+        <table class="table table-condensed table-hover" id="minTable">
+            <thead>
+            <tr>
+                <th class="header">Fornavn</th>
+                <th class="header">Etternavn</th>
+                <th class="header">Epost</th>
+                <th class="header col-sm-1">Velg</th>
+                <th class="header col-sm-1"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <c:forEach var="bruker" items="${personerBeans.valgt}" varStatus="status">
+                <tr>
+                    <td><c:out value="${bruker.fornavn}"/></td>
+                    <td><c:out value="${bruker.etternavn}"/></td>
+                    <td><c:out value="${bruker.mail}"/></td>
+                    <td>
+                            <button type="edit" class="btn btn-success btn-sm" data-toggle="modal"
+                                    id="${bruker.mail}" onclick="velgBrukerL(this.id)"title="Velg">
+                                Velg
+                            </button>
+                    </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+        <input type="hidden" name="tab" value="endre">
+    </div>
+</form:form>
+    <script src="<c:url value="/resources/js/admin.js"/>"></script>
