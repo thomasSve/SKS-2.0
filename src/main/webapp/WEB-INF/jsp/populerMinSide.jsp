@@ -1,12 +1,11 @@
 <%@ page import="no.hist.tdat.javabeans.Bruker" %>
 <%
     Bruker denne = (Bruker) request.getSession().getAttribute("innloggetBruker");
+
     if(denne.getEmne() != null){
         for (int i = 0; i < denne.getEmne().size(); i++) {
-            out.println("<tr ><td>" + i + "</td><td>" + denne.getEmne().get(i).getEmneKode() + "</td><td><button class='btn btn-lg btn-primary btn-block'>" + denne.getEmne().get(i).getEmneNavn() + "</button></td></tr>");
-
+            out.println("<tr ><td>" + i + "</td><td>" + denne.getEmne().get(i).getEmneKode() + "</td><td><button type=\"button\" onclick=\"emnekodeFraMenu(this.id)\" id ='"+denne.getEmne().get(i).getEmneKode()+"' class='btn btn-lg btn-primary btn-block'>" + denne.getEmne().get(i).getEmneNavn() + "</button></td></tr>");
             for (int j = 0; j < denne.getEmne().get(i).getDelemner().size(); j++) {
-
                 out.print("<tr><td></td><td></td><td><input type='submit' onclick='delemnenr="+j+";emnenr="+i+"' value ='"+denne.getEmne().get(i).getDelemner().get(j).getDelEmneNavn()+"' class='pull-right btn btn-md btn-info' style='width:50%;' /></td><td>");
                 if (denne.getRettighet() == 3) {
                     for (int a = 0; a < denne.getEmne().get(i).getDelemner().get(j).getStudentovinger().size(); a++) {

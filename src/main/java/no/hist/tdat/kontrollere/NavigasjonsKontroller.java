@@ -97,12 +97,12 @@ public class NavigasjonsKontroller {
 
         return koeservice.genererStartStopKnapp((DelEmne)session.getAttribute("delEmne"));
     }
-
     @RequestMapping(value="/oppdaterKoe.htm", method = RequestMethod.POST)
     @ResponseBody
     public String oppdaterKoe(@ModelAttribute("delEmne") DelEmne delEmne,HttpServletRequest request,HttpSession session, Model model) {
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         Koe koe = (Koe)session.getAttribute("koe");
+
        // System.out.println("wtf");
         //int koeId = (int)request.getAttribute("koe_id");
         koe.setGrupper(koeservice.getKoe(koe.getKoeId()));
@@ -122,7 +122,6 @@ public class NavigasjonsKontroller {
         int delemneNr = Integer.parseInt(request.getParameter("delemneNr"));    //Index i bruker-objektet, IKKE i DB
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
-
 
         Emne emne = innloggetBruker.getEmne().get(emnenr);
         delEmne = emne.getDelemner().get(delemneNr);

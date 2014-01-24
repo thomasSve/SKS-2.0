@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,17 +41,19 @@ public class EndreStudentKontroller {
 
 
     @RequestMapping(value = "endreValgtBruker", method = RequestMethod.POST)
+    @ResponseBody
     public String endreValgtBruker(HttpServletRequest request, HttpSession session) {
+
         String mail = request.getParameter("brukerIndex");
         Bruker b = service.hentBruker(mail);
         b.setEmne(service2.hentEmnerForStud(b.getMail()));
-
         session.setAttribute("valgtPerson", b);
-        return "videresend";
+        return "hei";
     }
 
-    @RequestMapping(value = "videresend")
+    @RequestMapping(value = "endreValgtStudent")
     public String videresend(HttpServletRequest request, HttpSession session) {
+        System.out.println("ble videresendt!");
         String tilb = request.getParameter("tilbake");
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
