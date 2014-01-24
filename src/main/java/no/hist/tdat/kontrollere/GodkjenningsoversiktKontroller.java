@@ -31,7 +31,6 @@ public class GodkjenningsoversiktKontroller {
         String emne = request.getParameter("emne");
 
         ArrayList<Bruker> alle = service.finnStudenterIDelemne(emne);   //alle med faget
-
         for (int i = 0; i < alle.size(); i++) {
             ArrayList<Emne> em = new ArrayList<Emne>();
             ArrayList<DelEmne> a = new ArrayList<DelEmne>();
@@ -40,18 +39,14 @@ public class GodkjenningsoversiktKontroller {
             ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter øvinger til delemnet
 
             ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj øvinger til delemnet
-
             if (godkj.size() != 0) {
                 for (int j = 0; j < godkj.size(); j++) {
                     Oving o = godkj.get(j);
                     ovinger.set(o.getOvingnr() - 1, o);
                 }
             }
-
             DelEmne delEmne = service2.hentDelemne(emne);   // henter delemnet
-
             delEmne.sjekkAntOvinger(godkj);
-
             delEmne.setStudentovinger(ovinger);
             a.add(delEmne);
 
