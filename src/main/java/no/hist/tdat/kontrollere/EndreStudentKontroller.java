@@ -35,6 +35,7 @@ public class EndreStudentKontroller {
         }
         personerBeans.setValgt(service.finnStudenter(txt));
         session.setAttribute("personerBeans", personerBeans);
+        System.out.println("setter studenter: ant: "+personerBeans.getValgt().size());
         return "endreStudent";
     }
 

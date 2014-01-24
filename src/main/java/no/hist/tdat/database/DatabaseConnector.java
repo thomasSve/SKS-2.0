@@ -38,10 +38,10 @@ public class DatabaseConnector {
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
-    private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
+    private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 3 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail = ? ";
     private final String endreKoeStatusSQL = "UPDATE koe SET aapen = ? WHERE koe_id = ?";
-    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=1 AND mail = ? OR fornavn = ? OR etternavn = ?";
+    private final String finnStudentSQL = "SELECT * FROM brukere WHERE rettighet_id=3 AND mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
     private final String hentEmnerForBrukerSQL = "SELECT * FROM emner_brukere JOIN emner ON emner_brukere.emnekode = emner.emnekode WHERE mail LIKE ?";
     private final String finnAllePlasserSQL = "SELECT * FROM plassering";
     private final String oppdaterOvingSQL = "UPDATE oving_brukere SET godkjent_av = ?, godkjent_tid = ? WHERE mail = ? AND oving_id = ?";
