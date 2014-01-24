@@ -69,8 +69,6 @@ public class DatabaseConnector {
     private final String fjernStudassSQL = "DELETE FROM delemne_brukere WHERE mail LIKE ? AND emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn LIKE ?)";
 
     private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
-    private final String hentOvingerSQL = "SELECT * FROM oving JOIN oving_brukere ON oving.oving_id = oving_brukere.oving_id WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
-    private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = ?";
     private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
     private final String hentSisteKoeSQL = "SELECT koe_id FROM koe ORDER BY koe_id DESC";
     private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
@@ -81,6 +79,9 @@ public class DatabaseConnector {
     private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent, godkjent_av, godkjent_tid) VALUE (?,?,1,?,?)";
     private final String fjernKoeGruppeFraKoeSQL = "DELETE FROM koe_gruppe WHERE gruppe_id = ? AND koe_id = ?";
 
+    private final String hentOvingerSQL = "SELECT * FROM oving WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
+    private final String hentEmneSQL = "SELECT * FROM emner WHERE emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?)";
+    private final String sjekkGodkjentSQL = "SELECT * FROM oving NATURAL JOIN oving_brukere WHERE oving_brukere.mail = ? AND oving.emnekode = (SELECT emnekode FROM delemne WHERE delemnenavn = ?) AND oving.delemne_nr = (SELECT delemne_nr FROM delemne WHERE delemnenavn = ?)";
     @Autowired
     private DataSource dataKilde; //Felles datakilde for alle sp�rringer.
 
@@ -601,7 +602,7 @@ public class DatabaseConnector {
                 emnekode,
                 delemne_nr
         );
-        return (list.get(0).getOving_id());
+        return (list.get(0).getOvingid());
     }
     /**
      *
@@ -786,15 +787,19 @@ public class DatabaseConnector {
     }
 
     /**
+<<<<<<< HEAD
      * Henter alle �vinger til en student i et delemne
      * @param navn, epost
+=======
+     * Henter alle �vinger til en student i et delemne
+     * @param navn
+>>>>>>> 717f5655302668a2e1996e1e59354d8931d6383a
      * @return tab over alle treff
      */
-    public ArrayList<Oving> hentOvinger(String navn, String epost) {
+    public ArrayList<Oving> hentOvinger(String navn) {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
-        List<Oving> plassListe = con.query(hentOvingerSQL, new OvingKoordinerer(), epost, navn, navn);
+        List<Oving> plassListe = con.query(hentOvingerSQL, new OvingKoordinerer(), navn, navn);
         ArrayList<Oving> res = new ArrayList<Oving>();
-
         for (Oving plass : plassListe) {
             res.add(plass);
         }
@@ -811,6 +816,7 @@ public class DatabaseConnector {
         List<Emne> emne = con.query(hentEmneSQL, new EmneKoordinerer(), navn);
         return emne.get(0);
     }
+
     /**
      * Tar inn en string som s�keord, s�ker i databasen etter emnekode, emnenavn som ligner p� s�keordet.
      */
@@ -864,5 +870,21 @@ public class DatabaseConnector {
                 ant,
                 delemne.getNr());
         return true;
+    }
+
+    /**
+     * Henter emne, gitt navn p� delemne
+     * @param epost, emne
+     * @return �vinger
+     */
+    public ArrayList<Oving> hentGodkjOvinger(String epost, String emne) {
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Oving> o = con.query(sjekkGodkjentSQL, new OvingKoordinerer(), epost, emne, emne);
+
+        ArrayList<Oving> res = new ArrayList<Oving>();
+        for (Oving plass : o) {
+            res.add(plass);
+        }
+        return res;
     }
 }

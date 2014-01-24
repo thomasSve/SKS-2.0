@@ -81,7 +81,7 @@ public class GodkjennKontroller {
                 }
 
                 if (koeGrupper.getOvinger().size() == 1) {
-                    int enkelOving = koeGrupper.getOvinger().get(0).getOving_id();
+                    int enkelOving = koeGrupper.getOvinger().get(0).getOvingid();
                     brukerService.leggTilGodkjentOving(enkelOving, brukerMail, personenSomGodkjenner, naaTid);
                 }
 
@@ -90,7 +90,7 @@ public class GodkjennKontroller {
                     for(int j = 0; ovingerSomSkalGodkjennes.length > j ; j++) { //Går igjennom hver oving
                         String randomNummerLol = ovingerSomSkalGodkjennes[j].trim();
                         if (!randomNummerLol.equals("") && randomNummerLol != null) {
-                            int ovingsID = koeGrupper.getOvinger().get(j).getOving_id();
+                            int ovingsID = koeGrupper.getOvinger().get(j).getOvingid();
                             brukerService.leggTilGodkjentOving(ovingsID, brukerMail, personenSomGodkjenner, naaTid);
                         }
                     }
