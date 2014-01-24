@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <script>
     function hentRettEmne(emnekode) {
@@ -42,9 +42,11 @@
     </div>
 </h2>
 
-<form:form action="visAlleMedBestatt" method="post">
-    <input class="btn btn-info" type="submit" value="Vis liste med alle eksamensklare">
-</form:form>
+<c:if test="${sessionScope.innloggetBruker.rettighet==2}">
+    <form:form action="visAlleMedBestatt" method="post">
+        <input class="btn btn-info" type="submit" value="Vis liste med alle eksamensklare">
+    </form:form>
+</c:if>
 
 <table class="col-lg-10 table table-striped">
     <thead>
@@ -69,7 +71,8 @@
                 <c:forEach var="ovng" items="${pers.emne[0].delemner[0].studentovinger}" varStatus="nr">
                     <c:choose>
                         <c:when test="${ovng.godkjent}">
-                            <button class='btn btn-success btn-sm active' title="Godkjent av ${ovng.godkjentAv} ${ovng.godkjentTid}">
+                            <button class='btn btn-success btn-sm active'
+                                    title="Godkjent av ${ovng.godkjentAv} ${ovng.godkjentTid}">
                                     ${ovng.ovingnr}
                             </button>
                         </c:when>
