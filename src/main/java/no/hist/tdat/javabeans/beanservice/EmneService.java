@@ -89,7 +89,9 @@ public class EmneService {
     public Emne hentEmne(String navn){
         return databaseConnector.hentEmne(navn);
     }
-
+    public Emne hentEmneNavn(String emnekode){
+        return databaseConnector.hentEmneNavn(emnekode);
+    }
     public ArrayList<Oving> hentDelEmneOving(Bruker bruker, Emne emne, DelEmne delEmne){
         return databaseConnector.hentStudOvinger(bruker,emne,delEmne);
     }

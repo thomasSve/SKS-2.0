@@ -58,6 +58,10 @@ public class DatabaseConnector {
     private final String finnEmneSQL = "SELECT * FROM emner WHERE emnekode LIKE ? OR emnenavn LIKE ?";
     private final String slettEmneSQL = "DELETE FROM emner WHERE emnekode = ?";
     private final String oppdaterEmneSQL = "UPDATE emner SET emnekode = ?, emnenavn = ? WHERE emnekode = ?";
+    private final String hentForelesereSQL = "SELECT * FROM emner_brukere WHERE emnekode = ? AND foreleser = 1";
+    private final String hentEmneNavnSQL = "SELECT * FROM emner WHERE emnekode = ?";
+
+
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -817,6 +821,12 @@ public class DatabaseConnector {
         return emne.get(0);
     }
 
+    public Emne hentEmneNavn(String emnekode){
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Emne> emne = con.query(hentEmneNavnSQL, new EmneKoordinerer(), emnekode);
+        return emne.get(0);
+    }
+
     /**
      * Tar inn en string som s�keord, s�ker i databasen etter emnekode, emnenavn som ligner p� s�keordet.
      */
@@ -829,8 +839,17 @@ public class DatabaseConnector {
         JdbcTemplate con = new JdbcTemplate(dataKilde);
         List<Emne> emnerList = con.query(finnEmneSQL, new EmneKoordinerer(), input, input);
         ArrayList<Emne> res = new ArrayList<>();
-
-        for (Emne emner : emnerList) {
+        Emne emner = new Emne();
+        for (int i = 0; i<emnerList.size(); i++) {
+            List<Bruker> forelesereList = con.query(hentForelesereSQL, new MailBrukerKoordinerer(), emnerList.get(i).getEmneKode());
+            ArrayList<Bruker> forelesere = new ArrayList<>();
+            if(forelesereList!=null){
+                for(int j = 0; forelesereList.size()>j; j++){
+                    forelesere.add(hentBruker(forelesereList.get(j).getMail()).get(0));
+                }
+                emnerList.get(i).setForeleserListe(forelesere);
+            }
+            emner = emnerList.get(i);
             res.add(emner);
         }
         return res;

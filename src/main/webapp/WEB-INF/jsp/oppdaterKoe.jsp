@@ -37,7 +37,7 @@
                                     onclick="velgGruppeFraKoe(this.id)"><i class="glyphicon glyphicon-edit"></i>
                             </button>
                         </c:if>
-                        <c:if test="${sessionScope.innloggetBruker.rettighet==3}">
+                        <c:if test="${sessionScope.innloggetBruker.rettighet==3 && koegrupper.medlemmer[0].equals(sessionScope.innloggetBruker)}">
                             <button class="btn btn-warning" data-task="edit" title="Endre &oslash;vinger"
                                     onclick="endreBruker(this.parentNode.id)"><i class="glyphicon glyphicon-edit"></i>
                             </button>

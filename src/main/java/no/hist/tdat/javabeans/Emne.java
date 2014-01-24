@@ -10,6 +10,7 @@ public class Emne {
     private String emneNavn;
     private ArrayList<DelEmne> delemner;
     private int foreleser;
+    private ArrayList<Bruker> foreleserListe;
 
     public Emne(String kode, String navn) {
         this.emneKode = kode;
@@ -29,6 +30,14 @@ public class Emne {
 
     public int getForeleser() {
         return foreleser;
+    }
+
+    public ArrayList<Bruker> getForeleserListe() {
+        return foreleserListe;
+    }
+
+    public void setForeleserListe(ArrayList<Bruker> foreleserListe) {
+        this.foreleserListe = foreleserListe;
     }
 
     public void setForeleser(int foreleser) {
@@ -67,5 +76,15 @@ public class Emne {
         }
         return delEmner;
     }
-
+    public String forelesereTilString(){
+        String forelesere = "";
+        for(int i = 0; i<foreleserListe.size(); i++){
+            if(i==0){
+                forelesere += foreleserListe.get(i).getFornavn() + " " + foreleserListe.get(i).getEtternavn();
+            }else{
+                forelesere += ", " + foreleserListe.get(i).getFornavn() + " " + foreleserListe.get(i).getEtternavn();
+            }
+        }
+        return forelesere;
+    }
 }

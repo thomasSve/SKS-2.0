@@ -15,18 +15,18 @@
         <div id="operasjonstekst">
             K&oslash; for <c:out value="${delEmne.delEmneNavn}"/>
         </div>
-        <div id="koeStatus">
+        <div id="koeStatus" style="float: right">
             <c:if test="${delEmne.koe_status}">
-                Aktivert
+                <p style="color: green">(Aktivert)</p>
             </c:if>
             <c:if test="${!delEmne.koe_status}">
-                Deaktivert
+                <p style="color: red">(Deaktivert)</p>
             </c:if>
         </div>
     </h3>
 
     <div class="input-group">
-        <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].foreleser==0 && delEmne.koe_status}">
+        <c:if test="${sessionScope.innloggetBruker.emne[emneIndex].foreleser==0 && delEmne.koe_status && !sessionScope.koe.inneholderBruker(sessionScope.innloggetBruker)}">
             <form action="settIKo.htm" onsubmit="mysubmit()" method="POST">
                 <input type="hidden" name="emneNr" id="emneNr"/>
                 <input type="hidden" name="delemneNr" id="delemneNr"/>
