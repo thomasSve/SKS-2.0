@@ -63,6 +63,4 @@ public class GodkjenningsoversiktKontroller {
     public String visAlleMedBestatt() {
         return "visAlleMedBestatt";
     }
-
-
 }
