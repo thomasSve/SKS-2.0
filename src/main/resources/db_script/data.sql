@@ -27,6 +27,8 @@ INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
 VALUES ('anette@mail.com', 1, 'Anette', 'Wrlsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
 VALUES ('SuperAdmin@mail.com', 1, 'Admin', 'Super', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
+INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv)
+VALUES ('gm.larsen@oyvang.org', 1, 'Geir Morten', 'Larsen', 'eaaseQasexaseaaseQasexaseaaseQas', 1);
 
 
 INSERT INTO emner (emnekode, emnenavn) VALUES ('TDAT2001-A', 'Realfag for dataingeniører');
@@ -126,6 +128,7 @@ INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM802F-B', 'anet
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('TDAT2001-A', 'grethe@mail.com', 1);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('IINI3006', 'grethe@mail.com', 1);
 INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'grethe@mail.com', 1);
+INSERT INTO emner_brukere (emnekode, mail, foreleser) VALUES ('ALM805F-A', 'gm.larsen@oyvang.org', 1);
 
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Labben 2.etg', 19);
 INSERT INTO plassering (plassering_navn, ant_bord) VALUES ('Polareal 1.etg', 24);

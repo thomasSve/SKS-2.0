@@ -37,6 +37,7 @@ public class DatabaseConnector {
     private final String leggTilBrukerSQL = "INSERT INTO brukere (mail, rettighet_id, fornavn, etternavn, passord, aktiv) VALUES (?,?,?,?,?,?)";
     private final String oppdaterBrukerSQL = "UPDATE brukere SET mail = ?, rettighet_id = ?, fornavn = ?, etternavn = ?, aktiv = ? WHERE mail = ?";
     private final String finnBrukerSQL = "SELECT * FROM brukere WHERE mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?";
+    private final String finnLSQL = "SELECT * FROM brukere WHERE rettighet_id = 2 AND (mail LIKE ? OR fornavn LIKE ? OR etternavn LIKE ?) ";
     private final String slettBrukerSQL = "DELETE FROM brukere WHERE mail = ?";
     private final String finnAlleDeltakereSQL = "SELECT * FROM brukere, emner_brukere WHERE brukere.mail = emner_brukere.mail AND emner_brukere.emnekode = ? AND brukere.rettighet_id = 1 AND brukere.mail != ?";
     private final String endrePassordSQL = "UPDATE brukere SET passord = ? WHERE mail = ? ";
@@ -891,6 +892,7 @@ public class DatabaseConnector {
         return true;
     }
 
+
     /**
      * Henter emne, gitt navn p� delemne
      * @param epost, emne
@@ -906,4 +908,21 @@ public class DatabaseConnector {
         }
         return res;
     }
+
+    public ArrayList<Bruker> finnL(String sok) {
+        if (sok == null) {
+            return null;
+        }
+        String input = "%";
+        input += sok + "%";
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        List<Bruker> brukerList = con.query(finnLSQL, new BrukerKoordinerer(), input, input, input);
+        ArrayList<Bruker> res = new ArrayList<>();
+
+        for (Bruker bruker : brukerList) {
+            res.add(bruker);
+        }
+        return res;
+    }
 }
+

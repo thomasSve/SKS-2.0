@@ -176,4 +176,8 @@ public class BrukerService {
     public boolean slettKoeGruppe(int koeId, int gruppeId) {
         return databaseConnector.slettKoeGruppe(koeId, gruppeId);
     }
+
+    public ArrayList<Bruker> finnL(String sok) {
+        return databaseConnector.finnL(sok);
+    }
 }
