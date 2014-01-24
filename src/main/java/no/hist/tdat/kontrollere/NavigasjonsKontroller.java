@@ -75,7 +75,6 @@ public class NavigasjonsKontroller {
         int emnenr = Integer.parseInt(request.getParameter("emneNr"));          //Index i bruker-objektet, IKKE i DB
         innloggetBruker = (Bruker) session.getAttribute("innloggetBruker");
         delEmne = innloggetBruker.getEmne().get(emnenr).getDelemner().get(delemneNr);
-        System.out.println("kooversikt.htm");
         int koeId = delEmne.getKoe_id();
         Koe koe = new Koe();
         koe.setGrupper(koeservice.getKoe(koeId));

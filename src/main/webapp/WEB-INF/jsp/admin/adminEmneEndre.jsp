@@ -20,12 +20,18 @@
             <errors path="emneKode"/>
         </div>
         <div class="form-group">
-            <label for="endrefornavn">Emnenavn</label>
-            <form:input value="${redigerEmne.emneNavn}" path="emneNavn" id="endrefornavn" class="form-control"/>
+            <label for="endreNavn">Emnenavn</label>
+            <form:input value="${redigerEmne.emneNavn}" path="emneNavn" id="endreNavn" class="form-control"/>
             <errors path="emneNavn"/>
         </div>
         <input type="hidden" name="redigerEmneKode" value="${redigerEmne.emneKode}">
 
+        <div class="form-group">
+            <label>Emneansvarlige</label>
+            <c:forEach items="${redigerEmne.foreleserListe}" var="foreleser">
+                <input value="${foreleser.etternavn}, ${foreleser.fornavn}" id="endreNavn" class="form-control"/>
+            </c:forEach>
+        </div>
         <div class="modal-footer">
             <button type="button" id="${redigerEmne.emneKode}" onclick="adminEmneTilbake(this.id)" class="btn btn-danger col-md-5" data-dismiss="modal">Tilbake</button>
             <input type="submit" id="endreEmne" value="Endre emne" style="float: right" class="btn btn-primary col-md-5"/>

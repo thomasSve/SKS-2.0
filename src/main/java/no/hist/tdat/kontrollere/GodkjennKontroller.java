@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -46,32 +47,38 @@ public class GodkjennKontroller {
         for (int i = 0; i <koe.getGrupper().size() ; i++) {
             if(koe.getGrupper().get(i).getGruppeID()==Integer.parseInt(nokler[1]) && koe.getGrupper().get(i).getKoe_id()==Integer.parseInt(nokler[0])){
                 gruppe = koe.getGrupper().get(i);
-                System.out.println(gruppe.getKoe_id()+ "I kontroller");
             }
         }
+        session.removeAttribute("gruppeFraKoe");
         session.setAttribute("gruppeFraKoe", gruppe);
-
         return "godkjennOving";
 
     }
 
     @RequestMapping(value = "/godkjennGruppeOving.htm", method = RequestMethod.POST)
-    public String godkjennGruppeOving(HttpServletRequest request, HttpSession session) {
+    public String godkjennGruppeOving(@ModelAttribute Bruker bruker, HttpServletRequest request, HttpSession session) {
         String godkjenn = request.getParameter("godkjennKnapp");
         String leggTilStudenter = request.getParameter("leggTilStundeterKnapp");
         String leggTilOving = request.getParameter("endreOvingerKnapp");
 
         KoeGrupper koeGrupper = (KoeGrupper)session.getAttribute("gruppeFraKoe");
-        Bruker bruker = (Bruker)session.getAttribute("innloggetBruker");
+        Bruker heibruker = (Bruker)session.getAttribute("innloggetBruker");
 
-        String personenSomGodkjenner = bruker.getMail();
+        String personenSomGodkjenner = heibruker.getMail();
+        int koeID = koeGrupper.getKoe_id();
+
+        String emneKode = "ALM805F-A";
+
+        ArrayList<Bruker> studenter = brukerService.hentStudenterMedEmne(emneKode);
+        System.out.println(studenter.get(0));
+        session.setAttribute("studenter", studenter);
+
 
         if (godkjenn != null) {
             Date date = new Date(); //2000-01-01 13:37:00
-            SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String naaTid = ft.format(date);
             int gruppeID = koeGrupper.getGruppeID();
-            int koeID = koeGrupper.getKoe_id();
 
             for(int i = 0; i < koeGrupper.getMedlemmer().size(); i++) {
                 String brukerMail = koeGrupper.getMedlemmer().get(i).getMail();
@@ -97,14 +104,18 @@ public class GodkjennKontroller {
                 }
             }
             brukerService.slettKoeGruppe(koeID, gruppeID);
+
             return "koOversikt";
         }
 
         if (leggTilStudenter != null) {
 
+            //koeGrupper.getMedlemmer().add(BRUKEREN
         }
 
         if (leggTilOving != null){
+            System.out.println(studenter.get(0));
+            System.out.println("heidinTULLING");
         }
         return "godkjentOving";
     }

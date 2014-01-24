@@ -49,7 +49,9 @@ public class AdminFagKontroller {
     public String slettEmne(Model modell, @ModelAttribute("emnerBeans") EmnerBeans emnerBeans, HttpServletRequest request, HttpSession session) {
         String tab = request.getParameter("tab");
         String emnekode = request.getParameter("emneIndex");
-        EmneService.slettEmne(emnekode);
+        if(EmneService.slettEmne(emnekode)){
+            modell.addAttribute("message", "Du har vellykket fjernet emnet: " + emnekode + ".");
+        }
         modell.addAttribute("tabForm", tab);
         modell.addAttribute("emnerBeans", emnerBeans);
         return "/searchFag.htm";
