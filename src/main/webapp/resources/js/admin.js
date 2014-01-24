@@ -210,7 +210,6 @@ function adminBrukereTilbake(mail) {
 }
 
 function velgBrukerL(mail) {
-    alert(mail);
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
