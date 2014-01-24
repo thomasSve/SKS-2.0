@@ -47,9 +47,9 @@ public class GodkjennKontroller {
         for (int i = 0; i <koe.getGrupper().size() ; i++) {
             if(koe.getGrupper().get(i).getGruppeID()==Integer.parseInt(nokler[1]) && koe.getGrupper().get(i).getKoe_id()==Integer.parseInt(nokler[0])){
                 gruppe = koe.getGrupper().get(i);
-                System.out.println(gruppe.getKoe_id()+ "I kontroller");
             }
         }
+        session.removeAttribute("gruppeFraKoe");
         session.setAttribute("gruppeFraKoe", gruppe);
         return "godkjennOving";
 
