@@ -27,6 +27,7 @@
                     </button>
                 </div>
             </div>
+            <p style="color: red">${message}</p>
             <div class="span5">
                 <table class="table table-condensed table-hover" id="minTable">
                     <thead>
