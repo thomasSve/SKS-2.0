@@ -30,7 +30,7 @@ public class DatabaseConnector {
     private final String hentGruppeOvingerSQL = "SELECT oving_nr, oving_id FROM gruppe_oving NATURAL JOIN oving WHERE gruppe_oving.gruppe_id=?";
     private final String hentGruppeMedlemmerSQL = "SELECT * FROM gruppe NATURAL JOIN brukere WHERE gruppe_id=? ORDER BY gruppe.leder DESC";
     private final String hentkoeGrupperSQL = "Select * FROM koe_gruppe WHERE koe_id= ? ORDER BY koe_gruppe.koe_plass ASC";
-    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere NATURAL JOIN oving WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";
+    private final String brukerOvingerSQL = "SELECT * FROM oving_brukere NATURAL JOIN oving WHERE oving_brukere.mail = ? AND emnekode = ? AND delemne_nr = ?";  //returnerer godkjente øvinger til et delemne
     private final String brukerDelemnerSQL = "SELECT * FROM emner JOIN delemne ON emner.emnekode = delemne.emnekode JOIN emner_brukere ON delemne.emnekode = emner_brukere.emnekode AND emner_brukere.mail=? AND delemne.emnekode=?";
     private final String brukerEmnerSQL = "SELECT * FROM emner, emner_brukere WHERE emner.emnekode = emner_brukere.emnekode AND emner_brukere.mail = ?";
     private final String loggInnBrukerSQL = "SELECT * FROM brukere WHERE mail = ? AND passord = ?";
@@ -71,7 +71,7 @@ public class DatabaseConnector {
     private final String finnStudenterIDelemneSQL = "SELECT DISTINCT brukere.mail, brukere.fornavn, brukere.etternavn, brukere.rettighet_id, brukere.passord, brukere.aktiv FROM brukere JOIN emner_brukere ON brukere.mail LIKE emner_brukere.mail WHERE emner_brukere.emnekode LIKE (SELECT emnekode FROM delemne WHERE delemnenavn LIKE ?) AND emner_brukere.foreleser = 0";
     private final String delemneIKoeSQL = "INSERT INTO koe (aapen) VALUES (?)";
     private final String hentSisteKoeSQL = "SELECT koe_id FROM koe ORDER BY koe_id DESC";
-    private final String hentDelEmneOvingSQL = "SELECT * FROM oving AS ov WHERE emnekode LIKE ? AND delemne_nr LIKE ?";
+    private final String hentDelEmneOvingSQL = "SELECT * FROM oving WHERE emnekode = ? AND delemne_nr = ?";
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String opprettOvingSQL = "INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (?,?,?)";
     private final String lagReglerSQL = "UPDATE delemne SET ovingsregler = ?, ant_ovinger = ? WHERE delemne_nr = ?";
@@ -285,9 +285,9 @@ public class DatabaseConnector {
         List<Bruker> brukerList = con.query(loggInnBrukerSQL, new BrukerKoordinerer(), bruker.getMail(), bruker.getPassord());
         ArrayList<Bruker> res = new ArrayList<>();
 
-        for (Bruker brukerInfo : brukerList) {
+        for (Bruker brukerObj : brukerList) {
 
-            res.add(brukerInfo);
+            res.add(brukerObj);
         }
 
         if (res.size() > 0) {

@@ -22,6 +22,7 @@ public class EmneService {
        bruker.setEmne(databaseConnector.hentMineEmner(bruker));
        ArrayList<Emne> emneList  = bruker.getEmne();                           //TODO Ted
        ArrayList<DelEmne> delEmneList;
+        ArrayList<Oving> godkjentList;
         ArrayList<Oving> ovingList;
         for(int a=0;a<emneList.size();a++){ // For hvert emne i lista
             Emne tempEmne = emneList.get(a);
@@ -29,7 +30,23 @@ public class EmneService {
             tempEmne.setDelemner(delEmneList);
             for (int b = 0; b <delEmneList.size(); b++) {   //for hvert delemne pr emne
                 DelEmne tempDelEmne = delEmneList.get(b);
-                ovingList = databaseConnector.hentStudOvinger(bruker,tempEmne,tempDelEmne);
+                System.out.println(tempDelEmne.toString());
+                ovingList=databaseConnector.hentDelEmneOving(tempDelEmne.getNr(), tempEmne.getEmneKode());// TODO ted: sjekk om dette stemmer
+                godkjentList = databaseConnector.hentStudOvinger(bruker,tempEmne,tempDelEmne);
+                Oving tempOving;
+                for (int c = 0; c < godkjentList.size(); c++) {
+                    tempOving = godkjentList.get(c);
+                    System.out.println("size: "+(ggodkjentList.size()+1)+"\nflytter øving nr "+tempOving.getOvingnr());
+
+                    tempOving.setGodkjent(true);
+                    ovingList.set(tempOving.getOvingnr()-1,tempOving);
+                    //System.out.println("ovingsnr: "+tempOving.getOvingnr()+"\nindex: "+c);
+                }
+                for (int i = 0; i < ovingList.size(); i++) {
+                    System.out.println("index: "+i+"\novinsgnr: "+ovingList.get(i).getOvingnr()+"godkjent?: "+ovingList.get(i).isGodkjent());
+
+
+                }
                 tempDelEmne.setStudentovinger(ovingList);
             }
         }
