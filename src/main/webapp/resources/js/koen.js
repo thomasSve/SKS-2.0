@@ -203,7 +203,7 @@ function startStoppKoeKnapp() {
 
 
 //Velg gruppe fra kø
-function velgGruppeFraKoe(gruppe) {
+function velgGruppeFraKoe(koe_id, gruppe_id) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -216,7 +216,7 @@ function velgGruppeFraKoe(gruppe) {
     }
     xmlhttp.open("POST", "/hentUtKoGruppe.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("gruppeIndexFraKoe=" + gruppe);
+    xmlhttp.send("koeid=" + koe_id+"&gruppeid="+gruppe_id);
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
     window.location = "godkjennOving.htm"

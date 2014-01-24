@@ -7,7 +7,7 @@
 
 <c:forEach var="pers" items="${sessionScope.ovingsoversikt}" varStatus="personTeller">
     <c:if test="${pers.emne[0].delemner[0].ovingerBestatt}">
-        <c:out value="${pers.mail}"/>, <c:out value="${pers.fornavn}"/>&nbsp;<c:out value="${pers.etternavn}"/>
+        <c:out value="${pers.mail}"/>, <c:out value="${pers.fornavn}"/>&nbsp;<c:out value="${pers.etternavn}"/><br>
     </c:if>
 </c:forEach>
 
