@@ -110,7 +110,14 @@ public class KoeService {
                 output+="<tr>"
                 +"<td>"+gruppe.getKlokkeslett()+"</td>";
             }
-        output+="<td>"+gruppe.getMedlemmer().get(0).getFornavn()+" "+gruppe.getMedlemmer().get(0).getEtternavn()+"</td>"
+        output+="<td>";
+        if(gruppe.getMedlemmer().size()==1){
+            output+="<span class='glyphicon glyphicon-user'></span>";
+        }
+        if(gruppe.getMedlemmer().size()>1){
+         output+="<span class='iconContainer'></span>";
+        }
+        output+=gruppe.getMedlemmer().get(0).getFornavn()+" "+gruppe.getMedlemmer().get(0).getEtternavn()+"</td>"
         +"<td>"+gruppe.getOvingerIString()+"</td>"
         +"<td>"+gruppe.getKommentar()+"</td>"
         +"<td>"+gruppe.getSitteplass()+", bord "+gruppe.getBordnr()+"</td>"
