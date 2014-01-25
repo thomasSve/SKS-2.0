@@ -135,4 +135,7 @@ public class EmneService {
     public boolean lagRegler(String regler, int ant, DelEmne delemne) {
         return databaseConnector.legRegler(regler, ant, delemne);
     }
+    public boolean slettEmneansvarlig(String emneKode,String mail){
+        return databaseConnector.slettEmneansvarlig(emneKode, mail);
+    }
 }

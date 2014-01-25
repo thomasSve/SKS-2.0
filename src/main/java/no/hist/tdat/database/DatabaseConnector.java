@@ -62,7 +62,7 @@ public class DatabaseConnector {
     private final String oppdaterEmneSQL = "UPDATE emner SET emnekode = ?, emnenavn = ? WHERE emnekode = ?";
     private final String hentForelesereSQL = "SELECT * FROM emner_brukere WHERE emnekode = ? AND foreleser = 1";
     private final String hentEmneNavnSQL = "SELECT * FROM emner WHERE emnekode = ?";
-    private final String leggTilEmneAnsvarligSQL = "UPDATE emner_brukere SET foreleser = ? WHERE mail = ? AND emnekode = ?";
+    private final String slettEmneAnsvSQL = "DELETE FROM emner_brukere WHERE emnekode = ? AND mail = ?";
 
     private final String finnDelEmneSQL = "SELECT * FROM delemne WHERE koe_id LIKE ?";
     private final String hentKoeObjektSQL = "SELECT * FROM koe WHERE koe_id LIKE ? ";
@@ -499,7 +499,18 @@ public class DatabaseConnector {
         }
         return true;
     }
-
+    public boolean slettEmneansvarlig(String emneKode,String mail){
+        if (mail == null || emneKode == null) {
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        try {
+            con.update(slettEmneAnsvSQL, emneKode, mail);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
     /**
      * Fjerner tilgang til emne
      *

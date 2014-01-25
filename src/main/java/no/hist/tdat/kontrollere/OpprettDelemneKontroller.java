@@ -22,7 +22,7 @@ public class OpprettDelemneKontroller {
     @RequestMapping("lagDelemne")
     public String delemne(@ModelAttribute(value = "delemne")DelEmne delEmne, Model model, HttpSession session) {
         try{
-            Emne emne = (Emne)session.getAttribute("emne");
+            Emne emne = (Emne)session.getAttribute("redigerEmne");
             service.opprettDelemne(delEmne, emne);
             model.addAttribute("delemnerett", "Delemne \""+delEmne.getDelEmneNavn()+"\" med delemnekode \""+delEmne.getNr()+"\" er opprettet");
             session.setAttribute("delemne", delEmne);

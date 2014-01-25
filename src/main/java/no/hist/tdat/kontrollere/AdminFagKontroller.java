@@ -3,6 +3,7 @@ package no.hist.tdat.kontrollere;
 import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.EmnerBeans;
+import no.hist.tdat.javabeans.beanservice.BrukerService;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ import javax.validation.Valid;
 public class AdminFagKontroller {
     @Autowired
     private EmneService EmneService;
+
+    @Autowired
+    private BrukerService BrukerService;
 
     @RequestMapping("/searchFag.htm")
     public String finnEmne(@ModelAttribute("emnerBeans") EmnerBeans emnerBeans, @ModelAttribute("emne") Emne emne, Model modell, HttpServletRequest request, HttpSession session) {
@@ -76,7 +80,6 @@ public class AdminFagKontroller {
     @RequestMapping(value = "/redigerEmneLagre.htm")
     public String redigerEmneLagre(@Valid @ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, BindingResult result, Model modell, HttpServletRequest request, HttpSession session) {
         Emne redigerEmne = (Emne) session.getAttribute("redigerEmne");
-        System.out.println(redigerEmne.getEmneKode() + ", " + emne);
         if (result.hasErrors()) {
             modell.addAttribute("melding", "FEIL: Fyll inn alle feltene");
             return "adminEmneEndre";
@@ -114,15 +117,36 @@ public class AdminFagKontroller {
 
     @RequestMapping(value = "/leggTilEmneansvarlig.htm", method = RequestMethod.POST)
     public String leggTilEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
-        String emnekode = request.getParameter("emneIndex");
-        Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
+        String emneKode = request.getParameter("emneIndex");
+        String mail = request.getParameter("brukerIndex");
+        System.out.println(emneKode + ", " + mail);
+        Emne redigerEmne = EmneService.hentEmneNavn(emneKode);
         session.setAttribute("redigerEmne", redigerEmne);
         if (redigerEmne == null) {
             modell.addAttribute("melding", "Finner ikke emne i databasen");
             return "adminEmneEndre";
         } else {
+            //     BrukerService.leggTilEmne(emneKode, mail, 1);
             return "adminEmneEndre";
         }
+
+    }
+
+    @RequestMapping(value = "/slettEmneAnsv.htm", method = RequestMethod.POST)
+    public String SlettEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
+        String emneKode = request.getParameter("emneIndex");
+        String mail = request.getParameter("brukerIndex");
+        Emne redigerEmne = EmneService.hentEmneNavn(emneKode);
+        session.setAttribute("redigerEmne", redigerEmne);
+        if (redigerEmne == null) {
+            System.out.println("Hei");
+            modell.addAttribute("melding", "Finner ikke emne i databasen");
+            return "adminEmneEndre";
+        }
+
+        BrukerService.fjernEmne(emneKode, mail);
+        modell.addAttribute("Vellykket", "Vellykket fjernet " + mail + " fra emnet " + emneKode);
+        return "adminEmneEndre";
 
     }
 
