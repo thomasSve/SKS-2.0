@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <label for="bordnr">Bordnr:</label>
-            <form:select class="form-control" name="Bord" id="bordnr" path="bordnr" disabled="true">
+            <form:select class="form-control" name="Bord" id="bordnr" path="bordnr">
                 <%--Her må det være noe som går gjennom de forskjellige bordalternativene etter hva som er blitt
                 valgt på "sitteplass"--%>
                 <%-- <c:forEach begin="1"  var="bordNr" end="${plassering.ant_bord}">
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="oving">&Oslash;ving:</label>
-            <form:select id="oving" multiple="true" class="form-control" path="ovingnr">
+            <form:select id="oving" multiple="true" class="form-control" path="ovingnr" required="true">
                 <c:forEach items="${oving}" var="ovinger">
                     <form:option id="${ovinger.ovingnr}"
                                  value="${ovinger.ovingnr}">&Oslash;ving ${ovinger.ovingnr}</form:option>
