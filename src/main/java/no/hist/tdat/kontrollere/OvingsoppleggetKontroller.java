@@ -1,6 +1,7 @@
 package no.hist.tdat.kontrollere;
 
 import no.hist.tdat.javabeans.DelEmne;
+import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.beanservice.EmneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class OvingsoppleggetKontroller {
     @Autowired
     EmneService service;
     @RequestMapping(value="ovingsopplegget")
-    public String oving(@ModelAttribute(value="delemne")DelEmne delEmne, Model model, HttpSession session, HttpServletRequest req) {
+    public String oving(@ModelAttribute(value="delemne")DelEmne delEmne, @ModelAttribute(value="emne")Emne emne, Model model, HttpSession session, HttpServletRequest req) {
         int antall = Integer.parseInt(req.getParameter("antall"));
         DelEmne delemne = (DelEmne)session.getAttribute("delemne");
         int ant = 0;
