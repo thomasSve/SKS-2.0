@@ -53,7 +53,6 @@ public class EndreStudentKontroller {
 
     @RequestMapping(value = "endreValgtStudent")
     public String videresend(HttpServletRequest request, HttpSession session) {
-        System.out.println("ble videresendt!");
         String tilb = request.getParameter("tilbake");
         if (tilb != null) {
             session.removeAttribute("valgtPerson");
@@ -72,38 +71,31 @@ public class EndreStudentKontroller {
 
         if (lagre != null) {    //sett som studass
             String emnenavn = request.getParameter("emner");
-            if (service.settStudass(emnenavn,b.getMail())) {
+            if (service.settStudass(emnenavn, b.getMail())) {
                 modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " satt som studass i " + emnenavn);
-            }
-            else {
+            } else {
                 modell.addAttribute("forrigeOp", "Dette delemnenummer finnes ikke, eller student er allerede studentassistent i faget");
             }
-        }
-        else if (fjern != null) {   //fjern fag
+        } else if (fjern != null) {   //fjern fag
             String emnekode2 = request.getParameter("emner2");
-            if (service.fjernEmne(emnekode2,b.getMail())) {
-                modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for "+b.getFornavn()+" "+ b.getEtternavn());
+            if (service.fjernEmne(emnekode2, b.getMail())) {
+                modell.addAttribute("forrigeOp", "Fjernet rettighet til emnet " + emnekode2 + " for " + b.getFornavn() + " " + b.getEtternavn());
+            } else {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har ikke tilgang til " + emnekode2);
             }
-            else {
-                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn()+" har ikke tilgang til "+emnekode2);
-            }
-        }
-        else if (leggTil != null) {  //legg til fag
+        } else if (leggTil != null) {  //legg til fag
             String emnekode3 = request.getParameter("emner3");
-            if (service.leggTilEmne(emnekode3,b.getMail(), 0)) {
-                modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for "+b.getFornavn()+" "+b.getEtternavn());
+            if (service.leggTilEmne(emnekode3, b.getMail(), 0)) {
+                modell.addAttribute("forrigeOp", "Tilgang til emnet " + emnekode3 + " lagt til for " + b.getFornavn() + " " + b.getEtternavn());
+            } else {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til " + emnekode3);
             }
-            else {
-                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " har allerede tilgang til "+emnekode3);
-            }
-        }
-        else {  //fjern som studass
+        } else {  //fjern som studass
             String emne4 = request.getParameter("emner4");
-            if (service.fjernStudass(emne4,b.getMail())) {
-                modell.addAttribute("forrigeOp", b.getFornavn()+" "+b.getEtternavn() + " er fjernet som studentassistent for "+emne4);
-            }
-            else {
-                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er ikke studentassistent i "+emne4);
+            if (service.fjernStudass(emne4, b.getMail())) {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er fjernet som studentassistent for " + emne4);
+            } else {
+                modell.addAttribute("forrigeOp", b.getFornavn() + " " + b.getEtternavn() + " er ikke studentassistent i " + emne4);
             }
         }
         return "endreValgtStudent";
