@@ -42,10 +42,9 @@
                 <ul class="dropdown-menu">
                     </c:if>
                     <c:forEach items="${sessionScope.innloggetBruker.emne}" var="emne">
-                        <li><a href="#" title="${emne.emneNavn}" onclick="emnekodeFraMenu(this.id)"
-                               id="${emne.emneKode}">${emne.emneKode}</a></li>
+                        <li><a href="#" title="${emne.emneKode}" onclick="emnekodeFraMenu(this.id)"
+                               id="${emne.emneKode}">${emne.emneNavn}</a></li>
                     </c:forEach>
-
                     <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
                 </ul>
             </li>
