@@ -24,8 +24,8 @@
                 <td><p>${foreleser.etternavn}, ${foreleser.fornavn}</p>
                 </td>
                 <td>
-                    <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
-                            id="${foreleser.mail}" onclick="slettEmneansvarlig(this.id)"
+                    <button type="button" class="btn btn-danger btn-sm" data-task="remove"
+                            id="${foreleser.mail}" onclick="slettEmneansvarlig(this.id, this.value)" value="${redigerEmne.emneKode}"
                             title="Slett"><i class="glyphicon glyphicon-remove"></i>
                     </button>
 
@@ -67,7 +67,7 @@
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
                         <button type="edit" class="btn btn-success btn-sm" data-toggle="modal"
-                                id="${bruker.mail}" onclick="leggTilEmneansvarlig(this.id)"
+                                id="${bruker.mail}" value="${redigerEmne.emneKode}" onclick="leggTilEmneansvarlig(this.id, this.value)"
                                 title="Velg">
                             Velg
                         </button>

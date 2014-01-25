@@ -10,7 +10,7 @@ function emnekodeFraMenu(kode) {
     xmlhttp.onreadystatechange = function () {
 
     }
-    xmlhttp.open("POST", "/emneOversikt.htm", true);
+    xmlhttp.open("POST", "emneOversikt.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emnekodeFraNav=" + kode);
 

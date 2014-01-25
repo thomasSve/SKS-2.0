@@ -12,8 +12,9 @@
     <h3>Administrer <strong>${redigerEmne.emneNavn}</strong></h3>
     <form:form method="POST" modelAttribute="emne" action="redigerEmneLagre.htm">
         <p style="color: red"><strong>${melding}</strong></p>
-
+        <p style="color: green"><strong>${delemnerett}</strong></p>
         <p style="color: green"><strong>${Vellykket}</strong></p>
+
 
         <div class="form-group">
             <label for="endrekode">Emnekode</label>
@@ -44,8 +45,8 @@
                 <td><p>${foreleser.etternavn}, ${foreleser.fornavn}</p>
                 </td>
                 <td>
-                    <button type="button" value="Slett" class="btn btn-danger btn-sm" data-task="remove"
-                            id="${foreleser.mail}" onclick="slettEmneansvarlig(this.id)"
+                    <button type="button" class="btn btn-danger btn-sm" data-task="remove"
+                            id="${foreleser.mail}" onclick="slettEmneansvarlig(this.id, this.value)" value="${redigerEmne.emneKode}"
                             title="Slett"><i class="glyphicon glyphicon-remove"></i>
                     </button>
 
