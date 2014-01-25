@@ -3,6 +3,7 @@
 
 
 <div class="col-md-6">
+    <h3>Rediger <strong>${redigerBrukere.etternavn}, ${redigerBrukere.fornavn}</strong></h3>
     <form:form method="POST" modelAttribute="bruker" action="redigerBrukerLagre.htm">
         <p style="color: red"><strong>${melding}</strong></p>
         <div class="form-group">
