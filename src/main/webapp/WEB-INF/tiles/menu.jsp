@@ -54,7 +54,6 @@
                 <li><a href="/adminFag.htm">Administrer emner</a></li>
             </c:if>
             <c:if test="${sessionScope.innloggetBruker.rettighet<3}">
-                <li><a href="/opprettEmne.htm">Opprett emne</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i>
                         Administrer studenter <b class="caret"></b></a>
