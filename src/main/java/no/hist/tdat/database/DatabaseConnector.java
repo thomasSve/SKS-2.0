@@ -80,6 +80,7 @@ public class DatabaseConnector {
     private final String hentDelemneSQL = "SELECT * FROM delemne WHERE delemnenavn LIKE ?";
     private final String opprettOvingSQL = "INSERT INTO oving (oving_nr, emnekode, delemne_nr) VALUES (?,?,?)";
     private final String lagReglerSQL = "UPDATE delemne SET ovingsregler = ?, ant_ovinger = ? WHERE delemne_nr = ?";
+    private final String slettDelEmne = "DELETE FROM delemne WHERE emnekode = ? AND delemne_nr = ?";
 
     //Brukes til å godkjenn gruppe hent bruker shiiet
     private final String opprettGodkjentOvingSQL = "INSERT INTO oving_brukere (oving_id, mail, godkjent_av, godkjent_tid) VALUE (?,?,?,?)";
@@ -953,4 +954,16 @@ public class DatabaseConnector {
         }
         return res;
     }
+
+
+    public boolean slettDelEmne(String emnekode, String delEmneNr){
+        if (emnekode == null || delEmneNr==null){
+            return false;
+        }
+        JdbcTemplate con = new JdbcTemplate(dataKilde);
+        int num = con.update(slettDelEmne, emnekode, delEmneNr);
+        return num > 0;
+
+    }
+
 }

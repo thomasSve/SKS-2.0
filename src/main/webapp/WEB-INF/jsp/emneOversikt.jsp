@@ -52,22 +52,21 @@
                             <form onsubmit="mysubmit()" method="POST" action="koOversikt.htm">
                                 <input type="hidden" name="delemneNr" id="delemneNr"/>
                                 <input type="hidden" name="emneNr" id="emneNr"/>
-
-
                                 <%
 
-
                                     for (int j = 0; j < emne.getDelemner().size(); j++) {
+                                        int delemnenr = emne.getDelemner().get(j).getNr();
 
                                         out.print("<tr><td></td><td><input type='submit' onclick='delemnenr=" + j + ";emnenr=" + i + "' value ='" + emne.getDelemner().get(j).getDelEmneNavn() + "' class='pull-right btn btn-md btn-info btn-block'  /></td><td>");
                                         if(((Bruker) session.getAttribute("innloggetBruker")).getRettighet()<3){
-                                            out.println("<button type=\"edit\" class=\"btn btn-warning btn-sm\" data-toggle=\"modal\"\n" +
-                                                    "                                        id=\"${emne.getEmnekode}:${emne.getDelemner().get("+j+").getNr()}\" onclick=\"redigerDelEmneFraKnapp(this.id)\"title=\"Endre\">\n" +
+
+                                            out.println("<button type=\"button\" class=\"btn btn-warning btn-sm\" data-toggle=\"modal\"\n" +
+                                                    "                                     onclick=\"redigerDelEmneFraKnapp(\"${emne.getEmnekode}\",\"${emne.getDelemner().get("+j+").getNr()}\")\" title=\"Endre\">\n" +
                                                     "                                    <i class=\"glyphicon glyphicon-edit\"></i></button>\n" +
 
 
                                                     "                                <button type=\"button\" value=\"Slett\" class=\"btn btn-danger btn-sm\" data-task=\"remove\"\n" +
-                                                    "                                        id=\"${emne.getEmnekode}:${emne.getDelemner().get(\"+j+\").getNr()}\" onclick=\"slettDelEmneFraKnapp(this.id)\"\n" +
+                                                    "                                        onclick=\"slettDelEmneFraKnapp('"+emne.getEmneKode()+"', "+delemnenr+")\" " +
                                                     "                                        title=\"Slett\"><i class=\"glyphicon glyphicon-remove\"></i>\n" +
                                                     "                                </button>");
                                         }
@@ -80,7 +79,6 @@
                                                 }
                                             }
                                         out.println("</td></tr>");
-
 
                                     }
                                 %>
@@ -133,4 +131,6 @@
     </div>
 
 </div>
+
+<script src="<c:url value="/resources/js/menyScript.js"/>"></script>
 
