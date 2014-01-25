@@ -20,7 +20,7 @@
             <p>
 
             <div class="btn-link">
-                <a href="<c:url value="/minside.htm"/>">Hjem</a>
+                <a href="minside.htm">Hjem</a>
             </div>
         </header>
     </div>
