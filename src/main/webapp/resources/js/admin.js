@@ -46,15 +46,16 @@ function slettEmneFraKnapp(emnekode) {
         }
         xmlhttp.onreadystatechange = function () {
 
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location = "searchFag.htm"
+
+            }
         }
         xmlhttp.open("POST", "/slettEmne.htm", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("emneIndex=" + emnekode);
 
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        }
 
-        window.location = "searchFag.htm"
     }
 }
 
@@ -68,15 +69,15 @@ function redigerEmneFraKnapp(emnekode) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "adminEmneEndre.htm";
 
+        }
     }
     xmlhttp.open("POST", "/redigerEmne.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emneIndex=" + emnekode);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
 
-    window.location = "adminEmneEndre.htm";
 
 }
 
@@ -89,14 +90,14 @@ function adminEmneTilbake(emnekode) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "searchFag.htm"
+        }
     }
     xmlhttp.open("POST", "/searchFag.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emneIndex=" + emnekode);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-    window.location = "searchFag.htm"
+
 }
 function velgBrukerL(mail) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -107,15 +108,14 @@ function velgBrukerL(mail) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "velgBruker.htm";
+        }
     }
     xmlhttp.open("POST", "/velgBruker.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("brukerIndex=" + mail);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
 
-    window.location = "velgBruker.htm";
 
 }
 
@@ -129,18 +129,16 @@ function visLeggTilEmneansv(emnekode) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        }
     }
     xmlhttp.open("POST", "/redigerEmne.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emneIndex=" + emnekode);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-
     window.location = "/leggTilEmneAnsView.htm";
 
 }
-function leggTilEmneansvarlig(mail) {
+function leggTilEmneansvarlig(mail, emneKode) {
     if (confirm("Legge til " + mail + " som emneansvarlig?")) {
         if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -154,14 +152,32 @@ function leggTilEmneansvarlig(mail) {
         }
         xmlhttp.open("POST", "/velgBruker.htm", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("brukerIndex=" + mail);
+        xmlhttp.send("brukerIndex=" + mail + "&emneIndex=" + emneKode);
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
         }
-
         window.location = "/leggTilEmneAnsView.htm";
     }
 }
-function adminEmneEmneAnsTilbake(emnekode){
+function slettEmneansvarlig(mail, emneKode) {
+    if (confirm("Fjern " + mail + " som emneansvarlig?")) {
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {// code for IE6, IE5
+
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location="adminEmneEndre.htm";
+            }
+        }
+        xmlhttp.open("POST", "/slettEmneAnsv.htm", true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("brukerIndex=" + mail + "&emneIndex=" + emneKode);
+    }
+}
+function adminEmneEmneAnsTilbake(emnekode) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -170,17 +186,15 @@ function adminEmneEmneAnsTilbake(emnekode){
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "adminEmneEndre.htm";
+        }
     }
     xmlhttp.open("POST", "/redigerEmne.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emneIndex=" + emnekode);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-
-    window.location = "adminEmneEndre.htm";
 }
-function leggtilDelEmne(emnekode){
+function leggtilDelEmne(emnekode) {
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }

@@ -137,4 +137,7 @@ public class EmneService {
     public boolean slettDelEmne (String emnekode, String delEmneNr){
         return databaseConnector.slettDelEmne(emnekode, delEmneNr);
     }
+    public boolean slettEmneansvarlig(String emneKode,String mail){
+        return databaseConnector.slettEmneansvarlig(emneKode, mail);
+    }
 }
