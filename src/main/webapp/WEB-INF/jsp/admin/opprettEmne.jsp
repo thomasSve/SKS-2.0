@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <form:form method="POST" modelAttribute="emne" action="lagEmne">
     <h2>Opprett emne</h2>
 
     <p style="color: red"><strong>${emnefeil}</strong></p>
+
     <p style="color: red"><strong>${emneSQLfeil}</strong></p>
 
     <div class="form-group">
@@ -29,6 +30,7 @@
 
 <form:form class="søkbar" role="search" modelAttribute="personerBeans" action="sokBoks" method="POST">
     <h3>Legg til lærer</h3>
+
     <div class="input-group">
 
         <input type="text" class="form-control" placeholder="S&oslash;k" name="srch-term" id="srch-term"/>
@@ -59,10 +61,10 @@
                     <td><c:out value="${bruker.etternavn}"/></td>
                     <td><c:out value="${bruker.mail}"/></td>
                     <td>
-                            <button type="edit" class="btn btn-success btn-sm" data-toggle="modal"
-                                    id="${bruker.mail}" onclick="velgBrukerL(this.id)"title="Velg">
-                                Velg
-                            </button>
+                        <button type="edit" class="btn btn-success btn-sm" data-toggle="modal"
+                                id="${bruker.mail}" onclick="velgBrukerL(this.id)" title="Velg">
+                            Velg
+                        </button>
                     </td>
                 </tr>
             </c:forEach>
@@ -72,5 +74,4 @@
         <input type="hidden" name="tab" value="endre">
     </div>
 </form:form>
-    <script src="<c:url value="/resources/js/admin.js"/>"></script>
-
+<script src="<c:url value="/resources/js/admin.js"/>"></script>

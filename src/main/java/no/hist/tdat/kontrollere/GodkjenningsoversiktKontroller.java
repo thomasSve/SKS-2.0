@@ -27,18 +27,16 @@ public class GodkjenningsoversiktKontroller {
     EmneService service2;
 
     @RequestMapping(value = "hentRiktigEmne", method = RequestMethod.POST)  //kalles av ajax
-    public void hentRiktigEmne(HttpServletRequest request, HttpSession session) {
+    public String hentRiktigEmne(HttpServletRequest request, HttpSession session) {
         String emne = request.getParameter("emne");
-
         ArrayList<Bruker> alle = service.finnStudenterIDelemne(emne);   //alle med faget
         for (int i = 0; i < alle.size(); i++) {
             ArrayList<Emne> em = new ArrayList<Emne>();
             ArrayList<DelEmne> a = new ArrayList<DelEmne>();
-
             Bruker br = alle.get(i);
-            ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter øvinger til delemnet
+            ArrayList<Oving> ovinger = service.hentOvinger(emne); //henter ï¿½vinger til delemnet
 
-            ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj øvinger til delemnet
+            ArrayList<Oving> godkj = service.hentGodkjOvinger(br.getMail(), emne); //henter godkj ï¿½vinger til delemnet
             if (godkj.size() != 0) {
                 for (int j = 0; j < godkj.size(); j++) {
                     Oving o = godkj.get(j);
@@ -57,7 +55,11 @@ public class GodkjenningsoversiktKontroller {
             br.setEmne(em);
         }
         session.setAttribute("ovingsoversikt", alle);
+        return "error";
     }
 
-
+    @RequestMapping(value = "visAlleMedBestatt")
+    public String visAlleMedBestatt() {
+        return "visAlleMedBestatt";
+    }
 }

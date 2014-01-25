@@ -14,6 +14,7 @@ public class DelEmne {
     private ArrayList<Oving> studentovinger;
     private String delEmneNavn;
     private String emneKode;
+    private int antOvinger;
     private boolean ovingerBestatt;
 
     public String getDelEmneNavn() {
@@ -62,9 +63,15 @@ public class DelEmne {
         this.koe_id = koe_id;
     }
 
-    public String getOvingsRegler() {
-        return ovingsRegler;
+    public int getAntOvinger() {
+        return antOvinger;
     }
+
+    public void setAntOvinger(int antOvinger) {
+        this.antOvinger = antOvinger;
+    }
+
+    public String getOvingsRegler() { return ovingsRegler; }
 
     public void setOvingsRegler(String ovingsRegler) {
         this.ovingsRegler = ovingsRegler;
@@ -94,6 +101,20 @@ public class DelEmne {
         this.emneKode = emneKode;
     }
 
+
+    @Override
+    public String toString() {
+        return "DelEmne{" +
+                "nr=" + nr +
+                ", semester='" + semester + '\'' +
+                ", koe_id=" + koe_id +
+                ", ovingsRegler='" + ovingsRegler + '\'' +
+                ", koe_status=" + koe_status +
+                ", studentovinger=" + studentovinger +
+                ", delEmneNavn='" + delEmneNavn + '\'' +
+                ", emneKode='" + emneKode + '\'' +
+                '}';
+    }
     public void sjekkAntOvinger(ArrayList<Oving> ovinger) {
         String[] regel = ovingsRegler.split("[|]");
         //10 7 | 3 5 8 ; 2 | 4 7 ; 1 |
@@ -129,5 +150,6 @@ public class DelEmne {
             }
         }
         ovingerBestatt = true;
+
     }
 }
