@@ -148,14 +148,14 @@ function leggTilEmneansvarlig(mail, emneKode) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange = function () {
-
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location = "/leggTilEmneAnsView.htm";
+            }
         }
         xmlhttp.open("POST", "/velgBruker.htm", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("brukerIndex=" + mail + "&emneIndex=" + emneKode);
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        }
-        window.location = "/leggTilEmneAnsView.htm";
+
     }
 }
 function slettEmneansvarlig(mail, emneKode) {
@@ -203,15 +203,13 @@ function leggtilDelEmne(emnekode) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "delEmne.htm";
+        }
     }
     xmlhttp.open("POST", "/redigerEmne.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("emneIndex=" + emnekode);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-
-    window.location = "delEmne.htm";
 }
 /*
  AdminBrukere
@@ -265,17 +263,13 @@ function slettBrukerFraKnapp(mail) {
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange = function () {
-
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                window.location = "search.htm"
+            }
         }
         xmlhttp.open("POST", "/slettBruker.htm", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("brukerIndex=" + mail);
-
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        }
-
-        window.location = "search.htm"
-
     }
 
 }
@@ -290,16 +284,13 @@ function redigerBrukerFraKnapp(mail) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "adminBrukereEndre.htm";
+        }
     }
     xmlhttp.open("POST", "/redigerBruker.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("brukerIndex=" + mail);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-
-    window.location = "adminBrukereEndre.htm";
-
 }
 
 function adminBrukereTilbake(mail) {
@@ -311,13 +302,12 @@ function adminBrukereTilbake(mail) {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            window.location = "search.htm"
+        }
     }
     xmlhttp.open("POST", "/search.htm", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("brukerIndex=" + mail);
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-    window.location = "search.htm"
 }
 

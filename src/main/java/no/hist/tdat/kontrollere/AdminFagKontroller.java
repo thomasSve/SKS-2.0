@@ -111,7 +111,7 @@ public class AdminFagKontroller {
                                           Model modell, HttpServletRequest request, HttpSession session) {
         String emnekode = request.getParameter("emneIndex");
         Emne redigerEmne = EmneService.hentEmneNavn(emnekode);
-        session.setAttribute("emne", redigerEmne);
+        session.setAttribute("redigerEmne", redigerEmne);
         return "/visLeggTilEmneansv.htm";
     }
 
