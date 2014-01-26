@@ -11,7 +11,7 @@
         <put-attribute name="menu" value="/WEB-INF/tiles/menu.jsp"/>
     </definition>
     <definition name="loggInn" template="/WEB-INF/jsp/login.jsp">
-        <put-attribute name="title" value="Logg inn"/>
+        <put-attribute name="title" value="SKS"/>
     </definition>
     <definition name="glemtPassord" template="/WEB-INF/jsp/glemtPassord.jsp">
         <put-attribute name="title" value="Glemt Passord"/>
