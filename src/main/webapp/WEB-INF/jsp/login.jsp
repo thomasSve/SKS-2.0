@@ -17,7 +17,7 @@
 <body>
 <div class="container">
     <form:form action="loggerinn.SSL" method="POST"  modelAttribute="bruker" class="form-signin">
-        <h2 class="form-signin-heading" id="header">Logg inn</h2>
+        <h2 class="form-signin-heading" id="header"><strong>SKS 2.0</strong></h2>
         <p style="color: green;"><strong>${nyPassord}</strong></p>
 
         <form:input type="text" class="form-control"  id="mailInput" path="mail" placeholder="Email" autofocus="true"/>

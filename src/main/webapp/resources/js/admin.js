@@ -152,7 +152,7 @@ function leggTilEmneansvarlig(mail, emneKode) {
                 window.location = "/leggTilEmneAnsView.htm";
             }
         }
-        xmlhttp.open("POST", "/velgBruker.htm", true);
+        xmlhttp.open("POST", "/leggTilEmneansvarlig.htm", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("brukerIndex=" + mail + "&emneIndex=" + emneKode);
 

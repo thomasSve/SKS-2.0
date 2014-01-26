@@ -1,5 +1,6 @@
 package no.hist.tdat.kontrollere;
 
+import no.hist.tdat.javabeans.Bruker;
 import no.hist.tdat.javabeans.DelEmne;
 import no.hist.tdat.javabeans.Emne;
 import no.hist.tdat.javabeans.EmnerBeans;
@@ -117,17 +118,20 @@ public class AdminFagKontroller {
 
     @RequestMapping(value = "/leggTilEmneansvarlig.htm", method = RequestMethod.POST)
     public String leggTilEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
+        String tab = request.getParameter("tab");
         String emneKode = request.getParameter("emneIndex");
         String mail = request.getParameter("brukerIndex");
         System.out.println(emneKode + ", " + mail);
-        Emne redigerEmne = EmneService.hentEmneNavn(emneKode);
-        session.setAttribute("redigerEmne", redigerEmne);
-        if (redigerEmne == null) {
-            modell.addAttribute("melding", "Finner ikke emne i databasen");
-            return "adminEmneEndre";
+        Bruker redigerBrukere = BrukerService.hentBruker(mail);
+        session.setAttribute("redigerBrukere", redigerBrukere);
+        if (redigerBrukere == null) {
+            modell.addAttribute("melding", "Finner ikke bruker i databasen");
+            return "leggTilEmneAnsView";
         } else {
-            //     BrukerService.leggTilEmne(emneKode, mail, 1);
-            return "adminEmneEndre";
+            BrukerService.leggTilEmne(emneKode, mail, 1);
+            Emne redigerEmne = EmneService.hentEmneNavn(emneKode);
+            session.setAttribute("redigerEmne", redigerEmne);
+            return "leggTilEmneAnsView";
         }
 
     }
@@ -136,8 +140,7 @@ public class AdminFagKontroller {
     public String SlettEmneAnsvarlig(@ModelAttribute("emne") Emne emne, @ModelAttribute("delemne") DelEmne delemne, Model modell, HttpServletRequest request, HttpSession session) {
         String emneKode = request.getParameter("emneIndex");
         String mail = request.getParameter("brukerIndex");
-        Emne redigerEmne = EmneService.hentEmneNavn(emneKode);
-        session.setAttribute("redigerEmne", redigerEmne);
+        Emne redigerEmne = (Emne)session.getAttribute("redigerEmne");
         if (redigerEmne == null) {
             System.out.println("Hei");
             modell.addAttribute("melding", "Finner ikke emne i databasen");
@@ -146,6 +149,8 @@ public class AdminFagKontroller {
 
         BrukerService.fjernEmne(emneKode, mail);
         modell.addAttribute("Vellykket", "Vellykket fjernet " + mail + " fra emnet " + emneKode);
+        redigerEmne = EmneService.hentEmneNavn(emneKode);
+        session.setAttribute("redigerEmne", redigerEmne);
         return "adminEmneEndre";
 
     }
